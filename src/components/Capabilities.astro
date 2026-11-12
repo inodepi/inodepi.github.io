@@ -73,6 +73,13 @@ const capabilities = [
     gap: 0.6rem;
     padding: clamp(1.4rem, 2.6vw, 2rem);
     background: var(--panel);
+    transition: background-color 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .cap:hover {
+      background: var(--panel-raised);
+    }
   }
 
   .cap-mark {

@@ -86,11 +86,12 @@ const steps = [
     position: absolute;
     left: 0;
     top: 0.28rem;
-    width: 11px;
-    height: 11px;
+    width: 13px;
+    height: 13px;
     border: 2px solid var(--hue);
     border-radius: 50%;
     background: var(--bg);
+    box-shadow: 0 0 12px -2px var(--hue);
   }
 
   .step-body {
@@ -102,8 +103,9 @@ const steps = [
   .step-number {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--ink-dim);
+    color: var(--accent);
     letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
   }
 
   .step-body h3 {

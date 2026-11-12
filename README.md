@@ -63,6 +63,12 @@ Six alternative designs live under `/style/`:
 They share `src/data/projects.ts` and `src/data/content.ts`. Once one is chosen, promote
 it by making its page the homepage and converting its sections into components.
 
+## Brand
+
+- **Mark:** a π drawn as a node graph — two legs ending in nodes, one filled, one outlined.
+- **Wordmark:** `inode` + the π glyph, read as “I · node · Pi”. The favicon and mark
+  live in `public/favicon.svg` and `public/logo.svg`.
+
 ## Interactions
 
 The preview pages share a progressive-enhancement layer in

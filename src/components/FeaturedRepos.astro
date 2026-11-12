@@ -78,11 +78,20 @@ import { featuredAutomationRepos } from '../data/projects';
     border: 1px solid var(--line);
     border-radius: 8px;
     overflow: hidden;
-    transition: border-color 180ms ease;
+    transition:
+      border-color 180ms ease,
+      transform 220ms ease,
+      box-shadow 220ms ease;
   }
 
-  .repo-card:hover {
-    border-color: var(--line-strong);
+  @media (hover: hover) {
+    .repo-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(245, 166, 35, 0.34);
+      box-shadow:
+        0 24px 44px -32px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(245, 166, 35, 0.08);
+    }
   }
 
   .repo-bar {
@@ -184,7 +193,9 @@ import { featuredAutomationRepos } from '../data/projects';
     width: 0.8rem;
     height: 0.8rem;
     color: var(--ink-dim);
-    transition: color 160ms ease;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
   }
 
   .repo-link:hover {
@@ -193,6 +204,7 @@ import { featuredAutomationRepos } from '../data/projects';
 
   .repo-link:hover svg {
     color: var(--accent);
+    transform: translate(2px, -2px);
   }
 
   .empty {

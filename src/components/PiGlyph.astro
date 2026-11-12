@@ -1,0 +1,33 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg
+  class:list={['pi-glyph', className]}
+  width="20"
+  height="14"
+  viewBox="0 0 20 14"
+  fill="none"
+  aria-hidden="true"
+>
+  <path
+    d="M2.2 3.2h15.6M6.4 3.2v8.6M13.6 3.2v8.6"
+    stroke="currentColor"
+    stroke-width="2.4"
+    stroke-linecap="round"
+  ></path>
+</svg>
+
+<style>
+  .pi-glyph {
+    display: inline-block;
+    width: 0.82em;
+    height: auto;
+    color: var(--accent);
+    vertical-align: baseline;
+    transform: translateY(0.03em);
+  }
+</style>

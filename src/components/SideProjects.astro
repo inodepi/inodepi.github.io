@@ -65,11 +65,18 @@ import { featuredSideProjects } from '../data/projects';
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 8px;
-    transition: border-color 180ms ease;
+    transition:
+      border-color 180ms ease,
+      transform 200ms ease,
+      box-shadow 200ms ease;
   }
 
-  .side-card:hover {
-    border-color: var(--line-strong);
+  @media (hover: hover) {
+    .side-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(245, 166, 35, 0.3);
+      box-shadow: 0 20px 36px -30px rgba(0, 0, 0, 0.9);
+    }
   }
 
   .side-mark {
