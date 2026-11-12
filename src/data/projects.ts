@@ -50,6 +50,7 @@ export interface SiteConfig {
   email: string;
   calendarUrl: string;
   calendarEventTypeId: number;
+  calendarTimeZone: string;
   githubUrl: string;
   responseTime: string;
 }
@@ -60,6 +61,7 @@ export const siteConfig: SiteConfig = {
   email: 'kristiandyanbusiness@gmail.com',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   calendarEventTypeId: 7623308,
+  calendarTimeZone: 'Asia/Manila',
   githubUrl: 'https://github.com/inodepi',
   responseTime: 'Replies within one business day',
 };

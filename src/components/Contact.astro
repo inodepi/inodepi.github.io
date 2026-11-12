@@ -4,6 +4,7 @@ import { siteConfig } from '../data/projects';
 const calUrl = siteConfig.calendarUrl;
 const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 const eventTypeId = siteConfig.calendarEventTypeId;
+const calTimeZone = siteConfig.calendarTimeZone;
 ---
 
 <section class="section contact" id="contact">
@@ -44,6 +45,7 @@ const eventTypeId = siteConfig.calendarEventTypeId;
       data-cal-link={calLink}
       data-cal-url={calUrl}
       data-event-type-id={eventTypeId}
+      data-cal-timezone={calTimeZone}
     >
       <div class="booking-head">
         <div>
@@ -96,6 +98,7 @@ const eventTypeId = siteConfig.calendarEventTypeId;
     const calUrl = root.getAttribute('data-cal-url');
     const calLink = root.getAttribute('data-cal-link');
     const eventTypeId = root.getAttribute('data-event-type-id');
+    const timeZone = root.getAttribute('data-cal-timezone') || 'UTC';
     const API = 'https://api.cal.com/v2/slots';
 
     if (!grid || !rangeEl || !timesEl || !prevBtn || !nextBtn || !calUrl || !eventTypeId) return;
@@ -109,6 +112,18 @@ const eventTypeId = siteConfig.calendarEventTypeId;
     const timeFmt = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
     const pad = (n) => String(n).padStart(2, '0');
     const iso = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+
+    const tzDateFmt = new Intl.DateTimeFormat('en-CA', {
+      timeZone: timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const eventTzDate = (d) => {
+      const parts = tzDateFmt.formatToParts(d);
+      const get = (type) => (parts.find((p) => p.type === type) || {}).value || '00';
+      return get('year') + '-' + get('month') + '-' + get('day');
+    };
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -212,7 +227,8 @@ const eventTypeId = siteConfig.calendarEventTypeId;
         .forEach((slot) => {
           const link = document.createElement('a');
           link.className = 'booking-slot';
-          link.href = calUrl + '?date=' + selected;
+          // Cal.com resolves the date in the event type's time zone.
+          link.href = calUrl + '?date=' + eventTzDate(slot);
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
           link.textContent = timeFmt.format(slot);
@@ -228,9 +244,20 @@ const eventTypeId = siteConfig.calendarEventTypeId;
       rangeEl.textContent = rangeFmt.format(start) + ' – ' + rangeFmt.format(end);
       prevBtn.disabled = start.getTime() <= weekStart.getTime();
 
-      grid.innerHTML = '';
+      if (selected && !slotsByDay.has(selected)) selected = null;
 
-      let firstOpen = null;
+      // Auto-select the first open day so the panel is never empty on load.
+      if (!selected && !loading && !failed) {
+        for (let i = 0; i < 14; i += 1) {
+          const key = iso(addDays(start, i));
+          if ((slotsByDay.get(key) || []).length > 0) {
+            selected = key;
+            break;
+          }
+        }
+      }
+
+      grid.innerHTML = '';
 
       for (let i = 0; i < 14; i += 1) {
         const date = addDays(start, i);
@@ -249,19 +276,14 @@ const eventTypeId = siteConfig.calendarEventTypeId;
         if (date.getTime() === today.getTime()) button.classList.add('is-today');
         if (hasSlots) button.classList.add('has-slots');
         if (key === selected) button.classList.add('is-selected');
-        if (!firstOpen && hasSlots) firstOpen = key;
 
         button.addEventListener('click', () => {
           selected = key;
           render();
-          renderTimes();
         });
 
         grid.append(button);
       }
-
-      if (selected && !slotsByDay.has(selected)) selected = null;
-      if (!selected && firstOpen) selected = firstOpen;
 
       renderTimes();
     };
