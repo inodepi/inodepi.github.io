@@ -55,7 +55,7 @@ export interface SiteConfig {
 export const siteConfig: SiteConfig = {
   name: 'inodepi',
   role: 'n8n automation architect',
-  email: 'hello@inodepi.com',
+  email: 'kristiandyanbusiness@gmail.com',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/60min',
   githubUrl: 'https://github.com/inodepi',
   linkedinUrl: '#',
@@ -145,16 +145,6 @@ export const sideProjects: SideProject[] = [
       'https://inodepi.github.io/potaterrr.github.io/projects/tippy-card-monte/',
     featured: true,
     hue: 'violet',
-  },
-  {
-    id: 'ai-folklore',
-    title: 'AI Folklore',
-    summary:
-      'A zero-dependency Python scraper pulls Philippine mythology from Wikipedia and feeds Make.com / n8n, with Gemini script writing and importable blueprints.',
-    stack: ['Python', 'Make.com', 'Gemini'],
-    repoUrl: 'https://github.com/inodepi/ai-folklore',
-    featured: true,
-    hue: 'rose',
   },
 ];
 
