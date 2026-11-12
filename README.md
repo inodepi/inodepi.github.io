@@ -48,48 +48,22 @@ The form posts to `siteConfig.formAction`, currently `#`. Point it at a form bac
 (Formspree, Netlify Forms, Basin, or your own endpoint) and the static build will submit
 there with no other changes.
 
-## Style previews
-
-Six alternative designs live under `/style/`:
-
-- `/style/ledger/` — warm paper, serif, oxblood accents
-- `/style/poster/` — bold Archivo, cobalt, typographic hero
-- `/style/fieldnotes/` — sage, Literata, calm single column
-- `/style/riso/` — two-colour risograph zine with tape, stamps, marquee
-- `/style/riso-2/` — the same riso ink language as a printed broadsheet newspaper
-- `/style/nodes/` — an n8n-style editor canvas with selectable nodes and parameters
-- `/style/control/` — operations dashboard with execution monitor and capability matrix
-- `/style/atelier/` — dark editorial gallery with a constellation graph
-
-They share `src/data/projects.ts` and `src/data/content.ts`. Once one is chosen, promote
-it by making its page the homepage and converting its sections into components.
-
 ## Brand
 
 - **Mark:** a π drawn as a node graph — two legs ending in nodes, one filled, one outlined.
 - **Wordmark:** `inode` + the π glyph, read as “I · node · Pi”. The favicon and mark
   live in `public/favicon.svg` and `public/logo.svg`.
 
-## Interactions
-
-The preview pages share a progressive-enhancement layer in
-`src/scripts/interactions.ts`:
-
-- **Runnable workflow visuals** — each style's hero graph has a run control that steps
-  through nodes, updates a status line, and (on Control Room) plays the execution log.
-- **Live form validation** — errors appear inline; a valid submit shows a preview-only
-  confirmation. Point `siteConfig.formAction` at a real endpoint to receive inquiries.
-- **Reading progress bar** and active-section nav highlighting.
-
 ## Structure
 
 ```
 src/
   components/   Hero, WorkflowCanvas, Capabilities, FeaturedRepos,
-                SideProjects, Process, Contact, Footer
+                SideProjects, Process, Contact, Footer,
+                BrandMark, PiGlyph
   data/         projects.ts (typed content config)
   layouts/      Base.astro
   pages/        index.astro
   styles/       global.css (design tokens)
-public/         favicon.svg
+public/         favicon.svg, logo.svg
 ```
