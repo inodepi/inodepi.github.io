@@ -244,13 +244,19 @@ const calTimeZone = siteConfig.calendarTimeZone;
         .slice()
         .sort((a, b) => a - b)
         .forEach((slot) => {
+          const date = eventTzDate(slot);
           const link = document.createElement('a');
           link.className = 'booking-slot';
           // Cal.com resolves the date in the event type's time zone.
-          link.href = calUrl + '?date=' + eventTzDate(slot);
+          link.href = calUrl + '?date=' + date;
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
           link.textContent = timeFmt.format(slot);
+          link.addEventListener('click', (event) => {
+            // Book inside the Cal modal so we can react to a completed booking.
+            event.preventDefault();
+            openBooker(date);
+          });
           list.append(link);
         });
       timesEl.append(list);
@@ -335,6 +341,87 @@ const calTimeZone = siteConfig.calendarTimeZone;
       selected = null;
       load();
     });
+
+    /* Booking + confirmation state -------------------------------------- */
+
+    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    let calReady = false;
+
+    const showDone = () => {
+      if (!doneEl) return;
+      grid.parentElement.hidden = true;
+      timesEl.hidden = true;
+      if (headNav) headNav.hidden = true;
+      doneEl.hidden = false;
+      doneEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    const ensureCal = () => {
+      if (calReady || window.Cal) {
+        calReady = true;
+        return;
+      }
+      (function (C, A, L) {
+        const p = function (a, ar) {
+          a.q.push(ar);
+        };
+        const d = C.document;
+        C.Cal =
+          C.Cal ||
+          function () {
+            const cal = C.Cal;
+            const ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              d.head.appendChild(d.createElement('script')).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () {
+                p(api, arguments);
+              };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === 'string') {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ['initNamespace', namespace]);
+              } else p(cal, ar);
+              return;
+            }
+            p(cal, ar);
+          };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+      Cal('init', { origin: 'https://app.cal.com' });
+      Cal('ui', { theme: theme, hideEventTypeDetails: false });
+      Cal('on', { action: 'bookingSuccessfulV2', callback: () => showDone() });
+      calReady = true;
+    };
+
+    const openBooker = (date) => {
+      try {
+        ensureCal();
+        Cal('modal', {
+          calLink: calLink + (date ? '?date=' + date : ''),
+          config: { layout: 'month_view', theme: theme },
+        });
+      } catch (error) {
+        window.open(calUrl + (date ? '?date=' + date : ''), '_blank', 'noopener');
+      }
+    };
+
+    // Warm the embed only when the visitor shows intent.
+    root.addEventListener('pointerenter', ensureCal, { once: true });
+
+    // Coming back from a booking (e.g. a Cal.com success redirect).
+    if (new URLSearchParams(window.location.search).get('booked') === '1') {
+      showDone();
+      const url = new URL(window.location.href);
+      url.searchParams.delete('booked');
+      window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+    }
 
     load();
   })();
@@ -557,6 +644,68 @@ const calTimeZone = siteConfig.calendarTimeZone;
   .booking-times {
     border-top: 1px solid var(--line);
     padding: 0.75rem 1.15rem 0.85rem;
+  }
+
+  /* Elements toggled by the booking flow must beat their own display rules. */
+  .booking-done[hidden],
+  .booking-nav[hidden],
+  .booking-times[hidden],
+  .booking-grid[hidden] {
+    display: none !important;
+  }
+
+  .booking-done {
+    display: grid;
+    gap: 0.55rem;
+    justify-items: start;
+    padding: 1.35rem 1.15rem 1.5rem;
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--glow-amber), transparent 75%);
+  }
+
+  .booking-done-kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .booking-done strong {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 620;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    max-width: 26ch;
+  }
+
+  .booking-done-body {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    max-width: 44ch;
+  }
+
+  .booking-done-link {
+    margin-top: 0.25rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-raised);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .booking-done-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .booking-empty {
