@@ -55,7 +55,7 @@ export const siteConfig: SiteConfig = {
   email: 'hello@inodepi.com',
   calendarUrl: '#',
   formAction: '#',
-  githubUrl: 'https://github.com/',
+  githubUrl: 'https://github.com/inodepi',
   linkedinUrl: '#',
   responseTime: 'Replies within one business day',
 };
