@@ -5,6 +5,7 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -91,9 +92,9 @@ const marquee = [
 
               <p class="rz-receipt-title">Lead intake</p>
 
-              <ol class="rz-receipt-steps">
+              <ol class="rz-receipt-steps" data-flow="riso">
                 {receipt.map(([number, label]) => (
-                  <li>
+                  <li data-flow-step data-label={label}>
                     <span class="rz-step-no">{number}</span>
                     <span>{label}</span>
                     <span class="rz-step-arrow" aria-hidden="true">→</span>
@@ -110,6 +111,15 @@ const marquee = [
               </div>
             </div>
             <p class="rz-receipt-note">↑ A sample graph, printed for reference.</p>
+            <div class="rz-receipt-controls">
+              <button class="rz-run" type="button" data-flow-run="riso">Run sample</button>
+              <span
+                class="rz-receipt-status-text"
+                data-flow-status="riso"
+                data-idle="Idle"
+                data-running="Running"
+                data-complete="Complete">Idle</span>
+            </div>
           </div>
         </div>
       </section>
@@ -243,7 +253,7 @@ const marquee = [
             </ul>
           </div>
 
-          <form class="rz-form" action={siteConfig.formAction} method="post">
+          <form class="rz-form" action={siteConfig.formAction} method="post" data-demo-form>
             <div class="rz-form-bar">
               <span>FORM 001 / NEW PROJECT</span>
               <span class="rz-live"><i aria-hidden="true"></i>OPEN</span>
@@ -295,11 +305,18 @@ const marquee = [
         </div>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .rz-body {
+    --ix-accent: #ff4d6d;
+    --ix-error: #b3261e;
+    --ix-success: #1c7a4a;
     background: #f2ede1;
     color: #151515;
     font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
@@ -730,6 +747,73 @@ const marquee = [
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.625rem;
     color: #5c574d;
+  }
+
+  .rz-receipt-steps > li {
+    transition: background-color 160ms ease;
+  }
+
+  .rz-receipt-steps > li.is-active {
+    background: #ffe3e8;
+  }
+
+  .rz-receipt-steps > li.is-done .rz-step-arrow {
+    color: #1c7a4a;
+  }
+
+  .rz-stamp {
+    transition: transform 240ms ease;
+  }
+
+  .rz-receipt.is-complete .rz-stamp {
+    transform: rotate(-9deg) scale(1.1);
+  }
+
+  .rz-receipt-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    margin-top: 0.4rem;
+  }
+
+  .rz-run {
+    padding: 0.4rem 0.7rem;
+    border: 2px solid #151515;
+    background: #f5e663;
+    box-shadow: 3px 3px 0 #151515;
+    color: #151515;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease;
+  }
+
+  .rz-run:hover:not(:disabled) {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 #151515;
+  }
+
+  .rz-run:active:not(:disabled) {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 #151515;
+  }
+
+  .rz-run:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+
+  .rz-receipt-status-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    color: #5c574d;
+    text-transform: uppercase;
   }
 
   @keyframes rz-blink {

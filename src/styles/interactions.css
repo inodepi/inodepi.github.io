@@ -1,0 +1,60 @@
+/* Shared interaction chrome. Theme through the page's CSS variables. */
+
+.ix-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 200;
+  pointer-events: none;
+  background: transparent;
+}
+
+.ix-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--ix-accent, #c4471c);
+  transition: width 120ms linear;
+}
+
+header nav a.is-current {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+.ix-field-error {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ix-error, #b3261e);
+}
+
+.ix-form-status {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ix-error, #b3261e);
+}
+
+.ix-form-status.is-success {
+  color: var(--ix-success, #1c7a4a);
+}
+
+[aria-invalid='true'] {
+  border-color: var(--ix-error, #b3261e) !important;
+  box-shadow: 0 0 0 1px var(--ix-error, #b3261e);
+}
+
+form[data-demo-form] .ix-form-status:empty {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ix-progress span {
+    transition: none;
+  }
+}

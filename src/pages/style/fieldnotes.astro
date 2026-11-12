@@ -2,6 +2,7 @@
 import '@fontsource-variable/literata';
 import '@fontsource-variable/nunito-sans';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -56,15 +57,25 @@ const flow = [
             </div>
           </div>
 
-          <ol class="fn-flow" aria-label="Sample workflow: lead intake through handoff">
+          <ol class="fn-flow" aria-label="Sample workflow: lead intake through handoff" data-flow="fieldnotes">
             {flow.map((step) => (
-              <li>
+              <li data-flow-step data-label={step.title}>
                 <span class="fn-flow-number">{step.number}</span>
                 <h2>{step.title}</h2>
                 <p>{step.body}</p>
               </li>
             ))}
           </ol>
+
+          <div class="fn-flow-foot">
+            <button class="fn-run" type="button" data-flow-run="fieldnotes">Walk through the flow</button>
+            <span
+              class="fn-flow-status"
+              data-flow-status="fieldnotes"
+              data-idle="Idle"
+              data-running="Running"
+              data-complete="Flow complete">Idle</span>
+          </div>
         </div>
       </section>
 
@@ -189,7 +200,7 @@ const flow = [
           </div>
 
           <div class="fn-contact">
-            <form class="fn-form" action={siteConfig.formAction} method="post">
+            <form class="fn-form" action={siteConfig.formAction} method="post" data-demo-form>
               <div class="fn-field-row">
                 <label class="fn-field">
                   <span>Name</span>
@@ -252,11 +263,18 @@ const flow = [
         <p class="fn-footer-base">© {year} inodepi · independent automation practice</p>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .fn-body {
+    --ix-accent: #8a5e14;
+    --ix-error: #a33b2b;
+    --ix-success: #2f6a4a;
     background: #edefea;
     color: #1f2a24;
     font-family: 'Nunito Sans Variable', system-ui, sans-serif;
@@ -495,6 +513,65 @@ const flow = [
     color: #4c5a51;
     font-size: 0.8125rem;
     line-height: 1.5;
+  }
+
+  .fn-flow li {
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .fn-flow li.is-active {
+    border-color: #b48a3c;
+    box-shadow:
+      0 0 0 2px rgba(180, 138, 60, 0.25),
+      0 18px 32px -24px rgba(31, 42, 36, 0.7);
+    transform: translateY(-3px);
+  }
+
+  .fn-flow li.is-done .fn-flow-number {
+    color: #2f6a4a;
+  }
+
+  .fn-flow-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .fn-run {
+    padding: 0.5rem 1.1rem;
+    border: 1px solid #1f2a24;
+    border-radius: 999px;
+    background: transparent;
+    color: #1f2a24;
+    font-family: 'Nunito Sans Variable', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 650;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .fn-run:hover:not(:disabled) {
+    background: #1f2a24;
+    color: #f2f3ed;
+  }
+
+  .fn-run:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  .fn-flow-status {
+    font-family: 'Literata Variable', Georgia, serif;
+    font-style: italic;
+    font-size: 0.875rem;
+    color: #5a685e;
   }
 
   /* Sections */

@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/archivo';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -49,24 +50,34 @@ const year = new Date().getFullYear();
             </div>
           </div>
 
-          <div class="ps-pipeline" aria-label="Sample workflow: intake, decide, deliver">
-            <div class="ps-stage">
+          <div class="ps-pipeline" aria-label="Sample workflow: intake, decide, deliver" data-flow="poster">
+            <div class="ps-stage" data-flow-step data-label="Intake">
               <span class="ps-stage-index">01</span>
               <p class="ps-stage-word">Intake</p>
               <p class="ps-stage-note">Forms, inboxes, webhooks. Validated and deduplicated.</p>
             </div>
             <span class="ps-arrow" aria-hidden="true">→</span>
-            <div class="ps-stage">
+            <div class="ps-stage" data-flow-step data-label="Decide">
               <span class="ps-stage-index">02</span>
               <p class="ps-stage-word">Decide</p>
               <p class="ps-stage-note">Rules and AI models score, classify, and route.</p>
             </div>
             <span class="ps-arrow" aria-hidden="true">→</span>
-            <div class="ps-stage">
+            <div class="ps-stage" data-flow-step data-label="Deliver">
               <span class="ps-stage-index">03</span>
               <p class="ps-stage-word">Deliver</p>
               <p class="ps-stage-note">CRM, sheets, Slack, invoices. Written once, everywhere.</p>
             </div>
+          </div>
+
+          <div class="ps-flow-foot">
+            <button class="ps-run" type="button" data-flow-run="poster">Run the sequence</button>
+            <span
+              class="ps-flow-status"
+              data-flow-status="poster"
+              data-idle="Idle"
+              data-running="Running"
+              data-complete="Sequence complete">Idle</span>
           </div>
         </div>
       </section>
@@ -184,7 +195,7 @@ const year = new Date().getFullYear();
             </dl>
           </div>
 
-          <form class="ps-form" action={siteConfig.formAction} method="post">
+          <form class="ps-form" action={siteConfig.formAction} method="post" data-demo-form>
             <div class="ps-field-row">
               <label class="ps-field">
                 <span>Name</span>
@@ -226,11 +237,18 @@ const year = new Date().getFullYear();
         <p>© {year} inodepi</p>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .ps-body {
+    --ix-accent: #1d3fbb;
+    --ix-error: #b3261e;
+    --ix-success: #0f6b3f;
     background: #f4f2ec;
     color: #101010;
     font-family: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
@@ -461,6 +479,71 @@ const year = new Date().getFullYear();
     line-height: 1;
     transform: rotate(90deg);
     width: fit-content;
+  }
+
+  .ps-stage {
+    transition:
+      color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .ps-stage.is-active .ps-stage-word {
+    color: #1d3fbb;
+  }
+
+  .ps-stage.is-active .ps-stage-index {
+    padding: 0 0.25rem;
+    width: fit-content;
+    background: #1d3fbb;
+    color: #f4f2ec;
+  }
+
+  .ps-stage.is-active .ps-stage-note {
+    color: #101010;
+  }
+
+  .ps-flow-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .ps-run {
+    padding: 0.55rem 1rem;
+    border: 2px solid #101010;
+    border-radius: 0;
+    background: #f4f2ec;
+    box-shadow: 3px 3px 0 #101010;
+    color: #101010;
+    font-family: 'Archivo Variable', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      transform 140ms ease,
+      box-shadow 140ms ease;
+  }
+
+  .ps-run:hover:not(:disabled) {
+    background: #101010;
+    color: #f4f2ec;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 #1d3fbb;
+  }
+
+  .ps-run:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  .ps-flow-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #55554f;
+    letter-spacing: 0.01em;
   }
 
   @media (min-width: 760px) {

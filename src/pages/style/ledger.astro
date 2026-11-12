@@ -2,6 +2,7 @@
 import '@fontsource-variable/fraunces';
 import '@fontsource-variable/public-sans';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -91,15 +92,25 @@ const flow = [
             <p>A representative graph, not a client diagram.</p>
           </div>
 
-          <ol class="lg-flow">
+          <ol class="lg-flow" data-flow="ledger">
             {flow.map((row) => (
-              <li>
+              <li data-flow-step data-label={row.stage}>
                 <span class="lg-flow-number">{row.number}</span>
                 <span class="lg-flow-stage">{row.stage}</span>
                 <span class="lg-flow-body">{row.body}</span>
               </li>
             ))}
           </ol>
+
+          <div class="lg-flow-foot">
+            <button class="lg-run" type="button" data-flow-run="ledger">Run sample graph</button>
+            <span
+              class="lg-flow-status"
+              data-flow-status="ledger"
+              data-idle="Idle"
+              data-running="Running"
+              data-complete="Complete — 5 nodes">Idle</span>
+          </div>
         </div>
       </section>
 
@@ -221,7 +232,7 @@ const flow = [
             </dl>
           </div>
 
-          <form class="lg-form" action={siteConfig.formAction} method="post">
+          <form class="lg-form" action={siteConfig.formAction} method="post" data-demo-form>
             <div class="lg-field-row">
               <label class="lg-field">
                 <span>Name</span>
@@ -265,11 +276,18 @@ const flow = [
         <p class="lg-footer-base">© {year} inodepi · independent automation practice</p>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .lg-body {
+    --ix-accent: #7a2e2a;
+    --ix-error: #8f2f2a;
+    --ix-success: #2f6a3f;
     background: #faf7f0;
     color: #1a1712;
     font-family: 'Public Sans Variable', system-ui, sans-serif;
@@ -534,6 +552,60 @@ const flow = [
 
   .lg-flow li:last-child {
     border-bottom: 1px dotted #c3b7a0;
+  }
+
+  .lg-flow li {
+    transition:
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .lg-flow li.is-active {
+    background: #f6e7d8;
+    box-shadow: inset 3px 0 0 #7a2e2a;
+  }
+
+  .lg-flow li.is-done .lg-flow-number {
+    color: #2f6a3f;
+  }
+
+  .lg-flow-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.1rem;
+  }
+
+  .lg-run {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid #7a2e2a;
+    border-radius: 2px;
+    background: transparent;
+    color: #7a2e2a;
+    font-family: 'Public Sans Variable', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .lg-run:hover:not(:disabled) {
+    background: #7a2e2a;
+    color: #faf7f0;
+  }
+
+  .lg-run:disabled {
+    opacity: 0.55;
+    cursor: wait;
+  }
+
+  .lg-flow-status {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-style: italic;
+    font-size: 0.875rem;
+    color: #6b6355;
   }
 
   .lg-flow-number {

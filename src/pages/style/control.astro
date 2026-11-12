@@ -4,6 +4,7 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -102,10 +103,17 @@ const logs = [
             </dl>
           </div>
 
-          <div class="cr-monitor">
+          <div class="cr-monitor" data-flow="control">
             <div class="cr-monitor-bar">
               <span class="cr-mono">wf-01 / lead-intake</span>
-              <span class="cr-led"><i aria-hidden="true"></i>RUNNING</span>
+              <span class="cr-monitor-actions">
+                <button class="cr-run" type="button" data-flow-run="control">Run execution</button>
+                <span class="cr-led"><i aria-hidden="true"></i><span
+                  data-flow-status="control"
+                  data-idle="READY"
+                  data-running="STEP"
+                  data-complete="COMPLETE">READY</span></span>
+              </span>
             </div>
 
             <svg class="cr-graph" viewBox="0 0 520 330" role="img" aria-label="Sample workflow graph: webhook to filter and AI agent, then CRM and Slack.">
@@ -128,7 +136,7 @@ const logs = [
               </g>
               <g class="cr-nodes">
                 {graphNodes.map((node) => (
-                  <g>
+                  <g data-flow-step data-label={node.label}>
                     <rect class="cr-node" x={node.x} y={node.y} width={node.w} height={node.h} rx="4" />
                     <rect class="cr-node-chip" x={node.x + 10} y={node.y + 12} width="4" height={node.h - 24} rx="1" fill={node.hue} />
                     <text class="cr-node-label" x={node.x + 24} y={node.y + 22}>{node.label}</text>
@@ -140,7 +148,7 @@ const logs = [
 
             <div class="cr-log" aria-label="Sample execution log">
               {logs.map(([time, event, result]) => (
-                <p>
+                <p data-flow-log-line>
                   <span class="cr-log-time">{time}</span>
                   <span class="cr-log-event">{event}</span>
                   <span class="cr-log-result">{result}</span>
@@ -299,7 +307,7 @@ const logs = [
             </div>
           </div>
 
-          <form class="cr-form" action={siteConfig.formAction} method="post">
+          <form class="cr-form" action={siteConfig.formAction} method="post" data-demo-form>
             <div class="cr-form-bar">
               <span class="cr-mono">FORM / NEW REQUEST</span>
               <span class="cr-led cr-led--dark"><i aria-hidden="true"></i>OPEN</span>
@@ -346,11 +354,18 @@ const logs = [
         <p class="cr-mono cr-mono--dim">© {year} INODEPI</p>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .cr-body {
+    --ix-accent: #00786a;
+    --ix-error: #c4471c;
+    --ix-success: #0f6b3f;
     background: #e8eef0;
     color: #0b1e23;
     font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
@@ -668,6 +683,40 @@ const logs = [
     font-size: 0.625rem;
     letter-spacing: 0.05em;
     color: #00786a;
+    white-space: nowrap;
+  }
+
+  .cr-monitor-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .cr-run {
+    padding: 0.18rem 0.5rem;
+    border: 1px solid #9fb3b8;
+    border-radius: 2px;
+    background: #ffffff;
+    color: #0b1e23;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease,
+      background-color 140ms ease;
+  }
+
+  .cr-run:hover:not(:disabled) {
+    border-color: #00786a;
+    background: #00786a;
+    color: #ffffff;
+  }
+
+  .cr-run:disabled {
+    opacity: 0.45;
+    cursor: wait;
   }
 
   .cr-led i {
@@ -709,6 +758,25 @@ const logs = [
     fill: #f7fafb;
     stroke: #9fb3b8;
     stroke-width: 1.1;
+    transition:
+      fill 220ms ease,
+      stroke 220ms ease,
+      stroke-width 220ms ease;
+  }
+
+  .cr-nodes g.is-active .cr-node {
+    fill: #e9f7f4;
+    stroke: #00786a;
+    stroke-width: 2;
+  }
+
+  .cr-nodes g.is-active .cr-node-label {
+    fill: #006155;
+  }
+
+  .cr-nodes g.is-done .cr-node {
+    fill: #f2fbf9;
+    stroke: #4fd1b8;
   }
 
   .cr-node-label {
@@ -737,6 +805,17 @@ const logs = [
   .cr-log p {
     display: flex;
     gap: 0.75rem;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .cr-log p.is-current {
+    background: rgba(79, 209, 184, 0.16);
+  }
+
+  .cr-log p.is-seen .cr-log-event {
+    color: #8fd9cc;
   }
 
   .cr-log-time {

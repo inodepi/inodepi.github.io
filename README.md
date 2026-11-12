@@ -61,6 +61,17 @@ Six alternative designs live under `/style/`:
 They share `src/data/projects.ts` and `src/data/content.ts`. Once one is chosen, promote
 it by making its page the homepage and converting its sections into components.
 
+## Interactions
+
+The preview pages share a progressive-enhancement layer in
+`src/scripts/interactions.ts`:
+
+- **Runnable workflow visuals** — each style's hero graph has a run control that steps
+  through nodes, updates a status line, and (on Control Room) plays the execution log.
+- **Live form validation** — errors appear inline; a valid submit shows a preview-only
+  confirmation. Point `siteConfig.formAction` at a real endpoint to receive inquiries.
+- **Reading progress bar** and active-section nav highlighting.
+
 ## Structure
 
 ```

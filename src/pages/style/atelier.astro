@@ -3,6 +3,7 @@ import '@fontsource-variable/cormorant-garamond';
 import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 import '@fontsource-variable/jost';
 import '../../styles/reset.css';
+import '../../styles/interactions.css';
 import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
 import { capabilities, processSteps } from '../../data/content';
 
@@ -68,19 +69,19 @@ const links = [
             </div>
           </div>
 
-          <figure class="at-constellation">
+          <figure class="at-constellation" data-flow="atelier">
             <svg viewBox="0 0 520 330" role="img" aria-label="Sample workflow: intake, validate, decide, record, notify.">
               <g class="at-links">
                 {links.map((d) => <path d={d} />)}
               </g>
               <g class="at-points">
                 {constellation.map((node) => (
-                  <>
+                  <g data-flow-step data-label={node.label}>
                     <circle class="at-halo" cx={node.x} cy={node.y} r="11" />
                     <circle class="at-point" cx={node.x} cy={node.y} r="4" />
                     <text class="at-point-label" x={node.x + 18} y={node.y + 2} text-anchor={node.anchor}>{node.label}</text>
                     <text class="at-point-sub" x={node.x + 18} y={node.y + 18} text-anchor={node.anchor}>{node.sub}</text>
-                  </>
+                  </g>
                 ))}
               </g>
               <circle class="at-pulse" r="2.6">
@@ -88,6 +89,15 @@ const links = [
               </circle>
             </svg>
             <figcaption>A representative lead-intake graph.</figcaption>
+            <div class="at-flow-foot">
+              <button class="at-run" type="button" data-flow-run="atelier">Trace the graph</button>
+              <span
+                class="at-flow-status"
+                data-flow-status="atelier"
+                data-idle="Idle"
+                data-running="Tracing"
+                data-complete="Trace complete">Idle</span>
+            </div>
           </figure>
         </div>
       </section>
@@ -221,7 +231,7 @@ const links = [
             </dl>
           </div>
 
-          <form class="at-form" action={siteConfig.formAction} method="post">
+          <form class="at-form" action={siteConfig.formAction} method="post" data-demo-form>
             <div class="at-field-row">
               <label class="at-field">
                 <span>Name</span>
@@ -266,11 +276,18 @@ const links = [
         <p class="at-footer-base">© {year} inodepi · independent automation practice</p>
       </div>
     </footer>
+
+    <script>
+      import '../../scripts/interactions';
+    </script>
   </body>
 </html>
 
 <style is:global>
   .at-body {
+    --ix-accent: #c3a173;
+    --ix-error: #e08a7a;
+    --ix-success: #9ad1a8;
     background: #12100d;
     color: #efe6d6;
     font-family: 'Jost Variable', system-ui, sans-serif;
@@ -552,6 +569,70 @@ const links = [
     font-size: 0.9375rem;
     color: #8f8371;
     text-align: right;
+  }
+
+  .at-halo,
+  .at-point,
+  .at-point-label {
+    transition:
+      fill 220ms ease,
+      opacity 220ms ease;
+  }
+
+  .at-points g.is-active .at-halo {
+    fill: rgba(195, 161, 115, 0.38);
+  }
+
+  .at-points g.is-active .at-point {
+    fill: #f2e4cd;
+  }
+
+  .at-points g.is-active .at-point-label {
+    fill: #c3a173;
+  }
+
+  .at-points g.is-done .at-halo {
+    fill: rgba(195, 161, 115, 0.2);
+  }
+
+  .at-flow-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem 1rem;
+    margin-top: 0.35rem;
+  }
+
+  .at-run {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(195, 161, 115, 0.55);
+    border-radius: 0;
+    background: transparent;
+    color: #c3a173;
+    font-family: 'Jost Variable', system-ui, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    transition:
+      background-color 170ms ease,
+      color 170ms ease;
+  }
+
+  .at-run:hover:not(:disabled) {
+    background: #c3a173;
+    color: #12100d;
+  }
+
+  .at-run:disabled {
+    opacity: 0.5;
+    cursor: wait;
+  }
+
+  .at-flow-status {
+    font-family: 'Cormorant Garamond Variable', Georgia, serif;
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: #8f8371;
   }
 
   /* Marquee */
