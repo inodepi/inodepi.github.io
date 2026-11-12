@@ -1,0 +1,99 @@
+---
+const capabilities = [
+  {
+    title: 'Multi-workflow systems',
+    body: 'Chained workflows, sub-workflows, and shared state. Built to survive production traffic, not just the demo.',
+    hue: 'var(--node-amber)',
+  },
+  {
+    title: 'API & webhook integrations',
+    body: 'REST and GraphQL clients, inbound webhooks, auth, pagination, retries, and rate limits handled at the edge.',
+    hue: 'var(--node-teal)',
+  },
+  {
+    title: 'AI pipelines',
+    body: 'Classification, extraction, retrieval, and agent steps grounded in your own data — with fallbacks when a model is unsure.',
+    hue: 'var(--node-violet)',
+  },
+  {
+    title: 'Data sync & enrichment',
+    body: 'Keep CRM, sheets, and databases aligned. Deduplicate, normalize, and enrich records while they move.',
+    hue: 'var(--node-rose)',
+  },
+  {
+    title: 'Lead routing & CRM ops',
+    body: 'Capture, score, route, and follow up. The CRM is updated before a human opens the lead.',
+    hue: 'var(--node-teal)',
+  },
+  {
+    title: 'Observability & error handling',
+    body: 'Structured logs, alerts, idempotent retries, and dead-letter paths, so failures surface instead of vanishing.',
+    hue: 'var(--node-amber)',
+  },
+];
+---
+
+<section class="section" id="capabilities">
+  <div class="container">
+    <div class="section-head">
+      <h2>Systems, not one-off scripts.</h2>
+      <p class="section-lede">
+        Most automation fails where two tools disagree. I design for those seams — validation,
+        retries, and a clear owner for every record — so the whole process holds together.
+      </p>
+    </div>
+
+    <ul class="cap-grid">
+      {capabilities.map((cap) => (
+        <li class="cap">
+          <span class="cap-mark" style={`--mark:${cap.hue}`} aria-hidden="true"></span>
+          <h3>{cap.title}</h3>
+          <p>{cap.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  .cap {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+    padding: clamp(1.4rem, 2.6vw, 2rem);
+    background: var(--panel);
+  }
+
+  .cap-mark {
+    width: 1.6rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--mark);
+  }
+
+  .cap h3 {
+    margin-top: 0.2rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .cap p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Systems audit',
+    body: 'We map where work enters, where it stalls, and which tool owns the truth. You leave with a written system diagram and a scoped build plan — whether or not we build together.',
+    hue: 'var(--node-amber)',
+  },
+  {
+    number: '02',
+    title: 'Design the graph',
+    body: 'I sketch the workflow architecture: triggers, data contracts, sub-workflows, fallbacks, and the order things fail in. Nothing is built until the plan is approved.',
+    hue: 'var(--node-teal)',
+  },
+  {
+    number: '03',
+    title: 'Build & hand over',
+    body: 'Workflows are built and tested against real payloads, documented, and deployed with monitoring in place. You keep ownership of every account and credential.',
+    hue: 'var(--node-violet)',
+  },
+];
+---
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head">
+      <h2>From audit to deployed in three steps</h2>
+      <p class="section-lede">
+        No discovery theatre. Each step ends with something you can read, review, or run.
+      </p>
+    </div>
+
+    <ol class="process">
+      {steps.map((step) => (
+        <li class="step" style={`--hue:${step.hue}`}>
+          <span class="step-node" aria-hidden="true"></span>
+          <div class="step-body">
+            <span class="step-number">{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <p class="process-note">
+      Scope and price are agreed before the build starts. If the audit shows automation is not
+      worth it, I will say so.
+    </p>
+  </div>
+</section>
+
+<style>
+  .process {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step {
+    position: relative;
+    padding: 0 0 2rem 1.9rem;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1rem;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+  .step:last-child::before {
+    display: none;
+  }
+
+  .step-node {
+    position: absolute;
+    left: 0;
+    top: 0.28rem;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--hue);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .step-body {
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+  }
+
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .step-body h3 {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+
+  .step-body p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  @media (min-width: 900px) {
+    .process {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .step {
+      padding: 1.85rem 1.5rem 0 0;
+    }
+
+    .step:not(:first-child) {
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--line);
+    }
+
+    .step::before {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: auto;
+      width: auto;
+      height: 1px;
+    }
+
+    .step-node {
+      top: -5px;
+    }
+
+    .step:not(:first-child) .step-node {
+      left: 1.5rem;
+    }
+  }
+
+  .process-note {
+    max-width: 46rem;
+    margin-top: clamp(1.75rem, 4vw, 2.75rem);
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 0.875rem;
+  }
+</style>

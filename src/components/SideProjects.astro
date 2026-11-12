@@ -1,0 +1,151 @@
+---
+import { featuredSideProjects } from '../data/projects';
+---
+
+<section class="section" id="side-projects">
+  <div class="container">
+    <div class="section-head">
+      <h2>Side projects</h2>
+      <p class="section-lede">
+        Tools, experiments, and small things built out of curiosity. Different problems, same
+        habit of wiring systems together.
+      </p>
+    </div>
+
+    {featuredSideProjects.length > 0 ? (
+      <ul class="side-grid">
+        {featuredSideProjects.map((project) => (
+          <li class="side-card" style={`--hue:var(--node-${project.hue})`}>
+            <span class="side-mark" aria-hidden="true"></span>
+            <div class="side-body">
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+              <ul class="side-stack" aria-label="Stack">
+                {project.stack.map((tool) => <li class="tag">{tool}</li>)}
+              </ul>
+            </div>
+            <a
+              class="side-link"
+              href={project.repoUrl}
+              target={project.repoUrl === '#' ? undefined : '_blank'}
+              rel={project.repoUrl === '#' ? undefined : 'noopener noreferrer'}
+              aria-label={`Open ${project.title}`}
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">
+        No side projects are featured yet. Set <code>featured: true</code> on an entry in
+        <code>src/data/projects.ts</code>.
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .side-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .side-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.35rem 1.25rem 1.35rem 1.35rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    transition: border-color 180ms ease;
+  }
+
+  .side-card:hover {
+    border-color: var(--line-strong);
+  }
+
+  .side-mark {
+    flex: none;
+    width: 4px;
+    align-self: stretch;
+    border-radius: 2px;
+    background: var(--hue);
+  }
+
+  .side-body {
+    display: grid;
+    gap: 0.55rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .side-body h3 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .side-body p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .side-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .side-link {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink-dim);
+    transition:
+      color 160ms ease,
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .side-link svg {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .side-link:hover {
+    color: var(--accent);
+    border-color: var(--line-strong);
+    background: var(--panel-raised);
+  }
+
+  .empty {
+    padding: 1.5rem;
+    border: 1px dashed var(--line-strong);
+    color: var(--ink-soft);
+  }
+
+  .empty code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--accent);
+  }
+</style>

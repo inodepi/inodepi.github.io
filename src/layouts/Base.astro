@@ -1,0 +1,176 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../data/projects';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0c1727" />
+  </head>
+  <body>
+    <!-- Theme: the dark palette is the default. Add data-theme="light" to
+         the <html> tag above to switch to the light drafting-paper palette. -->
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href={base} aria-label={`${siteConfig.name} home`}>
+          <svg class="wordmark-mark" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="18" cy="18" r="3"></circle>
+            <path d="M8.5 8.5 15.5 15.5"></path>
+          </svg>
+          {siteConfig.name}
+        </a>
+        <nav class="header-nav" aria-label="Primary">
+          <a href="#work">Work</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn btn-primary header-cta" href="#contact">
+          <span class="cta-short">Book audit</span>
+          <span class="cta-long">Book a systems audit</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    padding: 0.65rem 1rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.25rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 640;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .wordmark-mark {
+    width: 1.35rem;
+    height: 1.35rem;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.6;
+  }
+
+  .header-nav {
+    display: none;
+    gap: 1.75rem;
+    margin-left: auto;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .header-nav a {
+    text-decoration: none;
+    transition: color 140ms ease;
+  }
+
+  .header-nav a:hover {
+    color: var(--ink);
+  }
+
+  .header-cta {
+    display: inline-flex;
+    margin-left: auto;
+    min-height: 2.375rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+  }
+
+  .cta-short {
+    display: inline;
+  }
+
+  .cta-long {
+    display: none;
+  }
+
+  @media (min-width: 720px) {
+    .header-nav {
+      display: flex;
+      margin-left: auto;
+    }
+
+    .header-cta {
+      margin-left: 0;
+      min-height: 2.5rem;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.875rem;
+    }
+
+    .cta-short {
+      display: none;
+    }
+
+    .cta-long {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 719px) {
+    .header-inner {
+      justify-content: space-between;
+    }
+  }
+</style>

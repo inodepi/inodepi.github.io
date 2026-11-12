@@ -1,0 +1,223 @@
+---
+import { siteConfig } from '../data/projects';
+---
+
+<section class="section contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-copy">
+      <h2>Tell me what should stop being manual.</h2>
+      <p class="section-lede">
+        Describe the process, the tools involved, and where the handoffs hurt. If an n8n system
+        can carry it, I will map the build. If it can't, I will tell you that too.
+      </p>
+
+      <dl class="contact-direct">
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd>
+        </div>
+        <div>
+          <dt>Intro call</dt>
+          <dd><a href={siteConfig.calendarUrl}>Book a 20-minute call</a></dd>
+        </div>
+        <div>
+          <dt>Response</dt>
+          <dd>{siteConfig.responseTime}</dd>
+        </div>
+      </dl>
+
+      <p class="contact-fine">
+        Typical engagements start with a fixed-scope audit, then move to a build plan with a
+        single agreed price.
+      </p>
+    </div>
+
+    <form class="inquiry" action={siteConfig.formAction} method="post">
+      <div class="field-row">
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Company <em>optional</em></span>
+        <input type="text" name="company" autocomplete="organization" placeholder="Company or team" />
+      </label>
+
+      <label class="field">
+        <span>What are you trying to automate?</span>
+        <textarea
+          name="automation"
+          rows="5"
+          required
+          placeholder="The process, the tools it touches, and what breaks today."
+        ></textarea>
+      </label>
+
+      <button class="btn btn-primary submit" type="submit">Send inquiry</button>
+      <p class="form-note">
+        No newsletters, no drip sequence. Your details are used only to reply to this inquiry.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+
+  @media (min-width: 960px) {
+    .contact-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .contact-copy {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .contact-copy h2 {
+    font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+    max-width: 18ch;
+  }
+
+  .contact-direct {
+    display: grid;
+    gap: 1.1rem;
+    margin: 0.5rem 0 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--line);
+    width: 100%;
+  }
+
+  .contact-direct div {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .contact-direct dt {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .contact-direct dd {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .contact-direct a {
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+  }
+
+  .contact-direct a:hover {
+    color: var(--accent);
+  }
+
+  .contact-fine {
+    color: var(--ink-dim);
+    font-size: 0.875rem;
+    max-width: 38ch;
+  }
+
+  .inquiry {
+    display: grid;
+    gap: 1.1rem;
+    padding: clamp(1.35rem, 3vw, 2rem);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+  }
+
+  .field-row {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  @media (min-width: 560px) {
+    .field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .field > span {
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ink-soft);
+  }
+
+  .field em {
+    font-style: normal;
+    font-weight: 400;
+    color: var(--ink-dim);
+    font-size: 0.8125rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    background: var(--panel-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 0.9688rem;
+    line-height: 1.5;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ink-dim);
+  }
+
+  input:hover,
+  textarea:hover {
+    border-color: var(--line-strong);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+
+  .submit {
+    justify-self: start;
+    min-width: 11rem;
+    margin-top: 0.25rem;
+  }
+
+  .form-note {
+    color: var(--ink-dim);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+</style>

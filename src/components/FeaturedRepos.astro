@@ -1,0 +1,209 @@
+---
+import { featuredAutomationRepos } from '../data/projects';
+---
+
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head">
+      <h2>Featured automation repositories</h2>
+      <p class="section-lede">
+        Each build is a workflow graph, not a snippet: triggers, sub-workflows, integrations,
+        validation, and failure paths. These are the systems I reach for when a process has to
+        run without supervision.
+      </p>
+    </div>
+
+    {featuredAutomationRepos.length > 0 ? (
+      <ul class="repo-grid">
+        {featuredAutomationRepos.map((repo) => (
+          <li class="repo-card" style={`--hue:var(--node-${repo.hue})`}>
+            <div class="repo-bar">
+              <span class="repo-chip" aria-hidden="true"></span>
+              <span class="repo-id">node/{repo.id}</span>
+              <span class="repo-port" aria-hidden="true"></span>
+            </div>
+
+            <div class="repo-body">
+              <h3>{repo.title}</h3>
+
+              <p class="repo-problem">
+                <span>Problem</span>
+                {repo.problem}
+              </p>
+
+              <p class="repo-summary">{repo.summary}</p>
+
+              <ul class="repo-stack" aria-label="Stack">
+                {repo.stack.map((tool) => <li class="tag">{tool}</li>)}
+              </ul>
+            </div>
+
+            <a
+              class="repo-link"
+              href={repo.repoUrl}
+              target={repo.repoUrl === '#' ? undefined : '_blank'}
+              rel={repo.repoUrl === '#' ? undefined : 'noopener noreferrer'}
+            >
+              Open repository
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">
+        No repositories are featured yet. Set <code>featured: true</code> on an entry in
+        <code>src/data/projects.ts</code>.
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .repo-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 180ms ease;
+  }
+
+  .repo-card:hover {
+    border-color: var(--line-strong);
+  }
+
+  .repo-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-raised);
+  }
+
+  .repo-chip {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--hue);
+  }
+
+  .repo-id {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .repo-port {
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--panel);
+  }
+
+  .repo-body {
+    display: grid;
+    gap: 0.85rem;
+    flex: 1;
+    padding: 1.35rem 1.1rem 1.25rem;
+  }
+
+  .repo-body h3 {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+
+  .repo-problem {
+    display: grid;
+    gap: 0.2rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--hue);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .repo-problem span {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.02em;
+  }
+
+  .repo-summary {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .repo-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.8rem 1.1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+
+  .repo-link svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    color: var(--ink-dim);
+    transition: color 160ms ease;
+  }
+
+  .repo-link:hover {
+    background: var(--panel-raised);
+  }
+
+  .repo-link:hover svg {
+    color: var(--accent);
+  }
+
+  .empty {
+    padding: 1.5rem;
+    border: 1px dashed var(--line-strong);
+    color: var(--ink-soft);
+  }
+
+  .empty code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--accent);
+  }
+</style>
