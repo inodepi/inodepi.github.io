@@ -7,11 +7,39 @@ import SideProjects from '../components/SideProjects.astro';
 import Process from '../components/Process.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { siteConfig } from '../data/projects';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'inodepi',
+  url: 'https://inodepi.github.io/',
+  description:
+    'n8n automation architecture: multi-workflow systems that connect APIs, webhooks, AI pipelines, CRM and operations tooling.',
+  email: siteConfig.email,
+  founder: {
+    '@type': 'Person',
+    name: 'Christian John',
+    jobTitle: 'n8n automation architect',
+  },
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'n8n',
+    'workflow automation',
+    'AI automation',
+    'API integrations',
+    'webhooks',
+    'AI voice receptionists',
+    'CRM automation',
+  ],
+  sameAs: [siteConfig.githubUrl],
+};
 ---
 
 <Base
   title="inodepi — n8n automation architect"
   description="Multi-workflow automation systems built on n8n: APIs, webhooks, AI pipelines, and CRM operations wired end to end. Book a systems audit."
+  jsonLd={jsonLd}
 >
   <Hero />
   <Capabilities />

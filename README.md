@@ -48,6 +48,15 @@ Everything editable lives in two places.
 The `:root` block holds the dark palette; `[data-theme='light']` holds the light palette.
 To switch themes, add `data-theme="light"` to the `<html>` tag in `src/layouts/Base.astro`.
 
+## SEO
+
+- `@astrojs/sitemap` generates `/sitemap-index.xml` and `/sitemap-0.xml` at build time.
+- `public/robots.txt` points crawlers at the sitemap.
+- Every page has a canonical URL, OG/Twitter meta, a 1200×630 social card (`public/og.png`)
+  and JSON-LD (`ProfessionalService` on home, `CreativeWork` + breadcrumbs on the build page).
+- After deploying, submit `https://inodepi.github.io/sitemap-index.xml` in Google Search
+  Console (URL-prefix property; verify with the HTML file or meta tag Google provides).
+
 ## Brand
 
 - **Mark:** a π drawn as a node graph — two legs ending in nodes, one filled, one outlined.

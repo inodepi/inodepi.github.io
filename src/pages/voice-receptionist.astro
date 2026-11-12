@@ -75,11 +75,52 @@ const ports = [
   [106, 98], [106, 182], [196, 214], [246, 145],
   [422, 128], [422, 166], [468, 58], [468, 168],
 ];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'AI Voice Receptionist',
+    description:
+      'An AI voice receptionist built on n8n: answers missed and after-hours calls, captures structured intake, books appointments, logs calls and alerts the team. HIPAA-compliant build available.',
+    url: 'https://inodepi.github.io/voice-receptionist/',
+    author: {
+      '@type': 'Person',
+      name: 'Christian John',
+      url: 'https://inodepi.github.io/',
+    },
+    keywords: 'n8n, Retell, Google Calendar, Google Sheets, Gmail, AI voice receptionist',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'inodepi',
+      url: 'https://inodepi.github.io/',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://inodepi.github.io/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'AI Voice Receptionist',
+        item: 'https://inodepi.github.io/voice-receptionist/',
+      },
+    ],
+  },
+];
 ---
 
 <Base
   title="AI Voice Receptionist — inodepi"
   description="An AI voice receptionist built on n8n: answers missed and after-hours calls, captures structured intake, books appointments and alerts the team. HIPAA-compliant build available."
+  jsonLd={jsonLd}
 >
   <article class="project">
     <header class="proj-hero">
