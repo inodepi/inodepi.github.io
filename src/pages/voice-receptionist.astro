@@ -198,15 +198,21 @@ const jsonLd = [
       <div class="proj-main">
         <section class="proj-section">
           <h2>Overview</h2>
-          <p>
-            An AI receptionist for appointment-based businesses — salons, clinics, med spas and
-            trades. It answers the calls your team cannot, captures what the caller needs as
-            structured data, books a real slot and tells the right person.
-          </p>
-          <p>
-            The phone conversation runs on Retell. The work behind it — validation, calendar
-            checks, booking, logging and alerts — runs in n8n.
-          </p>
+          <figure class="proj-video">
+            <video
+              controls
+              preload="metadata"
+              playsinline
+              poster={`${base}videos/ai-voice-receptionist.jpg`}
+              width="1920"
+              height="1080"
+            >
+              <source src={`${base}videos/ai-voice-receptionist.mp4`} type="video/mp4" />
+              Your browser cannot play this film.
+              <a href={`${base}videos/ai-voice-receptionist.mp4`}>Download it</a>.
+            </video>
+            <figcaption>Narrated build overview · 1:37</figcaption>
+          </figure>
         </section>
 
         <section class="proj-section" id="use-cases">
@@ -580,6 +586,27 @@ const jsonLd = [
     color: var(--ink-soft);
     font-size: 0.9688rem;
     line-height: 1.7;
+  }
+
+  .proj-video {
+    margin: 1.25rem 0 0;
+  }
+
+  .proj-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .proj-video figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
   }
 
   .proj-cases {
