@@ -47,6 +47,17 @@ The form posts to `siteConfig.formAction`, currently `#`. Point it at a form bac
 (Formspree, Netlify Forms, Basin, or your own endpoint) and the static build will submit
 there with no other changes.
 
+## Style previews
+
+Three alternative designs live under `/style/`:
+
+- `/style/ledger/` — warm paper, serif, oxblood accents
+- `/style/poster/` — bold Archivo, cobalt, typographic hero
+- `/style/fieldnotes/` — sage, Literata, calm single column
+
+They share `src/data/projects.ts` and `src/data/content.ts`. Once one is chosen, promote
+it by making its page the homepage and converting its sections into components.
+
 ## Structure
 
 ```

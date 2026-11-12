@@ -1,0 +1,904 @@
+---
+import '@fontsource-variable/archivo';
+import '../../styles/reset.css';
+import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
+import { capabilities, processSteps } from '../../data/content';
+
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>inodepi — style preview: Studio Poster</title>
+    <meta name="description" content="Style preview for inodepi: a bold typographic automation portfolio." />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="robots" content="noindex" />
+  </head>
+  <body class="ps-body">
+    <header class="ps-header">
+      <div class="ps-container ps-header-inner">
+        <a class="ps-brand" href={`${base}`}><span aria-hidden="true"></span>inodepi</a>
+        <nav class="ps-nav" aria-label="Primary">
+          <a href="#capabilities">Practice</a>
+          <a href="#work">Builds</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="ps-cta" href="#contact">Book an audit</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ps-hero">
+        <div class="ps-container">
+          <div class="ps-hero-grid">
+            <h1>Your team should not be the integration layer.</h1>
+            <div class="ps-hero-side">
+              <p>
+                I build n8n systems that carry work between your tools — webhooks in, AI decisions
+                in the middle, CRM and Slack at the end. One system, fewer handoffs.
+              </p>
+              <div class="ps-actions">
+                <a class="ps-btn" href="#contact">Book a systems audit</a>
+                <a class="ps-link" href="#work">See the builds</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="ps-pipeline" aria-label="Sample workflow: intake, decide, deliver">
+            <div class="ps-stage">
+              <span class="ps-stage-index">01</span>
+              <p class="ps-stage-word">Intake</p>
+              <p class="ps-stage-note">Forms, inboxes, webhooks. Validated and deduplicated.</p>
+            </div>
+            <span class="ps-arrow" aria-hidden="true">→</span>
+            <div class="ps-stage">
+              <span class="ps-stage-index">02</span>
+              <p class="ps-stage-word">Decide</p>
+              <p class="ps-stage-note">Rules and AI models score, classify, and route.</p>
+            </div>
+            <span class="ps-arrow" aria-hidden="true">→</span>
+            <div class="ps-stage">
+              <span class="ps-stage-index">03</span>
+              <p class="ps-stage-word">Deliver</p>
+              <p class="ps-stage-note">CRM, sheets, Slack, invoices. Written once, everywhere.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ps-section" id="capabilities">
+        <div class="ps-container">
+          <div class="ps-head">
+            <h2>What gets automated</h2>
+            <p>Engagements are scoped by system, not by task. Most builds combine several of these.</p>
+          </div>
+
+          <ul class="ps-caps">
+            {capabilities.map((cap) => (
+              <li>
+                <h3>{cap.title}</h3>
+                <p>{cap.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="ps-section" id="work">
+        <div class="ps-container">
+          <div class="ps-head">
+            <h2>Featured automation builds</h2>
+            <p>Systems that run unattended: triggers, sub-workflows, integrations, and error paths. Each entry links to its repository.</p>
+          </div>
+
+          <ol class="ps-builds">
+            {featuredAutomationRepos.map((repo, index) => (
+              <li>
+                <span class="ps-build-index">{String(index + 1).padStart(2, '0')}</span>
+                <div class="ps-build-main">
+                  <h3>{repo.title}</h3>
+                  <p class="ps-build-problem">{repo.problem}</p>
+                </div>
+                <div class="ps-build-side">
+                  <p>{repo.summary}</p>
+                  <p class="ps-build-stack">{repo.stack.join(' / ')}</p>
+                  <a href={repo.repoUrl}>Open repository</a>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="ps-section" id="side-projects">
+        <div class="ps-container">
+          <div class="ps-head">
+            <h2>Side projects</h2>
+            <p>Tools and experiments outside client work. Same habit, different problems.</p>
+          </div>
+
+          <ul class="ps-side">
+            {featuredSideProjects.map((project) => (
+              <li>
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+                <p class="ps-side-stack">{project.stack.join(' / ')}</p>
+                <a href={project.repoUrl}>Open project</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="ps-process" id="process">
+        <div class="ps-container">
+          <div class="ps-head">
+            <h2>Audit. Design. Ship.</h2>
+            <p>Three steps, each ending in something you can read, review, or run.</p>
+          </div>
+
+          <ol class="ps-steps">
+            {processSteps.map((step) => (
+              <li>
+                <span class="ps-step-number" aria-hidden="true">{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+
+          <p class="ps-process-note">
+            Scope and price are agreed before the build starts. If the audit shows automation is
+            not worth it, I will say so.
+          </p>
+        </div>
+      </section>
+
+      <section class="ps-contact" id="contact">
+        <div class="ps-container ps-contact-grid">
+          <div>
+            <h2>Tell me what should stop being manual.</h2>
+            <p class="ps-contact-lede">
+              Describe the process, the tools, and where the handoffs hurt. I will reply with an
+              honest read on whether an n8n system can carry it.
+            </p>
+
+            <dl class="ps-direct">
+              <div>
+                <dt>Email</dt>
+                <dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd>
+              </div>
+              <div>
+                <dt>Intro call</dt>
+                <dd><a href={siteConfig.calendarUrl}>Book a 20-minute call</a></dd>
+              </div>
+              <div>
+                <dt>Response</dt>
+                <dd>{siteConfig.responseTime}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <form class="ps-form" action={siteConfig.formAction} method="post">
+            <div class="ps-field-row">
+              <label class="ps-field">
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
+              </label>
+              <label class="ps-field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+              </label>
+            </div>
+
+            <label class="ps-field">
+              <span>Company (optional)</span>
+              <input type="text" name="company" autocomplete="organization" placeholder="Company or team" />
+            </label>
+
+            <label class="ps-field">
+              <span>What are you trying to automate?</span>
+              <textarea name="automation" rows="4" required placeholder="The process, the tools it touches, and what breaks today."></textarea>
+            </label>
+
+            <button class="ps-btn" type="submit">Send inquiry</button>
+            <p class="ps-fine">Your details are used only to reply to this inquiry.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ps-footer">
+      <div class="ps-container ps-footer-inner">
+        <a class="ps-brand" href={`${base}`}><span aria-hidden="true"></span>inodepi</a>
+        <nav aria-label="Footer">
+          <a href="#work">Builds</a>
+          <a href="#process">Process</a>
+          <a href="#contact">Contact</a>
+          <a href={siteConfig.githubUrl}>GitHub</a>
+          <a href={`${base}style/`}>All styles</a>
+        </nav>
+        <p>© {year} inodepi</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  .ps-body {
+    background: #f4f2ec;
+    color: #101010;
+    font-family: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    font-stretch: 100%;
+  }
+
+  .ps-body h1,
+  .ps-body h2,
+  .ps-body h3 {
+    font-family: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 780;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+
+  .ps-body p {
+    text-wrap: pretty;
+  }
+
+  .ps-body ::selection {
+    background: #1d3fbb;
+    color: #f4f2ec;
+  }
+
+  .ps-container {
+    width: min(1240px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .ps-container {
+      width: min(1240px, 100% - 5rem);
+    }
+  }
+
+  /* Header */
+  .ps-header {
+    border-bottom: 3px solid #101010;
+    background: #f4f2ec;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .ps-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 4.5rem;
+  }
+
+  .ps-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    text-decoration: none;
+  }
+
+  .ps-brand span {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: #1d3fbb;
+  }
+
+  .ps-nav {
+    display: none;
+    gap: 1.75rem;
+    margin-left: auto;
+    font-size: 0.875rem;
+    font-weight: 650;
+  }
+
+  .ps-nav a {
+    text-decoration: none;
+  }
+
+  .ps-nav a:hover {
+    color: #1d3fbb;
+  }
+
+  .ps-cta {
+    margin-left: auto;
+    padding: 0.6rem 0.9rem;
+    background: #1d3fbb;
+    color: #f4f2ec !important;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .ps-cta:hover {
+    background: #16318f;
+  }
+
+  @media (min-width: 820px) {
+    .ps-nav {
+      display: flex;
+    }
+
+    .ps-cta {
+      margin-left: 0;
+    }
+  }
+
+  /* Hero */
+  .ps-hero {
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .ps-hero-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1000px) {
+    .ps-hero-grid {
+      grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.75fr);
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .ps-hero-side {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .ps-hero h1 {
+    font-size: clamp(3rem, 1.4rem + 6.2vw, 6.5rem);
+    letter-spacing: -0.05em;
+    line-height: 0.88;
+    max-width: 15ch;
+  }
+
+  .ps-hero-side p {
+    max-width: 40ch;
+    color: #454540;
+    font-size: 1.0625rem;
+  }
+
+  .ps-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+  }
+
+  .ps-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.7rem 1.5rem;
+    border: 2px solid #1d3fbb;
+    border-radius: 0;
+    background: #1d3fbb;
+    color: #f4f2ec !important;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .ps-btn:hover {
+    background: #101010;
+    border-color: #101010;
+  }
+
+  .ps-link {
+    font-size: 0.9375rem;
+    font-weight: 750;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .ps-link:hover {
+    color: #1d3fbb;
+  }
+
+  /* Typographic pipeline */
+  .ps-pipeline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding: 1.5rem 0 2.5rem;
+    border-top: 3px solid #101010;
+  }
+
+  .ps-stage-index {
+    display: block;
+    color: #1d3fbb;
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.02em;
+  }
+
+  .ps-stage-word {
+    margin-top: 0.35rem;
+    font-size: clamp(2.4rem, 1.2rem + 4.8vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+
+  .ps-stage-note {
+    margin-top: 0.65rem;
+    max-width: 26ch;
+    color: #55554f;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .ps-arrow {
+    color: #1d3fbb;
+    font-size: 2rem;
+    line-height: 1;
+    transform: rotate(90deg);
+    width: fit-content;
+  }
+
+  @media (min-width: 760px) {
+    .ps-pipeline {
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .ps-arrow {
+      transform: none;
+      padding-top: 2rem;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+    }
+
+    .ps-stage {
+      padding-right: 0.5rem;
+    }
+  }
+
+  /* Sections */
+  .ps-section {
+    padding-block: clamp(3.5rem, 6vw, 5rem);
+    border-top: 1px solid #cfccc1;
+  }
+
+  .ps-head {
+    max-width: 48rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .ps-head h2 {
+    font-size: clamp(2.2rem, 1.2rem + 3.4vw, 3.6rem);
+  }
+
+  .ps-head p {
+    margin-top: 0.9rem;
+    max-width: 46ch;
+    color: #55554f;
+    font-size: 1rem;
+  }
+
+  /* Capabilities */
+  .ps-caps {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 760px) {
+    .ps-caps {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 3rem;
+    }
+  }
+
+  .ps-caps li {
+    padding-top: 1rem;
+    border-top: 3px solid #101010;
+  }
+
+  .ps-caps h3 {
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .ps-caps p {
+    margin-top: 0.55rem;
+    color: #55554f;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  /* Builds */
+  .ps-builds {
+    border-top: 3px solid #101010;
+  }
+
+  .ps-builds li {
+    display: grid;
+    gap: 1rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid #cfccc1;
+  }
+
+  @media (min-width: 900px) {
+    .ps-builds li {
+      grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 2rem;
+      align-items: start;
+      padding: 2.25rem 1rem 2.25rem 0;
+      transition:
+        background-color 160ms ease,
+        color 160ms ease;
+    }
+
+    .ps-builds li:hover {
+      background: #101010;
+      color: #f4f2ec;
+      padding-left: 1rem;
+    }
+
+    .ps-builds li:hover .ps-build-problem,
+    .ps-builds li:hover .ps-build-side p {
+      color: #c9c6bb;
+    }
+
+    .ps-builds li:hover .ps-build-side a {
+      color: #8fa4ff;
+    }
+  }
+
+  .ps-build-index {
+    color: #1d3fbb;
+    font-size: 0.8125rem;
+    font-weight: 750;
+  }
+
+  .ps-build-main h3 {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem);
+    line-height: 1.02;
+    max-width: 20ch;
+  }
+
+  .ps-build-problem {
+    margin-top: 0.6rem;
+    color: #1d3fbb;
+    font-size: 0.9375rem;
+    font-weight: 650;
+    line-height: 1.4;
+    max-width: 30ch;
+  }
+
+  .ps-build-side p {
+    color: #55554f;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .ps-build-stack {
+    margin-top: 0.7rem;
+    font-size: 0.8125rem !important;
+    font-weight: 650;
+    color: #101010 !important;
+  }
+
+  .ps-build-side a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #101010;
+    font-size: 0.8125rem;
+    font-weight: 750;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  /* Side projects */
+  .ps-side {
+    display: grid;
+    gap: 0;
+  }
+
+  @media (min-width: 760px) {
+    .ps-side {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 3rem;
+    }
+  }
+
+  .ps-side li {
+    padding: 1.4rem 0;
+    border-top: 2px solid #101010;
+  }
+
+  .ps-side h3 {
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+
+  .ps-side p {
+    margin-top: 0.5rem;
+    color: #55554f;
+    font-size: 0.9375rem;
+  }
+
+  .ps-side-stack {
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    color: #101010 !important;
+  }
+
+  .ps-side a {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 750;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  .ps-side a:hover {
+    color: #1d3fbb;
+  }
+
+  /* Process */
+  .ps-process {
+    padding-block: clamp(3.5rem, 7vw, 5.5rem);
+    border-top: 3px solid #101010;
+    background: #edeae2;
+  }
+
+  .ps-process .ps-head p {
+    color: #4a4a45;
+  }
+
+  .ps-steps {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 860px) {
+    .ps-steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .ps-steps li {
+    padding-top: 1.25rem;
+    border-top: 3px solid #1d3fbb;
+  }
+
+  .ps-step-number {
+    display: block;
+    font-size: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 2px #1d3fbb;
+  }
+
+  .ps-steps h3 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.05;
+  }
+
+  .ps-steps p {
+    margin-top: 0.55rem;
+    color: #4a4a45;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .ps-process-note {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #b9b5a8;
+    max-width: 54ch;
+    color: #55554f;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Contact */
+  .ps-contact {
+    padding-block: clamp(3.5rem, 7vw, 5.5rem);
+    background: #101010;
+    color: #f4f2ec;
+  }
+
+  .ps-contact-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 960px) {
+    .ps-contact-grid {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 5rem;
+      align-items: start;
+    }
+  }
+
+  .ps-contact h2 {
+    font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4rem);
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    max-width: 14ch;
+  }
+
+  .ps-contact-lede {
+    margin-top: 1.1rem;
+    max-width: 40ch;
+    color: #b9b6ab;
+    font-size: 1rem;
+  }
+
+  .ps-direct {
+    margin-top: 2rem;
+    border-top: 1px solid #3b3b35;
+  }
+
+  .ps-direct > div {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #3b3b35;
+  }
+
+  .ps-direct dt {
+    color: #8fa4ff;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .ps-direct dd {
+    font-size: 0.9375rem;
+  }
+
+  .ps-direct a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .ps-form {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  .ps-field-row {
+    display: grid;
+    gap: 1.35rem;
+  }
+
+  @media (min-width: 560px) {
+    .ps-field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .ps-field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .ps-field > span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #b9b6ab;
+  }
+
+  .ps-form input,
+  .ps-form textarea {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 2px solid #3b3b35;
+    border-radius: 0;
+    background: transparent;
+    color: #f4f2ec;
+    font-size: 0.9688rem;
+  }
+
+  .ps-form input::placeholder,
+  .ps-form textarea::placeholder {
+    color: #7c7a72;
+  }
+
+  .ps-form input:focus-visible,
+  .ps-form textarea:focus-visible {
+    outline: none;
+    border-color: #8fa4ff;
+  }
+
+  .ps-form textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .ps-form .ps-btn {
+    justify-self: start;
+    min-width: 10rem;
+  }
+
+  .ps-form .ps-btn:hover {
+    background: #f4f2ec;
+    border-color: #f4f2ec;
+    color: #101010 !important;
+  }
+
+  .ps-fine {
+    color: #8f8c83;
+    font-size: 0.75rem;
+  }
+
+  /* Footer */
+  .ps-footer {
+    padding: 2rem 0;
+    border-top: 3px solid #f4f2ec;
+  }
+
+  .ps-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2.5rem;
+  }
+
+  .ps-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-left: auto;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .ps-footer nav a {
+    text-decoration: none;
+  }
+
+  .ps-footer nav a:hover {
+    color: #8fa4ff;
+  }
+
+  .ps-footer p {
+    color: #8f8c83;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 700px) {
+    .ps-footer nav {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

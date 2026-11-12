@@ -1,0 +1,218 @@
+---
+import '@fontsource-variable/public-sans';
+import '../../styles/reset.css';
+
+const base = import.meta.env.BASE_URL;
+
+const styles = [
+  {
+    name: 'Operations Ledger',
+    href: `${base}style/ledger/`,
+    blurb: 'Warm paper, serif headlines, oxblood accents, case-study index. Reads like an industry journal.',
+    type: 'Fraunces + Public Sans',
+    swatches: ['#faf7f0', '#1a1712', '#7a2e2a', '#f2ecdd'],
+  },
+  {
+    name: 'Studio Poster',
+    href: `${base}style/poster/`,
+    blurb: 'Bold weights at extreme sizes, cobalt rules, ink-black contact section. Reads like a studio poster.',
+    type: 'Archivo, one family throughout',
+    swatches: ['#f4f2ec', '#101010', '#1d3fbb', '#edeae2'],
+  },
+  {
+    name: 'Field Notes',
+    href: `${base}style/fieldnotes/`,
+    blurb: 'Sage paper, humanist serif, gold annotations, single calm column. Reads like a practitioner’s notebook.',
+    type: 'Literata + Nunito Sans',
+    swatches: ['#edefea', '#1f2a24', '#8a5e14', '#f8f9f5'],
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>inodepi — style previews</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <a class="brand" href={base}>inodepi</a>
+        <p class="kicker">Style previews</p>
+        <h1>Three directions.</h1>
+        <p class="lede">
+          Same content, same project config, three different visual languages. Open each in a tab,
+          compare on desktop and mobile, then tell me which one becomes the site.
+        </p>
+      </header>
+
+      <ul class="cards">
+        {styles.map((style, index) => (
+          <li>
+            <a href={style.href}>
+              <span class="index">{String(index + 1).padStart(2, '0')}</span>
+              <h2>{style.name}</h2>
+              <p>{style.blurb}</p>
+              <span class="type">{style.type}</span>
+              <span class="swatches" aria-hidden="true">
+                {style.swatches.map((color) => (
+                  <i style={`background:${color}`}></i>
+                ))}
+              </span>
+              <span class="open">Open preview</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <footer class="foot">
+        <p>
+          The live current design stays at <a href={base}>{base}</a>. Previews are noindexed and
+          live under <code>/style/</code>.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    background: #f7f7f4;
+    color: #171717;
+    font-family: 'Public Sans Variable', system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    width: min(1100px, 100% - 2.5rem);
+    margin-inline: auto;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) 3rem;
+  }
+
+  .brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  .kicker {
+    margin-top: 3.5rem;
+    color: #6b6b63;
+    font-size: 0.8125rem;
+  }
+
+  h1 {
+    margin: 0.5rem 0 0;
+    font-size: clamp(2.5rem, 1.4rem + 4vw, 4rem);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .lede {
+    max-width: 52ch;
+    margin-top: 1rem;
+    color: #55554e;
+  }
+
+  .cards {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 860px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .cards a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.4rem;
+    border: 1px solid #dcdcd4;
+    border-radius: 10px;
+    background: #ffffff;
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .cards a:hover {
+    border-color: #171717;
+    transform: translateY(-2px);
+  }
+
+  .index {
+    color: #8a8a82;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  h2 {
+    margin-top: 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .cards p {
+    margin-top: 0.6rem;
+    color: #55554e;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .type {
+    margin-top: 0.9rem;
+    color: #7a7a72;
+    font-size: 0.75rem;
+  }
+
+  .swatches {
+    display: flex;
+    gap: 0;
+    margin-top: 0.8rem;
+    border: 1px solid #dcdcd4;
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .swatches i {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .open {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .foot {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #dcdcd4;
+    color: #7a7a72;
+    font-size: 0.85rem;
+  }
+
+  code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.9em;
+  }
+</style>
