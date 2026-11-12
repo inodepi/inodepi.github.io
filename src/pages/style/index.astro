@@ -27,6 +27,30 @@ const styles = [
     swatches: ['#edefea', '#1f2a24', '#8a5e14', '#f8f9f5'],
   },
 ];
+
+const boldStyles = [
+  {
+    name: 'Riso Press',
+    href: `${base}style/riso/`,
+    blurb: 'Two-colour risograph zine: misregistered type, tape, stamps, marquee, receipt-style workflow. Loud and printed.',
+    type: 'Anton + IBM Plex Sans',
+    swatches: ['#f2ede1', '#151515', '#ff4d6d', '#2138a8'],
+  },
+  {
+    name: 'Control Room',
+    href: `${base}style/control/`,
+    blurb: 'Operations dashboard: telemetry strip, live execution monitor, capability matrix, deployment cards, dark sequence.',
+    type: 'IBM Plex Sans + IBM Plex Mono',
+    swatches: ['#e8eef0', '#0b1e23', '#00786a', '#c4471c'],
+  },
+  {
+    name: 'Atelier',
+    href: `${base}style/atelier/`,
+    blurb: 'Dark editorial gallery: Cormorant display, brass hairlines, constellation graph, oversized wordmark, double-framed form.',
+    type: 'Cormorant Garamond + Jost',
+    swatches: ['#12100d', '#efe6d6', '#c3a173', '#17140f'],
+  },
+];
 ---
 
 <!doctype html>
@@ -43,9 +67,9 @@ const styles = [
       <header class="head">
         <a class="brand" href={base}>inodepi</a>
         <p class="kicker">Style previews</p>
-        <h1>Three directions.</h1>
+        <h1>Six directions.</h1>
         <p class="lede">
-          Same content, same project config, three different visual languages. Open each in a tab,
+          Same content, same project config, six different visual languages. Open each in a tab,
           compare on desktop and mobile, then tell me which one becomes the site.
         </p>
       </header>
@@ -55,6 +79,26 @@ const styles = [
           <li>
             <a href={style.href}>
               <span class="index">{String(index + 1).padStart(2, '0')}</span>
+              <h2>{style.name}</h2>
+              <p>{style.blurb}</p>
+              <span class="type">{style.type}</span>
+              <span class="swatches" aria-hidden="true">
+                {style.swatches.map((color) => (
+                  <i style={`background:${color}`}></i>
+                ))}
+              </span>
+              <span class="open">Open preview</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <h2 class="group-title">Bolder cuts</h2>
+      <ul class="cards">
+        {boldStyles.map((style, index) => (
+          <li>
+            <a href={style.href}>
+              <span class="index">{String(index + 4).padStart(2, '0')}</span>
               <h2>{style.name}</h2>
               <p>{style.blurb}</p>
               <span class="type">{style.type}</span>
@@ -125,6 +169,20 @@ const styles = [
     display: grid;
     gap: 1rem;
     margin-top: 2.5rem;
+  }
+
+  .cards + .cards {
+    margin-top: 1rem;
+  }
+
+  .group-title {
+    margin-top: 3rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #7a7a72;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #dcdcd4;
   }
 
   @media (min-width: 860px) {

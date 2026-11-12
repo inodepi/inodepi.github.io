@@ -1,0 +1,1287 @@
+---
+import '@fontsource-variable/ibm-plex-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
+import '../../styles/reset.css';
+import { siteConfig, featuredAutomationRepos, featuredSideProjects } from '../../data/projects';
+import { capabilities, processSteps } from '../../data/content';
+
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+
+const graphNodes = [
+  { x: 20, y: 18, w: 150, h: 46, label: 'Webhook', sub: 'POST /new-lead', hue: '#c4471c' },
+  { x: 350, y: 18, w: 150, h: 46, label: 'Filter', sub: 'valid + scored', hue: '#00786a' },
+  { x: 175, y: 132, w: 170, h: 52, label: 'AI Agent', sub: 'classify + draft', hue: '#00786a' },
+  { x: 20, y: 248, w: 150, h: 46, label: 'HTTP / CRM', sub: 'POST /leads', hue: '#00786a' },
+  { x: 350, y: 248, w: 150, h: 46, label: 'Slack', sub: 'notify #sales', hue: '#c4471c' },
+];
+
+const graphPaths = [
+  'M170 41 H350',
+  'M95 64 V108 H190 V132',
+  'M425 64 V108 H330 V132',
+  'M230 184 V216 H95 V248',
+  'M290 184 V216 H425 V248',
+];
+
+const logs = [
+  ['14:02:11', 'webhook.received', '200'],
+  ['14:02:11', 'validate.ok', 'pass'],
+  ['14:02:12', 'ai.classify', 'hot'],
+  ['14:02:12', 'crm.upsert', 'ok'],
+  ['14:02:13', 'slack.notify', 'sent'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>inodepi — style preview: Control Room</title>
+    <meta name="description" content="Style preview for inodepi: an operations dashboard take on automation." />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="robots" content="noindex" />
+  </head>
+  <body class="cr-body">
+    <div class="cr-statusbar">
+      <div class="cr-container cr-statusbar-inner">
+        <span>INODEPI / AUTOMATION ENGINEERING</span>
+        <span class="cr-status"><i aria-hidden="true"></i>ACCEPTING WORK</span>
+        <span class="cr-statusbar-right">N8N / API / AI / CRM</span>
+      </div>
+    </div>
+
+    <header class="cr-header">
+      <div class="cr-container cr-header-inner">
+        <a class="cr-brand" href={`${base}`}>inodepi<span class="cr-brand-mark" aria-hidden="true"></span></a>
+        <nav class="cr-nav" aria-label="Primary">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#work">Deployments</a>
+          <a href="#process">Sequence</a>
+          <a href="#contact">Intake</a>
+        </nav>
+        <a class="cr-btn cr-btn--solid" href="#contact">Open intake</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="cr-hero">
+        <div class="cr-container cr-hero-grid">
+          <div class="cr-hero-copy">
+            <p class="cr-label">N8N AUTOMATION ARCHITECT</p>
+            <h1>Build the system once. Let it run.</h1>
+            <p class="cr-lede">
+              I design multi-workflow systems that connect your intake, CRM, and AI models into
+              one monitored pipeline — triggers, retries, and failure paths included.
+            </p>
+            <div class="cr-actions">
+              <a class="cr-btn cr-btn--solid" href="#contact">Book a systems audit</a>
+              <a class="cr-btn cr-btn--ghost" href="#work">Inspect deployments</a>
+            </div>
+
+            <dl class="cr-telemetry">
+              <div>
+                <dt>Availability</dt>
+                <dd>Accepting work</dd>
+              </div>
+              <div>
+                <dt>Response</dt>
+                <dd>1 business day</dd>
+              </div>
+              <div>
+                <dt>Engagement</dt>
+                <dd>Audit → build</dd>
+              </div>
+              <div>
+                <dt>Platform</dt>
+                <dd>n8n</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="cr-monitor">
+            <div class="cr-monitor-bar">
+              <span class="cr-mono">wf-01 / lead-intake</span>
+              <span class="cr-led"><i aria-hidden="true"></i>RUNNING</span>
+            </div>
+
+            <svg class="cr-graph" viewBox="0 0 520 330" role="img" aria-label="Sample workflow graph: webhook to filter and AI agent, then CRM and Slack.">
+              <g class="cr-links">
+                {graphPaths.map((d) => <path d={d} />)}
+              </g>
+              <g class="cr-ports">
+                {[
+                  [170, 41], [350, 41], [95, 64], [190, 132], [425, 64], [330, 132],
+                  [230, 184], [95, 248], [290, 184], [425, 248],
+                ].map(([cx, cy]) => <circle cx={cx} cy={cy} r="3.2" />)}
+              </g>
+              <g class="cr-pulses">
+                <circle class="cr-pulse" r="3.4">
+                  <animateMotion path="M170 41 H350" dur="4.4s" begin="-1.2s" repeatCount="indefinite" />
+                </circle>
+                <circle class="cr-pulse" r="3.4">
+                  <animateMotion path="M290 184 V216 H425 V248" dur="4.4s" begin="-3s" repeatCount="indefinite" />
+                </circle>
+              </g>
+              <g class="cr-nodes">
+                {graphNodes.map((node) => (
+                  <g>
+                    <rect class="cr-node" x={node.x} y={node.y} width={node.w} height={node.h} rx="4" />
+                    <rect class="cr-node-chip" x={node.x + 10} y={node.y + 12} width="4" height={node.h - 24} rx="1" fill={node.hue} />
+                    <text class="cr-node-label" x={node.x + 24} y={node.y + 22}>{node.label}</text>
+                    <text class="cr-node-sub" x={node.x + 24} y={node.y + 36}>{node.sub}</text>
+                  </g>
+                ))}
+              </g>
+            </svg>
+
+            <div class="cr-log" aria-label="Sample execution log">
+              {logs.map(([time, event, result]) => (
+                <p>
+                  <span class="cr-log-time">{time}</span>
+                  <span class="cr-log-event">{event}</span>
+                  <span class="cr-log-result">{result}</span>
+                </p>
+              ))}
+              <p class="cr-log-cursor"><span class="cr-cursor" aria-hidden="true"></span></p>
+            </div>
+
+            <div class="cr-monitor-foot">
+              <span class="cr-mono">5 NODES / 4 INTEGRATIONS</span>
+              <span class="cr-mono cr-mono--dim">SAMPLE GRAPH</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cr-section" id="capabilities">
+        <div class="cr-container">
+          <div class="cr-head">
+            <div>
+              <p class="cr-label">CAPABILITY MATRIX</p>
+              <h2>Built for systems, not single tasks.</h2>
+            </div>
+            <p class="cr-head-note">Scoped by system. Most builds combine several rows.</p>
+          </div>
+
+          <div class="cr-table" role="table" aria-label="Automation capabilities">
+            <div class="cr-table-row cr-table-head" role="row">
+              <span role="columnheader">ID</span>
+              <span role="columnheader">Function</span>
+              <span role="columnheader">Scope</span>
+              <span role="columnheader">Status</span>
+            </div>
+            {capabilities.map((cap, index) => (
+              <div class="cr-table-row" role="row">
+                <span class="cr-mono cr-mono--dim" role="cell">C-{String(index + 1).padStart(2, '0')}</span>
+                <span class="cr-fn" role="cell">{cap.title}</span>
+                <span class="cr-scope" role="cell">{cap.body}</span>
+                <span class="cr-chip" role="cell">IN PRACTICE</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="cr-section" id="work">
+        <div class="cr-container">
+          <div class="cr-head">
+            <div>
+              <p class="cr-label">DEPLOYMENTS</p>
+              <h2>Featured automation builds.</h2>
+            </div>
+            <p class="cr-head-note">Each card links to its repository.</p>
+          </div>
+
+          <ul class="cr-builds">
+            {featuredAutomationRepos.map((repo) => (
+              <li class="cr-panel">
+                <div class="cr-panel-bar">
+                  <span class="cr-mono">repo/{repo.id}</span>
+                  <span class="cr-chip">LIVE</span>
+                </div>
+                <div class="cr-panel-body">
+                  <h3>{repo.title}</h3>
+                  <p class="cr-problem">{repo.problem}</p>
+                  <p class="cr-summary">{repo.summary}</p>
+                  <ul class="cr-tags">
+                    {repo.stack.map((tool) => <li>{tool}</li>)}
+                  </ul>
+                  <a class="cr-repo-link" href={repo.repoUrl}>Open repository <span aria-hidden="true">↗</span></a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="cr-section" id="side-projects">
+        <div class="cr-container">
+          <div class="cr-head">
+            <div>
+              <p class="cr-label">AUXILIARY</p>
+              <h2>Side projects.</h2>
+            </div>
+            <p class="cr-head-note">Tools and experiments outside client work.</p>
+          </div>
+
+          <div class="cr-side">
+            {featuredSideProjects.map((project) => (
+              <article>
+                <div>
+                  <h3>{project.title}</h3>
+                  <p>{project.summary}</p>
+                </div>
+                <span class="cr-mono cr-mono--dim">{project.stack.join(' / ')}</span>
+                <a href={project.repoUrl}>Open <span aria-hidden="true">↗</span></a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="cr-process" id="process">
+        <div class="cr-container">
+          <div class="cr-head cr-head--dark">
+            <div>
+              <p class="cr-label">SEQUENCE</p>
+              <h2>Audit → design → deploy.</h2>
+            </div>
+            <p class="cr-head-note">Each phase ends with something you can review or run.</p>
+          </div>
+
+          <ol class="cr-phases">
+            {processSteps.map((step, index) => (
+              <li>
+                <div class="cr-phase-meta">
+                  <span>PHASE {step.number}</span>
+                  <span>0{index + 1} / 03</span>
+                </div>
+                <div class="cr-phase-line" aria-hidden="true"><i></i></div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+
+          <p class="cr-process-note">
+            Scope and price agreed before the build. If automation is not worth it, I will say so.
+          </p>
+        </div>
+      </section>
+
+      <section class="cr-section" id="contact">
+        <div class="cr-container cr-contact">
+          <div>
+            <p class="cr-label">INTAKE</p>
+            <h2>Open a request.</h2>
+            <p class="cr-contact-lede">
+              Describe the process, the tools involved, and where the handoffs break. I will reply
+              with an honest read on whether an n8n system can carry it.
+            </p>
+
+            <div class="cr-routing">
+              <div>
+                <span class="cr-mono cr-mono--dim">DIRECT</span>
+                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+              </div>
+              <div>
+                <span class="cr-mono cr-mono--dim">CALL</span>
+                <a href={siteConfig.calendarUrl}>Book 20 minutes</a>
+              </div>
+              <div>
+                <span class="cr-mono cr-mono--dim">SLA</span>
+                <p>{siteConfig.responseTime}</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="cr-form" action={siteConfig.formAction} method="post">
+            <div class="cr-form-bar">
+              <span class="cr-mono">FORM / NEW REQUEST</span>
+              <span class="cr-led cr-led--dark"><i aria-hidden="true"></i>OPEN</span>
+            </div>
+
+            <div class="cr-field-row">
+              <label class="cr-field">
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
+              </label>
+              <label class="cr-field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+              </label>
+            </div>
+
+            <label class="cr-field">
+              <span>Company (optional)</span>
+              <input type="text" name="company" autocomplete="organization" placeholder="Company or team" />
+            </label>
+
+            <label class="cr-field">
+              <span>What are you trying to automate?</span>
+              <textarea name="automation" rows="4" required placeholder="The process, the tools, and what breaks today."></textarea>
+            </label>
+
+            <button class="cr-btn cr-btn--solid" type="submit">Submit request</button>
+            <p class="cr-fine">Details are used only to reply to this inquiry.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="cr-footer">
+      <div class="cr-container cr-footer-inner">
+        <a class="cr-brand cr-brand--light" href={`${base}`}>inodepi<span class="cr-brand-mark" aria-hidden="true"></span></a>
+        <nav aria-label="Footer">
+          <a href="#work">Deployments</a>
+          <a href="#process">Sequence</a>
+          <a href="#contact">Intake</a>
+          <a href={siteConfig.githubUrl}>GitHub</a>
+          <a href={`${base}style/`}>All styles</a>
+        </nav>
+        <p class="cr-mono cr-mono--dim">© {year} INODEPI</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  .cr-body {
+    background: #e8eef0;
+    color: #0b1e23;
+    font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+
+  .cr-body h1,
+  .cr-body h2,
+  .cr-body h3 {
+    font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
+    font-weight: 620;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .cr-body p {
+    text-wrap: pretty;
+  }
+
+  .cr-body ::selection {
+    background: #00786a;
+    color: #ffffff;
+  }
+
+  .cr-container {
+    width: min(1280px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .cr-container {
+      width: min(1280px, 100% - 4rem);
+    }
+  }
+
+  .cr-mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+  }
+
+  .cr-mono--dim {
+    color: #6b7f85;
+  }
+
+  .cr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.09em;
+    color: #00786a;
+    margin-bottom: 0.9rem;
+  }
+
+  .cr-body :focus-visible {
+    outline: 2px solid #00786a;
+    outline-offset: 3px;
+  }
+
+  /* Status bar */
+  .cr-statusbar {
+    background: #07181c;
+    color: #b8c8cb;
+  }
+
+  .cr-statusbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .cr-statusbar-right {
+    display: none;
+  }
+
+  .cr-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #4fd1b8;
+  }
+
+  .cr-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4fd1b8;
+    box-shadow: 0 0 0 3px rgba(79, 209, 184, 0.18);
+  }
+
+  @media (min-width: 760px) {
+    .cr-statusbar-right {
+      display: block;
+    }
+  }
+
+  /* Header */
+  .cr-header {
+    background: #ffffff;
+    border-bottom: 1px solid #c2d0d4;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+
+  .cr-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 4.25rem;
+  }
+
+  .cr-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 1.4rem;
+    font-weight: 620;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+  }
+
+  .cr-brand-mark {
+    width: 0.55rem;
+    height: 0.55rem;
+    background: #00786a;
+    border-radius: 1px;
+  }
+
+  .cr-nav {
+    display: none;
+    gap: 1.6rem;
+    margin-left: auto;
+    font-size: 0.875rem;
+    color: #45595f;
+  }
+
+  .cr-nav a {
+    text-decoration: none;
+  }
+
+  .cr-nav a:hover {
+    color: #0b1e23;
+    border-bottom: 2px solid #00786a;
+  }
+
+  .cr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid #0b1e23;
+    border-radius: 3px;
+    font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
+    font-size: 0.8438rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .cr-btn--solid {
+    background: #00786a;
+    border-color: #00786a;
+    color: #ffffff !important;
+  }
+
+  .cr-btn--solid:hover {
+    background: #006155;
+  }
+
+  .cr-btn--ghost {
+    background: transparent;
+    color: #0b1e23;
+  }
+
+  .cr-btn--ghost:hover {
+    background: #0b1e23;
+    color: #ffffff;
+  }
+
+  .cr-header .cr-btn {
+    margin-left: auto;
+    min-height: 2.4rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8125rem;
+  }
+
+  @media (min-width: 860px) {
+    .cr-nav {
+      display: flex;
+    }
+
+    .cr-header .cr-btn {
+      margin-left: 0;
+    }
+  }
+
+  /* Hero */
+  .cr-hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+    background-image:
+      linear-gradient(rgba(11, 30, 35, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11, 30, 35, 0.04) 1px, transparent 1px);
+    background-size: 36px 36px;
+    border-bottom: 1px solid #c2d0d4;
+  }
+
+  .cr-hero-grid {
+    display: grid;
+    gap: 2.75rem;
+    align-items: center;
+  }
+
+  @media (min-width: 1020px) {
+    .cr-hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+      gap: 4rem;
+    }
+  }
+
+  .cr-hero h1 {
+    font-size: clamp(2.5rem, 1.4rem + 3.9vw, 3.9rem);
+    line-height: 1.02;
+    max-width: 15ch;
+  }
+
+  .cr-lede {
+    max-width: 44ch;
+    margin-top: 1.15rem;
+    color: #45595f;
+    font-size: 1.0313rem;
+  }
+
+  .cr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.6rem;
+  }
+
+  .cr-telemetry {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 2rem;
+    border-top: 1px solid #b3c4c8;
+    border-left: 1px solid #b3c4c8;
+  }
+
+  @media (min-width: 560px) {
+    .cr-telemetry {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .cr-telemetry > div {
+    padding: 0.6rem 0.75rem;
+    border-right: 1px solid #b3c4c8;
+    border-bottom: 1px solid #b3c4c8;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .cr-telemetry dt {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7f85;
+  }
+
+  .cr-telemetry dd {
+    margin-top: 0.15rem;
+    font-size: 0.8438rem;
+    font-weight: 600;
+  }
+
+  /* Monitor */
+  .cr-monitor {
+    background: #ffffff;
+    border: 1px solid #9fb3b8;
+    border-radius: 5px;
+    box-shadow: 0 24px 50px -34px rgba(7, 24, 28, 0.55);
+    overflow: hidden;
+  }
+
+  .cr-monitor-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid #c2d0d4;
+    background: #f4f8f9;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    color: #45595f;
+  }
+
+  .cr-led {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.05em;
+    color: #00786a;
+  }
+
+  .cr-led i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: cr-blink 2s steps(2, start) infinite;
+  }
+
+  .cr-led--dark {
+    color: #00786a;
+  }
+
+  .cr-graph {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+  }
+
+  .cr-links path {
+    fill: none;
+    stroke: #9fb3b8;
+    stroke-width: 1.4;
+  }
+
+  .cr-ports circle {
+    fill: #ffffff;
+    stroke: #748b91;
+    stroke-width: 1.2;
+  }
+
+  .cr-pulse {
+    fill: #00786a;
+  }
+
+  .cr-node {
+    fill: #f7fafb;
+    stroke: #9fb3b8;
+    stroke-width: 1.1;
+  }
+
+  .cr-node-label {
+    fill: #0b1e23;
+    font-family: 'IBM Plex Sans Variable', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .cr-node-sub {
+    fill: #6b7f85;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+  }
+
+  .cr-log {
+    padding: 0.7rem 0.85rem;
+    background: #07181c;
+    color: #b8c8cb;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5938rem;
+    line-height: 1.85;
+    min-height: 8.6rem;
+  }
+
+  .cr-log p {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .cr-log-time {
+    color: #587078;
+  }
+
+  .cr-log-event {
+    flex: 1;
+    color: #d7e3e5;
+  }
+
+  .cr-log-result {
+    color: #4fd1b8;
+  }
+
+  .cr-log-cursor {
+    height: 1.1em;
+  }
+
+  .cr-cursor {
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.85em;
+    background: #4fd1b8;
+    animation: cr-blink 1.2s steps(2, start) infinite;
+  }
+
+  .cr-monitor-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0.8rem;
+    border-top: 1px solid #c2d0d4;
+    background: #f4f8f9;
+  }
+
+  @keyframes cr-blink {
+    50% {
+      opacity: 0.15;
+    }
+  }
+
+  /* Sections */
+  .cr-section {
+    padding-block: clamp(3.25rem, 6vw, 4.75rem);
+    border-top: 1px solid #c2d0d4;
+    background: #ffffff;
+  }
+
+  .cr-section:nth-of-type(odd) {
+    background: #eef3f4;
+  }
+
+  .cr-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 3rem;
+    margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  .cr-head h2 {
+    font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem);
+    max-width: 20ch;
+  }
+
+  .cr-head-note {
+    max-width: 28ch;
+    color: #5a7076;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  /* Capability table */
+  .cr-table {
+    border-top: 1px solid #0b1e23;
+  }
+
+  .cr-table-row {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid #cdd9dc;
+  }
+
+  @media (min-width: 880px) {
+    .cr-table-row {
+      grid-template-columns: 4.5rem 15rem minmax(0, 1fr) 9rem;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 0.9rem 0.25rem;
+    }
+  }
+
+  .cr-table-head {
+    display: none;
+  }
+
+  @media (min-width: 880px) {
+    .cr-table-head {
+      display: grid;
+      padding-block: 0.55rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.5625rem;
+      letter-spacing: 0.08em;
+      color: #6b7f85;
+      border-bottom: 1px solid #c2d0d4;
+    }
+  }
+
+  .cr-table-row:hover {
+    background: #f2f7f8;
+  }
+
+  .cr-fn {
+    font-weight: 620;
+    font-size: 1rem;
+  }
+
+  .cr-scope {
+    color: #4b6066;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+
+  .cr-chip {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.12rem 0.4rem;
+    border: 1px solid #00786a;
+    border-radius: 2px;
+    color: #00786a;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* Builds */
+  .cr-builds {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 920px) {
+    .cr-builds {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .cr-panel {
+    background: #ffffff;
+    border: 1px solid #b3c4c8;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cr-panel-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #c2d0d4;
+    background: #f4f8f9;
+    color: #45595f;
+  }
+
+  .cr-panel-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.1rem 1rem 1rem;
+  }
+
+  .cr-panel h3 {
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .cr-problem {
+    margin-top: 0.45rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid #c4471c;
+    color: #38494e;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .cr-summary {
+    margin-top: 0.6rem;
+    color: #5a7076;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .cr-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .cr-tags li {
+    padding: 0.1rem 0.4rem;
+    border: 1px solid #cdd9dc;
+    background: #f4f8f9;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    color: #4b6066;
+  }
+
+  .cr-repo-link {
+    margin-top: auto;
+    padding-top: 0.8rem;
+    border-top: 1px solid #dbe4e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #0b1e23;
+    text-decoration: none;
+  }
+
+  .cr-repo-link:hover {
+    color: #00786a;
+  }
+
+  /* Side projects */
+  .cr-side {
+    border-top: 1px solid #0b1e23;
+  }
+
+  .cr-side article {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 0.25rem;
+    border-bottom: 1px solid #cdd9dc;
+  }
+
+  @media (min-width: 880px) {
+    .cr-side article {
+      grid-template-columns: minmax(0, 1fr) 12rem 6rem;
+      gap: 1.5rem;
+      align-items: center;
+    }
+  }
+
+  .cr-side h3 {
+    font-size: 1.05rem;
+    font-weight: 620;
+  }
+
+  .cr-side p {
+    margin-top: 0.2rem;
+    color: #5a7076;
+    font-size: 0.875rem;
+    max-width: 65ch;
+  }
+
+  .cr-side a {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #00786a;
+  }
+
+  .cr-side a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Process */
+  .cr-process {
+    padding-block: clamp(3.25rem, 6vw, 4.75rem);
+    background: #07181c;
+    color: #e4edee;
+    background-image:
+      linear-gradient(rgba(228, 237, 238, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(228, 237, 238, 0.05) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .cr-head--dark h2 {
+    color: #f0f6f7;
+  }
+
+  .cr-head--dark .cr-head-note {
+    color: #9db2b7;
+  }
+
+  .cr-head--dark .cr-label {
+    color: #4fd1b8;
+  }
+
+  .cr-phases {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 860px) {
+    .cr-phases {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .cr-phase-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    color: #7d9499;
+  }
+
+  .cr-phase-line {
+    position: relative;
+    height: 1px;
+    margin: 0.6rem 0 1rem;
+    background: #2b444a;
+  }
+
+  .cr-phase-line i {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #4fd1b8;
+  }
+
+  .cr-phases h3 {
+    font-size: 1.3rem;
+    color: #f0f6f7;
+  }
+
+  .cr-phases p {
+    margin-top: 0.5rem;
+    color: #9db2b7;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .cr-process-note {
+    margin-top: 2.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2b444a;
+    max-width: 52ch;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    color: #7d9499;
+  }
+
+  /* Contact */
+  .cr-contact {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 960px) {
+    .cr-contact {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .cr-contact h2 {
+    font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+  }
+
+  .cr-contact-lede {
+    margin-top: 0.9rem;
+    max-width: 38ch;
+    color: #5a7076;
+  }
+
+  .cr-routing {
+    margin-top: 1.75rem;
+    border-top: 1px solid #b3c4c8;
+  }
+
+  .cr-routing > div {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #cdd9dc;
+    font-size: 0.9rem;
+  }
+
+  .cr-routing a,
+  .cr-routing p {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+  }
+
+  .cr-routing a:hover {
+    border-bottom-color: #00786a;
+  }
+
+  .cr-form {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #b3c4c8;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cr-form-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid #c2d0d4;
+    background: #f4f8f9;
+    color: #45595f;
+  }
+
+  .cr-form > :not(.cr-form-bar) {
+    margin-inline: 1rem;
+  }
+
+  .cr-field-row {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 560px) {
+    .cr-field-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .cr-field {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .cr-field > span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    color: #5a7076;
+  }
+
+  .cr-form input,
+  .cr-form textarea {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid #b3c4c8;
+    border-radius: 2px;
+    background: #fbfdfd;
+    font-size: 0.9375rem;
+  }
+
+  .cr-form input:focus-visible,
+  .cr-form textarea:focus-visible {
+    outline: 2px solid #00786a;
+    outline-offset: 0;
+    border-color: transparent;
+  }
+
+  .cr-form textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .cr-form .cr-btn {
+    justify-self: start;
+    margin-top: 0.25rem;
+  }
+
+  .cr-form .cr-fine {
+    margin-bottom: 1rem;
+  }
+
+  .cr-fine {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5625rem;
+    color: #7d9499;
+  }
+
+  /* Footer */
+  .cr-footer {
+    background: #07181c;
+    color: #b8c8cb;
+    padding-block: 1.5rem;
+  }
+
+  .cr-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+  }
+
+  .cr-brand--light {
+    color: #f0f6f7;
+  }
+
+  .cr-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
+    margin-left: auto;
+    font-size: 0.8125rem;
+    color: #9db2b7;
+  }
+
+  .cr-footer nav a {
+    text-decoration: none;
+  }
+
+  .cr-footer nav a:hover {
+    color: #4fd1b8;
+  }
+
+  @media (max-width: 760px) {
+    .cr-footer nav {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cr-pulses {
+      display: none;
+    }
+
+    .cr-led i,
+    .cr-cursor {
+      animation: none;
+    }
+  }
+</style>

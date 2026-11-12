@@ -49,11 +49,14 @@ there with no other changes.
 
 ## Style previews
 
-Three alternative designs live under `/style/`:
+Six alternative designs live under `/style/`:
 
 - `/style/ledger/` — warm paper, serif, oxblood accents
 - `/style/poster/` — bold Archivo, cobalt, typographic hero
 - `/style/fieldnotes/` — sage, Literata, calm single column
+- `/style/riso/` — two-colour risograph zine with tape, stamps, marquee
+- `/style/control/` — operations dashboard with execution monitor and capability matrix
+- `/style/atelier/` — dark editorial gallery with a constellation graph
 
 They share `src/data/projects.ts` and `src/data/content.ts`. Once one is chosen, promote
 it by making its page the homepage and converting its sections into components.
