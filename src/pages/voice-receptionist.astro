@@ -129,7 +129,7 @@ const jsonLd = [
 
         <div class="proj-hero-grid">
           <div class="proj-copy">
-            <p class="proj-kicker">// automations · n8n</p>
+            <p class="proj-kicker">n8n automation</p>
             <h1>AI Voice Receptionist</h1>
             <p class="proj-tagline">
               Answer every missed and after-hours call. Book the slot. Alert your team.
@@ -331,13 +331,15 @@ const jsonLd = [
 
   .proj-back {
     display: inline-flex;
-    gap: 0.35rem;
+    align-items: center;
+    gap: 0.4rem;
     margin-bottom: 1.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.02em;
-    color: var(--ink-dim);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-soft);
     text-decoration: none;
+    transition: color 140ms ease;
   }
 
   .proj-back:hover {
@@ -357,11 +359,25 @@ const jsonLd = [
   }
 
   .proj-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.32rem 0.7rem 0.32rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .proj-kicker::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.14);
   }
 
   .proj-copy h1 {
