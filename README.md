@@ -19,9 +19,10 @@ npm run preview
 
 ## Before the first deploy
 
-1. **Set your Pages URL** — edit `site` in `astro.config.mjs`:
-   `https://USERNAME.github.io`. `base` is already `/inodepi`.
-2. **Create the GitHub repo** named `inodepi`, push this folder to `main`.
+1. **Pages URL** — `site` is set to `https://inodepi.github.io` and the site is served
+   from the domain root (no `base` path).
+2. **Create the GitHub repo** named `inodepi.github.io` (a user Pages repo), push this
+   folder to `main`.
 3. **Enable Pages** — repository Settings → Pages → Source: **GitHub Actions**.
 4. The workflow in `.github/workflows/deploy.yml` builds and deploys on every push to `main`.
 
