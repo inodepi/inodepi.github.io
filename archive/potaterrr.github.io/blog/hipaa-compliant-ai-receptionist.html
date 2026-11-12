@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIPAA-compliant AI receptionist: what healthcare actually needs — potaterrr</title>
+  <meta name="description" content="A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/hipaa-compliant-ai-receptionist.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="HIPAA-compliant AI receptionist: what healthcare actually needs — potaterrr" />
+  <meta property="og:description" content="A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/hipaa-compliant-ai-receptionist.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/hipaa-compliant-ai-receptionist.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="HIPAA-compliant AI receptionist: what healthcare actually needs — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HIPAA-compliant AI receptionist: what healthcare actually needs — potaterrr" />
+  <meta name="twitter:description" content="A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/hipaa-compliant-ai-receptionist.png" />
+  <meta property="article:published_time" content="2026-11-08" />
+  <meta property="article:modified_time" content="2026-11-08" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Voice" />
+  <meta property="article:tag" content="Guardrails" />
+  <meta property="article:tag" content="Ops" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HIPAA-compliant AI receptionist: what healthcare actually needs",
+  "description": "A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away.",
+  "datePublished": "2026-11-08",
+  "dateModified": "2026-11-08",
+  "inLanguage": "en",
+  "wordCount": 755,
+  "keywords": "Voice, Guardrails, Ops",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/hipaa-compliant-ai-receptionist.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/hipaa-compliant-ai-receptionist.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "HIPAA-compliant AI receptionist: what healthcare actually needs"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-11-08.md</p>
+            <h1 class="post-title">HIPAA-compliant AI receptionist: what healthcare actually needs</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-11-08">Nov 8, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">4 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">755 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=voice">Voice</a><a class="tag-chip" href="/blog/?tag=guardrails">Guardrails</a><a class="tag-chip" href="/blog/?tag=ops">Ops</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>"HIPAA-compliant" gets attached to every voice AI product now, usually in a headline and nowhere else. For a clinic, the useful question isn't whether a vendor says it — it's which parts of a phone call count as protected health information, and which controls actually protect it. Here's the checklist I use when scoping a clinic receptionist.</p>
+
+            <h2>What counts as PHI in a phone call</h2>
+            <p>More than most people expect. A name and a callback number alone are contact data. Put them next to "you're due for a follow-up" and the whole call becomes health information. That includes:</p>
+            <ul>
+              <li>The transcript — the caller's words and the agent's questions.</li>
+              <li>The recording, if one is kept.</li>
+              <li>Structured intake: name, number, service, preferred slot, callback notes.</li>
+              <li>Anything derived from those, like a booking row or an alert summary.</li>
+            </ul>
+            <p>So the question isn't "does the AI handle health data?" It's "where does every one of those pieces live, and who can read them?"</p>
+
+            <h2>The five controls that actually matter</h2>
+            <ol>
+              <li><strong>A business associate agreement.</strong> Every vendor that stores, processes or transmits the data needs a BAA — the voice platform, the transcriber, the language model, the automation host, the storage bucket. One missing BAA breaks the chain. Ask for the list, not the logo.</li>
+              <li><strong>Minimum necessary.</strong> The receptionist should collect scheduling fields, not symptoms. A good build never asks "what's wrong?" — it asks "which service?" The least health information you collect is the easiest to protect.</li>
+              <li><strong>Access control and audit trail.</strong> Named accounts, no shared logins, and a record of who opened which transcript. If a patient asks, you should be able to answer.</li>
+              <li><strong>Retention and deletion.</strong> Recordings and transcripts should expire on a schedule you choose — thirty days is a common starting point for a receptionist. Testing with real patient data should never leave a permanent copy.</li>
+              <li><strong>Encryption and a breach plan.</strong> In transit and at rest, plus a written answer to "what happens if this account is compromised?" A vendor without an incident process hasn't thought about it yet.</li>
+            </ol>
+
+            <h2>There is no HIPAA certification</h2>
+            <p>No government body certifies software as "HIPAA-compliant." A vendor can be compliant with the rules, or it can hand you a badge it printed itself. What you're buying is a set of controls plus a contract: signed BAAs, scoped access, retention you control, and a human who can answer questions about all four. Treat a certificate graphic as marketing and the paperwork as the product.</p>
+
+            <h2>What a healthcare-grade build changes</h2>
+            <p>The receptionist logic is the same as any clinic: answer, capture intake, check the calendar, book, log, alert the front desk. The difference is everything wrapped around it:</p>
+            <ul>
+              <li>Data lives in the clinic's own accounts, not in a vendor's dashboard.</li>
+              <li>Transcript storage is limited and expiring, with PHI minimized in alert messages — the desk sees "new booking, Thursday 3:00," not a full transcript in WhatsApp.</li>
+              <li>Ambiguous intake waits for a human before a booking confirms.</li>
+              <li>Clinical questions route to a person; the agent never triages.</li>
+              <li>Demos and public projects run on synthetic calls only.</li>
+            </ul>
+
+            <h2>Six questions for any voice AI vendor</h2>
+            <ol>
+              <li>Which of your subcontractors touch the transcript, and can I see every BAA?</li>
+              <li>Can I choose where data is stored and how long you keep it?</li>
+              <li>Who inside my clinic can see a call, and is every view logged?</li>
+              <li>What does the agent refuse to ask or answer?</li>
+              <li>How do I delete a specific patient's calls, and how fast?</li>
+              <li>What is your incident process, in writing?</li>
+            </ol>
+            <p>Any vendor who can't answer 1–5 in a single email is not ready for healthcare, whatever the landing page says.</p>
+
+            <h2>Red flags that mean walk away</h2>
+            <ul>
+              <li>A public demo that takes real patient information.</li>
+              <li>Recordings kept forever because "storage is cheap."</li>
+              <li>One shared login for the whole clinic.</li>
+              <li>An agent that gives symptom advice or answers "should I go to the ER?"</li>
+              <li>A BAA offered only on an enterprise tier you can't see the price of.</li>
+            </ul>
+
+            <h2>The honest summary</h2>
+            <p>Compliance is mostly discipline: collect less, store less, log access, delete on schedule, and keep a human on anything clinical. None of that is exotic. It's just the part that doesn't fit in a product screenshot — which is exactly why it's worth asking about before you trust a phone line with patients.</p>
+            <p><em>This is a build checklist, not legal advice — for your practice's obligations, talk to your compliance counsel.</em></p>
+            <p>Building this for a clinic? <a href="/work-with-me/">Here's how a HIPAA-compliant scope works</a> — or <a href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">book a fit call</a> and bring your current phone process. 🥔</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ai-receptionist-answers-missed-calls.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>How an AI receptionist answers a clinic&#x27;s missed call</strong><span>A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in.</span></a><a class="related-card" href="/blog/ai-receptionist-cost-small-clinic.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>What an AI receptionist actually costs a small clinic</strong><span>Where the money goes when a clinic adds an AI receptionist: voice minutes, the automation layer, the one-time build, what moves each line, and how to compare quotes without getting anchored on a fake number.</span></a></div>
+            </div>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="sales-call-qa.html">&larr; The call is the evidence: building Sales Call QA</a>
+              <a href="ai-receptionist-small-clinic.html">AI receptionist for a small clinic: what it can and can&#x27;t do &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

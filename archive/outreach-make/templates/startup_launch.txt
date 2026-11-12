@@ -1,0 +1,7 @@
+Hi {{first_name}},
+
+Saw what {{business_name}} is building: {{one_liner}}. The part that usually breaks after launch is the manual follow-up loop — signups, replies and onboarding handled by hand until it quietly becomes a full-time job.
+
+I build the smallest pipeline that takes that loop off the team's plate: triggers, routing, drafts and logging, with a human checkpoint where it matters.
+
+Want a one-page sketch of what that could look like for {{business_name}}?

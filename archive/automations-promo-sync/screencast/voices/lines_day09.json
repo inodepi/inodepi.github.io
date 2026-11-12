@@ -1,0 +1,89 @@
+[
+ {
+  "id": "l1",
+  "text": "Your best employee is copy-pasting.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "your best employee is copa-pasting."
+ },
+ {
+  "id": "l2",
+  "text": "Sixty-four good leads went cold.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "Nobody had time to touch them.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "So the workflow does.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "It enriches each lead from the web.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "Then scores the fit against your best customers.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l7",
+  "text": "Writes a first touch that names their problem.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "Sends it, then watches for a reply.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "When a reply lands, it sorts it.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "Sixty-four dead leads revived.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "All of it in your CRM by lunch.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l12",
+  "text": "Two to three weeks to build.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l13",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l14",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

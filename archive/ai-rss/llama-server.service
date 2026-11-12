@@ -1,0 +1,14 @@
+[Unit]
+Description=llama.cpp server for ai-rss (Qwen2.5 7B Instruct)
+After=network-online.target
+
+[Service]
+Type=simple
+# Qwen2.5-7B Q4_K_M: much better JSON/instruction following than the old 3B.
+# --parallel 1 keeps generation speed up; CPU threads tuned for an 8-core box.
+ExecStart=%h/.local/bin/llama-server --model %h/git-clones/llama.cpp/models/Qwen2.5-7B-Instruct-Q4_K_M.gguf --host 0.0.0.0 --port 1234 --ctx-size 8192 --threads 6 --parallel 1
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

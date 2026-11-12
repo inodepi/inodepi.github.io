@@ -1,0 +1,66 @@
+{
+  "updatedAt": "2026-08-29T10:51:47.622Z",
+  "createdAt": "2026-08-29T10:51:47.622Z",
+  "id": "7xc8SHKGhIacn07c",
+  "name": "RFP/Tender Response Automation",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rfp-process",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "RFP Webhook Trigger",
+      "position": [
+        250,
+        100
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "webhookId": "rfp-process"
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": null,
+  "versionId": "d76e6e9a-7e83-4f01-be3f-b9c620ac74a9",
+  "activeVersionId": null,
+  "versionCounter": 1,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "shared": [
+    {
+      "updatedAt": "2026-08-29T10:51:47.624Z",
+      "createdAt": "2026-08-29T10:51:47.624Z",
+      "role": "workflow:owner",
+      "workflowId": "7xc8SHKGhIacn07c",
+      "projectId": "Tahe82c0BsrZwmkA",
+      "project": {
+        "updatedAt": "2026-08-16T11:43:34.461Z",
+        "createdAt": "2026-08-16T11:22:39.146Z",
+        "id": "Tahe82c0BsrZwmkA",
+        "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+      }
+    }
+  ],
+  "tags": []
+}

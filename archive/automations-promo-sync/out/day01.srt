@@ -1,0 +1,75 @@
+1
+00:00:00,900 --> 00:00:03,300
+You hired a person to be a cable.
+
+2
+00:00:04,200 --> 00:00:07,044
+Copy. Paste. Repeat. Every morning.
+
+3
+00:00:12,600 --> 00:00:15,526
+These four builds already run the work.
+
+4
+00:00:15,600 --> 00:00:17,980
+Forty-seven invoices chased.
+
+5
+00:00:18,200 --> 00:00:20,759
+Sixty-four dead leads revived.
+
+6
+00:00:20,800 --> 00:00:24,155
+A hundred and twenty-eight calls scored every week.
+
+7
+00:00:26,600 --> 00:00:28,400
+It's not the list.
+
+8
+00:00:29,000 --> 00:00:31,000
+Lead-gen and CRM ops.
+
+9
+00:00:31,000 --> 00:00:33,000
+Scraping and data extraction.
+
+10
+00:00:33,000 --> 00:00:35,000
+AI agents and classifiers.
+
+11
+00:00:35,000 --> 00:00:37,000
+Reports and digests in email.
+
+12
+00:00:37,000 --> 00:00:38,858
+Follow-up sequences.
+
+13
+00:00:39,000 --> 00:00:40,974
+File and systems glue.
+
+14
+00:00:41,400 --> 00:00:44,900
+Built in n8n. Your stack, your tools.
+
+15
+00:00:44,900 --> 00:00:47,300
+Pick the process that eats your week.
+
+16
+00:00:47,300 --> 00:00:49,689
+Automated in two to three weeks.
+
+17
+00:00:49,700 --> 00:00:51,615
+You approve what matters.
+
+18
+00:00:53,400 --> 00:00:55,200
+Book a fit call.
+
+19
+00:00:56,000 --> 00:00:58,563
+inodepi.github.io

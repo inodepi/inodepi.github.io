@@ -1,0 +1,118 @@
+{
+ "day": 5,
+ "dur": 30,
+ "fps": 24,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.9,
+   "text": "It's not the list."
+  },
+  {
+   "id": "l2",
+   "t0": 2.6,
+   "text": "Lead-gen and CRM ops."
+  },
+  {
+   "id": "l3",
+   "t0": 4.4,
+   "text": "Scraping and data extraction."
+  },
+  {
+   "id": "l4",
+   "t0": 6.2,
+   "text": "AI agents and classifiers."
+  },
+  {
+   "id": "l5",
+   "t0": 8,
+   "text": "Reports and digests in email."
+  },
+  {
+   "id": "l6",
+   "t0": 9.8,
+   "text": "Follow-up sequences."
+  },
+  {
+   "id": "l7",
+   "t0": 11.6,
+   "text": "File and systems glue."
+  },
+  {
+   "id": "l8",
+   "t0": 14.6,
+   "text": "Built in n8n. Your stack, your tools."
+  },
+  {
+   "id": "l9",
+   "t0": 18.4,
+   "text": "Pick one process. We automate it in two to three weeks.",
+   "say": "Pick one process. We automate it in two to three weeks."
+  },
+  {
+   "id": "l10",
+   "t0": 24.4,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l11",
+   "t0": 27.2,
+   "text": "inodepi.github.io",
+   "say": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 0.9,
+   "type": "thump"
+  },
+  {
+   "t": 1.6,
+   "type": "snap"
+  },
+  {
+   "t": 3.4,
+   "type": "snap"
+  },
+  {
+   "t": 5.2,
+   "type": "snap"
+  },
+  {
+   "t": 7,
+   "type": "snap"
+  },
+  {
+   "t": 8.8,
+   "type": "snap"
+  },
+  {
+   "t": 10.6,
+   "type": "snap"
+  },
+  {
+   "t": 13.6,
+   "type": "snap"
+  },
+  {
+   "t": 14.6,
+   "type": "ding"
+  },
+  {
+   "t": 18.4,
+   "type": "tick"
+  },
+  {
+   "t": 24.2,
+   "type": "whoosh"
+  },
+  {
+   "t": 24.4,
+   "type": "chime"
+  },
+  {
+   "t": 27.2,
+   "type": "tick"
+  }
+ ]
+}

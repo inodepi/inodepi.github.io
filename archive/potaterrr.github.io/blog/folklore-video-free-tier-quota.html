@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall — potaterrr</title>
+  <meta name="description" content="The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/folklore-video-free-tier-quota.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall — potaterrr" />
+  <meta property="og:description" content="The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/folklore-video-free-tier-quota.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/folklore-video-free-tier-quota.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall — potaterrr" />
+  <meta name="twitter:description" content="The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/folklore-video-free-tier-quota.png" />
+  <meta property="article:published_time" content="2026-08-27" />
+  <meta property="article:modified_time" content="2026-08-27" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="LLM" />
+  <meta property="article:tag" content="Make.com" />
+  <meta property="article:tag" content="Quotas" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "When \"free tier\" means zero: folklore video and the Gemini quota wall",
+  "description": "The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com.",
+  "datePublished": "2026-08-27",
+  "dateModified": "2026-08-27",
+  "inLanguage": "en",
+  "wordCount": 734,
+  "keywords": "LLM, Make.com, Quotas",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/folklore-video-free-tier-quota.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/folklore-video-free-tier-quota.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "When \"free tier\" means zero: folklore video and the Gemini quota wall"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-08-27.md</p>
+            <h1 class="post-title">When "free tier" means zero: folklore video and the Gemini quota wall</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-08-27">Aug 27, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">6 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">734 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=llm">LLM</a><a class="tag-chip" href="/blog/?tag=make">Make.com</a><a class="tag-chip" href="/blog/?tag=quota">Quotas</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>I wanted an absolutely free pipeline that generates folklore videos and posts them for me. The topic research works. The scripts are great. And then the actual video generation hit a wall that isn't a bug or a misconfiguration — it's a number on a billing page: <strong>zero</strong>.</p>
+            <p>This is the story of a Make.com pipeline split in two: one half humming along on autopilot, the other half politely doing nothing because the thing it needs costs money.</p>
+
+            <h2>The pipeline that works</h2>
+            <p><strong>Folklore: Research &amp; Queue</strong> runs weekly. Gemini generates five unique, obscure folklore topics — myths, legends, cryptids, spirits — with a catchy title, a summary, and a source URL, all returned as clean JSON. The scenario parses that and appends the rows to Google Sheets. Every Monday it refills the queue.</p>
+            <p>This half is genuinely finished. It runs unattended, writes to the sheet, and never complains. It's the boring, valuable part of automation: the research is queued before I even think about it.</p>
+
+            <h2>The pipeline that stops</h2>
+            <p><strong>Folklore: Generate &amp; Publish</strong> is where the magic was supposed to happen. It watches the queue, and for each topic it:</p>
+            <ol>
+              <li>Drafts a 60-second TikTok/Reels script — hook (0–3s), story (3–50s), CTA (50–60s) — with hashtags and <code>[Visual: ...]</code> vertical cues.</li>
+              <li>Feeds that script to Gemini Veo to render a 9:16 vertical video.</li>
+              <li>Uploads it to Facebook Reels, then documents the run on Telegram for a manual TikTok upload.</li>
+            </ol>
+            <p>Step one works beautifully. Step two is where it collapses — not because the logic is wrong, but because of the quota:</p>
+<pre><code>[429] You exceeded your current quota.
+generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0
+generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0</code></pre>
+            <p>That <code>limit: 0</code> is doing a lot of work. The free tier for video generation isn't "small" — it's nonexistent here. There are effectively no free requests for the model the scenario is calling. No retry count, no backoff, no clever scheduling fixes a quota of zero.</p>
+
+            <h2>What the error is really telling me</h2>
+            <p>When something fails with an obvious fix, you fix it. When it fails with <code>429</code>, you check rate limits. But a 429 with <code>limit: 0</code> is a different animal — it's not a transient spike you can wait out. It's a pricing decision wearing an error message. The README I wrote for the project puts it plainly: the <em>failure isn't a flaw in the scenario design, it's the external API's free-tier allocation for video models</em>.</p>
+            <p>The lesson so far: <strong>research and draft on the model's cheap side, but verify the expensive model's free tier before you build the whole pipeline on it.</strong> I assumed "there's a free tier for Gemini" and skipped reading whether it applied to Veo video. It didn't.</p>
+
+            <h2>The paths forward</h2>
+            <p><strong>Option 1 — go text-only, stay free.</strong> Drop the video step, publish the scripts as Telegram/Facebook text posts instead. Fully within quota, zero cost. Downside: no video, which is the whole point of a folklore channel.</p>
+            <p><strong>Option 2 — swap the video provider.</strong> Look at alternatives with real free tiers: Hugging Face inference, community-hosted models, anything other than Veo. Keeps video, costs a rework of one module and a hunt for quota that may not exist anywhere.</p>
+            <p><strong>Option 3 — batch and intervene manually.</strong> Keep the queue automated and run generation by hand when quota resets or a free window opens. Keeps cost at zero, sacrifices the "set and forget" promise.</p>
+            <p><strong>Option 4 — spend a little.</strong> Gemini's paid video pricing is genuinely cheap. The automation value — an entire channel created, scripted, rendered and posted by a weekly cron — probably justifies the few cents per video. But "absolutely free" was the constraint I set for myself, so this is the one I'm least willing to reach for without checking the others first.</p>
+
+            <h2>The takeaway</h2>
+            <p>Half of this pipeline is production-ready automation that ran from day one. The other half is a reminder that "free" is never a single switch — it's a set of per-model quotas, and the most expensive capability is often the one allocated nothing at all. Check the <code>limit</code> before you build on a free API, not after the first execution log turns red.</p>
+            <p>The queue keeps filling. The scripts keep getting better. The video is waiting for a decision — text-only, a new provider, or the small bill. Whichever I pick, I'll know exactly which number on the billing page made me pick it. 🥔</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/make-com-free-plan-ops-math.html"><span class="related-meta">Aug 26, 2026 · 6 min read</span><strong>The free-plan ops math</strong><span>Make.com&#x27;s free plan gives you 1,000 operations a month. Here&#x27;s the arithmetic that decides whether your polling interval is an automation or an ops bonfire.</span></a><a class="related-card" href="/blog/ar-invoice-agent-challenges.html"><span class="related-meta">Oct 28, 2026 · 7 min read</span><strong>The invoice chaser: three bugs, one rule</strong><span>Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.</span></a></div>
+            </div>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="feeding-make-com-from-python.html">&larr; Feeding Make.com from Python</a>
+              <a href="my-dotfiles-one-line-install.html">My dotfiles, one line &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

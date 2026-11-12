@@ -1,0 +1,163 @@
+{
+ "day": 13,
+ "dur": 40,
+ "fps": 30,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.9,
+   "text": "A lead comes in at two a.m."
+  },
+  {
+   "id": "l2",
+   "t0": 3.9,
+   "text": "The form hits a webhook."
+  },
+  {
+   "id": "l3",
+   "t0": 6.9,
+   "text": "Enriched, deduped, and routed."
+  },
+  {
+   "id": "l4",
+   "t0": 9.9,
+   "text": "The right rep owns it before nine."
+  },
+  {
+   "id": "l5",
+   "t0": 12.9,
+   "text": "The CRM updates itself."
+  },
+  {
+   "id": "l6",
+   "t0": 15.9,
+   "text": "A digest lands in your inbox at seven."
+  },
+  {
+   "id": "l7",
+   "t0": 19.1,
+   "text": "New leads, what moved, what stalled."
+  },
+  {
+   "id": "l8",
+   "t0": 22.1,
+   "text": "You read it and press approve."
+  },
+  {
+   "id": "l9",
+   "t0": 25.1,
+   "text": "That is the whole morning stand-up."
+  },
+  {
+   "id": "l10",
+   "t0": 28.1,
+   "text": "No one typing. Nothing stale."
+  },
+  {
+   "id": "l11",
+   "t0": 32.4,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l12",
+   "t0": 35.6,
+   "text": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 3.48,
+   "type": "pop"
+  },
+  {
+   "t": 4.2,
+   "type": "tick"
+  },
+  {
+   "t": 5.74,
+   "type": "tick"
+  },
+  {
+   "t": 8,
+   "type": "tick"
+  },
+  {
+   "t": 8.94,
+   "type": "tick"
+  },
+  {
+   "t": 11.6,
+   "type": "tick"
+  },
+  {
+   "t": 12.74,
+   "type": "tick"
+  },
+  {
+   "t": 15,
+   "type": "tick"
+  },
+  {
+   "t": 16.540000000000003,
+   "type": "tick"
+  },
+  {
+   "t": 18.4,
+   "type": "tick"
+  },
+  {
+   "t": 20.14,
+   "type": "tick"
+  },
+  {
+   "t": 21.8,
+   "type": "tick"
+  },
+  {
+   "t": 22.94,
+   "type": "tick"
+  },
+  {
+   "t": 24.45,
+   "type": "pop"
+  },
+  {
+   "t": 31.849999999999998,
+   "type": "whoosh"
+  },
+  {
+   "t": 31.9,
+   "type": "whoosh"
+  },
+  {
+   "t": 32.15,
+   "type": "chime"
+  },
+  {
+   "t": 35.5,
+   "type": "tick"
+  }
+ ],
+ "sect": [
+  [
+   0,
+   12,
+   "proof"
+  ],
+  [
+   12,
+   24,
+   "proof"
+  ],
+  [
+   24,
+   32,
+   "offer"
+  ],
+  [
+   32,
+   40,
+   "cta"
+  ]
+ ]
+}

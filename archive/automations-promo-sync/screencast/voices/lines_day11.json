@@ -1,0 +1,76 @@
+[
+ {
+  "id": "l1",
+  "text": "Sixty-four leads, cold for months.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "The workflow starts with the stale list.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "It enriches every record: company, role, news.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "Then scores the fit against your best deals.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Only the top of the list gets a touch.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "A short message that names their problem.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l7",
+  "text": "Sent from your inbox, not a blast tool.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "When a reply lands, it reads it and routes it.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "Sixty-four dead leads revived.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "Two to three weeks to build.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l12",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

@@ -1,0 +1,45 @@
+name: Poll Unsubscribe Inbox
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+# Serialize with the daily sender so suppressions.json is never written twice.
+concurrency:
+  group: outreach-state
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Process Unsubscribes
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_FROM_NAME: ${{ secrets.GMAIL_FROM_NAME || 'Christian John Vallejos' }}
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          UNSUBSCRIBE_EMAIL: ${{ secrets.UNSUBSCRIBE_EMAIL }}
+          SENDER_NAME: ${{ secrets.SENDER_NAME || 'Christian John Vallejos' }}
+          SENDER_ADDRESS: ${{ secrets.SENDER_ADDRESS || '480 Rubyville St, Baesa, Caloocan City, Philippines' }}
+        run: python unsubscribe_poller.py
+
+      - name: Commit Suppression State
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: processed unsubscribe requests"
+          file_pattern: suppressions.json unsubscribes.json

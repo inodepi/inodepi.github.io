@@ -1,0 +1,123 @@
+{
+  "updatedAt": "2026-08-23T12:51:01.558Z",
+  "createdAt": "2026-08-23T12:51:01.558Z",
+  "id": "8uYNJLLzDLiq29Ue",
+  "name": "Telegram Interactive Trading Signal Bot",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trading-signal",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4bb09a2a-51e5-457e-8582-935866c6be58",
+      "name": "Webhook Signal Input",
+      "webhookId": "trading-signal"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.body.chat_id }}",
+        "text": "=🚨 *NEW TRADING SIGNAL*\n\nTicker: *{{ $json.body.ticker }}*\nAction: *{{ $json.body.action }}*\nPrice: *{{ $json.body.price }}*\n\nSelect an option below:",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        0
+      ],
+      "id": "6f690367-45d1-424b-803a-4812974fa4f0",
+      "name": "Send Interactive Telegram Alert",
+      "webhookId": "c70dbf8d-78f9-4d04-97d2-5a3de99990ed"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5000/webhook",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"action_taken\": \"={{ $json.data }}\",\n  \"user\": \"={{ $json.from.username }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        0
+      ],
+      "id": "8b153f3f-91de-454e-a52a-27634cccead4",
+      "name": "Forward to Python Backend"
+    }
+  ],
+  "connections": {
+    "Webhook Signal Input": {
+      "main": [
+        [
+          {
+            "node": "Send Interactive Telegram Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Interactive Telegram Alert": {
+      "main": [
+        [
+          {
+            "node": "Forward to Python Backend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": {},
+  "versionId": "126f7d41-d9f6-44b8-8c8d-601461c2b6d4",
+  "activeVersionId": null,
+  "versionCounter": 1,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "shared": [
+    {
+      "updatedAt": "2026-08-23T12:51:01.563Z",
+      "createdAt": "2026-08-23T12:51:01.563Z",
+      "role": "workflow:owner",
+      "workflowId": "8uYNJLLzDLiq29Ue",
+      "projectId": "Tahe82c0BsrZwmkA",
+      "project": {
+        "updatedAt": "2026-08-16T11:43:34.461Z",
+        "createdAt": "2026-08-16T11:22:39.146Z",
+        "id": "Tahe82c0BsrZwmkA",
+        "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+      }
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,56 @@
+#!/bin/sh
+# Potaterrr dotfiles bootstrap.
+#
+#   curl -fsSL https://potaterrr.github.io/install | sh
+#
+# Clones (or updates) the dotfiles repo, then hands off to install.sh.
+# Env overrides:
+#   DOTFILES_BASE=/some/path   where to clone (default ~/git-projects/dotfiles)
+set -eu
+
+DOTFILES_BASE="${DOTFILES_BASE:-$HOME/git-projects/dotfiles}"
+REPO_URL="https://github.com/potaterrr/dotfiles.git"
+
+say() { printf '==> %s\n' "$*"; }
+die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
+
+command -v git >/dev/null 2>&1 ||
+    die "git is required. Install git (e.g. 'sudo apt install git' / 'sudo dnf install git' / 'sudo pacman -S git') and re-run."
+command -v bash >/dev/null 2>&1 ||
+    die "bash is required to run the installer."
+
+# 1. Clone or update the repository
+if [ ! -d "$DOTFILES_BASE/.git" ]; then
+    say "Cloning dotfiles into $DOTFILES_BASE ..."
+    mkdir -p "$(dirname "$DOTFILES_BASE")"
+    git clone --depth 1 "$REPO_URL" "$DOTFILES_BASE"
+else
+    say "Updating existing dotfiles repo at $DOTFILES_BASE ..."
+    git -C "$DOTFILES_BASE" pull --ff-only origin main ||
+        printf 'WARNING: pull failed; continuing with local copy\n' >&2
+fi
+
+# 2. Launch the installer.
+#    When piped (curl | sh) stdin is this script, so the interactive menu must
+#    read from /dev/tty instead -- otherwise it would consume the pipe. With no
+#    terminal at all (CI), fall back to the non-interactive default set.
+#    NB: exec the installer directly (it is bash); `sh install.sh` would break
+#    on dash-based systems.
+INSTALLER="$DOTFILES_BASE/install.sh"
+[ -f "$INSTALLER" ] || die "installer not found at $INSTALLER"
+
+run_installer() {
+    if [ -x "$INSTALLER" ]; then
+        exec "$INSTALLER" "$@"
+    fi
+    exec bash "$INSTALLER" "$@"
+}
+
+if [ -t 0 ] && [ -t 1 ]; then
+    run_installer
+elif ( : < /dev/tty ) 2>/dev/null; then
+    run_installer --no-pull < /dev/tty
+else
+    say "No terminal detected; installing the default package set (-y)..."
+    run_installer -y --no-pull
+fi

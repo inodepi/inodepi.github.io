@@ -1,0 +1,55 @@
+1
+00:00:00,600 --> 00:00:03,381
+Your best employee is copy-pasting.
+
+2
+00:00:03,500 --> 00:00:05,340
+Sixty-four good leads went cold.
+
+3
+00:00:05,400 --> 00:00:07,924
+Nobody had time to touch them.
+
+4
+00:00:08,600 --> 00:00:10,540
+So the workflow does.
+
+5
+00:00:11,900 --> 00:00:14,795
+It enriches each lead from the web.
+
+6
+00:00:15,100 --> 00:00:18,240
+Then scores the fit against your best customers.
+
+7
+00:00:18,300 --> 00:00:21,440
+Writes a first touch that names their problem.
+
+8
+00:00:21,500 --> 00:00:24,394
+Sends it, then watches for a reply.
+
+9
+00:00:24,700 --> 00:00:27,092
+When a reply lands, it sorts it.
+
+10
+00:00:27,700 --> 00:00:30,409
+Sixty-four dead leads revived.
+
+11
+00:00:30,900 --> 00:00:33,614
+All of it in your CRM by lunch.
+
+12
+00:00:33,900 --> 00:00:36,057
+Two to three weeks to build.
+
+13
+00:00:36,800 --> 00:00:38,600
+Book a fit call.
+
+14
+00:00:40,000 --> 00:00:42,713
+inodepi.github.io

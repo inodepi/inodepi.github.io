@@ -1,0 +1,208 @@
+{
+ "day": 2,
+ "dur": 45,
+ "fps": 30,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.7,
+   "text": "You hired a person to be a cable."
+  },
+  {
+   "id": "l2",
+   "t0": 4.7,
+   "text": "This job used to take a morning."
+  },
+  {
+   "id": "l3",
+   "t0": 7.8999999999999995,
+   "text": "Now it runs before you sit down."
+  },
+  {
+   "id": "l4",
+   "t0": 11.1,
+   "text": "It pulls every invoice that is due today."
+  },
+  {
+   "id": "l5",
+   "t0": 14.3,
+   "text": "Drafts the follow-up in your voice."
+  },
+  {
+   "id": "l6",
+   "t0": 17.5,
+   "text": "Sends it from your own inbox."
+  },
+  {
+   "id": "l7",
+   "t0": 20.7,
+   "text": "Then logs the thread back to the sheet."
+  },
+  {
+   "id": "l8",
+   "t0": 23.900000000000002,
+   "text": "Forty-seven invoices chased."
+  },
+  {
+   "id": "l9",
+   "t0": 26.900000000000002,
+   "text": "No spreadsheet. No copy-paste."
+  },
+  {
+   "id": "l10",
+   "t0": 29.900000000000002,
+   "text": "A whole morning back, every week."
+  },
+  {
+   "id": "l11",
+   "t0": 32.9,
+   "text": "Two to three weeks to build."
+  },
+  {
+   "id": "l12",
+   "t0": 35.8,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l13",
+   "t0": 39,
+   "text": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 0.7,
+   "type": "tick"
+  },
+  {
+   "t": 1.4,
+   "type": "tick"
+  },
+  {
+   "t": 2.2,
+   "type": "tick"
+  },
+  {
+   "t": 3,
+   "type": "tick"
+  },
+  {
+   "t": 3.8,
+   "type": "whoosh"
+  },
+  {
+   "t": 7.28,
+   "type": "pop"
+  },
+  {
+   "t": 8,
+   "type": "tick"
+  },
+  {
+   "t": 8.4,
+   "type": "whoosh"
+  },
+  {
+   "t": 9.339999999999998,
+   "type": "tick"
+  },
+  {
+   "t": 11.2,
+   "type": "tick"
+  },
+  {
+   "t": 12.540000000000001,
+   "type": "tick"
+  },
+  {
+   "t": 14.45,
+   "type": "pop"
+  },
+  {
+   "t": 14.600000000000001,
+   "type": "tick"
+  },
+  {
+   "t": 16.64,
+   "type": "tick"
+  },
+  {
+   "t": 18.7,
+   "type": "whoosh"
+  },
+  {
+   "t": 18.8,
+   "type": "tick"
+  },
+  {
+   "t": 20.340000000000003,
+   "type": "tick"
+  },
+  {
+   "t": 22.400000000000002,
+   "type": "tick"
+  },
+  {
+   "t": 22.650000000000002,
+   "type": "pop"
+  },
+  {
+   "t": 22.650000000000002,
+   "type": "tick"
+  },
+  {
+   "t": 25.7,
+   "type": "whoosh"
+  },
+  {
+   "t": 26.4,
+   "type": "whoosh"
+  },
+  {
+   "t": 26.64,
+   "type": "tick"
+  },
+  {
+   "t": 26.65,
+   "type": "lock"
+  },
+  {
+   "t": 27,
+   "type": "ding"
+  },
+  {
+   "t": 35.25,
+   "type": "whoosh"
+  },
+  {
+   "t": 35.55,
+   "type": "chime"
+  },
+  {
+   "t": 38.9,
+   "type": "tick"
+  }
+ ],
+ "sect": [
+  [
+   0,
+   3.8,
+   "problem"
+  ],
+  [
+   3.8,
+   22.6,
+   "proof"
+  ],
+  [
+   22.6,
+   34.8,
+   "proof"
+  ],
+  [
+   34.8,
+   45,
+   "cta"
+  ]
+ ]
+}

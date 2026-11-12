@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sales Call QA — pipeline simulation</title>
+<meta name="description" content="Score a sales call on opening, discovery, objection handling, next step and compliance — and only wake a human when the evidence is thin." />
+<meta name="robots" content="noindex" />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0d1117" />
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-alt: #10161f;
+  --surface: #161d28;
+  --surface-2: #1b2431;
+  --border: #232c3a;
+  --text: #e6edf3;
+  --muted: #94a3b8;
+  --accent: #f0b429;
+  --accent-soft: rgba(240, 180, 41, 0.12);
+  --green: #2ea886;
+  --green-soft: rgba(46, 168, 134, 0.12);
+  --red: #e5534b;
+  --red-soft: rgba(229, 83, 75, 0.12);
+  --blue: #63a8f0;
+  --mono: ui-monospace, "JetBrains Mono", "Fira Code", "Cascadia Code", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: var(--accent); }
+a:hover { text-decoration: underline; }
+code, .mono { font-family: var(--mono); }
+.shell { max-width: 1120px; margin: 0 auto; padding: 38px 22px 64px; }
+.kicker { font-family: var(--mono); color: var(--green); font-size: 0.78rem; letter-spacing: 0.02em; margin-bottom: 10px; }
+h1 { font-family: var(--mono); font-size: clamp(1.65rem, 4vw, 2.5rem); line-height: 1.12; letter-spacing: -0.03em; text-wrap: balance; }
+.lede { max-width: 74ch; color: var(--muted); margin-top: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; background: var(--bg-alt); }
+.chip strong { color: var(--text); font-weight: 600; }
+.grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 16px; margin-top: 26px; align-items: start; }
+.panel { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg-alt); }
+.panel-head h2 { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.panel-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.panel-body { padding: 16px; }
+label { display: block; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.03em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+input, textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.88rem;
+}
+input:focus, textarea:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+textarea { min-height: 232px; resize: vertical; font-family: var(--mono); font-size: 0.78rem; line-height: 1.6; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.btn { border: 1px solid var(--accent); background: var(--accent); color: #1a1205; font-weight: 700; border-radius: 9px; padding: 9px 14px; font-size: 0.84rem; transition: transform 160ms var(--ease), filter 160ms var(--ease); }
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.55; cursor: progress; }
+.btn.ghost { background: transparent; color: var(--muted); border-color: var(--border); font-weight: 600; }
+.btn.ghost:hover { color: var(--text); border-color: var(--muted); }
+.hint { margin-top: 10px; font-size: 0.74rem; color: var(--muted); }
+.flow { display: grid; gap: 0; }
+.flow-node { position: relative; display: flex; align-items: flex-start; gap: 11px; width: 100%; text-align: left; padding: 10px 10px 10px 8px; border: 1px solid transparent; border-radius: 10px; background: transparent; transition: background 180ms var(--ease), border-color 180ms var(--ease); }
+.flow-node:hover { background: var(--bg-alt); border-color: var(--border); }
+.flow-node + .flow-node { margin-top: 2px; }
+.flow-node::before { content: ""; position: absolute; left: 21px; top: 43px; bottom: -6px; width: 1px; background: var(--border); }
+.flow-node:last-child::before { display: none; }
+.flow-icon { flex: 0 0 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-alt); font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+.flow-copy { min-width: 0; }
+.flow-copy strong { display: block; font-size: 0.88rem; }
+.flow-copy span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 1px; }
+.flow-node.is-active { border-color: var(--accent); background: var(--accent-soft); }
+.flow-node.is-active .flow-icon { border-color: var(--accent); color: var(--accent); }
+.flow-node.is-done .flow-icon { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+.node-detail { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; font-size: 0.82rem; color: var(--muted); min-height: 66px; }
+.node-detail strong { color: var(--text); }
+.section { margin-top: 24px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg-alt); }
+.section-head h2 { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.badge { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--border); border-radius: 999px; padding: 4px 9px; color: var(--muted); background: var(--bg); }
+.badge.ok { color: var(--green); border-color: rgba(46,168,134,0.4); background: var(--green-soft); }
+.badge.warn { color: var(--accent); border-color: rgba(240,180,41,0.4); background: var(--accent-soft); }
+.badge.err { color: var(--red); border-color: rgba(229,83,75,0.4); background: var(--red-soft); }
+.run-grid { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 0; }
+.console { min-height: 330px; max-height: 420px; overflow: auto; padding: 14px 16px; background: #0a0f15; border-right: 1px solid var(--border); font-family: var(--mono); font-size: 0.74rem; line-height: 1.8; }
+.console .line { display: flex; gap: 9px; }
+.console .time { color: #4b5a6e; flex: 0 0 44px; }
+.console .msg { color: var(--muted); white-space: pre-wrap; word-break: break-word; }
+.console .msg strong { color: var(--text); font-weight: 600; }
+.console .msg .g { color: var(--green); }
+.console .msg .a { color: var(--accent); }
+.console .msg .r { color: var(--red); }
+.console-empty { color: #4b5a6e; }
+.scorecard { padding: 16px; }
+.score-top { display: flex; align-items: center; gap: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.score-number { font-family: var(--mono); font-size: 2.4rem; line-height: 1; letter-spacing: -0.04em; }
+.score-meta { min-width: 0; }
+.score-meta strong { display: block; font-size: 0.92rem; }
+.score-meta span { display: block; font-size: 0.74rem; color: var(--muted); }
+.dims { display: grid; gap: 12px; margin-top: 14px; }
+.dim { display: grid; grid-template-columns: 92px minmax(0, 1fr) 24px; gap: 10px; align-items: center; }
+.dim-name { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.dim-bar { height: 7px; border-radius: 999px; background: var(--bg); overflow: hidden; }
+.dim-fill { height: 100%; width: 0; border-radius: inherit; background: var(--green); transition: width 700ms var(--ease); }
+.dim-fill.low { background: var(--red); }
+.dim-fill.mid { background: var(--accent); }
+.dim-score { font-family: var(--mono); font-size: 0.76rem; text-align: right; color: var(--muted); }
+.dim-evidence { grid-column: 1 / -1; margin-top: -4px; font-size: 0.75rem; color: var(--muted); font-style: italic; }
+.dim-evidence::before { content: "“"; }
+.dim-evidence::after { content: "”"; }
+.review { margin-top: 14px; border: 1px solid rgba(229,83,75,0.35); background: var(--red-soft); border-radius: 10px; padding: 12px 13px; }
+.review h3 { font-family: var(--mono); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--red); margin-bottom: 6px; }
+.review p { font-size: 0.82rem; color: var(--muted); }
+.review .draft-line { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(229,83,75,0.25); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.clean { margin-top: 14px; border: 1px solid rgba(46,168,134,0.35); background: var(--green-soft); border-radius: 10px; padding: 12px 13px; font-size: 0.82rem; color: var(--muted); }
+.clean strong { color: var(--green); }
+.digest-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; }
+.digest-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.digest-table th { text-align: left; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+.digest-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--muted); }
+.digest-table tr:last-child td { border-bottom: 0; }
+.digest-table tr[data-call] { cursor: pointer; }
+.digest-table tr[data-call]:hover td { background: var(--bg-alt); color: var(--text); }
+.digest-table .num { font-family: var(--mono); color: var(--text); }
+.digest-table .st { font-family: var(--mono); font-size: 0.68rem; }
+.digest-table .st.review { color: var(--accent); }
+.digest-table .st.scored { color: var(--green); }
+.digest-preview { margin: 0; padding: 14px 16px; border-left: 1px solid var(--border); background: #0a0f15; color: var(--muted); font-family: var(--mono); font-size: 0.72rem; line-height: 1.7; white-space: pre-wrap; overflow: auto; max-height: 330px; }
+.foot { margin-top: 22px; color: var(--muted); font-size: 0.76rem; }
+.foot strong { color: var(--text); }
+@media (max-width: 860px) {
+  .grid, .run-grid, .digest-grid { grid-template-columns: 1fr; }
+  .console { border-right: 0; border-bottom: 1px solid var(--border); min-height: 220px; }
+  .digest-preview { border-left: 0; border-top: 1px solid var(--border); }
+}
+@media (max-width: 560px) {
+  .shell { padding: 26px 14px 50px; }
+  .dim { grid-template-columns: 74px minmax(0, 1fr) 20px; }
+  .score-top { align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <p class="kicker">// sales call qa — interactive simulation</p>
+    <h1>Score the call. Coach the close.</h1>
+    <p class="lede">Paste a transcript or load a sample. The pipeline scores five sales dimensions, checks every quote against the transcript, and only wakes a manager when the evidence is thin.</p>
+    <div class="chips" aria-label="Stack">
+      <span class="chip"><strong>n8n</strong></span>
+      <span class="chip"><strong>Gemini</strong> structured output</span>
+      <span class="chip"><strong>Retell</strong> webhook</span>
+      <span class="chip"><strong>Gmail</strong> draft, never send</span>
+      <span class="chip">no network calls</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel" aria-labelledby="call-title">
+      <div class="panel-head">
+        <h2 id="call-title">1 · Incoming call</h2>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <div class="panel-body">
+        <label for="rep">Rep
+          <input id="rep" value="Maya" autocomplete="off" />
+        </label>
+        <label for="call-id">Call ID
+          <input id="call-id" value="demo-2046" autocomplete="off" />
+        </label>
+        <label for="transcript">Transcript
+          <textarea id="transcript" spellcheck="false">Rep: Hi Dana, this is Maya from Northwind. Do you have two minutes?
+Prospect: Sure, what's this about?
+Rep: We help sales teams stop losing deals in handoff. I wanted to understand how onboarding works today.
+Prospect: It's okay, but the budget is tight this quarter.
+Rep: That's fair. What specifically worries you about the budget?
+Prospect: We already pay for three tools. Another one feels risky.
+Rep: Two teams your size cut handoff time by a third, so the payback was under two months. Does that help?
+Prospect: Maybe. Send me some information.
+Rep: I'll follow up sometime.
+Prospect: Okay, thanks.</textarea>
+        </label>
+        <div class="row">
+          <button class="btn" id="run" type="button">Run the pipeline</button>
+          <button class="btn ghost" id="sample-clean" type="button">Clean call</button>
+          <button class="btn ghost" id="sample-risk" type="button">Risky call</button>
+        </div>
+        <p class="hint">Simulation only. Nothing leaves this page; the real workflow is an n8n pipeline behind a Retell webhook.</p>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="flow-title">
+      <div class="panel-head">
+        <h2 id="flow-title">2 · Workflow</h2>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <div class="panel-body">
+        <div class="flow" id="flow"></div>
+        <div class="node-detail" id="node-detail"><strong>Pick a stage.</strong> Each node explains what it does and what it refuses to do.</div>
+      </div>
+    </section>
+  </main>
+
+  <section class="section" aria-labelledby="run-title">
+    <div class="section-head">
+      <h2 id="run-title">3 · Run</h2>
+      <span class="badge" id="run-status" aria-live="polite">idle</span>
+    </div>
+    <div class="run-grid">
+      <div class="console" id="console" aria-live="polite" aria-label="Pipeline log">
+        <div class="console-empty">› press “Run the pipeline” to watch a call move through the workflow.</div>
+      </div>
+      <div class="scorecard" id="scorecard" aria-live="polite">
+        <div class="console-empty">The scorecard appears here after a run.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="digest-title">
+    <div class="section-head">
+      <h2 id="digest-title">4 · Monday sales digest</h2>
+      <button class="btn ghost" id="rebuild" type="button">Rebuild digest</button>
+    </div>
+    <div class="digest-grid">
+      <div style="overflow:auto">
+        <table class="digest-table" id="digest-table">
+          <thead><tr><th scope="col">Call</th><th scope="col">Rep</th><th scope="col">Overall</th><th scope="col">Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <pre class="digest-preview" id="digest-preview" aria-live="polite"></pre>
+    </div>
+  </section>
+
+  <p class="foot"><strong>What is simulated:</strong> the scoring is a deterministic stand-in for Gemini, the table and Gmail draft are previews, and the transcript never leaves your browser. In the real build, n8n calls Gemini, verifies the quotes in a Code node, writes to the Sales Call QA data table, and files a manager draft.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var NODES = [
+    { id: "trigger", num: "01", label: "Webhook / form", sub: "Retell post-call event", desc: "Retell posts the finished call to a webhook. The same path accepts a pasted transcript from a form, so the pipeline is testable without a live dialer." },
+    { id: "normalize", num: "02", label: "Normalize call", sub: "one clean shape", desc: "Unwraps the Retell payload, extracts the rep and transcript, truncates long calls, and refuses to score anything without a usable transcript." },
+    { id: "score", num: "03", label: "Gemini score", sub: "five sales dimensions", desc: "Scores opening, discovery, objection handling, next step and compliance. A structured output parser forces a JSON object with a quote for every dimension." },
+    { id: "verify", num: "04", label: "Verify evidence", sub: "code, not vibes", desc: "Clamps the scores, recomputes the weighted overall, checks each quote against the transcript, and redacts emails and phone numbers before storing anything." },
+    { id: "gate", num: "05", label: "Review gate", sub: "confidence < 0.75?", desc: "A call needs a human when confidence is under 0.75, any red flag is raised, compliance is below 3, or the evidence cannot be verified." },
+    { id: "table", num: "06", label: "Data table", sub: "the quiet path", desc: "Clean calls are written to the Sales Call QA table and never bother anyone. The row keeps the overall, the five scores and the quotes." },
+    { id: "draft", num: "07", label: "Gmail draft", sub: "a human decides", desc: "Risky calls also become a Gmail draft with the red flag, the evidence and one coaching sentence. Nothing is sent automatically." },
+    { id: "digest", num: "08", label: "Monday digest", sub: "per-rep coaching", desc: "Every Monday, the workflow reads the last week, aggregates it per rep, and files one coaching digest as a draft." }
+  ];
+
+  var SEED = [
+    { call_id: "demo-2041", rep: "Maya", overall: 94, opening: 5, discovery: 5, objection_handling: 5, next_step: 4, compliance: 5, status: "scored", red_flags: "" },
+    { call_id: "demo-2042", rep: "Maya", overall: 82, opening: 5, discovery: 4, objection_handling: 4, next_step: 3, compliance: 4, status: "scored", red_flags: "" },
+    { call_id: "demo-2043", rep: "Jordan", overall: 68, opening: 4, discovery: 3, objection_handling: 2, next_step: 3, compliance: 4, status: "needs_review", red_flags: "Objection dismissed instead of explored." },
+    { call_id: "demo-2044", rep: "Priya", overall: 97, opening: 5, discovery: 5, objection_handling: 5, next_step: 5, compliance: 5, status: "scored", red_flags: "" },
+    { call_id: "demo-2045", rep: "Jordan", overall: 58, opening: 3, discovery: 2, objection_handling: 2, next_step: 1, compliance: 3, status: "needs_review", red_flags: "No next step. Objection dismissed. Discovery stayed surface-level." }
+  ];
+
+  var CLEAN = "Rep: Hi Dana, this is Maya from Northwind. I know I am calling out of the blue — do you have two minutes?\nProspect: Sure, what is this about?\nRep: We help sales teams stop losing deals in handoff. Before I show you anything, I would like to understand how onboarding works today.\nProspect: Honestly, handoffs are a mess. We lose context and reps chase deals that should be closed.\nRep: That sounds expensive. How many hours a week does the team lose to it?\nProspect: Maybe five per rep.\nRep: And when a deal stalls, who owns the next step today?\nProspect: Usually nobody, which is the problem.\nRep: Got it. Two teams your size cut that handoff time by about a third. Would 30 minutes on Thursday at 2 be worth it to look at the workflow?\nProspect: Thursday at 2 works.\nRep: Great, I will send the invite. This call is being recorded for quality. Thanks, Dana.";
+
+  var RISKY = "Rep: Hey, it is Jordan. You looked at our site, right?\nProspect: I did, but I am not sure it is a fit. We already have something.\nRep: Everyone says that at first.\nProspect: The bigger concern is security. Our team is small, but we handle sensitive data.\nRep: Security is not really an issue for a team your size.\nProspect: That is not really an answer.\nRep: I will send you some information.\nProspect: When would we talk again?\nRep: I will follow up sometime.\nProspect: Okay.";
+
+  var digest = SEED.slice();
+  var running = false;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var flow = $("flow");
+  var detail = $("node-detail");
+  var consoleEl = $("console");
+  var scorecardEl = $("scorecard");
+  var statusEl = $("run-status");
+  var transcriptEl = $("transcript");
+  var repEl = $("rep");
+  var callIdEl = $("call-id");
+
+  function esc(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, reduceMotion ? 0 : ms); });
+  }
+
+  function renderFlow() {
+    flow.innerHTML = NODES.map(function (node) {
+      return '<button class="flow-node" type="button" data-node="' + node.id + '">' +
+        '<span class="flow-icon">' + node.num + '</span>' +
+        '<span class="flow-copy"><strong>' + esc(node.label) + '</strong><span>' + esc(node.sub) + '</span></span>' +
+        '</button>';
+    }).join("");
+    Array.prototype.forEach.call(flow.querySelectorAll("[data-node]"), function (btn) {
+      btn.addEventListener("click", function () {
+        var node = NODES.filter(function (n) { return n.id === btn.getAttribute("data-node"); })[0];
+        if (!node) return;
+        detail.innerHTML = "<strong>" + esc(node.label) + ".</strong> " + esc(node.desc);
+      });
+    });
+  }
+
+  function setNode(id, state) {
+    var btn = flow.querySelector('[data-node="' + id + '"]');
+    if (!btn) return;
+    btn.classList.toggle("is-active", state === "active");
+    btn.classList.toggle("is-done", state === "done");
+  }
+
+  function resetNodes() {
+    Array.prototype.forEach.call(flow.querySelectorAll(".flow-node"), function (btn) {
+      btn.classList.remove("is-active", "is-done");
+    });
+  }
+
+  function log(phase, message, tone) {
+    var line = document.createElement("div");
+    line.className = "line";
+    var time = new Date().toLocaleTimeString([], { hour12: false });
+    line.innerHTML = '<span class="time">' + time + '</span><span class="msg"><strong>' + esc(phase) + '</strong> ' +
+      '<span class="' + (tone || "") + '">' + message + '</span></span>';
+    consoleEl.appendChild(line);
+    consoleEl.scrollTop = consoleEl.scrollHeight;
+  }
+
+  function clearConsole() {
+    consoleEl.innerHTML = "";
+  }
+
+  function sentences(text) {
+    return String(text || "")
+      .split(/\n+/)
+      .map(function (s) { return s.trim(); })
+      .filter(Boolean);
+  }
+
+  function firstMatch(lines, patterns) {
+    for (var i = 0; i < lines.length; i++) {
+      for (var j = 0; j < patterns.length; j++) {
+        if (patterns[j].test(lines[i])) return lines[i].replace(/^(Rep|Prospect|Caller|Buyer|Customer):\s*/i, "");
+      }
+    }
+    return "no evidence in transcript";
+  }
+
+  function scoreCall(text) {
+    var lines = sentences(text);
+    var lower = lines.join(" ").toLowerCase();
+    var qs = (text.match(/\?/g) || []).length;
+
+    var openingHits = 0;
+    if (/this is|my name is/.test(lower)) openingHits++;
+    if (/from [a-z]|at [a-z]/.test(lower)) openingHits++;
+    if (/do you have|is now|good time|two minutes|quick/.test(lower)) openingHits++;
+    if (/i wanted to|i'm calling|i am calling|the reason/.test(lower)) openingHits++;
+    var opening = Math.max(1, Math.min(5, openingHits + 1));
+
+    var discoveryHits = 0;
+    if (/how do you|right now|today|current|onboarding|workflow/.test(lower)) discoveryHits++;
+    if (/problem|mess|struggle|slow|lose|pain|risky|tight|hard/.test(lower)) discoveryHits++;
+    if (/hours|cost|revenue|time|expensive|payback|pay for/.test(lower)) discoveryHits++;
+    if (/who owns|decision|timeline|next step|process|budget|already/.test(lower)) discoveryHits++;
+    if (qs >= 2) discoveryHits++;
+    var discovery = Math.max(1, Math.min(5, discoveryHits));
+
+    var objectionRaised = /too expensive|price|budget|security|contract|not sure|already have|not a fit|concern|worried/.test(lower);
+    var objectionHandling = 3;
+    if (objectionRaised) {
+      var oh = 0;
+      if (/fair|understand|hear you|that's a good|makes sense/.test(lower)) oh++;
+      if (/what specifically|what worries|tell me more|which part|why/.test(lower)) oh++;
+      if (/peer|case|cut|percent|example|similar|result|payback/.test(lower)) oh++;
+      if (/does that|would that|land|answer|help/.test(lower)) oh++;
+      if (/not an issue|everyone says|you're wrong|that's not/.test(lower)) oh = Math.min(oh, 1);
+      objectionHandling = Math.max(1, Math.min(5, oh + 1));
+    }
+
+    var nextStep = 1;
+    if (/send (you )?(some )?(information|info|details)|follow up|circle back/.test(lower)) nextStep = 2;
+    if (/i'll send|i will send|i'll book|i will book|invite|calendar|hold/.test(lower)) nextStep = 3;
+    if (/thursday|friday|monday|tuesday|wednesday|tomorrow|at \d/.test(lower) && /i'll send|i will send|i'll book|invite|hold/.test(lower)) nextStep = 4;
+    if (/works|confirmed|see you|booked|on the calendar/.test(lower) && nextStep >= 3) nextStep = 5;
+    if (/sometime|whenever|no rush/.test(lower)) nextStep = Math.min(nextStep, 2);
+
+    var compliance = 3;
+    if (/recorded|recording|quality/.test(lower)) compliance = 4;
+    if (/recorded|recording|quality/.test(lower) && !/guarantee|promise|definitely|always works/.test(lower)) compliance = 5;
+    if (/guarantee|promise|definitely|always works|no risk/.test(lower)) compliance = 2;
+    if (/do not call|don't call|remove me/.test(lower) && !/sorry|remove|stop/.test(lower)) compliance = 1;
+
+    var dims = {
+      opening: { score: opening, evidence: firstMatch(lines, [/this is|my name is|from |do you have|i wanted to|i'm calling|good time/i]) },
+      discovery: { score: discovery, evidence: firstMatch(lines, [/how do you|right now|today|problem|mess|struggle|hours|cost|who owns|timeline|expensive/i]) },
+      objection_handling: { score: objectionHandling, evidence: objectionRaised ? firstMatch(lines, [/fair|understand|hear you|what specifically|what worries|peer|case|percent|payback|not an issue|everyone says/i]) : "no objection in transcript" },
+      next_step: { score: nextStep, evidence: firstMatch(lines, [/thursday|friday|monday|tuesday|wednesday|tomorrow|i'll send|i will send|invite|hold|follow up|calendar/i]) },
+      compliance: { score: compliance, evidence: firstMatch(lines, [/recorded|recording|quality|guarantee|promise|do not call/i]) }
+    };
+
+    var checked = 0;
+    Object.keys(dims).forEach(function (key) {
+      if (dims[key].evidence !== "no evidence in transcript") checked++;
+    });
+
+    var weighted = opening * 15 + discovery * 30 + objectionHandling * 25 + nextStep * 20 + compliance * 10;
+    var overall = Math.round(weighted / 500 * 100);
+    var confidence = 0.92;
+    if (checked < 4) confidence = 0.78;
+    if (checked < 3) confidence = 0.61;
+    if (String(text).trim().length < 120) confidence = Math.min(confidence, 0.52);
+    confidence = Math.round(confidence * 100) / 100;
+
+    var flags = [];
+    if (objectionRaised && objectionHandling <= 2) flags.push("An objection was dismissed or left unexplored.");
+    if (nextStep <= 2) flags.push("No specific next step, date or owner.");
+    if (discovery <= 2) flags.push("Discovery stayed surface-level.");
+    if (compliance <= 2) flags.push("Compliance risk: missing recording disclosure or an unverified claim.");
+
+    var needsReview = confidence < 0.75 || flags.length > 0 || compliance <= 2 || checked < 3;
+    var scores = { opening: opening, discovery: discovery, objection_handling: objectionHandling, next_step: nextStep, compliance: compliance };
+    var lowest = Object.keys(scores).sort(function (a, b) { return scores[a] - scores[b]; })[0];
+    var tips = {
+      opening: "Open with your name, company and a reason for the call — then ask permission to continue.",
+      discovery: "Ask one more follow-up about impact before you pitch.",
+      objection_handling: "Acknowledge the objection, explore it, answer with proof, then check that it landed.",
+      next_step: "End with a date, an owner and a calendar hold.",
+      compliance: "Disclose recording where required and never guarantee a result."
+    };
+
+    return {
+      call_id: $("call-id").value.trim() || "demo-call",
+      rep: $("rep").value.trim() || "Unknown rep",
+      overall: overall,
+      dims: dims,
+      confidence: confidence,
+      evidence_verified: checked >= 3,
+      checked: checked,
+      status: needsReview ? "needs_review" : "scored",
+      needs_review: needsReview,
+      red_flags: flags,
+      coaching_tip: tips[lowest],
+      summary: needsReview
+        ? "The call had a real opening and a clear ask, but one risk keeps it out of the clean pile."
+        : "The call covered discovery, the objection, the next step and the compliance basics. No human review needed.",
+      created_at: Date.now()
+    };
+  }
+
+  function renderScorecard(result) {
+    var dimNames = [
+      ["opening", "Opening"],
+      ["discovery", "Discovery"],
+      ["objection_handling", "Objection"],
+      ["next_step", "Next step"],
+      ["compliance", "Compliance"]
+    ];
+    var dimsHtml = dimNames.map(function (pair) {
+      var key = pair[0];
+      var d = result.dims[key];
+      var pct = d.score / 5 * 100;
+      var cls = d.score <= 2 ? "low" : d.score === 3 ? "mid" : "";
+      return '<div class="dim">' +
+        '<span class="dim-name">' + pair[1] + '</span>' +
+        '<span class="dim-bar"><span class="dim-fill ' + cls + '" style="width:' + pct + '%"></span></span>' +
+        '<span class="dim-score">' + d.score + '/5</span>' +
+        '<span class="dim-evidence">' + esc(d.evidence) + '</span>' +
+        '</div>';
+    }).join("");
+
+    var reviewHtml = result.needs_review
+      ? '<div class="review"><h3>Needs a human</h3><p>' + esc(result.red_flags.join(" ") || "Low confidence in the evidence.") + '</p>' +
+        '<p class="draft-line">Gmail draft → manager · “' + esc(result.coaching_tip) + '”</p></div>'
+      : '<div class="clean"><strong>No human needed.</strong> The row lands in the data table and waits for Monday.</div>';
+
+    scorecardEl.innerHTML = '<div class="score-top">' +
+      '<div class="score-number">' + result.overall + '</div>' +
+      '<div class="score-meta"><strong>' + esc(result.rep) + ' · ' + esc(result.call_id) + '</strong>' +
+      '<span>confidence ' + result.confidence.toFixed(2) + ' · ' + result.checked + '/5 quotes verified</span></div>' +
+      '<span class="badge ' + (result.needs_review ? "warn" : "ok") + '" style="margin-left:auto">' + (result.needs_review ? "review" : "scored") + '</span>' +
+      '</div><div class="dims">' + dimsHtml + '</div>' + reviewHtml +
+      '<p class="hint">' + esc(result.summary) + '</p>';
+  }
+
+  function addToDigest(result) {
+    digest.unshift({
+      call_id: result.call_id,
+      rep: result.rep,
+      overall: result.overall,
+      opening: result.dims.opening.score,
+      discovery: result.dims.discovery.score,
+      objection_handling: result.dims.objection_handling.score,
+      next_step: result.dims.next_step.score,
+      compliance: result.dims.compliance.score,
+      status: result.status,
+      red_flags: result.red_flags.join(" ")
+    });
+    renderDigest();
+  }
+
+  function renderDigest() {
+    var tbody = $("digest-table").querySelector("tbody");
+    tbody.innerHTML = digest.map(function (r) {
+      return '<tr data-call="' + esc(r.call_id) + '">' +
+        '<td class="num">' + esc(r.call_id) + '</td>' +
+        '<td>' + esc(r.rep) + '</td>' +
+        '<td class="num">' + r.overall + '</td>' +
+        '<td><span class="st ' + (r.status === "scored" ? "scored" : "review") + '">' + esc(r.status.replace("_", " ")) + '</span></td>' +
+        '</tr>';
+    }).join("");
+
+    var byRep = {};
+    digest.forEach(function (r) {
+      var a = r.rep || "Unknown rep";
+      if (!byRep[a]) byRep[a] = { calls: [], review: 0, flags: [] };
+      byRep[a].calls.push(r);
+      if (r.status.indexOf("review") !== -1) byRep[a].review++;
+      if (r.red_flags) byRep[a].flags.push(r.red_flags);
+    });
+    var avg = function (arr) {
+      return arr.length ? Math.round(arr.reduce(function (s, n) { return s + Number(n || 0); }, 0) / arr.length) : 0;
+    };
+    var lines = ["# Sales call QA — weekly coaching digest", "", "Calls in this digest: " + digest.length, ""];
+    Object.keys(byRep).sort().forEach(function (a) {
+      var c = byRep[a].calls;
+      lines.push("## " + a);
+      lines.push("- Calls scored: " + c.length);
+      lines.push("- Average overall: " + avg(c.map(function (r) { return r.overall; })) + "/100");
+      lines.push("- Opening / discovery / objection / next step / compliance: " + [
+        avg(c.map(function (r) { return r.opening; })),
+        avg(c.map(function (r) { return r.discovery; })),
+        avg(c.map(function (r) { return r.objection_handling; })),
+        avg(c.map(function (r) { return r.next_step; })),
+        avg(c.map(function (r) { return r.compliance; }))
+      ].join(" / "));
+      lines.push("- Needs human review: " + byRep[a].review);
+      if (byRep[a].flags.length) lines.push("- Recurring flags: " + byRep[a].flags.slice(0, 3).join("; "));
+      lines.push("");
+    });
+    lines.push("---");
+    lines.push("Draft only. Read the flagged calls, adjust anything that looks off, then send the coaching notes yourself.");
+    $("digest-preview").textContent = lines.join("\n");
+  }
+
+  async function run() {
+    if (running) return;
+    running = true;
+    $("run").disabled = true;
+    clearConsole();
+    resetNodes();
+    statusEl.textContent = "running";
+    statusEl.className = "badge warn";
+    scorecardEl.innerHTML = '<div class="console-empty">Scoring…</div>';
+
+    var text = transcriptEl.value.trim();
+    var rep = repEl.value.trim() || "Unknown rep";
+    var callId = callIdEl.value.trim() || "demo-call";
+
+    setNode("trigger", "active");
+    log("trigger", "POST /webhook/sales-call-qa · <span class='g'>200 accepted</span>");
+    await wait(380);
+    setNode("trigger", "done");
+
+    setNode("normalize", "active");
+    log("normalize", "rep <strong>" + esc(rep) + "</strong> · call <strong>" + esc(callId) + "</strong> · transcript " + text.length + " chars");
+    await wait(420);
+
+    if (text.length < 40) {
+      log("normalize", "<span class='r'>no usable transcript</span> → needs_transcript", "r");
+      setNode("normalize", "done");
+      setNode("table", "active");
+      log("table", "row inserted · status <strong>needs_transcript</strong>");
+      await wait(380);
+      setNode("table", "done");
+      setNode("draft", "active");
+      log("gmail", "draft skipped in this simulation · “check the Retell recording”");
+      await wait(300);
+      setNode("draft", "done");
+      statusEl.textContent = "skipped";
+      statusEl.className = "badge err";
+      scorecardEl.innerHTML = '<div class="console-empty">No score was invented. The call is logged as needs_transcript and a draft asks for the recording.</div>';
+      running = false;
+      $("run").disabled = false;
+      return;
+    }
+    setNode("normalize", "done");
+
+    setNode("score", "active");
+    log("gemini", "structured output · five sales dimensions · temperature 0.1");
+    await wait(760);
+    setNode("score", "done");
+
+    var result = scoreCall(text);
+
+    setNode("verify", "active");
+    log("verify", "quotes " + result.checked + "/5 · overall <strong>" + result.overall + "/100</strong> · confidence <strong>" + result.confidence.toFixed(2) + "</strong>");
+    await wait(520);
+    setNode("verify", "done");
+
+    setNode("gate", "active");
+    log("gate", "needs_review = <strong>" + result.needs_review + "</strong>" + (result.red_flags.length ? " · <span class='a'>" + esc(result.red_flags[0]) + "</span>" : ""));
+    await wait(440);
+    setNode("gate", "done");
+
+    setNode("table", "active");
+    log("table", "row inserted · status <strong>" + result.status + "</strong>");
+    await wait(360);
+    setNode("table", "done");
+
+    if (result.needs_review) {
+      setNode("draft", "active");
+      log("gmail", "draft filed for a manager · <span class='a'>nothing sent</span>");
+      await wait(380);
+      setNode("draft", "done");
+      setNode("digest", "active");
+      log("digest", "queued for Monday · per-rep rollup updated");
+      await wait(260);
+      setNode("digest", "done");
+      statusEl.textContent = "review";
+      statusEl.className = "badge warn";
+    } else {
+      setNode("digest", "active");
+      log("digest", "no review draft · queued for Monday");
+      await wait(260);
+      setNode("digest", "done");
+      statusEl.textContent = "scored";
+      statusEl.className = "badge ok";
+    }
+
+    renderScorecard(result);
+    addToDigest(result);
+    running = false;
+    $("run").disabled = false;
+  }
+
+  $("run").addEventListener("click", run);
+  $("rebuild").addEventListener("click", renderDigest);
+  $("sample-clean").addEventListener("click", function () {
+    transcriptEl.value = CLEAN;
+    repEl.value = "Priya";
+    callIdEl.value = "demo-2046";
+    detail.innerHTML = "<strong>Clean call.</strong> The rep opens with permission, finds the pain, handles the handoff question, and books a specific Thursday slot with a recording disclosure. This should score without a human.";
+  });
+  $("sample-risk").addEventListener("click", function () {
+    transcriptEl.value = RISKY;
+    repEl.value = "Jordan";
+    callIdEl.value = "demo-2047";
+    detail.innerHTML = "<strong>Risky call.</strong> The rep dismisses the security objection, never finds the pain, and ends with “I'll follow up sometime.” This should become a manager draft.";
+  });
+
+  // clicking a digest row shows its stored scorecard shape
+  $("digest-table").addEventListener("click", function (event) {
+    var tr = event.target.closest("tr[data-call]");
+    if (!tr) return;
+    var row = digest.filter(function (r) { return r.call_id === tr.getAttribute("data-call"); })[0];
+    if (!row) return;
+    var fake = {
+      call_id: row.call_id,
+      rep: row.rep,
+      overall: row.overall,
+      confidence: row.status === "scored" ? 0.94 : 0.71,
+      checked: 5,
+      status: row.status,
+      needs_review: row.status !== "scored",
+      red_flags: row.red_flags ? [row.red_flags] : [],
+      coaching_tip: "Review the quoted evidence and coach the missing step.",
+      summary: "Stored row from the Sales Call QA table.",
+      dims: {
+        opening: { score: row.opening, evidence: "stored row" },
+        discovery: { score: row.discovery, evidence: "stored row" },
+        objection_handling: { score: row.objection_handling, evidence: "stored row" },
+        next_step: { score: row.next_step, evidence: "stored row" },
+        compliance: { score: row.compliance, evidence: "stored row" }
+      }
+    };
+    scorecardEl.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+  });
+
+  renderFlow();
+  renderDigest();
+})();
+</script>
+</body>
+</html>

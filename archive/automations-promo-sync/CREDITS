@@ -1,0 +1,20 @@
+automations-promo — inodepi campaign films
+Built in code with the Lemo-Opuscar library (styles: Dark Tech Keynote, Living Screencast, Desktop Flythrough).
+
+Picture
+- All UI, cards, canvases, voxels and typography are drawn in code. No stock or generated images, no screenshots.
+- Builds referenced by name (invoice chasing, dead-lead retrieval, sales-call QA, lead-gen & CRM ops) are inodepi's own. Product names (n8n, OpenAI, HubSpot, Google, Pipedrive, Sheets) appear only as plain text labels; no third-party logos or interface chrome are reproduced.
+
+Fonts (SIL Open Font License 1.1)
+- Inter — Rasmus Andersson (rsms/inter), OFL
+- Inter Tight — Rasmus Andersson, OFL
+- JetBrains Mono — The JetBrains Mono Project Authors, OFL
+Licence texts: keynote/fonts/OFL-inter.txt, keynote/fonts/OFL-jetbrainsmono.txt
+
+Voice
+- Kokoro TTS v1.0 (hexgrad/Kokoro-82M, Apache-2.0), voice am_michael, via kokoro-onnx.
+
+Music and sound
+- Original score synthesised in numpy (FM mallets, pad, pulse, shaker), 120 BPM, A major pentatonic.
+- Foley and ambience synthesised in numpy (click, tick, glass, pop, whoosh, thump), driven by the films' event timelines.
+- No sampled libraries are used in the mix (the vcsl fetch failed and was not needed).

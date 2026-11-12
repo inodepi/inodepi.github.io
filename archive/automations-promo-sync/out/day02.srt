@@ -1,0 +1,51 @@
+1
+00:00:00,700 --> 00:00:03,250
+You hired a person to be a cable.
+
+2
+00:00:04,700 --> 00:00:07,455
+This job used to take a morning.
+
+3
+00:00:07,900 --> 00:00:10,633
+Now it runs before you sit down.
+
+4
+00:00:11,100 --> 00:00:14,240
+It pulls every invoice that is due today.
+
+5
+00:00:14,300 --> 00:00:16,793
+Drafts the follow-up in your voice.
+
+6
+00:00:17,500 --> 00:00:19,955
+Sends it from your own inbox.
+
+7
+00:00:20,700 --> 00:00:23,446
+Then logs the thread back to the sheet.
+
+8
+00:00:23,900 --> 00:00:26,430
+Forty-seven invoices chased.
+
+9
+00:00:26,900 --> 00:00:29,686
+No spreadsheet. No copy-paste.
+
+10
+00:00:29,900 --> 00:00:32,480
+A whole morning back, every week.
+
+11
+00:00:32,900 --> 00:00:35,057
+Two to three weeks to build.
+
+12
+00:00:35,800 --> 00:00:37,600
+Book a fit call.
+
+13
+00:00:39,000 --> 00:00:41,713
+inodepi.github.io

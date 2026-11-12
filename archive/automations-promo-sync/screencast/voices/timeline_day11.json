@@ -1,0 +1,191 @@
+{
+ "day": 11,
+ "dur": 40,
+ "fps": 30,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.9,
+   "text": "Sixty-four leads, cold for months."
+  },
+  {
+   "id": "l2",
+   "t0": 3.9,
+   "text": "The workflow starts with the stale list."
+  },
+  {
+   "id": "l3",
+   "t0": 7.4,
+   "text": "It enriches every record: company, role, news."
+  },
+  {
+   "id": "l4",
+   "t0": 10.6,
+   "text": "Then scores the fit against your best deals."
+  },
+  {
+   "id": "l5",
+   "t0": 13.8,
+   "text": "Only the top of the list gets a touch."
+  },
+  {
+   "id": "l6",
+   "t0": 17,
+   "text": "A short message that names their problem."
+  },
+  {
+   "id": "l7",
+   "t0": 20.2,
+   "text": "Sent from your inbox, not a blast tool."
+  },
+  {
+   "id": "l8",
+   "t0": 23.2,
+   "text": "When a reply lands, it reads it and routes it."
+  },
+  {
+   "id": "l9",
+   "t0": 26.4,
+   "text": "Sixty-four dead leads revived."
+  },
+  {
+   "id": "l10",
+   "t0": 29.4,
+   "text": "Two to three weeks to build."
+  },
+  {
+   "id": "l11",
+   "t0": 32.4,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l12",
+   "t0": 35.6,
+   "text": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 3.48,
+   "type": "pop"
+  },
+  {
+   "t": 4.2,
+   "type": "tick"
+  },
+  {
+   "t": 5.74,
+   "type": "tick"
+  },
+  {
+   "t": 8.05,
+   "type": "pop"
+  },
+  {
+   "t": 8.2,
+   "type": "tick"
+  },
+  {
+   "t": 8.3,
+   "type": "whoosh"
+  },
+  {
+   "t": 9.74,
+   "type": "tick"
+  },
+  {
+   "t": 12.1,
+   "type": "whoosh"
+  },
+  {
+   "t": 12.65,
+   "type": "pop"
+  },
+  {
+   "t": 12.8,
+   "type": "tick"
+  },
+  {
+   "t": 13.34,
+   "type": "tick"
+  },
+  {
+   "t": 17.4,
+   "type": "tick"
+  },
+  {
+   "t": 17.5,
+   "type": "whoosh"
+  },
+  {
+   "t": 18.34,
+   "type": "tick"
+  },
+  {
+   "t": 21.2,
+   "type": "tick"
+  },
+  {
+   "t": 21.4,
+   "type": "whoosh"
+  },
+  {
+   "t": 21.45,
+   "type": "pop"
+  },
+  {
+   "t": 25.099999999999998,
+   "type": "whoosh"
+  },
+  {
+   "t": 25.7,
+   "type": "whoosh"
+  },
+  {
+   "t": 25.94,
+   "type": "tick"
+  },
+  {
+   "t": 25.95,
+   "type": "lock"
+  },
+  {
+   "t": 26.3,
+   "type": "ding"
+  },
+  {
+   "t": 31.849999999999998,
+   "type": "whoosh"
+  },
+  {
+   "t": 32.15,
+   "type": "chime"
+  },
+  {
+   "t": 35.5,
+   "type": "tick"
+  }
+ ],
+ "sect": [
+  [
+   0,
+   12,
+   "proof"
+  ],
+  [
+   12,
+   24,
+   "proof"
+  ],
+  [
+   24,
+   32,
+   "offer"
+  ],
+  [
+   32,
+   40,
+   "cta"
+  ]
+ ]
+}

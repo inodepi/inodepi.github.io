@@ -1,0 +1,185 @@
+{
+  "posts": [
+    {
+      "slug": "ai-receptionist-answers-missed-calls",
+      "title": "How an AI receptionist answers a clinic's missed call",
+      "url": "/blog/ai-receptionist-answers-missed-calls.html",
+      "description": "A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in.",
+      "date": "2026-11-08",
+      "reading": "4 min read",
+      "words": 799,
+      "tags": [
+        "voice",
+        "ops",
+        "guardrails"
+      ]
+    },
+    {
+      "slug": "ai-receptionist-cost-small-clinic",
+      "title": "What an AI receptionist actually costs a small clinic",
+      "url": "/blog/ai-receptionist-cost-small-clinic.html",
+      "description": "Where the money goes when a clinic adds an AI receptionist: voice minutes, the automation layer, the one-time build, what moves each line, and how to compare quotes without getting anchored on a fake number.",
+      "date": "2026-11-08",
+      "reading": "4 min read",
+      "words": 787,
+      "tags": [
+        "voice",
+        "ops",
+        "guardrails"
+      ]
+    },
+    {
+      "slug": "ai-receptionist-small-clinic",
+      "title": "AI receptionist for a small clinic: what it can and can't do",
+      "url": "/blog/ai-receptionist-small-clinic.html",
+      "description": "A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it.",
+      "date": "2026-11-08",
+      "reading": "4 min read",
+      "words": 796,
+      "tags": [
+        "voice",
+        "ops",
+        "guardrails"
+      ]
+    },
+    {
+      "slug": "hipaa-compliant-ai-receptionist",
+      "title": "HIPAA-compliant AI receptionist: what healthcare actually needs",
+      "url": "/blog/hipaa-compliant-ai-receptionist.html",
+      "description": "A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away.",
+      "date": "2026-11-08",
+      "reading": "4 min read",
+      "words": 755,
+      "tags": [
+        "voice",
+        "guardrails",
+        "ops"
+      ]
+    },
+    {
+      "slug": "sales-call-qa",
+      "title": "The call is the evidence: building Sales Call QA",
+      "url": "/blog/sales-call-qa.html",
+      "description": "Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky.",
+      "date": "2026-11-04",
+      "reading": "8 min read",
+      "words": 1509,
+      "tags": [
+        "n8n",
+        "llm",
+        "sales",
+        "guardrails"
+      ]
+    },
+    {
+      "slug": "job-scrapper-discord-gemini",
+      "title": "job-scrapper now posts to Discord with Gemini summaries",
+      "url": "/blog/job-scrapper-discord-gemini.html",
+      "description": "How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence.",
+      "date": "2026-11-02",
+      "reading": "6 min read",
+      "words": 177,
+      "tags": [
+        "python",
+        "scraping",
+        "llm"
+      ]
+    },
+    {
+      "slug": "ar-invoice-agent-challenges",
+      "title": "The invoice chaser: three bugs, one rule",
+      "url": "/blog/ar-invoice-agent-challenges.html",
+      "description": "Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.",
+      "date": "2026-10-28",
+      "reading": "7 min read",
+      "words": 1203,
+      "tags": [
+        "n8n",
+        "llm",
+        "ops"
+      ]
+    },
+    {
+      "slug": "my-dotfiles-one-line-install",
+      "title": "My dotfiles, one line",
+      "url": "/blog/my-dotfiles-one-line-install.html",
+      "description": "How a single curl | sh installs Bash, Neovim, Starship, Fastfetch, Hyprland, Waybar, Wofi and GTK on six distro families — a bootstrap script plus GNU Stow.",
+      "date": "2026-09-15",
+      "reading": "5 min read",
+      "words": 551,
+      "tags": [
+        "linux",
+        "tooling"
+      ]
+    },
+    {
+      "slug": "folklore-video-free-tier-quota",
+      "title": "When \"free tier\" means zero: folklore video and the Gemini quota wall",
+      "url": "/blog/folklore-video-free-tier-quota.html",
+      "description": "The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com.",
+      "date": "2026-08-27",
+      "reading": "6 min read",
+      "words": 734,
+      "tags": [
+        "llm",
+        "make",
+        "quota"
+      ]
+    },
+    {
+      "slug": "feeding-make-com-from-python",
+      "title": "Feeding Make.com from Python",
+      "url": "/blog/feeding-make-com-from-python.html",
+      "description": "How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline.",
+      "date": "2026-08-26",
+      "reading": "7 min read",
+      "words": 602,
+      "tags": [
+        "python",
+        "make",
+        "scraping"
+      ]
+    },
+    {
+      "slug": "make-com-free-plan-ops-math",
+      "title": "The free-plan ops math",
+      "url": "/blog/make-com-free-plan-ops-math.html",
+      "description": "Make.com's free plan gives you 1,000 operations a month. Here's the arithmetic that decides whether your polling interval is an automation or an ops bonfire.",
+      "date": "2026-08-26",
+      "reading": "6 min read",
+      "words": 508,
+      "tags": [
+        "make",
+        "ops"
+      ]
+    },
+    {
+      "slug": "one-receptionist-three-engines",
+      "title": "One receptionist, three engines",
+      "url": "/blog/one-receptionist-three-engines.html",
+      "description": "I built the same AI clinic receptionist on Make, n8n and Zapier. Here's what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available.",
+      "date": "2026-08-26",
+      "reading": "9 min read",
+      "words": 962,
+      "tags": [
+        "voice",
+        "make",
+        "n8n"
+      ]
+    },
+    {
+      "slug": "why-my-ai-never-sends-emails",
+      "title": "Why my AI never sends emails",
+      "url": "/blog/why-my-ai-never-sends-emails.html",
+      "description": "The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop's hands.",
+      "date": "2026-08-26",
+      "reading": "8 min read",
+      "words": 844,
+      "tags": [
+        "llm",
+        "email",
+        "guardrails"
+      ]
+    }
+  ]
+}

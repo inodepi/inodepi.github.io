@@ -1,0 +1,47 @@
+1
+00:00:00,900 --> 00:00:03,840
+Sixty-four leads, cold for months.
+
+2
+00:00:03,900 --> 00:00:06,614
+The workflow starts with the stale list.
+
+3
+00:00:07,400 --> 00:00:10,540
+It enriches every record: company, role, news.
+
+4
+00:00:10,600 --> 00:00:13,740
+Then scores the fit against your best deals.
+
+5
+00:00:13,800 --> 00:00:16,739
+Only the top of the list gets a touch.
+
+6
+00:00:17,000 --> 00:00:20,062
+A short message that names their problem.
+
+7
+00:00:20,200 --> 00:00:23,140
+Sent from your inbox, not a blast tool.
+
+8
+00:00:23,200 --> 00:00:26,340
+When a reply lands, it reads it and routes it.
+
+9
+00:00:26,400 --> 00:00:29,109
+Sixty-four dead leads revived.
+
+10
+00:00:29,400 --> 00:00:31,557
+Two to three weeks to build.
+
+11
+00:00:32,400 --> 00:00:34,200
+Book a fit call.
+
+12
+00:00:35,600 --> 00:00:38,313
+inodepi.github.io

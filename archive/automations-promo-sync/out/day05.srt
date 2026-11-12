@@ -1,0 +1,43 @@
+1
+00:00:00,900 --> 00:00:02,600
+It's not the list.
+
+2
+00:00:02,600 --> 00:00:04,400
+Lead-gen and CRM ops.
+
+3
+00:00:04,400 --> 00:00:06,200
+Scraping and data extraction.
+
+4
+00:00:06,200 --> 00:00:08,000
+AI agents and classifiers.
+
+5
+00:00:08,000 --> 00:00:09,800
+Reports and digests in email.
+
+6
+00:00:09,800 --> 00:00:11,600
+Follow-up sequences.
+
+7
+00:00:11,600 --> 00:00:13,574
+File and systems glue.
+
+8
+00:00:14,600 --> 00:00:18,224
+Built in n8n. Your stack, your tools.
+
+9
+00:00:18,400 --> 00:00:22,384
+Pick one process. We automate it in two to three weeks.
+
+10
+00:00:24,400 --> 00:00:26,200
+Book a fit call.
+
+11
+00:00:27,200 --> 00:00:29,763
+inodepi.github.io

@@ -1,0 +1,14 @@
+# masters and intermediates stay local; the repo ships Discord delivery copies + docs
+out/day*.mp4
+out/video_*.mp4
+out/mix_*.wav
+out/*.segs*
+out/poster0*/
+out/cues_day*.json
+**/stills/
+*.wav
+**/__pycache__/
+.venv/
+node_modules/
+.DS_Store
+out/.*

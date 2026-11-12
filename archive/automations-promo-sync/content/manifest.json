@@ -1,0 +1,121 @@
+{
+  "campaign": "inodepi · automations promo",
+  "startDate": "2026-11-09",
+  "timezone": "UTC+08:00",
+  "postTimeLocal": "07:30",
+  "hashtags": "#automation #n8n #workflow #AIagents #smallbusiness #operations #leadgen #salesops",
+  "days": [
+    {
+      "day": 1,
+      "title": "The pitch",
+      "video": "out/discord/day01.mp4",
+      "poster": "out/poster_day01.jpg",
+      "srt": "out/day01.srt",
+      "caption": "When a client tells me \"we're drowning in admin\", I ask one question: what are you paying a person to do that a computer should be doing?\n\nMost of the time the answer is copy-paste. CRM to sheet, sheet to email, email to CRM. Every morning.\n\nHere are four builds already doing that work: 47 invoices chased, 64 dead leads revived, 128 calls scored every week — running in n8n, in the client's own stack.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 2,
+      "title": "Hook C — the cable",
+      "video": "out/discord/day02.mp4",
+      "poster": "out/poster_day02.jpg",
+      "srt": "out/day02.srt",
+      "caption": "You hired a person to be a cable.\n\nThat's what copy-paste between your CRM, inbox and sheets is: a human cable. The automation in this video does the same job — 47 invoices chased, follow-ups spaced, replies matched — without a morning lost to it.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 3,
+      "title": "Hook A — the copy-paste morning",
+      "video": "out/discord/day03.mp4",
+      "poster": "out/poster_day03.jpg",
+      "srt": "out/day03.srt",
+      "caption": "The copy-paste morning.\n\nSheet. Inbox. CRM. Sheet again. The same record moved by hand until someone notices the mistake.\n\nThis is the same workflow, running as one automated relay. Your stack, your tools.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 4,
+      "title": "The numbers",
+      "video": "out/discord/day04.mp4",
+      "poster": "out/poster_day04.jpg",
+      "srt": null,
+      "caption": "47 invoices chased.\n64 dead leads revived.\n128 calls scored every week.\n\nNone of that is a promise — it's what the current builds do while I sleep. If one number looks like your week, that's the process to automate first.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 5,
+      "title": "Not the list",
+      "video": "out/discord/day05.mp4",
+      "poster": "out/poster_day05.jpg",
+      "srt": "out/day05.srt",
+      "caption": "People ask what I automate. The honest answer: anything repetitive that runs on a computer.\n\nLead-gen and CRM ops. Scraping and data extraction. AI agents and classifiers. Reports and digests in email. Follow-up sequences. File and systems glue.\n\nBuilt in n8n, in your stack, with your tools.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 6,
+      "title": "The offer",
+      "video": "out/discord/day06.mp4",
+      "poster": "out/poster_day06.jpg",
+      "srt": "out/day06.srt",
+      "caption": "Pick the process that eats your week.\n\nIt doesn't need a new tool. It runs in your existing stack. It's automated in two to three weeks. And you approve what matters — the human stays in the loop.\n\nOne process. One fit call.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 7,
+      "title": "Teaser — one hop",
+      "video": "out/discord/day07.mp4",
+      "poster": "out/poster_day07.jpg",
+      "srt": null,
+      "caption": "Manual relay, in one take.\n\nThe same record hops from spreadsheet to inbox to CRM all morning. Tomorrow: the same job, one hop.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 8,
+      "title": "Invoice chasing, end to end",
+      "video": "out/discord/day08.mp4",
+      "poster": "out/poster_day08.jpg",
+      "srt": "out/day08.srt",
+      "caption": "Invoice chasing, end to end.\n\nTrigger fires, invoices match, follow-ups draft, sends go out, everything logs. 47 chased this week without anyone opening a spreadsheet.\n\nIf your AR runs on \"I'll get to it Friday\", this is the first one to replace.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 9,
+      "title": "Hook B — your best employee",
+      "video": "out/discord/day09.mp4",
+      "poster": "out/poster_day09.jpg",
+      "srt": "out/day09.srt",
+      "caption": "Your best employee is copy-pasting.\n\nMeanwhile 64 dead leads sit in the pipeline, not because nobody cared, but because nobody had time.\n\nThis workflow pulls the stale list, enriches it, scores it, makes first touch and classifies the replies. 64 leads came back this way.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 10,
+      "title": "Before / after",
+      "video": "out/discord/day10.mp4",
+      "poster": "out/poster_day10.jpg",
+      "srt": "out/day10.srt",
+      "caption": "Same desk. Same cards. One hour of hand-offs vs one automated handoff.\n\nThe manual version: hop, wait, copy, paste, forget. The automated version: one record, one route, every card updated in sequence.\n\nBuilt in n8n, two to three weeks, your stack.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 11,
+      "title": "Dead-lead retrieval",
+      "video": "out/discord/day11.mp4",
+      "poster": "out/poster_day11.jpg",
+      "srt": "out/day11.srt",
+      "caption": "Every dead-lead list is a list of people who wanted something once.\n\nThis workflow takes the stale list, enriches it, scores fit, writes the first touch and classifies what comes back. 64 revived so far.\n\nThe leads weren't dead. The follow-up was.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 12,
+      "title": "Sales-call QA",
+      "video": "out/discord/day12.mp4",
+      "poster": "out/poster_day12.jpg",
+      "srt": "out/day12.srt",
+      "caption": "128 calls scored this week — every one against the same rubric.\n\nRecording in, transcript out, scores to the CRM, an alert when a deal is at risk. No manager listening at 2x speed on a Friday.\n\nConsistency is the product.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 13,
+      "title": "Lead-gen and CRM ops",
+      "video": "out/discord/day13.mp4",
+      "poster": "out/poster_day13.jpg",
+      "srt": "out/day13.srt",
+      "caption": "Lead comes in. Enrichment runs. Duplicates die. Routing picks the right owner. CRM updates. The digest lands in your inbox before breakfast.\n\nThis is the invisible ops layer — six steps, zero manual clicks, one approved digest at the end.\n\nBook a fit call → inodepi.github.io"
+    },
+    {
+      "day": 14,
+      "title": "Results reel",
+      "video": "out/discord/day14.mp4",
+      "poster": "out/poster_day14.jpg",
+      "srt": "out/day14.srt",
+      "caption": "Two weeks of content, one point:\n\nYou hired a person to be a cable. 47 invoices, 64 leads, 128 calls a week — all of it is already running.\n\nPick the process that eats your week. Two to three weeks. You approve what matters.\n\nBook a fit call → inodepi.github.io"
+    }
+  ]
+}

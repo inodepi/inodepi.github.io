@@ -1,0 +1,76 @@
+[
+ {
+  "id": "l1",
+  "text": "This is the whole build. Nothing hidden.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "A trigger reads the invoice sheet at seven.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "Anything due today gets pulled in.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "It matches the open invoice in the CRM.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Then drafts a follow-up in your tone.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "You can read it. Or let it send.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l7",
+  "text": "It sends from your own inbox.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "And logs the thread back to the sheet.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "Forty-seven invoices chased.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "A morning back, every week.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l12",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

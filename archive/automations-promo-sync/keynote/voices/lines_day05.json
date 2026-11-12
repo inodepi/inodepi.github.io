@@ -1,0 +1,71 @@
+[
+ {
+  "id": "l1",
+  "text": "It's not the list.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "Lead-gen and CRM ops.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "Scraping and data extraction.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "AI agents and classifiers.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Reports and digests in email.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "Follow-up sequences.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l7",
+  "text": "File and systems glue.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "Built in n8n. Your stack, your tools.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "Pick one process. We automate it in two to three weeks.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "pick one process. we automated in two to three weeks."
+ },
+ {
+  "id": "l10",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l11",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

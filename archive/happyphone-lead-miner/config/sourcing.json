@@ -1,0 +1,29 @@
+{
+  "cities": [
+    "Austin, TX",
+    "Dallas, TX",
+    "Houston, TX",
+    "San Antonio, TX",
+    "Phoenix, AZ",
+    "Tampa, FL",
+    "Orlando, FL",
+    "Miami, FL",
+    "Atlanta, GA",
+    "Charlotte, NC"
+  ],
+  "categories": [
+    "plumber",
+    "electrician",
+    "roofing",
+    "hvac",
+    "dentist",
+    "landscaping",
+    "auto repair",
+    "salon"
+  ],
+  "sources": ["overpass", "yellowpages"],
+  "pages_per_run": 6,
+  "max_new_per_run": 60,
+  "timeout_seconds": 20,
+  "healthy_recheck_days": 7
+}

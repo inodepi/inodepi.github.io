@@ -1,0 +1,43 @@
+name: discord-daily
+
+on:
+  schedule:
+    - cron: '30 23 * * *'   # 07:30 Asia/Shanghai (UTC+8) — day N from content/manifest.json
+  workflow_dispatch:
+    inputs:
+      day:
+        description: 'Day 1–14 (blank = today from the manifest schedule)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Print the payload instead of sending'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: discord-promo
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Send today's promo to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          FLAGS=""
+          if [ -n "${{ inputs.day }}" ]; then FLAGS="--day ${{ inputs.day }}"; else FLAGS="--auto"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="$FLAGS --dry-run"; fi
+          node scripts/post_to_discord.mjs $FLAGS
+      - name: Show queue
+        if: always()
+        run: node scripts/post_to_discord.mjs --list

@@ -1,0 +1,7 @@
+Hi {{first_name}},
+
+Noticed {{business_name}} is hiring for operations or support. That usually means a queue of manual work is about to grow faster than the team.
+
+I build small automations that remove the repetitive part — lead follow-up, data cleanup, reporting, routing — so the new hire spends time on judgment instead of copy-paste.
+
+Worth a quick look at the workflow you're hiring around?

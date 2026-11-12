@@ -1,0 +1,170 @@
+{
+  "updatedAt": "2026-08-18T10:40:44.460Z",
+  "createdAt": "2026-08-18T10:40:44.460Z",
+  "id": "QCxD72Qc3I89jQTG",
+  "name": "Lead Capture & Notification Workflow",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook/lead-capture",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e3a7e181-718d-4869-a217-86a4630164c4",
+      "name": "Webhook (Lead Form)",
+      "webhookId": "4f6b6ae4-2b1a-4b14-b5d5-80500a05ce45"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID_HERE",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.name }}",
+            "Email": "={{ $json.body.email }}",
+            "Phone": "={{ $json.body.phone }}",
+            "ServiceNeeded": "={{ $json.body.serviceNeeded }}",
+            "Message": "={{ $json.body.message }}",
+            "DateSubmitted": "={{ $now.toISO() }}"
+          },
+          "matchingColumns": [],
+          "attemptToConvertTypes": false,
+          "keys": [],
+          "include": "none"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "c0fabeac-8e31-461f-a003-22af898dc57d",
+      "name": "Append to Google Sheets"
+    },
+    {
+      "parameters": {
+        "sendTo": "your-email@example.com",
+        "subject": "New Lead: {{ $json.Name }}",
+        "emailType": "text",
+        "message": "You have a new lead!\n\nName: {{ $json.Name }}\nEmail: {{ $json.Email }}\nPhone: {{ $json.Phone }}\nService: {{ $json.ServiceNeeded }}\nMessage: {{ $json.Message }}\n\nCheck your Google Sheet for full details.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "bef98e42-c843-4d87-800c-edaa808e5e13",
+      "name": "Send Email Notification",
+      "webhookId": "b04a9b64-1383-4f0c-8b90-67c123c34dd0"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"status\": \"success\", \"message\": \"Lead captured successfully!\"}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "7fe796cd-514e-4ec4-9260-315254803eac",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "connections": {
+    "Webhook (Lead Form)": {
+      "main": [
+        [
+          {
+            "node": "Append to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Send Email Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email Notification": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": {},
+  "versionId": "3ee4a641-e359-4727-a0a5-e28c8f285840",
+  "activeVersionId": null,
+  "versionCounter": 1,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "shared": [
+    {
+      "updatedAt": "2026-08-18T10:40:44.464Z",
+      "createdAt": "2026-08-18T10:40:44.464Z",
+      "role": "workflow:owner",
+      "workflowId": "QCxD72Qc3I89jQTG",
+      "projectId": "Tahe82c0BsrZwmkA",
+      "project": {
+        "updatedAt": "2026-08-16T11:43:34.461Z",
+        "createdAt": "2026-08-16T11:22:39.146Z",
+        "id": "Tahe82c0BsrZwmkA",
+        "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+      }
+    ]
+  ],
+  "tags": []
+}

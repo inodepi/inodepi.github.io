@@ -1,0 +1,7 @@
+Hi {{first_name}},
+
+Most teams at your stage are running one process on a spreadsheet and a reminder. It works until volume doubles and nobody trusts the sheet anymore.
+
+I replace that with a small automation: clean input, dedupe, retries, a log, and an alert when something breaks.
+
+If you have one process like that, want me to map it?

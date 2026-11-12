@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="640" viewBox="0 0 1400 640" role="img" aria-labelledby="title desc">
+  <title id="title">n8n workflow plan — Job Scrapper: Summarize &amp; Post</title>
+  <desc id="desc">Mock of the n8n canvas: webhook to split out to fallback check to dedupe against the seen table, then Gemini summary, Discord embed, mark as posted, respond 200; failures respond 502; nothing new posts a notice.</desc>
+
+  <style>
+    .bg { fill: #16161f; }
+    .grid { stroke: #23232e; stroke-width: 1; }
+    .node { fill: #262631; stroke: #3a3a4a; stroke-width: 1.5; }
+    .node-title { fill: #ececf4; font: 600 13px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .node-sub { fill: #9a9aad; font: 400 10.5px/1.2 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .icon { fill: #ffffff; font: 700 13px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .wire { stroke: #8f8fa8; stroke-width: 2.5; fill: none; }
+    .wire-ok { stroke: #4ec9a4; }
+    .wire-err { stroke: #e2695e; }
+    .branch { fill: #b9b9cc; font: 600 10px/1 "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: .06em; }
+    .badge { font: 700 10px/1 "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: .08em; }
+    .panel-title { fill: #ececf4; font: 600 16px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .sticky { fill: #3a3320; stroke: #6b5d2e; stroke-width: 1.5; }
+    .sticky-text { fill: #e8d89a; font: 400 10.5px/1.35 "Segoe UI", Helvetica, Arial, sans-serif; }
+  </style>
+
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3.6" orient="auto">
+      <path d="M0,0 L8,3.6 L0,7.2 z" fill="#8f8fa8"/>
+    </marker>
+    <marker id="ah-ok" markerWidth="10" markerHeight="10" refX="8" refY="3.6" orient="auto">
+      <path d="M0,0 L8,3.6 L0,7.2 z" fill="#4ec9a4"/>
+    </marker>
+    <marker id="ah-err" markerWidth="10" markerHeight="10" refX="8" refY="3.6" orient="auto">
+      <path d="M0,0 L8,3.6 L0,7.2 z" fill="#e2695e"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1400" height="640" rx="14"/>
+  <g class="grid" opacity="0.6">
+    <path d="M0 80 H1400 M0 160 H1400 M0 240 H1400 M0 320 H1400 M0 400 H1400 M0 480 H1400 M0 560 H1400"/>
+    <path d="M100 0 V640 M240 0 V640 M380 0 V640 M520 0 V640 M660 0 V640 M800 0 V640 M940 0 V640 M1080 0 V640 M1220 0 V640"/>
+  </g>
+
+  <text class="panel-title" x="32" y="42">n8n · Job Scrapper — Summarize &amp; Post</text>
+  <rect x="360" y="26" width="150" height="22" rx="11" fill="#332914" stroke="#8a6d2f"/>
+  <text class="badge" x="374" y="41" fill="#e8c56f">ON HOLD · SAVED JSON</text>
+
+  <!-- Row 1: main path -->
+  <g>
+    <rect class="node" x="40" y="120" width="180" height="86" rx="12"/>
+    <circle cx="70" cy="150" r="14" fill="#e2695e"/>
+    <text class="icon" x="63" y="155">W</text>
+    <text class="node-title" x="56" y="182">Webhook</text>
+    <text class="node-sub" x="56" y="196">POST /webhook/job-scrapper</text>
+  </g>
+
+  <g>
+    <rect class="node" x="280" y="120" width="180" height="86" rx="12"/>
+    <circle cx="310" cy="150" r="14" fill="#6aa5e8"/>
+    <text class="icon" x="304" y="155">S</text>
+    <text class="node-title" x="296" y="182">Split Out Jobs</text>
+    <text class="node-sub" x="296" y="196">jobs array → items</text>
+  </g>
+
+  <g>
+    <rect class="node" x="520" y="120" width="180" height="86" rx="12"/>
+    <circle cx="550" cy="150" r="14" fill="#b48ead"/>
+    <text class="icon" x="543" y="155">?</text>
+    <text class="node-title" x="536" y="182">Is Fallback?</text>
+    <text class="node-sub" x="536" y="196">kind === "fallback"</text>
+  </g>
+
+  <g>
+    <rect class="node" x="520" y="300" width="200" height="86" rx="12"/>
+    <circle cx="550" cy="330" r="14" fill="#4ec9a4"/>
+    <text class="icon" x="544" y="335">D</text>
+    <text class="node-title" x="536" y="362">Drop Already Posted</text>
+    <text class="node-sub" x="536" y="376">rowNotExists · job_scrapper_seen</text>
+  </g>
+
+  <g>
+    <rect class="node" x="790" y="300" width="190" height="86" rx="12"/>
+    <circle cx="820" cy="330" r="14" fill="#b48ead"/>
+    <text class="icon" x="813" y="335">?</text>
+    <text class="node-title" x="806" y="362">Anything New?</text>
+    <text class="node-sub" x="806" y="376">url not empty</text>
+  </g>
+
+  <g>
+    <rect class="node" x="790" y="120" width="190" height="86" rx="12"/>
+    <circle cx="820" cy="150" r="14" fill="#8f7ff0"/>
+    <text class="icon" x="813" y="155">✦</text>
+    <text class="node-title" x="806" y="182">Summarize (Gemini)</text>
+    <text class="node-sub" x="806" y="196">on error → raw description</text>
+  </g>
+
+  <g>
+    <rect class="node" x="1040" y="120" width="190" height="86" rx="12"/>
+    <circle cx="1070" cy="150" r="14" fill="#6aa5e8"/>
+    <text class="icon" x="1063" y="155">D</text>
+    <text class="node-title" x="1056" y="182">Discord — Job Embed</text>
+    <text class="node-sub" x="1056" y="196">retry ×3 · error output →</text>
+  </g>
+
+  <g>
+    <rect class="node" x="1040" y="300" width="190" height="86" rx="12"/>
+    <circle cx="1070" cy="330" r="14" fill="#4ec9a4"/>
+    <text class="icon" x="1064" y="335">+</text>
+    <text class="node-title" x="1056" y="362">Mark as Posted</text>
+    <text class="node-sub" x="1056" y="376">insert url + postedAt</text>
+  </g>
+
+  <g>
+    <rect class="node" x="1040" y="440" width="190" height="66" rx="12"/>
+    <circle cx="1070" cy="465" r="12" fill="#4ec9a4"/>
+    <text class="icon" x="1064" y="469">→</text>
+    <text class="node-title" x="1056" y="492">Respond 200</text>
+    <text class="node-sub" x="1056" y="504">ok · posted n</text>
+  </g>
+
+  <g>
+    <rect class="node" x="790" y="440" width="190" height="66" rx="12"/>
+    <circle cx="820" cy="465" r="12" fill="#e2695e"/>
+    <text class="icon" x="814" y="469">C</text>
+    <text class="node-title" x="806" y="492">Collect Failures</text>
+    <text class="node-sub" x="806" y="504">failed urls</text>
+  </g>
+
+  <g>
+    <rect class="node" x="520" y="440" width="190" height="66" rx="12"/>
+    <circle cx="550" cy="465" r="12" fill="#e2695e"/>
+    <text class="icon" x="544" y="469">→</text>
+    <text class="node-title" x="536" y="492">Respond 502</text>
+    <text class="node-sub" x="536" y="504">ok:false · failed urls</text>
+  </g>
+
+  <g>
+    <rect class="node" x="280" y="300" width="200" height="86" rx="12"/>
+    <circle cx="310" cy="330" r="14" fill="#6aa5e8"/>
+    <text class="icon" x="304" y="335">D</text>
+    <text class="node-title" x="296" y="362">Discord — No New Jobs</text>
+    <text class="node-sub" x="296" y="376">"No new job listings this run."</text>
+  </g>
+
+  <g>
+    <rect class="node" x="40" y="300" width="190" height="86" rx="12"/>
+    <circle cx="70" cy="330" r="12" fill="#4ec9a4"/>
+    <text class="icon" x="64" y="335">→</text>
+    <text class="node-title" x="56" y="362">Respond 200</text>
+    <text class="node-sub" x="56" y="376">ok · posted 0</text>
+  </g>
+
+  <!-- wires -->
+  <path class="wire" d="M220 163 H276" marker-end="url(#ah)"/>
+  <path class="wire" d="M460 163 H516" marker-end="url(#ah)"/>
+
+  <path class="wire wire-ok" d="M605 206 C605 250 700 130 786 156" marker-end="url(#ah-ok)"/>
+  <text class="branch" x="614" y="246" fill="#4ec9a4">TRUE</text>
+
+  <path class="wire" d="M605 206 V296" marker-end="url(#ah)"/>
+  <text class="branch" x="614" y="240">FALSE</text>
+
+  <path class="wire" d="M720 343 H786" marker-end="url(#ah)"/>
+
+  <path class="wire wire-ok" d="M880 300 C880 250 895 220 900 210" marker-end="url(#ah-ok)"/>
+  <text class="branch" x="888" y="266" fill="#4ec9a4">TRUE</text>
+
+  <path class="wire" d="M790 343 C720 343 560 316 484 330" marker-end="url(#ah)"/>
+  <text class="branch" x="660" y="330">FALSE</text>
+
+  <path class="wire" d="M280 343 H234" marker-end="url(#ah)"/>
+
+  <path class="wire" d="M980 163 H1036" marker-end="url(#ah)"/>
+
+  <path class="wire wire-ok" d="M1135 206 V296" marker-end="url(#ah-ok)"/>
+  <path class="wire" d="M1135 386 V436" marker-end="url(#ah)"/>
+
+  <path class="wire wire-err" d="M1040 190 C960 190 925 380 925 436" marker-end="url(#ah-err)"/>
+  <text class="branch" x="950" y="400" fill="#e2695e">ERROR</text>
+
+  <path class="wire wire-err" d="M790 473 H714" marker-end="url(#ah-err)"/>
+
+  <!-- sticky note -->
+  <g>
+    <rect class="sticky" x="40" y="480" width="260" height="120" rx="8" transform="rotate(-2 40 480)"/>
+    <text class="sticky-text" x="54" y="504">Fallback jobs skip the dedupe</text>
+    <text class="sticky-text" x="54" y="520">table so the "scraper found</text>
+    <text class="sticky-text" x="54" y="536">nothing" embed posts every run.</text>
+    <text class="sticky-text" x="54" y="562">A URL is recorded only after</text>
+    <text class="sticky-text" x="54" y="578">Discord accepts the message.</text>
+  </g>
+</svg>

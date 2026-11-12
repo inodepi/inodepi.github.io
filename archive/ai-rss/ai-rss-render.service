@@ -1,0 +1,24 @@
+[Unit]
+Description=ai-rss render server (video rendering pipeline)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/git-projects/ai-rss
+Environment=OUTPUT_DIR=%h/Downloads/generated
+Environment=RENDER_SERVER_PORT=8777
+Environment=AI_RSS_COMFY=1
+Environment=COMFY_BASE_URL=http://127.0.0.1:8188
+# Inline button under the Telegram video → Make.com publish webhook.
+# The render server appends ?title=...&date=... so the scenario knows
+# which video to publish. Keep the URL under ~250 chars for Telegram.
+Environment=TELEGRAM_BUTTON_URL=https://hook.us2.make.com/0hr9shmx9yws61yatzp1m7k1cduv9xcb
+Environment=TELEGRAM_BUTTON_TEXT=🚀 Publish
+# TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID live in this project-local file:
+EnvironmentFile=%h/git-projects/ai-rss/.env
+ExecStart=%h/git-clones/ComfyUI/venv/bin/python %h/git-projects/ai-rss/render_server.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

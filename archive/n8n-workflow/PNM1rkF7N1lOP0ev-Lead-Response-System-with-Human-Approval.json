@@ -1,0 +1,249 @@
+{
+  "updatedAt": "2026-08-16T13:58:33.529Z",
+  "createdAt": "2026-08-16T13:51:02.749Z",
+  "id": "PNM1rkF7N1lOP0ev",
+  "name": "Lead Response System with Human Approval",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-incoming",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "e8e21a76-75ea-4efb-b7d4-579f770be127",
+      "name": "Webhook: Catch Incoming Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "lead-webhook-endpoint"
+    },
+    {
+      "parameters": {
+        "resource": "chat"
+      },
+      "id": "02d8d73b-239e-4cbf-b66e-8971cee46a10",
+      "name": "OpenAI: Analyze & Draft Response",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "@your_telegram_channel_or_user_id",
+        "text": "=🔔 *New Lead Draft Ready for Review*\n\n*From:* {{ $('Webhook: Catch Incoming Lead').item.json.body.name }} ({{ $('Webhook: Catch Incoming Lead').item.json.body.email }})\n*Message:* {{ $('Webhook: Catch Incoming Lead').item.json.body.message }}\n\n*AI Drafted Reply:*\n> {{ $json.message.content }}\n\nReply with APPROVE or REJECT in your dashboard/webhook link.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "99f30e5d-c51a-4abc-b373-9d42d3055a72",
+      "name": "Telegram: Send Approval Request",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "webhookId": "f48114ed-5a3f-4907-a52f-c7052a2d8dd1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-approval-callback",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ac375267-f40f-4455-858c-f1a9fd1d056d",
+      "name": "Webhook: Approval / Rejection Action",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        240
+      ],
+      "webhookId": "approval-callback-endpoint"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "approval-check",
+              "leftValue": "={{ $json.body.action }}",
+              "rightValue": "APPROVE",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            ]
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "68bfe737-2da5-47ed-96b8-763d42606baf",
+      "name": "Filter: Is Approved?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        224,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.lead_email }}",
+        "subject": "Regarding your inquiry",
+        "emailType": "text",
+        "message": "={{ $json.body.approved_message }}",
+        "options": {}
+      },
+      "id": "63b0ae42-c742-473f-900d-fd47f59e83c9",
+      "name": "Gmail: Send Approved Reply",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        160
+      ],
+      "webhookId": "b1e0a161-fefc-44fc-8573-46dd079aa80d"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"processed\"\n}",
+        "options": {}
+      },
+      "id": "271fb0ce-a857-4376-9cf5-1b15ad49277b",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        672,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook: Catch Incoming Lead": {
+      "main": [
+        [
+          {
+            "node": "OpenAI: Analyze & Draft Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI: Analyze & Draft Response": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Send Approval Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram: Send Approval Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Approval / Rejection Action": {
+      "main": [
+        [
+          {
+            "node": "Filter: Is Approved?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Is Approved?": {
+      "main": [
+        [
+          {
+            "node": "Gmail: Send Approved Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": {
+    "Webhook: Catch Incoming Lead": [
+      {
+        "json": {
+            "name": "First item",
+            "code": 1
+          }
+        },
+        {
+          "json": {
+            "name": "Second item",
+            "code": 2
+          }
+        }
+      ]
+    },
+    "versionId": "135a5486-29c3-42e0-95d1-94550266f043",
+    "activeVersionId": null,
+    "versionCounter": 1,
+    "triggerCount": 0,
+    "sourceWorkflowId": null,
+    "shared": [
+      {
+        "updatedAt": "2026-08-16T13:51:02.754Z",
+        "createdAt": "2026-08-16T13:51:02.754Z",
+        "role": "workflow:owner",
+        "workflowId": "PNM1rkF7N1lOP0ev",
+        "projectId": "Tahe82c0BsrZwmkA",
+        "project": {
+          "updatedAt": "2026-08-16T11:43:34.461Z",
+          "createdAt": "2026-08-16T11:22:39.146Z",
+          "id": "Tahe82c0BsrZwmkA",
+          "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "customTelemetryTags": [],
+          "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+        }
+      }
+    ],
+    "tags": []
+}

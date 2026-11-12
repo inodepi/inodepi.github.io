@@ -1,0 +1,1008 @@
+{
+  "createdAt": "2026-10-22T13:01:35.339Z",
+  "updatedAt": "2026-10-23T19:08:56.624Z",
+  "id": "PTGJTmwugqSB8Ax7",
+  "name": "Voice Receptionist - inodepi salon (HIPAA Compliant)",
+  "description": "Retell call_analyzed reports -> validate slot -> Google Calendar booking -> n8n Data Table call log -> Gmail alert (archived template).",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voice-receptionist-n8n",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ed9d5498-6af7-4968-8f39-c6892d60f7a0",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        192
+      ],
+      "webhookId": "8ff34e6c-696c-41a4-9800-eeabe54f0e93"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c1",
+              "name": "channel",
+              "type": "string",
+              "value": "email"
+            },
+            {
+              "id": "c2",
+              "name": "telegram_chat_id",
+              "type": "string",
+              "value": "7018380606"
+            },
+            {
+              "id": "c3",
+              "name": "alert_email",
+              "type": "string",
+              "value": "kristiandyanbusiness@gmail.com"
+            },
+            {
+              "id": "c4",
+              "name": "business_name",
+              "type": "string",
+              "value": "Potaterrr Salon"
+            },
+            {
+              "id": "c5",
+              "name": "calendar_enabled",
+              "type": "boolean",
+              "value": true
+            },
+            {
+              "id": "c6",
+              "name": "service_durations_json",
+              "type": "string",
+              "value": "{\"haircut\":45,\"hair_color\":90,\"treatment\":60,\"manicure\":45}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "52a69bfb-839a-425c-8e30-1ca96eb8379d",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.body?.event ?? $json.event }}",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              },
+              "rightValue": "call_analyzed"
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "id": "9343f4a7-abfd-42fd-8c1e-a967e4ee5e91",
+      "name": "Call analyzed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $json.body || $json;\nconst c = src.call || {};\nconst cfg = $('Config').first().json;\nconst ca = c.call_analysis || {};\nconst sd = ca.custom_analysis_data || {};\nconst durations = JSON.parse(cfg.service_durations_json);\nconst slotRaw = sd.preferred_slot;\nlet slotStart = null;\nif (slotRaw) { const t = new Date(slotRaw); if (!isNaN(t)) slotStart = t.toISOString(); }\nconst durMin = durations[sd.service] || 60;\nconst slotEnd = slotStart ? new Date(new Date(slotStart).getTime() + durMin * 60000).toISOString() : null;\nconst isFuture = slotStart ? new Date(slotStart) > new Date() : false;\nconst bookable = sd.intent === 'book_appointment' && !!slotStart && isFuture;\nreturn { json: {\n  call_id: c.call_id || ('unknown-' + Date.now()),\n  caller_name: sd.caller_name || 'Unknown',\n  callback_number: sd.callback_number || c.from_number || '',\n  intent: sd.intent || 'unknown',\n  service: sd.service || null,\n  preferred_slot: slotRaw || null,\n  slot_start: slotStart,\n  slot_end: slotEnd,\n  duration_minutes: durMin,\n  bookable,\n  summary: ca.call_summary || '',\n  transcript: c.transcript || ''\n}};",
+        "mode": "runOnceForEachItem"
+      },
+      "id": "5785609d-6dc6-4f58-9ccf-d217eb19e336",
+      "name": "Extract",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "517a35e8-0e79-492a-a625-97f71486cce5",
+      "name": "Ignore other events",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        672,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "r1",
+              "name": "handled",
+              "type": "boolean",
+              "value": false
+            },
+            {
+              "id": "r2",
+              "name": "note",
+              "type": "string",
+              "value": "not a call_analyzed event"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "a7d6c36e-b29e-45cb-8c9a-8dfe4b611249",
+      "name": "Result: ignored",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.bookable }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean"
+              },
+              "rightValue": true
+            },
+            {
+              "leftValue": "={{ $('Config').first().json.calendar_enabled }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean"
+              },
+              "rightValue": true
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "id": "39cb7d6d-09fa-4d4b-a03a-eaf2c8fb969b",
+      "name": "Bookable & future?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        1824
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "primary"
+        },
+        "timeMin": "={{ $('Extract').item.json.slot_start }}",
+        "timeMax": "={{ $('Extract').item.json.slot_end }}",
+        "options": {}
+      },
+      "id": "7f29223d-18f4-4c13-b609-a68d29bf08e7",
+      "name": "Slot free?",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        1728
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "m4",
+              "name": "status",
+              "type": "string",
+              "value": "no_booking"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "330cb8d1-9ee9-4682-95ba-5b429778a601",
+      "name": "Mark: no_booking",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.available !== false }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean"
+              },
+              "rightValue": true
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "id": "f81ff030-e0c7-4efe-988e-e4fba65fa643",
+      "name": "Free?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        2240
+      ]
+    },
+    {
+      "parameters": {
+        "additionalFields": {
+          "description": "=Booked by AI Voice Receptionist.\nCaller: {{ $('Extract').item.json.caller_name }} ({{ $('Extract').item.json.callback_number }})\nService: {{ $('Extract').item.json.service }} (~{{ $('Extract').item.json.duration_minutes }} min)\nCall ID: {{ $('Extract').item.json.call_id }}",
+          "summary": "=Potaterrr Salon: {{ $('Extract').item.json.service }} - {{ $('Extract').item.json.caller_name }}"
+        },
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "primary"
+        },
+        "end": "={{ $('Extract').item.json.slot_end }}",
+        "operation": "create",
+        "resource": "event",
+        "start": "={{ $('Extract').item.json.slot_start }}"
+      },
+      "id": "d8aea5f2-7c3b-428a-8bf9-3f6b0e0e575a",
+      "name": "Create calendar event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        2144
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "m3",
+              "name": "status",
+              "type": "string",
+              "value": "conflict"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "d05e419d-6ea1-46fc-ab1d-a63634ce5059",
+      "name": "Mark: conflict",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        2336
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "m1",
+              "name": "status",
+              "type": "string",
+              "value": "booked"
+            },
+            {
+              "id": "m2",
+              "name": "event_link",
+              "type": "string",
+              "value": "={{ $json.htmlLink || '' }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "b216360c-6c6d-408a-a9c3-807dfc35d06a",
+      "name": "Mark: booked",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "mode": "list",
+          "value": ""
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "call_id": "={{ $('Extract').item.json.call_id }}",
+            "caller_name": "={{ $('Extract').item.json.caller_name }}",
+            "callback_number": "={{ $('Extract').item.json.callback_number }}",
+            "intent": "={{ $('Extract').item.json.intent }}",
+            "platform": "n8n",
+            "preferred_slot": "={{ $('Extract').item.json.preferred_slot || '' }}",
+            "service": "={{ $('Extract').item.json.service || '' }}",
+            "status": "={{ $json.status }}",
+            "summary": "={{ $('Extract').item.json.summary }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "call_id",
+              "displayName": "call_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "caller_name",
+              "displayName": "caller_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "callback_number",
+              "displayName": "callback_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "intent",
+              "displayName": "intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "service",
+              "displayName": "service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "preferred_slot",
+              "displayName": "preferred_slot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "platform",
+              "displayName": "platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "e995b423-7705-4a21-9279-1e36ad8d1ef5",
+      "name": "Log row",
+      "position": [
+        224,
+        608
+      ],
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "call_id",
+              "name": "call_id",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.call_id }}"
+            },
+            {
+              "id": "caller_name",
+              "name": "caller_name",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.caller_name }}"
+            },
+            {
+              "id": "callback_number",
+              "name": "callback_number",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.callback_number }}"
+            },
+            {
+              "id": "intent",
+              "name": "intent",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.intent }}"
+            },
+            {
+              "id": "service",
+              "name": "service",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.service }}"
+            },
+            {
+              "id": "preferred_slot",
+              "name": "preferred_slot",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.preferred_slot }}"
+            },
+            {
+              "id": "slot_start",
+              "name": "slot_start",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.slot_start }}"
+            },
+            {
+              "id": "slot_end",
+              "name": "slot_end",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.slot_end }}"
+            },
+            {
+              "id": "duration_minutes",
+              "name": "duration_minutes",
+              "type": "number",
+              "value": "={{ $('Extract').item.json.duration_minutes }}"
+            },
+            {
+              "id": "status",
+              "name": "status",
+              "type": "string",
+              "value": "={{ $json.status }}"
+            },
+            {
+              "id": "summary",
+              "name": "summary",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.summary }}"
+            },
+            {
+              "id": "transcript",
+              "name": "transcript",
+              "type": "string",
+              "value": "={{ $('Extract').item.json.transcript }}"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "type": "string",
+              "value": "={{ $now }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "2d62a932-9d7b-4e09-8fff-071c4c0ebfaf",
+      "name": "Prepare Sheet Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a0",
+              "name": "channel",
+              "type": "string",
+              "value": "={{ $('Config').first().json.channel }}"
+            },
+            {
+              "id": "a1",
+              "name": "alert_text",
+              "type": "string",
+              "value": "=📞 POTATERRR SALON — CALL REPORT\n\nStatus: {{ $('Prepare Sheet Data').item.json.status }}\nCaller: {{ $('Extract').item.json.caller_name }} ({{ $('Extract').item.json.callback_number }})\nIntent: {{ $('Extract').item.json.intent }}\nService: {{ $('Extract').item.json.service || '—' }}\nRequested slot: {{ $('Extract').item.json.preferred_slot || '—' }}\n\nSummary: {{ $('Extract').item.json.summary }}{{ $('Prepare Sheet Data').item.json.event_link ? '\\n\\n📅 ' + $('Prepare Sheet Data').item.json.event_link : '' }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "0d68cff5-a4e2-43f6-859a-426fde90baaf",
+      "name": "Compose alert",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        1056
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.channel }}",
+                    "operator": {
+                      "operation": "equals",
+                      "type": "string"
+                    },
+                    "rightValue": "email"
+                  }
+                ],
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                }
+              },
+              "renameOutput": true,
+              "outputKey": "email"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "8cd7ac7a-2c6a-452b-884a-7738d190e445",
+      "name": "Route by channel",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        0,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Config').first().json.alert_email }}",
+        "subject": "=🔔 Potaterrr Salon — {{ $('Prepare Sheet Data').item.json.status }}",
+        "message": "={{ $json.alert_text }}",
+        "options": {}
+      },
+      "id": "16155bc8-2f03-46ff-8d99-0fee4960ee6a",
+      "name": "Gmail alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        1280
+      ],
+      "webhookId": "473390a4-9d5d-451f-902a-3e84ff049b53",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d1",
+              "name": "handed",
+              "type": "boolean",
+              "value": true
+            },
+            {
+              "id": "d2",
+              "name": "status",
+              "type": "string",
+              "value": "={{ $('Prepare Sheet Data').item.json.status }}"
+            },
+            {
+              "id": "d3",
+              "name": "alerted_via",
+              "type": "string",
+              "value": "={{ $('Config').first().json.channel }}"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "id": "49fbf7ae-d10a-43eb-b8be-a099336f1586",
+      "name": "Result: done",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        1504
+      ]
+    },
+    {
+      "id": "e01045f1-24b2-407a-988a-37d9e0789473",
+      "name": "Sticky Note - Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        96
+      ],
+      "parameters": {
+        "color": 4,
+        "content": "AI VOICE RECEPTIONIST (Retell → n8n) — POTATERRR SALON\n\n1. Retell posts call_analyzed to Webhook; ack 200 immediately.\n2. Filter drops call_started / call_ended / other events.\n3. Extract pulls caller, intent, service, slot.\n5. Bookable? checks intent + future slot.\n6. Calendar availability → create event → mark booked.\n7. Prepare row → call log → compose alert → Gmail.\n\nLIVE: Google Calendar booking, Sheets logging, Gmail alerts.",
+        "height": 360,
+        "width": 460
+      }
+    },
+    {
+      "id": "c5e8c279-45e8-4479-823f-6e2146d9d9cb",
+      "name": "Sticky Note - Outcomes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1696
+      ],
+      "parameters": {
+        "content": "4 OUTCOMES\n\n• booked — future slot, calendar free → event created\n• conflict — calendar says the slot is busy\n• no_booking — question, missing slot, or past slot\n• ignored — payload is not call_analyzed\n\nPast slot → no_booking.",
+        "height": 300,
+        "width": 380,
+        "color": 6
+      }
+    },
+    {
+      "id": "bbf8e752-cc34-445d-b632-a26b4b40cf66",
+      "name": "Sticky Note - Demo + Go Live",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        2048
+      ],
+      "parameters": {
+        "color": 5,
+        "content": "GO-LIVE CHECKLIST\n• Retell: create agent + post-call analysis, subscribe webhook to call_analyzed.\n• Webhook: public HTTPS URL ending /webhook/voice-receptionist-n8n (Retell blocks localhost).\n• Calendar: connect Google Calendar OAuth2.\n• Gmail: connect Gmail OAuth2; sendTo = Config alert_email.\n\nDEMO PAYLOADS (simulator/)\n1 bookable → replace {{TOMORROW_1400}} with a future ISO slot\n2 question → no_booking\n3 past slot → no_booking\n\nRetell retries on timeout/non-2xx; Respond 200 acks immediately.\nThis archived Data Table variant has no dedupe guard; select a table in Log row to use it.\n\nHIPAA: public demo uses fake data only — not a covered deployment.",
+        "height": 400,
+        "width": 400
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "ack-retell-0001",
+      "name": "Respond 200 — ack Retell",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        112,
+        336
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond 200 — ack Retell",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Call analyzed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call analyzed?": {
+      "main": [
+        [
+          {
+            "node": "Extract",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ignore other events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bookable & future?": {
+      "main": [
+        [
+          {
+            "node": "Slot free?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark: no_booking",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Free?": {
+      "main": [
+        [
+          {
+            "node": "Create calendar event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark: conflict",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by channel": {
+      "main": [
+        [
+          {
+            "node": "Gmail alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slot free?": {
+      "main": [
+        [
+          {
+            "node": "Free?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark: booked": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark: conflict": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark: no_booking": {
+      "main": [
+        [
+          {
+            "node": "Prepare Sheet Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Sheet Data": {
+      "main": [
+        [
+          {
+            "node": "Log row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log row": {
+      "main": [
+        [
+          {
+            "node": "Compose alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose alert": {
+      "main": [
+        [
+          {
+            "node": "Route by channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail alert": {
+      "main": [
+        [
+          {
+            "node": "Result: done",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ignore other events": {
+      "main": [
+        [
+          {
+            "node": "Result: ignored",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create calendar event": {
+      "main": [
+        [
+          {
+            "node": "Mark: booked",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract": {
+      "main": [
+        [
+          {
+            "node": "Bookable & future?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond 200 — ack Retell": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timezone": "Asia/Manila"
+  },
+  "pinData": {},
+  "nodeGroups": []
+}

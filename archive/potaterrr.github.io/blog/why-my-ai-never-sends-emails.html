@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why my AI never sends emails — potaterrr</title>
+  <meta name="description" content="The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/why-my-ai-never-sends-emails.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Why my AI never sends emails — potaterrr" />
+  <meta property="og:description" content="The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/why-my-ai-never-sends-emails.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/why-my-ai-never-sends-emails.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Why my AI never sends emails — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why my AI never sends emails — potaterrr" />
+  <meta name="twitter:description" content="The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/why-my-ai-never-sends-emails.png" />
+  <meta property="article:published_time" content="2026-08-26" />
+  <meta property="article:modified_time" content="2026-08-26" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="LLM" />
+  <meta property="article:tag" content="Email" />
+  <meta property="article:tag" content="Guardrails" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Why my AI never sends emails",
+  "description": "The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop's hands.",
+  "datePublished": "2026-08-26",
+  "dateModified": "2026-08-26",
+  "inLanguage": "en",
+  "wordCount": 844,
+  "keywords": "LLM, Email, Guardrails",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/why-my-ai-never-sends-emails.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/why-my-ai-never-sends-emails.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Why my AI never sends emails"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-08-26.md</p>
+            <h1 class="post-title">Why my AI never sends emails</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-08-26">Aug 26, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">8 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">844 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=llm">LLM</a><a class="tag-chip" href="/blog/?tag=email">Email</a><a class="tag-chip" href="/blog/?tag=guardrails">Guardrails</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>People hear "AI writes my follow-up emails" and assume the next sentence is "…and it sends them." It isn't. Nothing in my lead pipeline has permission to hit send, and that constraint is the most valuable design decision in the entire system.</p>
+            <p>This is the story behind <a href="https://github.com/potaterrr/dead-lead-retrieval" target="_blank" rel="noopener">dead-lead-retrieval</a>: how it works, the guardrails that make its drafts worth reading, and the production scars that taught me why the draft step is non-negotiable.</p>
+
+            <h2>The slow death of a lead</h2>
+            <p>Dormant leads rarely die because someone said no. They die because nobody followed up. Manual follow-up is slow, inconsistent, and the first thing that falls off the plate during a busy week. Fully automated outreach fixes the consistency problem but introduces a worse one: robotic messages that burn relationships you spent months building.</p>
+            <p>So both extremes fail. Pure manual dies of neglect. Pure automated dies of cringe.</p>
+
+            <h2>The middle path: machine speed, human judgment</h2>
+            <p>The workflow takes a deliberately boring shape — five linear nodes:</p>
+            <ol>
+              <li>Every morning at 10:00, a schedule trigger fires.</li>
+              <li>A CRM node fetches leads still marked <code>TO DO</code> — filtered server-side, inside the API query, not in post-processing.</li>
+              <li>An LLM agent writes a short, warm, three-sentence check-in for each lead.</li>
+              <li>The email lands as a <strong>Gmail draft</strong> with an HTML call-to-action button. Never sent. Never.</li>
+              <li>The task flips to <code>Draft Done</code>, waiting for a human to review and press send.</li>
+            </ol>
+<pre><code>TO DO ──(AI draft created)──► Draft Done ──(human sends)──► Follow-up Sent</code></pre>
+            <p>The board is the database. Nothing gets sent without a draft existing first, and every state transition reflects back onto the task itself. That single invariant powers duplicate protection for free: tomorrow's run skips anything that already advanced.</p>
+
+            <h2>Why drafts, specifically</h2>
+            <p>Do the worst-case analysis. Ask not "will the automation work?" but "what happens on the worst day of its life?"</p>
+            <ul>
+              <li><strong>A runaway loop</strong> fills your drafts folder. Annoying, not catastrophic. Nobody outside your inbox knows it happened.</li>
+              <li><strong>A hallucination</strong> gets caught by a human eyeball at review time instead of by an angry recipient.</li>
+              <li><strong>You remain the sender of record.</strong> Every email carries your judgment, even when the typing was done by a machine.</li>
+              <li><strong>Even a leaked credential</strong> can't email anyone. The draft-only design means the blast radius of total system compromise is… a tidier to-do list.</li>
+            </ul>
+            <p>Show me a fully-autonomous outreach bot whose failure modes are that gentle.</p>
+
+            <h2>Guardrails that make drafts worth reading</h2>
+            <p>Drafts only save time if they're actually sendable. Four constraints do the heavy lifting:</p>
+            <ul>
+              <li><strong>Personalization comes from real fields, not vibes.</strong> The prompt receives the lead's name, company, and original interest notes from CRM custom fields. Task titles are a last-resort fallback only.</li>
+              <li><strong>The model may not invent URLs.</strong> Prompt-level ban. The only clickable link in any draft is my booking button — which kills the classic "AI confidently linked to a similar-looking company" failure.</li>
+              <li><strong>Fields resolve by name, not position.</strong> Custom fields are regex-matched by name, so someone reordering columns on Tuesday doesn't break greetings on Wednesday.</li>
+              <li><strong>Status updates are atomic with drafting.</strong> The <code>Draft Done</code> flip happens in the same run, so a retried or partially-failed execution can't double-contact anyone.</li>
+            </ul>
+
+            <h2>What production taught me</h2>
+            <p>These aren't hypotheticals. Every one of these cost me a debugging session:</p>
+            <ol>
+              <li><strong>Omitted parameters fall back to dangerous defaults.</strong> n8n's CRM node defaults its operation to <em>create</em>. A node missing an explicit <code>operation: getAll</code> didn't fail — it tried to <em>write new tasks</em>. Always declare resource and operation, even when the panel looks right.</li>
+              <li><strong>Status names match word-exactly.</strong> Case is forgiven (<code>IN PROGRESS</code> equals <code>in progress</code>); words are not. Updating with <code>COMPLETED</code> when the board says <code>complete</code> returns a 400. Check the board's own slugs first.</li>
+              <li><strong>Positional field access is a time bomb.</strong> <code>custom_fields[1].value</code> works beautifully until the day it doesn't. Name-match everything.</li>
+              <li><strong>Task title ≠ person name.</strong> Boards collect descriptive titles like "Leads Pipelines" while the human's actual name hides in a custom field. Greeting someone as "Leads Pipelines" is a great way to be ignored forever.</li>
+              <li><strong>Stale editor tabs revert API edits silently.</strong> Automation platforms cache canvas state per tab. If the workflow changed via API while an old tab held it, saving that tab rolls everything back. One writer at a time, and keep JSON backups in git.</li>
+            </ol>
+
+            <h2>So would I ever let it send?</h2>
+            <p>Honestly — parts of this are heading that way, carefully. The roadmap includes sweeping <code>Draft Done</code> tasks against the Gmail sent folder to auto-mark <code>Follow-up Sent</code>, reply detection so follow-ups stop on answered threads, and calendar events created straight from booking submissions. Those are mechanical steps with verifiable outcomes, exactly where autonomy belongs.</p>
+            <p>But first-touch outreach stays human-approved. The rule I've settled on: <strong>automation should delete drudgery, not judgment.</strong> Remembering, drafting, filing — that's machine work. Deciding — that stays mine.</p>
+            <p>The potatoes get mashed. The emails get approved. 🥔</p>
+            <hr />
+            <p>Built this pattern into something you want running on your own leads? The sanitized workflow and full setup guide live in the <a href="https://github.com/potaterrr/dead-lead-retrieval" target="_blank" rel="noopener">repo</a>, and I'm always up for talking shop over <a href="mailto:kristiandyanbusiness@gmail.com">email</a>.</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ar-invoice-agent-challenges.html"><span class="related-meta">Oct 28, 2026 · 7 min read</span><strong>The invoice chaser: three bugs, one rule</strong><span>Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.</span></a><a class="related-card" href="/blog/one-receptionist-three-engines.html"><span class="related-meta">Aug 26, 2026 · 9 min read</span><strong>One receptionist, three engines</strong><span>I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/dead-lead-retrieval/">Dead Lead Retrieval &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <span></span>
+              <a href="one-receptionist-three-engines.html">One receptionist, three engines &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

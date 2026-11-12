@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The call is the evidence: building Sales Call QA — potaterrr</title>
+  <meta name="description" content="Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/sales-call-qa.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="The call is the evidence: building Sales Call QA — potaterrr" />
+  <meta property="og:description" content="Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/sales-call-qa.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/sales-call-qa.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The call is the evidence: building Sales Call QA — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The call is the evidence: building Sales Call QA — potaterrr" />
+  <meta name="twitter:description" content="Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/sales-call-qa.png" />
+  <meta property="article:published_time" content="2026-11-04" />
+  <meta property="article:modified_time" content="2026-11-04" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="n8n" />
+  <meta property="article:tag" content="LLM" />
+  <meta property="article:tag" content="Sales" />
+  <meta property="article:tag" content="Guardrails" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The call is the evidence: building Sales Call QA",
+  "description": "Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky.",
+  "datePublished": "2026-11-04",
+  "dateModified": "2026-11-04",
+  "inLanguage": "en",
+  "wordCount": 1509,
+  "keywords": "n8n, LLM, Sales, Guardrails",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/sales-call-qa.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/sales-call-qa.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The call is the evidence: building Sales Call QA"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-11-04.md</p>
+            <h1 class="post-title">The call is the evidence: building Sales Call QA</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-11-04">Nov 4, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">8 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">1,509 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=n8n">n8n</a><a class="tag-chip" href="/blog/?tag=llm">LLM</a><a class="tag-chip" href="/blog/?tag=sales">Sales</a><a class="tag-chip" href="/blog/?tag=guardrails">Guardrails</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>Sales managers do not lack opinions about calls. They lack evidence. A manager hears one call on a Tuesday, remembers the worst sentence from it, and that becomes the coaching theme for the month. The rep who quietly improved never gets credit. The rep who had one bad call never hears the end of it.</p>
+<p>So I built <a href="/projects/sales-call-qa/">Sales Call QA &amp; Coaching</a>: an n8n workflow that scores every finished sales call against the same five-part rubric, quotes the exact line behind every score, and only asks a human to look when the call is actually risky. Clean calls land in a data table and wait for Monday. Nothing is sent automatically.</p>
+<p>The interesting part was not the model call. It was deciding what counts as evidence, and what the workflow should do when the evidence is not good enough.</p>
+
+<h2>The shape of it</h2>
+<p>Eighteen nodes, one main line and one weekly branch:</p>
+<ol>
+  <li>Retell posts the finished call to a webhook. A form accepts a pasted transcript for testing, so the pipeline works before a single real call exists.</li>
+  <li>A Code node normalizes the payload, pulls out the rep and transcript, and refuses to score a call without a usable transcript.</li>
+  <li>Gemini 3 Flash scores opening, discovery, objection handling, next step and compliance through a Structured Output Parser.</li>
+  <li>A second Code node clamps the scores, recomputes the weighted overall, verifies every quote against the transcript, redacts emails and phone numbers, and picks the review path.</li>
+  <li>Clean calls go to the <code>Sales Call QA</code> data table. Risky or low-confidence calls also become a Gmail draft for a manager.</li>
+  <li>Every Monday, a digest reads the last week, aggregates it per rep, and files one coaching draft.</li>
+</ol>
+<p>The model gets one job: read the call and fill in five scores with evidence. Every decision that can be made deterministically — the weighted overall, whether the evidence is real, whether a human is required — happens in code after the model returns. That split is the whole design.</p>
+
+<h2>The rubric</h2>
+<p>Five dimensions, weighted to match what actually moves a deal:</p>
+<table>
+  <thead>
+    <tr><th>Dimension</th><th>Weight</th><th>What it checks</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Opening</td><td>15%</td><td>Name, company, permission to continue, a clear reason for the call without dumping the pitch.</td></tr>
+    <tr><td>Discovery</td><td>30%</td><td>Situation, pain, impact, decision process and timeline. Confirms understanding before moving on.</td></tr>
+    <tr><td>Objection handling</td><td>25%</td><td>Acknowledges the objection, explores it, answers with relevant proof, and checks whether the answer landed.</td></tr>
+    <tr><td>Next step</td><td>20%</td><td>A specific date and owner, confirmed before the call ends. One if there is no next step.</td></tr>
+    <tr><td>Compliance</td><td>10%</td><td>Recording disclosure where required, no guarantees, accurate pricing, do-not-call respected.</td></tr>
+  </tbody>
+</table>
+<p>Discovery carries the most weight because a beautiful pitch on top of a bad discovery is still a bad call. Compliance carries the least because most calls are boring on compliance — but it is a hard gate, not a suggestion: below 3 and the call always goes to a human.</p>
+
+<h2>Rule one: every score quotes the call</h2>
+<p>The first version asked the model for a score and a short justification. It produced lovely, plausible summaries that were occasionally about a different call. A score without a quote is just a vibe with a number.</p>
+<p>So the parser now requires an exact quote for every dimension, or the literal string <code>no evidence in transcript</code>. The validation node checks each quote against the normalized transcript. If fewer than three quotes verify, confidence drops and the call is forced into review. The model can still be wrong; it cannot be confidently wrong without a receipt.</p>
+<p>The first evidence check was too strict. Gemini quoted two lines and joined them with <code>...</code>, which is a reasonable way to show an omission. The check compared the whole concatenated string against the transcript and failed. The fix was to split the evidence on ellipses and newlines, normalize each segment, and require every segment to appear:</p>
+<pre><code>const parts = evidence
+  .split(/\.\.\.|\n/)
+  .map((p) =&gt; p.replace(/^(Rep|Prospect|Caller|Buyer|Customer):\s*/i, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim())
+  .filter(Boolean);
+
+return parts.length &gt; 0 &amp;&amp; parts.every((p) =&gt; transcript.includes(p));</code></pre>
+<p>That is the kind of bug that makes a guardrail look broken when it is actually doing its job. The right response is to fix the ruler, not to loosen the rule.</p>
+
+<h2>Rule two: do not punish an easy call</h2>
+<p>The first rubric said objection handling was worth 25% and scored 1 if the rep did not handle an objection. Then a clean discovery call came through, the prospect agreed to everything, and the model gave the rep a 1 for objection handling. The rep did nothing wrong; there was simply no objection to handle.</p>
+<p>The fix is explicit in the prompt: if no objection is raised, score 3 and use <code>no objection in transcript</code> as the evidence. The rep is not punished for an easy call, and the manager is not sent a review draft about a call that went fine.</p>
+<p>This is a small rule with a big effect. Rubrics are opinionated. If you do not write down how the rubric behaves at the edges, the model will invent an answer, and it will usually be harsher than you meant.</p>
+
+<h2>The review gate</h2>
+<p>A call needs a human when any of these is true:</p>
+<ul>
+  <li>confidence is below 0.75,</li>
+  <li>the model raised any red flag,</li>
+  <li>compliance scored below 3, or</li>
+  <li>fewer than three quotes verified against the transcript.</li>
+</ul>
+<p>Everything else is a silent row in the data table. The risky path creates a Gmail draft with the red flag, the evidence and one coaching sentence. A manager reads the call, adjusts anything that looks off, and sends the note themselves. The workflow never sends the coaching email, the same way the invoice agent never sends the reminder and the lead retrieval agent never sends the check-in. Drafts are the boundary between automation and judgment.</p>
+
+<h2>Bug one: the token budget ate the scorecard</h2>
+<p>The first sales run returned an empty structured response. The parser reported invalid JSON, the agent reported <code>MAX_TOKENS</code>, and the completion token count was zero.</p>
+<p>The model had spent its entire output budget on reasoning before it reached the JSON. Four thousand tokens was not enough. Raising <code>maxOutputTokens</code> to <code>8192</code> fixed it. Same prompt, same call, valid JSON.</p>
+<p>This is the second time a token limit has looked like a schema problem. On a reasoning model, the output budget is a correctness setting. The failure shows up at the parser, which is the last place you would look. If a structured response is empty, check the finish reason before you rewrite the schema.</p>
+
+<h2>Bug two: the Gmail credential expired, and the scorecard still had to land</h2>
+<p>Halfway through testing, the Gmail credential expired. The first version saved the scorecard and then created the draft. That order meant a dead draft connection could throw away a perfectly good scorecard.</p>
+<p>Two changes fixed it. The save now happens before the draft, and the draft nodes continue with a regular output when they fail. On an expired token, the workflow logs the Gmail error, skips the draft, and keeps the row. The weekly digest still runs; the scorecard still exists; a human can reconnect the mailbox and pick up the drafts later.</p>
+<p>An automation should degrade, not disappear. If the notification layer is down, the data layer still has to do its job.</p>
+
+<h2>What the demo does and does not prove</h2>
+<p>The portfolio page includes a <a href="/projects/sales-call-qa/demo/">browser simulation</a>. It reads a transcript, scores five dimensions, verifies evidence and shows the review path. It runs on a deterministic heuristic, not Gemini, and it never leaves the page.</p>
+<p>That is enough to show the shape of the product: the rubric, the quote check, the review gate, the Monday digest. It is not a benchmark, and it does not prove the model is right. The real workflow is the n8n build; the <a href="/projects/sales-call-qa/workflow.json">workflow JSON</a> is there to import and point at a real Retell agent.</p>
+
+<h2>What I would build next</h2>
+<ul>
+  <li><strong>Live Retell wiring.</strong> The webhook is in place; the next step is a real agent and a public n8n URL.</li>
+  <li><strong>Score trends.</strong> A rep's five dimensions over eight weeks is more useful than any single call. The data is already in the table.</li>
+  <li><strong>An objection library.</strong> Cluster the objections that get dismissed and attach the best responses. That turns a scorecard into a playbook.</li>
+  <li><strong>AI SDR QA.</strong> Score the bot with the same rubric as the humans. If the bot gets a different standard, the comparison is marketing, not QA.</li>
+</ul>
+
+<h2>The takeaway</h2>
+<p>The hard part of call QA is not transcription, and it is not the model. It is deciding what counts as evidence and where the human boundary sits. A score without a quote is a vibe with a number. A quote that nobody checks is decoration. And a workflow that sends the coaching note itself has skipped the one step that makes the rest of it trustworthy.</p>
+<p>Score the call. Keep the human. That is the whole product. 🥔</p>
+<hr />
+<p>Try the <a href="/projects/sales-call-qa/demo/">interactive simulation</a>, import the <a href="/projects/sales-call-qa/workflow.json">workflow JSON</a>, or read the <a href="/projects/sales-call-qa/">project page</a> for the rubric and the guardrails.</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ar-invoice-agent-challenges.html"><span class="related-meta">Oct 28, 2026 · 7 min read</span><strong>The invoice chaser: three bugs, one rule</strong><span>Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.</span></a><a class="related-card" href="/blog/why-my-ai-never-sends-emails.html"><span class="related-meta">Aug 26, 2026 · 8 min read</span><strong>Why my AI never sends emails</strong><span>The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/sales-call-qa/">Sales Call QA &amp; Coaching &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="job-scrapper-discord-gemini.html">&larr; job-scrapper now posts to Discord with Gemini summaries</a>
+              <a href="hipaa-compliant-ai-receptionist.html">HIPAA-compliant AI receptionist: what healthcare actually needs &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

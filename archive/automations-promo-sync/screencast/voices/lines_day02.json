@@ -1,0 +1,83 @@
+[
+ {
+  "id": "l1",
+  "text": "You hired a person to be a cable.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "This job used to take a morning.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "Now it runs before you sit down.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "It pulls every invoice that is due today.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Drafts the follow-up in your voice.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "Sends it from your own inbox.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l7",
+  "text": "Then logs the thread back to the sheet.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "Forty-seven invoices chased.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "No spreadsheet. No copy-paste.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "no spreadsheet, no copper paste."
+ },
+ {
+  "id": "l10",
+  "text": "A whole morning back, every week.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Two to three weeks to build.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l12",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l13",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

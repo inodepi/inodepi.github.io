@@ -1,0 +1,106 @@
+{
+ "day": 14,
+ "dur": 30,
+ "fps": 24,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.6,
+   "text": "You hired a person to be a cable."
+  },
+  {
+   "id": "l2",
+   "t0": 4.4,
+   "text": "Forty-seven invoices. Sixty-four leads. A hundred and twenty-eight calls a week.",
+   "say": "Forty-seven invoices. Sixty-four leads. A hundred and twenty-eight calls a week."
+  },
+  {
+   "id": "l3",
+   "t0": 10.3,
+   "text": "All of it, actually running."
+  },
+  {
+   "id": "l4",
+   "t0": 13,
+   "text": "Pick the process that eats your week. Two to three weeks. You approve what matters.",
+   "say": "Pick the process that eats your week. Two to three weeks. You approve what matters."
+  },
+  {
+   "id": "l5",
+   "t0": 22,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l6",
+   "t0": 25.4,
+   "text": "inodepi.github.io",
+   "say": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 0.6,
+   "type": "tick"
+  },
+  {
+   "t": 1.2,
+   "type": "tick"
+  },
+  {
+   "t": 1.8,
+   "type": "tick"
+  },
+  {
+   "t": 4.4,
+   "type": "lock"
+  },
+  {
+   "t": 5.2,
+   "type": "lock"
+  },
+  {
+   "t": 6,
+   "type": "lock"
+  },
+  {
+   "t": 8.6,
+   "type": "ding"
+  },
+  {
+   "t": 9.4,
+   "type": "snap"
+  },
+  {
+   "t": 10.2,
+   "type": "snap"
+  },
+  {
+   "t": 11,
+   "type": "snap"
+  },
+  {
+   "t": 11.8,
+   "type": "snap"
+  },
+  {
+   "t": 13,
+   "type": "thump"
+  },
+  {
+   "t": 18.4,
+   "type": "switch"
+  },
+  {
+   "t": 21.8,
+   "type": "whoosh"
+  },
+  {
+   "t": 22,
+   "type": "chime"
+  },
+  {
+   "t": 25.4,
+   "type": "tick"
+  }
+ ]
+}

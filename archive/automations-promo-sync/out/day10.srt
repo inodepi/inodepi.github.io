@@ -1,0 +1,27 @@
+1
+00:00:00,900 --> 00:00:04,000
+One record. Three tools.
+
+2
+00:00:04,200 --> 00:00:06,500
+Copy. Paste. Retype.
+
+3
+00:00:06,600 --> 00:00:10,100
+By hand, that's a morning gone.
+
+4
+00:00:10,550 --> 00:00:14,200
+One automated handoff. Seconds.
+
+5
+00:00:14,300 --> 00:00:17,800
+Built in n8n. Your own stack.
+
+6
+00:00:19,000 --> 00:00:23,000
+Delivered in two to three weeks.
+
+7
+00:00:24,800 --> 00:00:30,000
+Book a fit call at inodepi.github.io.

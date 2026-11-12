@@ -1,0 +1,40 @@
+name: Run Job Scraper (Discord + Gemini)
+
+on:
+  schedule:
+    - cron: '0 */4 * * *' # every 4 hours UTC
+  workflow_dispatch: # Allows manual trigger anytime
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Scraper Script
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-1.5-flash' }}
+          CATEGORIES: ${{ vars.CATEGORIES || 'automation;n8n;make.com;zapier|python|customer support;email support;chat support|virtual assistant' }}
+          MAX_PER_CATEGORY: ${{ vars.MAX_PER_CATEGORY || '1' }}
+          SEEN_FILE: seen_jobs.json
+        run: |
+          python main.py
+
+      - name: Commit Updated Seen Cache
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: update seen jobs cache"
+          file_pattern: seen_jobs.json

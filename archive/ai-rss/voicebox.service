@@ -1,0 +1,13 @@
+[Unit]
+Description=voicebox TTS backend for ai-rss
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/git-clones/voicebox
+ExecStart=%h/git-clones/voicebox/backend/venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 17493
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=default.target

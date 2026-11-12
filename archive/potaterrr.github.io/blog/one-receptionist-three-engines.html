@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One receptionist, three engines — potaterrr</title>
+  <meta name="description" content="I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/one-receptionist-three-engines.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="One receptionist, three engines — potaterrr" />
+  <meta property="og:description" content="I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/one-receptionist-three-engines.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/one-receptionist-three-engines.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="One receptionist, three engines — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="One receptionist, three engines — potaterrr" />
+  <meta name="twitter:description" content="I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/one-receptionist-three-engines.png" />
+  <meta property="article:published_time" content="2026-08-26" />
+  <meta property="article:modified_time" content="2026-08-26" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Voice" />
+  <meta property="article:tag" content="Make.com" />
+  <meta property="article:tag" content="n8n" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "One receptionist, three engines",
+  "description": "I built the same AI clinic receptionist on Make, n8n and Zapier. Here's what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available.",
+  "datePublished": "2026-08-26",
+  "dateModified": "2026-08-26",
+  "inLanguage": "en",
+  "wordCount": 962,
+  "keywords": "Voice, Make.com, n8n",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/one-receptionist-three-engines.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/one-receptionist-three-engines.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "One receptionist, three engines"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-08-26.md</p>
+            <h1 class="post-title">One receptionist, three engines</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-08-26">Aug 26, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">9 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">962 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=voice">Voice</a><a class="tag-chip" href="/blog/?tag=make">Make.com</a><a class="tag-chip" href="/blog/?tag=n8n">n8n</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>Most "Make vs n8n vs Zapier" content is spec sheets copied from pricing pages. So I did something dumber and more useful: I built the <strong>same AI phone receptionist three times</strong> — once per platform — over one shared voice layer, and wrote down everything that broke.</p>
+            <p>The project: when a clinic misses a call (or it's after hours), an AI voice agent answers, handles questions about services and hours, captures the caller's name, number and preferred slot as structured data, books the appointment on Google Calendar, logs everything and alerts the front desk. The repo is public: <a href="https://github.com/potaterrr/voice-receptionist" target="_blank" rel="noopener">voice-receptionist</a>. A <strong>🔒 HIPAA-compliant build is available</strong> for healthcare practices — BAAs, access controls and audit logging on request. The public demo is not for PHI.</p>
+
+            <h2>The shared spine</h2>
+            <p>All three branches consume the same contract: a Retell <code>call_analyzed</code> webhook carrying a transcript plus structured data (<code>caller_name</code>, <code>callback_number</code>, <code>intent</code>, <code>service</code>, <code>preferred_slot</code>). Every branch then does the identical dance — validate, conflict-check Google Calendar, book, log, alert the front desk through a configurable channel.</p>
+            <p>Because the voice layer is shared, comparing platforms is apples-to-apples. And because only one branch needs to be live at a time, switching engines mid-pitch is literally changing one webhook URL in Retell's dashboard.</p>
+
+            <h2>Make.com: fast to build, sneaky to debug</h2>
+            <p>Make got me working fastest. Native modules for Retell reports, Google Calendar and Telegram meant almost no custom mapping, and the scenario history shows every module's inputs and outputs — genuinely great debugging UX.</p>
+            <p>Then the IML expression language fought back. There is <strong>no <code>and()</code>, no <code>or()</code>, no <code>empty()</code></strong>. A simple "bookable AND future slot" becomes nested-<code>if()</code> spaghetti. My favorite trap: a filter condition referencing a bare word like <code>book_appointment</code> treats it as an <em>identifier</em>, silently evaluating to null — so my fallback route matched <em>every</em> call, including bookings, and overwrote their log status seconds after booking. The run still reported success.</p>
+            <p>Two more personality traits: any error auto-deactivates the whole scenario (surprise downtime), and Make routers execute <strong>every matching route</strong>, not just the first. Both are documented behaviors that will absolutely ruin your afternoon if you assume otherwise.</p>
+
+            <h2>n8n: the developer's engine</h2>
+            <p>Self-hosted n8n is where the logic got clean. A Code node replaced twenty expressions with fifteen readable lines of JavaScript. Built-in Data Tables gave me a free database. The Switch node actually understands routing.</p>
+            <p>The tax: you own the plumbing. Webhook payloads arrive wrapped under <code>body</code>, the Set node wants its assignments double-nested in a way no tutorial mentions, and the Google Calendar node refuses Service Accounts — OAuth2 credential or nothing. That last one cost me a rebuild of my auth plan, but the fix was one browser click, and afterwards the workflow felt indestructible. No op quota. No auto-shutdown. Version-controllable JSON.</p>
+
+            <h2>Field test #1: the call that never reached the workflow</h2>
+            <p>With the n8n build live and a Retell agent answering, I finally pointed a real browser call at it — no phone number, just WebRTC and a microphone. Two calls, both instructive, neither one a success.</p>
+            <p>The first connected and lasted eleven seconds. The transcript contains exactly one line: the agent's greeting. No caller audio. The second never joined at all — Retell recorded it as <code>error_user_not_joined</code> with a duration of zero.</p>
+            <p>Meanwhile n8n reported two manual test runs as <strong>successful</strong>. Both contained no node output whatsoever. That's the trap: this workflow starts from a <em>polling</em> trigger that asks Retell once a minute for calls that have ended. Run it by hand and the trigger finds nothing, the graph stops, and n8n still calls the run a success. "Success" meant "nothing errored", not "something happened".</p>
+            <p>The other finding was in the trigger config: it only fetches calls with status <code>ended</code>. My failed call was <code>error</code>, so even with everything working it would have been filtered out. The calls a clinic most needs to know about — the ones that die before anyone speaks — are exactly the ones that vanish.</p>
+            <p>So the pipeline was never wrong; it was never reached. Empty execution logs are not a bug report about your booking logic, they're a bug report about your input. Fix the microphone, confirm a call has a two-sided transcript, then watch for a run with mode <code>trigger</code> instead of <code>manual</code>. That's the only evidence that counts.</p>
+
+            <h2>Zapier: the client's engine</h2>
+            <p>Zapier is the one I can't build programmatically — Zaps are click-ops only — yet it's the one clients love most. The killer pattern: keep configuration in a Google Sheet "Config" tab (alert email, business hours) and look it up at runtime. Non-technical staff edit a spreadsheet; the Zap never changes.</p>
+            <p>The costs are real though: Webhooks by Zapier sits behind plan tiers, tasks burn on every webhook call, Telegram isn't native (Gmail alerts instead), and Paths are clunky next to even Make's router.</p>
+
+            <h2>The scorecard</h2>
+            <table>
+              <thead>
+                <tr><th>Criteria</th><th>Make</th><th>n8n</th><th>Zapier</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Setup speed</td><td>★★★★★</td><td>★★★☆☆</td><td>★★★★☆</td></tr>
+                <tr><td>Logic flexibility</td><td>★★★☆☆</td><td>★★★★★</td><td>★★☆☆☆</td></tr>
+                <tr><td>Debugging UX</td><td>★★★★☆</td><td>★★★☆☆</td><td>★★★☆☆</td></tr>
+                <tr><td>Cost @100 calls/mo</td><td>ops-budget tight</td><td>~free</td><td>task-billing bites</td></tr>
+                <tr><td>Sell to SMBs</td><td>★★★★☆</td><td>★★★☆☆</td><td>★★★★★</td></tr>
+                <tr><td>Sell to tech cos</td><td>★★★☆☆</td><td>★★★★★</td><td>★★☆☆☆</td></tr>
+              </tbody>
+            </table>
+
+            <h2>Pick by maintainer, not by feature list</h2>
+            <p>That's the whole lesson. The receptionist logic is identical everywhere; what differs is who suffers when it changes. Client-managed? Zapier, because they can read it. Agency-managed? Make, because you'll debug it fast. Self-hosted or privacy-sensitive client? n8n, because they'll own it forever.</p>
+            <p>Full scorecard, war stories and the plug-in checklist live in the <a href="https://github.com/potaterrr/voice-receptionist" target="_blank" rel="noopener">repo</a>. The n8n pipeline now takes real calls — the first field test above is what that looks like before the microphone cooperates. If your clinic phone rings off the hook and answers itself badly, we should talk. 🥔</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ar-invoice-agent-challenges.html"><span class="related-meta">Oct 28, 2026 · 7 min read</span><strong>The invoice chaser: three bugs, one rule</strong><span>Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.</span></a><a class="related-card" href="/blog/why-my-ai-never-sends-emails.html"><span class="related-meta">Aug 26, 2026 · 8 min read</span><strong>Why my AI never sends emails</strong><span>The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/ai-voice-receptionist/">AI Voice Receptionist &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="why-my-ai-never-sends-emails.html">&larr; Why my AI never sends emails</a>
+              <a href="make-com-free-plan-ops-math.html">The free-plan ops math &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

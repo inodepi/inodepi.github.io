@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>potaterrr — automation field notes</title>
+    <link>https://potaterrr.github.io/blog/</link>
+    <atom:link href="https://potaterrr.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <description>What broke while building AI voice receptionists, invoice agents, lead retrieval pipelines and scrapers — and the rules that came out of it.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <managingEditor>kristiandyanbusiness@gmail.com (Christian John)</managingEditor>
+    <item>
+      <title>How an AI receptionist answers a clinic&#x27;s missed call</title>
+      <link>https://potaterrr.github.io/blog/ai-receptionist-answers-missed-calls.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/ai-receptionist-answers-missed-calls.html</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in.</description>
+      <category>Voice / Ops / Guardrails</category>
+    </item>
+    <item>
+      <title>What an AI receptionist actually costs a small clinic</title>
+      <link>https://potaterrr.github.io/blog/ai-receptionist-cost-small-clinic.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/ai-receptionist-cost-small-clinic.html</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>Where the money goes when a clinic adds an AI receptionist: voice minutes, the automation layer, the one-time build, what moves each line, and how to compare quotes without getting anchored on a fake number.</description>
+      <category>Voice / Ops / Guardrails</category>
+    </item>
+    <item>
+      <title>AI receptionist for a small clinic: what it can and can&#x27;t do</title>
+      <link>https://potaterrr.github.io/blog/ai-receptionist-small-clinic.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/ai-receptionist-small-clinic.html</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it.</description>
+      <category>Voice / Ops / Guardrails</category>
+    </item>
+    <item>
+      <title>HIPAA-compliant AI receptionist: what healthcare actually needs</title>
+      <link>https://potaterrr.github.io/blog/hipaa-compliant-ai-receptionist.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/hipaa-compliant-ai-receptionist.html</guid>
+      <pubDate>Sun, 08 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>A practical checklist for clinics weighing voice AI: what counts as PHI in a phone call, the five controls that actually matter, the questions to ask any vendor, and the red flags that mean walk away.</description>
+      <category>Voice / Guardrails / Ops</category>
+    </item>
+    <item>
+      <title>The call is the evidence: building Sales Call QA</title>
+      <link>https://potaterrr.github.io/blog/sales-call-qa.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/sales-call-qa.html</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>Building an n8n sales-call QA pipeline: a five-part rubric, quote verification that actually matches the transcript, a no-objection rule, a Gemini token budget bug, and a review gate that only wakes a manager when the call is risky.</description>
+      <category>n8n / LLM / Sales / Guardrails</category>
+    </item>
+    <item>
+      <title>job-scrapper now posts to Discord with Gemini summaries</title>
+      <link>https://potaterrr.github.io/blog/job-scrapper-discord-gemini.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/job-scrapper-discord-gemini.html</guid>
+      <pubDate>Mon, 02 Nov 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence.</description>
+      <category>Python / Scraping / LLM</category>
+    </item>
+    <item>
+      <title>The invoice chaser: three bugs, one rule</title>
+      <link>https://potaterrr.github.io/blog/ar-invoice-agent-challenges.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/ar-invoice-agent-challenges.html</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>Building an n8n accounts-receivable agent that drafts overdue invoice reminders: Gemini returning an empty response to a structured parser, a signature the model kept rewriting, a cooldown that had to exist, and the one rule that shaped all of it.</description>
+      <category>n8n / LLM / Ops</category>
+    </item>
+    <item>
+      <title>My dotfiles, one line</title>
+      <link>https://potaterrr.github.io/blog/my-dotfiles-one-line-install.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/my-dotfiles-one-line-install.html</guid>
+      <pubDate>Tue, 15 Sep 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>How a single curl | sh installs Bash, Neovim, Starship, Fastfetch, Hyprland, Waybar, Wofi and GTK on six distro families — a bootstrap script plus GNU Stow.</description>
+      <category>Linux / Tooling</category>
+    </item>
+    <item>
+      <title>When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall</title>
+      <link>https://potaterrr.github.io/blog/folklore-video-free-tier-quota.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/folklore-video-free-tier-quota.html</guid>
+      <pubDate>Thu, 27 Aug 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>The folklore topic queue works and the scripts draft themselves, then video generation hits a hard 429. Building a free AI folklore-video pipeline on Make.com.</description>
+      <category>LLM / Make.com / Quotas</category>
+    </item>
+    <item>
+      <title>Feeding Make.com from Python</title>
+      <link>https://potaterrr.github.io/blog/feeding-make-com-from-python.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/feeding-make-com-from-python.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline.</description>
+      <category>Python / Make.com / Scraping</category>
+    </item>
+    <item>
+      <title>The free-plan ops math</title>
+      <link>https://potaterrr.github.io/blog/make-com-free-plan-ops-math.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/make-com-free-plan-ops-math.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>Make.com&#x27;s free plan gives you 1,000 operations a month. Here&#x27;s the arithmetic that decides whether your polling interval is an automation or an ops bonfire.</description>
+      <category>Make.com / Ops</category>
+    </item>
+    <item>
+      <title>One receptionist, three engines</title>
+      <link>https://potaterrr.github.io/blog/one-receptionist-three-engines.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/one-receptionist-three-engines.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available.</description>
+      <category>Voice / Make.com / n8n</category>
+    </item>
+    <item>
+      <title>Why my AI never sends emails</title>
+      <link>https://potaterrr.github.io/blog/why-my-ai-never-sends-emails.html</link>
+      <guid isPermaLink="true">https://potaterrr.github.io/blog/why-my-ai-never-sends-emails.html</guid>
+      <pubDate>Wed, 26 Aug 2026 00:00:00 +0000</pubDate>
+      <author>kristiandyanbusiness@gmail.com (Christian John)</author>
+      <description>The human-in-the-loop pattern behind Dead Lead Retrieval: LLM drafts, Gmail holds, human approves. Guardrails, war stories and the case for keeping judgment out of the loop&#x27;s hands.</description>
+      <category>LLM / Email / Guardrails</category>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,13 @@
+[Unit]
+Description=ComfyUI (CPU mode) for ai-rss backgrounds
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/git-clones/ComfyUI
+ExecStart=%h/git-clones/ComfyUI/venv/bin/python main.py --cpu --port 8188
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feeding Make.com from Python — potaterrr</title>
+  <meta name="description" content="How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/feeding-make-com-from-python.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Feeding Make.com from Python — potaterrr" />
+  <meta property="og:description" content="How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/feeding-make-com-from-python.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/feeding-make-com-from-python.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Feeding Make.com from Python — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Feeding Make.com from Python — potaterrr" />
+  <meta name="twitter:description" content="How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/feeding-make-com-from-python.png" />
+  <meta property="article:published_time" content="2026-08-26" />
+  <meta property="article:modified_time" content="2026-08-26" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Python" />
+  <meta property="article:tag" content="Make.com" />
+  <meta property="article:tag" content="Scraping" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Feeding Make.com from Python",
+  "description": "How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline.",
+  "datePublished": "2026-08-26",
+  "dateModified": "2026-08-26",
+  "inLanguage": "en",
+  "wordCount": 602,
+  "keywords": "Python, Make.com, Scraping",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/feeding-make-com-from-python.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/feeding-make-com-from-python.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Feeding Make.com from Python"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-08-26.md</p>
+            <h1 class="post-title">Feeding Make.com from Python</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-08-26">Aug 26, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">7 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">602 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=python">Python</a><a class="tag-chip" href="/blog/?tag=make">Make.com</a><a class="tag-chip" href="/blog/?tag=scraping">Scraping</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>Every Make.com scenario is a consumer. It waits for data to arrive — from an app, an API, or someone upstream who did the unglamorous work of collecting it. That upstream role is exactly where plain old Python shines.</p>
+            <p><a href="https://github.com/potaterrr/job-scrapper" target="_blank" rel="noopener">job-scrapper</a> is my producer: a small scraper that watches OnlineJobs.ph for remote gigs matching automation keywords (<code>n8n</code>, <code>make.com</code>, <code>zapier</code>) and pushes each hit as JSON into a Make.com webhook, which forwards it to Telegram. Here's what I learned building the kitchen that feeds the restaurant.</p>
+
+            <h2>The moving parts</h2>
+            <ul>
+              <li>A keyword list at the top of <code>main.py</code> — currently four automation-related terms.</li>
+              <li>GitHub Actions running the script on a cron, every 4 hours, with the webhook URL injected as a repository secret. No server, no hosting bill.</li>
+              <li>A <code>requests</code>-only dependency list. No Selenium, no headless browser — the site renders server-side enough to parse.</li>
+              <li>The script exits immediately if <code>WEBHOOK_URL</code> isn't set. Fail loudly at startup, not mysteriously at runtime.</li>
+            </ul>
+
+            <h2>One job, one JSON object</h2>
+            <p>The payload contract is deliberately flat:</p>
+<pre><code>{
+  "jobTitle": "Senior Digital Marketing, AI Content &amp; E-Commerce Manager",
+  "company": "MadeEA",
+  "salary": "$1200/month",
+  "employmentType": "Full Time",
+  "url": "https://www.onlinejobs.ph/jobseekers/job/12345",
+  "datePosted": "2026-08-24",
+  "description": "About the Role\nWe are an established and growing…"
+}</code></pre>
+            <p>Three decisions worth stealing:</p>
+            <ul>
+              <li><strong>Flat beats nested.</strong> Every key maps one-to-one onto a field in Make's mapping panel. No dot-path spelunking inside arrays when you're wiring up a filter at midnight.</li>
+              <li><strong>One request per job.</strong> Each listing POSTs individually instead of batching the whole search. Downstream routing stays trivial — no iterator needed unless you want one.</li>
+              <li><strong>Presentation stays out of transport.</strong> The description is capped in the scraper (600 characters, cut at a word boundary), because only the scraper knows about Telegram's 4096-character message limit once title, salary and button text are added. The payload arrives pre-sized for its destination.</li>
+            </ul>
+
+            <h2>Politeness is a feature</h2>
+            <p>Scrapers that hammer sites get banned, so the delays are randomized like a human's: 5–12 seconds between searches, another 2–5 second pause before visiting each listing page for its full description.</p>
+            <p>When OnlineJobs.ph throws up a bot-check interstitial anyway, both request types retry several times with growing waits before giving up gracefully — sending the teaser text with a logged warning rather than failing the whole run. And because I parse raw HTML with regex (no fragile DOM tree dependency), a markup change means zero results, never crashes. The fallback path makes sure downstream still gets a single ping with a search link, so my notifications never stall silently.</p>
+
+            <h2>Queue discipline</h2>
+            <p>The most important constant in the file is <code>MAX_JOBS_PER_KEYWORD = 1</code>. Each keyword contributes at most one listing per run, deduplicated across keywords. Two reasons:</p>
+            <ol>
+              <li><strong>Operations budget.</strong> Every job that hits the webhook costs operations downstream. Four keywords × every 4 hours is already a steady trickle; uncapped, a hot day on the job board would torch a free plan's monthly budget in a weekend.</li>
+              <li><strong>Notification fatigue.</strong> A Telegram channel that pings forty times a morning gets muted by Thursday. One strong signal per keyword per run keeps me actually reading them.</li>
+            </ol>
+
+            <h2>Treat the webhook like an API contract</h2>
+            <p>The payload shape lives verbatim in the README, with types and a real example. That sounds obvious until you've rebuilt a downstream scenario and had to reverse-engineer your own fields from execution logs. Producer and consumer should be strangers who agree on a schema — then either side can be rebuilt without touching the other.</p>
+            <hr />
+            <p>This design has one more trick up its sleeve: it's cheap. How cheap, in actual operations-per-month arithmetic? That's the next post: <a href="make-com-free-plan-ops-math.html">The free-plan ops math</a>.</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/job-scrapper-discord-gemini.html"><span class="related-meta">Nov 2, 2026 · 6 min read</span><strong>job-scrapper now posts to Discord with Gemini summaries</strong><span>How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence.</span></a><a class="related-card" href="/blog/make-com-free-plan-ops-math.html"><span class="related-meta">Aug 26, 2026 · 6 min read</span><strong>The free-plan ops math</strong><span>Make.com&#x27;s free plan gives you 1,000 operations a month. Here&#x27;s the arithmetic that decides whether your polling interval is an automation or an ops bonfire.</span></a></div>
+            </div>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="make-com-free-plan-ops-math.html">&larr; The free-plan ops math</a>
+              <a href="folklore-video-free-tier-quota.html">When &quot;free tier&quot; means zero: folklore video and the Gemini quota wall &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{
+ "day": 6,
+ "dur": 25,
+ "fps": 24,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.9,
+   "text": "Pick the process that eats your week."
+  },
+  {
+   "id": "l2",
+   "t0": 4,
+   "text": "It doesn't need a new tool."
+  },
+  {
+   "id": "l3",
+   "t0": 6.4,
+   "text": "It runs in your stack, with your tools."
+  },
+  {
+   "id": "l4",
+   "t0": 10.2,
+   "text": "Automated in two to three weeks.",
+   "say": "Automated in two to three weeks."
+  },
+  {
+   "id": "l5",
+   "t0": 13.8,
+   "text": "And you approve what matters."
+  },
+  {
+   "id": "l6",
+   "t0": 18.2,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l7",
+   "t0": 21.4,
+   "text": "inodepi.github.io",
+   "say": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 0.9,
+   "type": "tick"
+  },
+  {
+   "t": 3.8,
+   "type": "whoosh"
+  },
+  {
+   "t": 4,
+   "type": "snap"
+  },
+  {
+   "t": 6.4,
+   "type": "snap"
+  },
+  {
+   "t": 8.8,
+   "type": "snap"
+  },
+  {
+   "t": 10.2,
+   "type": "lock"
+  },
+  {
+   "t": 13.8,
+   "type": "tick"
+  },
+  {
+   "t": 14.9,
+   "type": "switch"
+  },
+  {
+   "t": 17.4,
+   "type": "whoosh"
+  },
+  {
+   "t": 18.2,
+   "type": "chime"
+  },
+  {
+   "t": 21.4,
+   "type": "tick"
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+[
+ {
+  "id": "l1",
+  "text": "A lead comes in at two a.m.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "a lead comes in a 2a m."
+ },
+ {
+  "id": "l2",
+  "text": "The form hits a webhook.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "Enriched, deduped, and routed.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "enriched the duped and routed."
+ },
+ {
+  "id": "l4",
+  "text": "The right rep owns it before nine.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "The CRM updates itself.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "A digest lands in your inbox at seven.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "a die just lands in your inbox at seven."
+ },
+ {
+  "id": "l7",
+  "text": "New leads, what moved, what stalled.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "You read it and press approve.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "That is the whole morning stand-up.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "No one typing. Nothing stale.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l12",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HappyFone WebUI — StartUP · potaterrr</title>
+  <meta name="description" content="The working prototype of the HappyPhone caller softphone." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/projects/happyfone-webui/" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="HappyFone WebUI — StartUP · potaterrr" />
+  <meta property="og:description" content="The working prototype of the HappyPhone caller softphone." />
+  <meta property="og:url" content="https://potaterrr.github.io/projects/happyfone-webui/" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/projects/happyfone-webui.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="HappyFone WebUI — StartUP · potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HappyFone WebUI — StartUP · potaterrr" />
+  <meta name="twitter:description" content="The working prototype of the HappyPhone caller softphone." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/projects/happyfone-webui.png" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "HappyFone WebUI",
+  "description": "A dependency-free agent console for the HappyPhone callers: sign-in, a live agent state machine, T9 dialing, a simulated call lifecycle, and persistent call history.",
+  "url": "https://potaterrr.github.io/projects/happyfone-webui/",
+  "image": "https://potaterrr.github.io/assets/og/projects/happyfone-webui.png",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "keywords": "Vanilla JS, ES Modules, CSS, localStorage"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://potaterrr.github.io/projects/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "HappyFone WebUI"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <main id="main-content" class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="/projects/">&larr; All projects</a>
+        <p class="project-kicker">// startup</p>
+        <h1 class="project-title">HappyFone WebUI</h1>
+        <p class="project-tagline">The working prototype of the HappyPhone caller softphone.</p>
+        <div class="project-badges"><span class="project-badge">Prototype</span><span class="project-badge">Part of HappyPhone</span><span class="project-badge project-badge-status">Prototype</span></div>
+        <div class="project-metrics"><div class="project-metric"><span>Type</span><strong>Caller console</strong></div><div class="project-metric"><span>Built with</span><strong>Vanilla JS</strong></div><div class="project-metric"><span>Auth</span><strong>Mock JWT</strong></div></div>
+        <div class="cta-row project-actions"><a class="btn btn-primary" href="https://potaterrr.github.io/happyfone-webui/" target="_blank" rel="noopener">Open the demo</a><a class="btn btn-ghost" href="https://github.com/potaterrr/happyfone-webui" target="_blank" rel="noopener">Repo</a></div>
+      </div>
+    </section>
+
+    <section class="project-body">
+      <div class="container">
+        <div class="project-layout">
+          <div class="project-main">
+        <section class="project-block">
+          <h2>What it is</h2>
+          <p>HappyFone WebUI is the prototype of the softphone I&#x27;m building for HappyPhone. It is a production-style agent console with no framework and no dependencies — plain HTML, CSS and ES modules, deployed on GitHub Pages.</p><p>The point was to make the caller&#x27;s day concrete before wiring real telephony: where they sign in, how they go available, what happens between calls, and what they see when one ends.</p>
+          
+        </section>
+        <section class="project-block">
+          <h2>What&#x27;s inside</h2>
+          
+          <ul class="project-list"><li>Mock auth and a session guard: username, extension, password; direct dashboard visits bounce back to sign-in</li><li>Agent state machine — <code>AVAILABLE</code>, <code>ON_CALL</code>, <code>WRAP_UP</code>, <code>AUX</code> — with a live timer</li><li>AUX reasons (lunch, short break, bio, coaching, training) that pause the dialer until the agent returns</li><li>Simulated call lifecycle: ringing, connected timer, mute, hold/resume and hangup</li><li>Keyboard-first dialing, including T9 letter mapping and DTMF tones while connected</li><li>A five-second wrap-up countdown, then back to available</li><li>Persistent call history that survives reloads, with click-to-dial</li><li>Responsive dark UI with accessible focus states and reduced-motion support</li></ul>
+        </section>
+        <section class="project-block">
+          <h2>What is still simulated</h2>
+          <p>Auth is mocked and calls are simulated — there is no real audio path yet. The production softphone is the one I&#x27;m building at <code>happyphone.lol/caller</code>: real JWT auth, a Kamailio + RTPEngine gateway, and calls through the team&#x27;s VoIP.ms sub-account.</p>
+          
+        </section>
+
+
+        <section class="project-block">
+          <h2>Field notes</h2>
+          <div class="related-grid"><a class="related-card" href="/blog/one-receptionist-three-engines.html"><span class="related-meta">Aug 26, 2026 · 9 min read</span><strong>One receptionist, three engines</strong><span>I built the same AI clinic receptionist on Make, n8n and Zapier. Here&#x27;s what broke, what shone, and which automation engine to pick for whom. A HIPAA-compliant build is available.</span></a></div>
+        </section>
+          </div>
+          <aside class="project-side" aria-label="Project details">
+            <div class="project-side-card">
+              <h2>Stack</h2>
+              <div class="proj-tech-row"><span class="proj-tech">Vanilla JS</span><span class="proj-tech">ES Modules</span><span class="proj-tech">CSS</span><span class="proj-tech">localStorage</span></div>
+            </div>
+            <div class="project-side-card">
+              <h2>Links</h2>
+              <ul class="project-link-list">
+                <li><a href="https://potaterrr.github.io/happyfone-webui/" target="_blank" rel="noopener">Open the demo ↗</a></li><li><a href="https://github.com/potaterrr/happyfone-webui" target="_blank" rel="noopener">Repo ↗</a></li>
+              </ul>
+            </div>
+            <div class="project-side-card">
+              <h2>Category</h2>
+              <p><a href="/projects/#startup">StartUP</a></p>
+            </div>
+          </aside>
+        </div>
+        <nav class="post-nav project-nav" aria-label="More projects">
+          <span></span>
+          <a href="/projects/ai-voice-receptionist/">AI Voice Receptionist &rarr;</a>
+        </nav>
+      </div>
+    </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/section-nav.js" defer></script>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

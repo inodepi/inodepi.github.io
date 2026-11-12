@@ -1,0 +1,119 @@
+[
+ {
+  "id": "l1",
+  "text": "You hired a person to be a cable.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "Copy. Paste. Repeat. Every morning.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "These four builds already run the work.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "Forty-seven invoices chased.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Sixty-four dead leads revived.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l6",
+  "text": "A hundred and twenty-eight calls scored every week.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "128 calls scored every week."
+ },
+ {
+  "id": "l7",
+  "text": "It's not the list.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l8",
+  "text": "Lead-gen and CRM ops.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l9",
+  "text": "Scraping and data extraction.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "AI agents and classifiers.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Reports and digests in email.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l12",
+  "text": "Follow-up sequences.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l13",
+  "text": "File and systems glue.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l14",
+  "text": "Built in n8n. Your stack, your tools.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l15",
+  "text": "Pick the process that eats your week.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l16",
+  "text": "Automated in two to three weeks.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l17",
+  "text": "You approve what matters.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l18",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l19",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

@@ -1,0 +1,233 @@
+{
+ "day": 1,
+ "dur": 60,
+ "fps": 24,
+ "lines": [
+  {
+   "id": "l1",
+   "t0": 0.9,
+   "text": "You hired a person to be a cable."
+  },
+  {
+   "id": "l2",
+   "t0": 4.2,
+   "text": "Copy. Paste. Repeat. Every morning."
+  },
+  {
+   "id": "l3",
+   "t0": 12.6,
+   "text": "These four builds already run the work."
+  },
+  {
+   "id": "l4",
+   "t0": 15.6,
+   "text": "Forty-seven invoices chased.",
+   "say": "Forty-seven invoices chased."
+  },
+  {
+   "id": "l5",
+   "t0": 18.2,
+   "text": "Sixty-four dead leads revived.",
+   "say": "Sixty-four dead leads revived."
+  },
+  {
+   "id": "l6",
+   "t0": 20.8,
+   "text": "A hundred and twenty-eight calls scored every week.",
+   "say": "A hundred and twenty-eight calls scored every week."
+  },
+  {
+   "id": "l7",
+   "t0": 26.6,
+   "text": "It's not the list."
+  },
+  {
+   "id": "l8",
+   "t0": 29,
+   "text": "Lead-gen and CRM ops."
+  },
+  {
+   "id": "l9",
+   "t0": 31,
+   "text": "Scraping and data extraction."
+  },
+  {
+   "id": "l10",
+   "t0": 33,
+   "text": "AI agents and classifiers."
+  },
+  {
+   "id": "l11",
+   "t0": 35,
+   "text": "Reports and digests in email."
+  },
+  {
+   "id": "l12",
+   "t0": 37,
+   "text": "Follow-up sequences."
+  },
+  {
+   "id": "l13",
+   "t0": 39,
+   "text": "File and systems glue."
+  },
+  {
+   "id": "l14",
+   "t0": 41.4,
+   "text": "Built in n8n. Your stack, your tools."
+  },
+  {
+   "id": "l15",
+   "t0": 44.9,
+   "text": "Pick the process that eats your week."
+  },
+  {
+   "id": "l16",
+   "t0": 47.3,
+   "text": "Automated in two to three weeks.",
+   "say": "Automated in two to three weeks."
+  },
+  {
+   "id": "l17",
+   "t0": 49.7,
+   "text": "You approve what matters."
+  },
+  {
+   "id": "l18",
+   "t0": 53.4,
+   "text": "Book a fit call."
+  },
+  {
+   "id": "l19",
+   "t0": 56,
+   "text": "inodepi.github.io",
+   "say": "inodepi dot github dot eye oh"
+  }
+ ],
+ "ev": [
+  {
+   "t": 0.9,
+   "type": "tick"
+  },
+  {
+   "t": 1.5,
+   "type": "tick"
+  },
+  {
+   "t": 2.2,
+   "type": "tick"
+  },
+  {
+   "t": 2.8,
+   "type": "tick"
+  },
+  {
+   "t": 4.2,
+   "type": "whoosh"
+  },
+  {
+   "t": 5.4,
+   "type": "pop"
+  },
+  {
+   "t": 6.6,
+   "type": "pop"
+  },
+  {
+   "t": 7.8,
+   "type": "pop"
+  },
+  {
+   "t": 9,
+   "type": "pop"
+  },
+  {
+   "t": 11.4,
+   "type": "thump"
+  },
+  {
+   "t": 12.6,
+   "type": "whoosh"
+  },
+  {
+   "t": 13.4,
+   "type": "lock"
+  },
+  {
+   "t": 15.6,
+   "type": "lock"
+  },
+  {
+   "t": 18.2,
+   "type": "lock"
+  },
+  {
+   "t": 20.8,
+   "type": "lock"
+  },
+  {
+   "t": 26.6,
+   "type": "thump"
+  },
+  {
+   "t": 29,
+   "type": "snap"
+  },
+  {
+   "t": 31,
+   "type": "snap"
+  },
+  {
+   "t": 33,
+   "type": "snap"
+  },
+  {
+   "t": 35,
+   "type": "snap"
+  },
+  {
+   "t": 37,
+   "type": "snap"
+  },
+  {
+   "t": 39,
+   "type": "snap"
+  },
+  {
+   "t": 40.2,
+   "type": "ding"
+  },
+  {
+   "t": 41.4,
+   "type": "chime"
+  },
+  {
+   "t": 44.9,
+   "type": "tick"
+  },
+  {
+   "t": 47.3,
+   "type": "tick"
+  },
+  {
+   "t": 49.9,
+   "type": "switch"
+  },
+  {
+   "t": 53.2,
+   "type": "whoosh"
+  },
+  {
+   "t": 53.4,
+   "type": "chime"
+  },
+  {
+   "t": 56,
+   "type": "tick"
+  },
+  {
+   "t": 59.4,
+   "type": "zero"
+  }
+ ]
+}

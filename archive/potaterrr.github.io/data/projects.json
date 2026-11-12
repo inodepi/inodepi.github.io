@@ -1,0 +1,1102 @@
+{
+  "categories": [
+    {
+      "id": "automations",
+      "title": "Automations",
+      "kicker": "// automations",
+      "blurb": "Voice, LLM agents, scrapers and ops pipelines — the builds that remove manual work."
+    },
+    {
+      "id": "other-projects",
+      "title": "Other Projects",
+      "kicker": "// other projects",
+      "blurb": "Scrapers, signal engines, digests and webhook pipelines — the supporting automations."
+    },
+    {
+      "id": "startup",
+      "title": "StartUP",
+      "kicker": "// startup",
+      "blurb": "The company I'm part of, and the softphone I build for it."
+    },
+    {
+      "id": "games",
+      "title": "Games",
+      "kicker": "// games",
+      "blurb": "Small playable things, built for fun."
+    }
+  ],
+  "projects": [
+    {
+      "slug": "happyfone-webui",
+      "category": "startup",
+      "title": "HappyFone WebUI",
+      "tagline": "The working prototype of the HappyPhone caller softphone.",
+      "summary": "A dependency-free agent console for the HappyPhone callers: sign-in, a live agent state machine, T9 dialing, a simulated call lifecycle, and persistent call history.",
+      "status": "Prototype",
+      "badges": [
+        "Prototype",
+        "Part of HappyPhone"
+      ],
+      "metrics": [
+        {
+          "label": "Type",
+          "value": "Caller console"
+        },
+        {
+          "label": "Built with",
+          "value": "Vanilla JS"
+        },
+        {
+          "label": "Auth",
+          "value": "Mock JWT"
+        }
+      ],
+      "tech": [
+        "Vanilla JS",
+        "ES Modules",
+        "CSS",
+        "localStorage"
+      ],
+      "links": [
+        {
+          "label": "Open the demo",
+          "href": "https://potaterrr.github.io/happyfone-webui/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/happyfone-webui",
+          "external": true
+        }
+      ],
+      "sections": [
+        {
+          "title": "What it is",
+          "body": [
+            "HappyFone WebUI is the prototype of the softphone I'm building for HappyPhone. It is a production-style agent console with no framework and no dependencies — plain HTML, CSS and ES modules, deployed on GitHub Pages.",
+            "The point was to make the caller's day concrete before wiring real telephony: where they sign in, how they go available, what happens between calls, and what they see when one ends."
+          ]
+        },
+        {
+          "title": "What's inside",
+          "bullets": [
+            "Mock auth and a session guard: username, extension, password; direct dashboard visits bounce back to sign-in",
+            "Agent state machine — <code>AVAILABLE</code>, <code>ON_CALL</code>, <code>WRAP_UP</code>, <code>AUX</code> — with a live timer",
+            "AUX reasons (lunch, short break, bio, coaching, training) that pause the dialer until the agent returns",
+            "Simulated call lifecycle: ringing, connected timer, mute, hold/resume and hangup",
+            "Keyboard-first dialing, including T9 letter mapping and DTMF tones while connected",
+            "A five-second wrap-up countdown, then back to available",
+            "Persistent call history that survives reloads, with click-to-dial",
+            "Responsive dark UI with accessible focus states and reduced-motion support"
+          ]
+        },
+        {
+          "title": "What is still simulated",
+          "body": [
+            "Auth is mocked and calls are simulated — there is no real audio path yet. The production softphone is the one I'm building at <code>happyphone.lol/caller</code>: real JWT auth, a Kamailio + RTPEngine gateway, and calls through the team's VoIP.ms sub-account."
+          ]
+        }
+      ],
+      "related_projects": [],
+      "related_posts": [
+        "one-receptionist-three-engines"
+      ]
+    },
+    {
+      "slug": "ai-voice-receptionist",
+      "film_duration": "1:37",
+      "category": "automations",
+      "title": "AI Voice Receptionist",
+      "tagline": "Answer every missed and after-hours call. Book the slot. Alert your team.",
+      "summary": "Answers missed and after-hours calls for appointment-based businesses, captures structured intake, books appointments and logs every conversation — built three times (Make, n8n, Zapier) over one shared Retell voice layer.",
+      "status": "Live on synthetic calls",
+      "badges": [
+        "HIPAA-compliant build available",
+        "3 builds"
+      ],
+      "metrics": [
+        {
+          "label": "Voice layer",
+          "value": "Retell"
+        },
+        {
+          "label": "Branches",
+          "value": "Make · n8n · Zapier"
+        },
+        {
+          "label": "Compliance",
+          "value": "HIPAA build available"
+        }
+      ],
+      "tech": [
+        "Retell",
+        "Make",
+        "n8n",
+        "Zapier",
+        "Google Calendar",
+        "Google Sheets",
+        "Gmail"
+      ],
+      "links": [
+        {
+          "label": "Run the workflow",
+          "href": "https://potaterrr.github.io/voice-receptionist/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/voice-receptionist",
+          "external": true
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "A phone is a business's front door. When nobody picks up — lunch, after hours, a busy morning — the caller either leaves a vague voicemail or calls the next business on their list. Salons, clinics, med spas, trades — the pattern is the same.",
+            "This is an AI receptionist that picks up instead: it captures structured intake, checks the calendar, books a real slot, logs the call and alerts your team with a summary."
+          ]
+        },
+        {
+          "title": "What it does",
+          "bullets": [
+            "Answers missed and after-hours calls, 24/7",
+            "Captures caller intake as structured data (not a transcript to re-read)",
+            "Conflict-checks Google Calendar and books a real slot",
+            "Alerts your team with a short summary",
+            "Logs every call to Google Sheets",
+            "Configurable services, hours, intake fields and escalation"
+          ]
+        },
+        {
+          "title": "How it's built",
+          "body": [
+            "One shared voice layer on Retell, three interchangeable engines. The same receptionist is implemented on Make, n8n and Zapier so a business can keep the stack it already pays for instead of adopting a new one.",
+            "The n8n branch runs end to end on synthetic call payloads — real Google Calendar booking, Sheets logging and Gmail alerts. The phone call itself is simulated; live telephony is a documented Retell setup away. Make and Zapier remain simulated."
+          ]
+        },
+        {
+          "title": "Compliance",
+          "body": [
+            "A HIPAA-compliant build is available for practices that will handle real patient information: scoped architecture, BAAs, access controls, audit logging, a PHI-safe infrastructure and vendor review before go-live. Compliance is established per deployment, not claimed by the public demo."
+          ]
+        }
+      ],
+      "related_projects": [
+        "happyfone-webui",
+        "ar-invoice-reminder",
+        "sales-call-qa"
+      ],
+      "related_posts": [
+        "ai-receptionist-answers-missed-calls",
+        "ai-receptionist-small-clinic",
+        "one-receptionist-three-engines"
+      ],
+      "demo_url": "https://potaterrr.github.io/voice-receptionist/",
+      "use_cases": [
+        {
+          "title": "After-hours intake",
+          "body": "Answer the calls that arrive after your team closes, capture the reason for the call, and book the next open slot."
+        },
+        {
+          "title": "Lunch and overflow",
+          "body": "Pick up the calls a busy team cannot reach, so a ringing phone never becomes a lost customer."
+        },
+        {
+          "title": "New-customer screening",
+          "body": "Collect contact details, the service needed and the reason for the call before a human touches the schedule."
+        },
+        {
+          "title": "Cancellation recovery",
+          "body": "Offer freed slots to callers instead of letting them fall into voicemail."
+        }
+      ]
+    },
+    {
+      "slug": "sales-call-qa",
+      "film_duration": "1:25",
+      "category": "automations",
+      "title": "Sales Call QA & Coaching",
+      "tagline": "Score every sales call against the same rubric — and only bother a manager when the evidence is thin.",
+      "summary": "Scores every sales call against your script, verifies each quoted claim against the transcript, gates low-confidence scores for human review, and emails a weekly coaching digest.",
+      "status": "Working demo on synthetic calls",
+      "badges": [
+        "Human-in-the-loop",
+        "Evidence-checked",
+        "n8n"
+      ],
+      "metrics": [
+        {
+          "label": "Engine",
+          "value": "n8n"
+        },
+        {
+          "label": "Voice layer",
+          "value": "Retell"
+        },
+        {
+          "label": "Output",
+          "value": "Scorecard + draft"
+        }
+      ],
+      "tech": [
+        "n8n",
+        "Google Gemini",
+        "Retell",
+        "Gmail",
+        "Data tables"
+      ],
+      "links": [
+        {
+          "label": "Try the simulation",
+          "href": "/projects/sales-call-qa/demo/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Download workflow JSON",
+          "href": "/projects/sales-call-qa/workflow.json"
+        },
+        {
+          "label": "Setup notes",
+          "href": "/projects/sales-call-qa/README.md"
+        },
+        {
+          "label": "The review rule",
+          "href": "#use-cases"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "Sales calls are the revenue engine, but managers only hear the one call they happened to sit in on. Coaching runs on memory, and the same objection gets mishandled in three different ways.",
+            "This workflow scores every call against the same five-part rubric, quotes the exact line behind each score, and routes only the calls that need a human — low confidence, a red flag, or a compliance miss. Everything else lands in a data table and a Monday digest."
+          ]
+        },
+        {
+          "title": "How it works",
+          "bullets": [
+            "Retell posts the finished call to a webhook; a form accepts a pasted transcript for testing",
+            "A Code node normalizes the payload and refuses to score a call without a usable transcript",
+            "Gemini scores opening, discovery, objection handling, next step and compliance through a structured output parser",
+            "A second Code node clamps the scores, recomputes the weighted overall, verifies each quote against the transcript, and redacts emails and phone numbers",
+            "Clean calls go to the Sales Call QA data table; risky or low-confidence calls also become a Gmail draft for a manager",
+            "Every Monday, a digest aggregates the last week per rep and files one coaching draft"
+          ]
+        },
+        {
+          "title": "Guardrails",
+          "bullets": [
+            "Every score must cite an exact quote; unverifiable evidence lowers confidence and forces review",
+            "The overall is computed in code, not guessed by the model",
+            "Any red flag, compliance below 3, or confidence below 0.75 always needs a human",
+            "No objection? Objection handling scores 3 with “no objection in transcript” — the rep is not punished for an easy call",
+            "Nothing is sent automatically — Gmail drafts wait for a manager",
+            "Transcripts are truncated, and emails and phone numbers are redacted in the stored evidence"
+          ]
+        },
+        {
+          "title": "Honest limits",
+          "body": [
+            "The demo runs on synthetic calls. The Retell webhook is wired, but live telephony needs a real Retell agent and a public n8n URL. On the demo instance the Gmail credential was expired during the build, so draft creation is skipped while the scorecard still saves — reconnect it to see the manager drafts."
+          ]
+        }
+      ],
+      "use_cases": [
+        {
+          "title": "New-hire onboarding",
+          "body": "Baseline a new SDR in week one and track opening, discovery, objection handling, next step and compliance as they improve."
+        },
+        {
+          "title": "Weekly rep coaching",
+          "body": "Give every rep a scorecard with exact quotes instead of a manager’s memory of one call."
+        },
+        {
+          "title": "Objection library",
+          "body": "Find the objections that get dismissed and turn the best responses into a shared playbook."
+        },
+        {
+          "title": "Next-step discipline",
+          "body": "Catch calls that end with “I’ll follow up sometime” and coach the date-and-owner habit."
+        },
+        {
+          "title": "AI SDR QA",
+          "body": "Score the AI SDR with the same rubric as the humans, so the comparison is honest."
+        },
+        {
+          "title": "Compliance review",
+          "body": "Check recording disclosure, pricing claims and do-not-call handling across the team."
+        }
+      ],
+      "related_projects": [
+        "dead-lead-retrieval",
+        "ai-voice-receptionist"
+      ],
+      "related_posts": [
+        "sales-call-qa"
+      ],
+      "demo_url": "/projects/sales-call-qa/demo/",
+      "demo_height": 980
+    },
+    {
+      "slug": "ar-invoice-reminder",
+      "film_duration": "1:21",
+      "category": "automations",
+      "title": "AR Invoice Reminder",
+      "tagline": "A daily n8n agent that chases overdue invoices — and never sends anything itself.",
+      "summary": "Finds overdue invoices in your tracker, computes days past due, drafts a tone-matched reminder, and files it as a Gmail draft — a human approves; nothing sends itself.",
+      "status": "Live on a real tracker",
+      "badges": [
+        "Human-in-the-loop",
+        "Never auto-sends"
+      ],
+      "metrics": [
+        {
+          "label": "Runs",
+          "value": "Daily · 09:00"
+        },
+        {
+          "label": "Engine",
+          "value": "n8n"
+        },
+        {
+          "label": "Output",
+          "value": "Gmail draft"
+        }
+      ],
+      "tech": [
+        "n8n",
+        "Gemini",
+        "Google Sheets",
+        "Gmail",
+        "Structured output"
+      ],
+      "links": [
+        {
+          "label": "Run the workflow",
+          "href": "https://potaterrr.github.io/ar-invoice-reminder-agent/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/ar-invoice-reminder-agent",
+          "external": true
+        },
+        {
+          "label": "The bugs behind it",
+          "href": "/blog/ar-invoice-agent-challenges.html"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "Chasing overdue invoices is the work nobody schedules. It is not hard — it is just always later, until a receivable is 90 days old and the polite reminder you meant to send in week two would now read like an apology for your own silence.",
+            "This is a daily n8n workflow that reads the invoice tracker, works out how late each invoice is, and drafts a reminder whose tone matches the delay."
+          ]
+        },
+        {
+          "title": "How it works",
+          "bullets": [
+            "Schedule trigger fires at 09:00 and reads the invoice sheet",
+            "A Code node drops paid and void rows, parses amounts and dates, computes days past due and picks a tone",
+            "Gemini drafts against a structured output parser",
+            "A second Code node enforces the signature and falls back to a template if the model returns nothing usable",
+            "The draft lands in Gmail — nobody sends an email automatically",
+            "The follow-up date is written back to the sheet"
+          ]
+        },
+        {
+          "title": "Guardrails",
+          "bullets": [
+            "Tone is computed in code, not guessed: friendly under 14 days, firm to 30, solution-oriented after",
+            "The signature is rebuilt in code, so the model can't rewrite it",
+            "A 7-day cooldown per invoice stops duplicate chasing",
+            "Strict JSON, no placeholders, a human presses send"
+          ]
+        }
+      ],
+      "related_projects": [
+        "dead-lead-retrieval",
+        "ai-voice-receptionist",
+        "sales-call-qa"
+      ],
+      "related_posts": [
+        "ar-invoice-agent-challenges",
+        "why-my-ai-never-sends-emails"
+      ],
+      "demo_url": "https://potaterrr.github.io/ar-invoice-reminder-agent/",
+      "use_cases": [
+        {
+          "title": "Net-30 and net-60 clients",
+          "body": "Sweep the tracker daily and match the reminder tone to how late the invoice actually is."
+        },
+        {
+          "title": "Retainer and milestone billing",
+          "body": "Chase the invoice without sounding like you are chasing the relationship."
+        },
+        {
+          "title": "Disputed invoices",
+          "body": "Stop the sequence when a client replies with a question and escalate with the full context."
+        },
+        {
+          "title": "Owner approval",
+          "body": "Every reminder waits as a Gmail draft; nobody sends a collections email by accident."
+        }
+      ]
+    },
+    {
+      "slug": "dead-lead-retrieval",
+      "film_duration": "1:27",
+      "category": "automations",
+      "title": "Dead Lead Retrieval",
+      "tagline": "Dormant leads rarely die because someone said no. They die because nobody followed up.",
+      "summary": "Finds stale leads, drafts a personalized check-in with an LLM, files it as a Gmail draft, and tracks every lead in your CRM until someone replies.",
+      "status": "Released",
+      "badges": [
+        "Human-in-the-loop",
+        "Gmail drafts"
+      ],
+      "metrics": [
+        {
+          "label": "Engine",
+          "value": "n8n"
+        },
+        {
+          "label": "LLM",
+          "value": "OpenRouter"
+        },
+        {
+          "label": "Tracking",
+          "value": "CRM"
+        }
+      ],
+      "tech": [
+        "n8n",
+        "OpenRouter",
+        "Gmail",
+        "CRM",
+        "Google Sheets"
+      ],
+      "links": [
+        {
+          "label": "Run the workflow",
+          "href": "https://potaterrr.github.io/dead-lead-retrieval/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/dead-lead-retrieval",
+          "external": true
+        },
+        {
+          "label": "Why it never sends",
+          "href": "/blog/why-my-ai-never-sends-emails.html"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "A dormant list is not a dead list. Most of it is people who got busy, changed priorities, or never got a second reply — and manual follow-up is the first thing to slip when the week gets loud.",
+            "This pipeline resurrects those leads with personalized check-in emails that a human approves, and keeps the status honest in your CRM."
+          ]
+        },
+        {
+          "title": "The loop",
+          "bullets": [
+            "Pull the dormant leads and their original context",
+            "An LLM drafts a short, specific check-in — never a generic blast",
+            "The email is filed as a Gmail draft for review",
+            "A booking link is added so a reply turns into a call",
+            "CRM tracks each lead through the review lifecycle"
+          ]
+        },
+        {
+          "title": "Guardrails",
+          "bullets": [
+            "AI drafts, a human approves — nothing sends itself",
+            "Anti-hallucination rules: the only link in any email is mine",
+            "Original context is passed to the model so the note is relevant",
+            "Every action is visible in the CRM, not buried in a mailbox"
+          ]
+        }
+      ],
+      "related_projects": [
+        "ar-invoice-reminder",
+        "ai-voice-receptionist"
+      ],
+      "related_posts": [
+        "why-my-ai-never-sends-emails",
+        "ar-invoice-agent-challenges"
+      ],
+      "demo_url": "https://potaterrr.github.io/dead-lead-retrieval/",
+      "use_cases": [
+        {
+          "title": "Dormant CRM",
+          "body": "Reopen old leads with a specific note that references the original conversation, not a blast."
+        },
+        {
+          "title": "Quote follow-up",
+          "body": "Follow up on estimates that never got a yes or a no, before they go cold."
+        },
+        {
+          "title": "Event and webinar lists",
+          "body": "Turn a tired attendee list into real conversations with a human approving every send."
+        },
+        {
+          "title": "Trial expiry",
+          "body": "Check in before a trial quietly lapses, with the original context already in the draft."
+        }
+      ]
+    },
+    {
+      "slug": "job-scrapper",
+      "category": "other-projects",
+      "title": "job-scrapper",
+      "tagline": "A Python scraper that watches OnlineJobs.ph and posts one Discord embed per job.",
+      "summary": "Reads configurable job categories every four hours, summarizes each listing with Gemini, and posts only new roles to Discord — deduped by URL. Migrating from a single GitHub Actions run to an n8n workflow.",
+      "status": "Live · every 4 hours · n8n migration in progress",
+      "badges": [
+        "GitHub Actions",
+        "Gemini",
+        "Discord",
+        "n8n"
+      ],
+      "metrics": [
+        {
+          "label": "Cadence",
+          "value": "Every 4 hours"
+        },
+        {
+          "label": "Output",
+          "value": "Discord embeds"
+        },
+        {
+          "label": "Runtime",
+          "value": "GitHub Actions"
+        }
+      ],
+      "tech": [
+        "Python",
+        "GitHub Actions",
+        "Gemini",
+        "Discord",
+        "BeautifulSoup"
+      ],
+      "links": [
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/job-scrapper",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "The Discord rewrite",
+          "href": "/blog/job-scrapper-discord-gemini.html"
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/assets/projects/job-scrapper/pipeline-migration.svg",
+          "alt": "Pipeline history: the Make.com era (retired), the current GitHub Actions run, and the n8n migration in progress"
+        },
+        {
+          "src": "/assets/projects/job-scrapper/telegram-make-era.png",
+          "alt": "The v1 Make.com scenario: webhook to router to Telegram Bot, with Gemini and HTTP nodes"
+        },
+        {
+          "src": "/assets/projects/job-scrapper/n8n-workflow-plan.svg",
+          "alt": "Planned n8n canvas: webhook, split out, dedupe against the seen table, Gemini summary, Discord embed, respond 200 or 502"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "Job boards reward the first reply. A scraper that checks every ten minutes gets blocked; one that checks once a day is too late.",
+            "job-scrapper searches OnlineJobs.ph on a four-hour cadence, keeps the freshest listing per keyword, and posts one rich Discord embed per job so the channel stays readable."
+          ]
+        },
+        {
+          "title": "How it works",
+          "bullets": [
+            "Searches each category's keywords with a randomized 5–12 second pause between requests",
+            "Parses every result card and sorts by the exact posting timestamp",
+            "Keeps the top listing per keyword, dedupes across keywords, caps per category",
+            "Visits each listing for the full description and splits out the \"How to Apply\" section",
+            "Summarizes each job with Gemini (falling back to raw fields if the API fails)",
+            "Dedupes by URL through <code>seen_jobs.json</code> so repeat runs stay quiet"
+          ]
+        },
+        {
+          "title": "Pipeline history",
+          "bullets": [
+            "<strong>v1 · Make.com (retired):</strong> GitHub Actions POSTed each job as JSON to a Make webhook; the scenario routed it through Gemini and delivered to Telegram",
+            "<strong>v2 · GitHub Actions (current):</strong> scrape, Gemini summary and Discord delivery all run in one workflow, deduped by <code>seen_jobs.json</code>",
+            "<strong>v3 · n8n (on hold):</strong> GitHub Actions posts a batch to an n8n webhook; n8n owns the <code>job_scrapper_seen</code> dedupe table, the Gemini summary and the Discord post. Saved and waiting on the new n8n version"
+          ]
+        },
+        {
+          "title": "Notes",
+          "body": [
+            "It started as a Make.com webhook pipeline with Telegram delivery, then moved fully into GitHub Actions: scrape, summarize, post — no second platform in the loop.",
+            "The next step is an n8n workflow: GitHub Actions keeps the cron and the polite scraping, then posts a batch to an n8n webhook that owns dedupe state, the Gemini summary and the Discord delivery. The workflow is written and on hold until the new n8n version lands."
+          ]
+        }
+      ],
+      "related_projects": [
+        "signal-checker",
+        "rss-news"
+      ],
+      "related_posts": [
+        "job-scrapper-discord-gemini",
+        "feeding-make-com-from-python"
+      ],
+      "use_cases": [
+        {
+          "title": "Job seekers",
+          "body": "Get fresh listings in Discord before the board fills with applicants."
+        },
+        {
+          "title": "Recruiters",
+          "body": "Watch niche categories and keywords without refreshing the site all day."
+        },
+        {
+          "title": "Niche boards",
+          "body": "Swap the source and keep the same summarize-and-post pipeline."
+        },
+        {
+          "title": "Alert channels",
+          "body": "One embed per job, deduped, every four hours, so the channel stays readable."
+        }
+      ]
+    },
+    {
+      "slug": "signal-checker",
+      "category": "other-projects",
+      "title": "signal-checker",
+      "tagline": "An SMA crossover pipeline that evaluates daily prices and dispatches signals as JSON.",
+      "summary": "Pulls ~400 days of daily closes, computes the 50/200-day crossover, and posts one BUY, SELL or HOLD signal to Make every weekday — no dashboard to stare at.",
+      "status": "Live · weekdays 21:00 UTC",
+      "badges": [
+        "GitHub Actions",
+        "yfinance"
+      ],
+      "metrics": [
+        {
+          "label": "Signal",
+          "value": "SMA crossover"
+        },
+        {
+          "label": "Schedule",
+          "value": "Weekdays 21:00 UTC"
+        },
+        {
+          "label": "Output",
+          "value": "Webhook JSON"
+        }
+      ],
+      "tech": [
+        "Python",
+        "yfinance",
+        "GitHub Actions",
+        "Make"
+      ],
+      "links": [
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/signal-checker",
+          "primary": true,
+          "external": true
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "A small, deliberately boring signals pipeline: one strategy, one schedule, one JSON payload. It exists to keep the downstream automation fed, not to predict the market."
+          ]
+        },
+        {
+          "title": "How it works",
+          "bullets": [
+            "Fetches roughly 400 days of daily closes through yfinance (50/200-day defaults)",
+            "Computes a simple moving-average crossover and emits <code>BUY</code>, <code>SELL</code> or <code>HOLD</code>",
+            "Dispatches the result as JSON to a Make.com webhook",
+            "Runs on GitHub Actions every weekday at 21:00 UTC",
+            "Configurable through environment variables: symbol, SMA windows, webhook URL",
+            "Forex pairs like <code>USD/PHP</code> are normalized automatically to yfinance format"
+          ]
+        }
+      ],
+      "related_projects": [
+        "job-scrapper"
+      ],
+      "related_posts": [],
+      "use_cases": [
+        {
+          "title": "Personal watchlist",
+          "body": "One symbol, one strategy, one scheduled JSON payload."
+        },
+        {
+          "title": "Downstream bots",
+          "body": "Feed Make, n8n or a Telegram bot without scraping a chart."
+        },
+        {
+          "title": "Paper trading",
+          "body": "Test a crossover rule before risking money on it."
+        },
+        {
+          "title": "Forex and equities",
+          "body": "Normalize symbols like USD/PHP automatically and keep the schedule boring."
+        }
+      ]
+    },
+    {
+      "slug": "rss-news",
+      "category": "other-projects",
+      "title": "rss-news",
+      "tagline": "Pulls the week's AI and tech news from RSS feeds, filters the noise, and turns it into an illustrated Facebook post — no human in the loop.",
+      "summary": "Keyword filters and <code>seen_articles.json</code> dedupe clean up HN, Phoronix and Verge feeds, then Make.com + Gemini draft the post, Imagen draws the graphic, and it ships to Facebook Pages on a Sunday-morning GitHub Action.",
+      "status": "Live · Sundays 06:00 PHT",
+      "badges": [
+        "GitHub Actions",
+        "Make.com",
+        "Gemini"
+      ],
+      "metrics": [
+        {
+          "label": "Cadence",
+          "value": "Weekly"
+        },
+        {
+          "label": "Feeds",
+          "value": "HN · Phoronix · Verge"
+        },
+        {
+          "label": "Output",
+          "value": "Facebook post"
+        }
+      ],
+      "tech": [
+        "Python",
+        "RSS",
+        "Make",
+        "Gemini",
+        "Imagen",
+        "Facebook Pages"
+      ],
+      "links": [
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/rss-news",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "The ops math",
+          "href": "/blog/make-com-free-plan-ops-math.html"
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/assets/projects/rss-news/make-scenario.png",
+          "alt": "The Weekly News Facebook scenario in Make.com: Webhook to Google Gemini AI to Router to HTTP to Facebook Pages"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "rss-news feeds the AI Tech & Automation Hub page without a human in the loop: Python fetches the week's RSS links on a Sunday cron, filters and dedupes them, and hands a clean digest to Make.com. Gemini writes the post, Imagen generates the graphic, and Facebook Pages publishes it — the only manual step is reading it."
+          ]
+        },
+        {
+          "title": "Pipeline",
+          "bullets": [
+            "Python fetches Hacker News, Phoronix, The Verge and other RSS feeds",
+            "Keyword filtering plus <code>seen_articles.json</code> dedupe so nothing posts twice",
+            "The digest is POSTed to a Make.com webhook",
+            "Runs on the Make.com free tier — 1,000 operations a month covers a weekly run many times over; the trade-off is the 15-minute webhook polling interval, which doesn't matter on a Sunday cron",
+            "Gemini drafts the post, Imagen generates the graphic, Facebook Pages publishes it",
+            "GitHub Actions runs the whole thing every Sunday at 06:00 PHT"
+          ]
+        }
+      ],
+      "related_projects": [
+        "job-scrapper"
+      ],
+      "related_posts": [
+        "make-com-free-plan-ops-math"
+      ],
+      "use_cases": [
+        {
+          "title": "Community pages",
+          "body": "Pulls the week's AI and tech news from RSS feeds, filters the noise, and turns it into an illustrated Facebook post."
+        },
+        {
+          "title": "Newsletters",
+          "body": "Collect the useful links, filter the noise, and leave the post ready to review."
+        },
+        {
+          "title": "Brand monitoring",
+          "body": "Watch a keyword set across feeds and surface only the links that matter."
+        },
+        {
+          "title": "Content repurposing",
+          "body": "Turn the week’s reading into a post with a graphic, without opening five tabs."
+        }
+      ]
+    },
+    {
+      "slug": "tippy-card-monte",
+      "category": "games",
+      "title": "Tippy Card Monte",
+      "tagline": "Follow the shuffle. Six modes. One very smug coin.",
+      "summary": "A pixel-art card monte in a single page: six modes including Bet, uncapped streak payouts, checkpoint perks, 15 medals and landscape fullscreen. No build, no backend.",
+      "status": "Playable",
+      "badges": [
+        "Game",
+        "Single file",
+        "6 modes"
+      ],
+      "metrics": [
+        {
+          "label": "Modes",
+          "value": "6"
+        },
+        {
+          "label": "Campaign",
+          "value": "16 rounds"
+        },
+        {
+          "label": "Endless",
+          "value": "Depth chase"
+        }
+      ],
+      "tech": [
+        "Canvas",
+        "Vanilla JS",
+        "Web Audio",
+        "localStorage"
+      ],
+      "links": [
+        {
+          "label": "Play it",
+          "href": "/tippy-card-monte/",
+          "primary": true
+        },
+        {
+          "label": "Download v1.3.6",
+          "href": "/projects/tippy-card-monte/tippy-card-monte.zip"
+        },
+        {
+          "label": "Source",
+          "href": "https://github.com/potaterrr/potaterrr.github.io/tree/main/tippy-card-monte",
+          "external": true
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "Tippy Card Monte is a small pixel card game: a shuffled row, a slightly smug mascot, and a bet that gets harder every round. It is built to be played in a browser tab for five minutes, not installed.",
+            "The 1.3.6 update adds Bet mode with infinite rounds, removes the +25p reward cap, expands the medal gallery, and adds an in-game EXIT button. Bet mode uses a 100p bankroll, stakes up to 100p, a cash-out pot and allowed debt; it shows Tippy for the normal peek, then asks you to find him. Exit returns home and forfeits any unbanked pot. Reverse mode is temporarily unavailable while it is reworked."
+          ]
+        },
+        {
+          "title": "Six modes",
+          "bullets": [
+            "Classic — 16 rounds, seven stages, 3 to 16 cards. Finish above 0p to win.",
+            "Bet — infinite 16-card rounds, find Tippy after the peek, stakes up to 100p, a cash-out pot and allowed debt. Exit returns home; unbanked pot is forfeited.",
+            "Endless — no fail. Start at 16 cards, climb forever, and cash out when you want to bank your best depth.",
+            "Daily — one date-seeded 16-round shuffle per day. Today’s best score is saved.",
+            "Blitz — eight fast rounds with 6 to 16 cards. Pure score chase.",
+            "Zen — 16 rounds, no fail, no debt pressure, slower peeks."
+          ]
+        },
+        {
+          "title": "Checkpoints and perks",
+          "bullets": [
+            "Every 4 Endless depths pauses for a 30/40/50…p checkpoint bonus.",
+            "Choose one of three random perks: Longer Peek, Fewer Shuffles, Slow Hands, Coin Purse, Safety Net or Streak Guard.",
+            "Each perk has three ranks. Safety Net forgives one miss; Streak Guard keeps the streak.",
+            "The HUD shows the next checkpoint count and a single-press CASH OUT button; the checkpoint screen has its own CASH OUT button."
+          ]
+        },
+        {
+          "title": "Medals and bests",
+          "bullets": [
+            "15 medals persist in localStorage, with unlock toasts and a gallery on the title screen.",
+            "Each mode keeps its own best score or best Endless depth.",
+            "The result screen reports mode, depth, new medals and the mode best.",
+            "Everything runs locally: no accounts, no backend, no network calls.",
+            "Fullscreen toggles from the title screen, the HUD, or F; touch devices request landscape and show a rotate prompt if the lock is unavailable."
+          ]
+        }
+      ],
+      "related_projects": [
+        "adblock-island"
+      ],
+      "related_posts": [],
+      "version": "1.3.6",
+      "patch_notes": true,
+      "changelog": "tippy-changelog.md",
+      "changelog_url": "https://github.com/potaterrr/potaterrr.github.io/blob/main/data/tippy-changelog.md",
+      "gallery": [
+        {
+          "src": "/assets/projects/tippy-card-monte/title.png",
+          "alt": "Tippy Card Monte title screen with the mode selector and medal button"
+        },
+        {
+          "src": "/assets/projects/tippy-card-monte/checkpoint.png",
+          "alt": "Endless checkpoint screen with three perk cards and a cash out button"
+        }
+      ],
+      "patch_default_channel": ""
+    },
+    {
+      "slug": "adblock-island",
+      "category": "games",
+      "title": "AdBlock Island",
+      "tagline": "A wholesome micro-RPG in a single HTML file — online co-op with a shared bench wall, server-moderated rooms and host handover.",
+      "summary": "Pick one of nine classes, sweep the static, and survive the Algorithm. Room-code co-op runs on a token-guarded Vercel room desk — Redis or a connected Blob store — with server-moderated chat, shared bench-wall notes, spectators and host handover.",
+      "status": "Beta",
+      "version": "0.10.0",
+      "channel": "Blob fallback",
+      "badges": [
+        "Game",
+        "Beta",
+        "Online beta",
+        "Room codes",
+        "Server moderation",
+        "Host handover",
+        "Spectators",
+        "9 classes",
+        "Single file"
+      ],
+      "metrics": [
+        {
+          "label": "Version",
+          "value": "v0.9.0 Shared wall"
+        },
+        {
+          "label": "Classes",
+          "value": "9"
+        },
+        {
+          "label": "Co-op",
+          "value": "Room codes"
+        }
+      ],
+      "tech": [
+        "Canvas 2D",
+        "Web Audio",
+        "Vanilla JS",
+        "Single HTML file"
+      ],
+      "links": [
+        {
+          "label": "Play online v0.10.0",
+          "href": "https://adblock-island.vercel.app/",
+          "primary": true,
+          "external": true
+        },
+        {
+          "label": "Play stable v0.9.8",
+          "href": "https://potaterrr.github.io/adblock-island/",
+          "external": true
+        },
+        {
+          "label": "Download stable",
+          "href": "/projects/adblock-island/adblock-island-beta-v0.9.8.zip"
+        },
+        {
+          "label": "Repo",
+          "href": "https://github.com/potaterrr/adblock-island",
+          "external": true
+        },
+        {
+          "label": "Online notes",
+          "href": "#patch-notes-online"
+        }
+      ],
+      "sections": [
+        {
+          "title": "Overview",
+          "body": [
+            "AdBlock Island is a small, wholesome micro-RPG about cleaning up a beach that ads have overrun. You wash ashore with a broom and a class, and the islanders save you a spot by the fire.",
+            "It is one self-contained HTML file: no build step, no CDN, no images, no fonts, no accounts, no trackers. The island is drawn with Canvas 2D; the ocean, lo-fi chords and sound effects are synthesized with Web Audio.",
+            "The online beta adds room-code co-op on Vercel. A single serverless room service owns rooms, issues peer tokens, relays WebRTC signaling, filters and rate-limits chat, and stores the handover backup. Guests join with a code or invite link, buy their own upgrades, chat through the service, or watch as a spectator; the island hands over to the next hero when the host leaves."
+          ]
+        },
+        {
+          "title": "What's in the beta",
+          "bullets": [
+            "Nine classes with their own silhouettes, gear, projectiles and hit behaviour",
+            "Room-code online co-op for up to four heroes, host-authoritative over WebRTC",
+            "A token-guarded Vercel room service: membership, signaling, moderation and handover state",
+            "Server-side chat filtering, 2s rate limits, host-enforced mutes and long-poll delivery",
+            "Guests move, aim, attack; Q/E skills and dash run on the host with visible cooldowns",
+            "A full guest upgrade tree, kettle breaks, guest pause/leave and spectator mode",
+            "A shared bench wall: guests read and pin notes on the host's island",
+            "Wave banners, guest wave cards and online achievements in every room",
+            "Host handover: the island backs itself up and the next hero takes over",
+            "Optional TURN relay settings for stubborn NATs",
+            "Pop-up ads reach remote heroes: CLICK HERE hurts that hero, the ✕ pays Joy",
+            "The wave ladder, Endless mode with checkpoints, medals, items and kindness notes",
+            "Two bosses maximum: a 33% spawn roll per eligible wave, one 75% split, +25% speed with both alive",
+            "Same-keyboard co-op, plus a committed Playwright test suite",
+            "Runs from a static host, from the release zip, or straight from <code>file://</code>"
+          ]
+        },
+        {
+          "title": "Honest limits",
+          "body": [
+            "Vercel functions are HTTP request/response, so this is a room service, not a persistent game server: gameplay stays host-simulated, chat moderation is automated filtering rather than a human process, and handover is best-effort. Dedicated simulation authority and full anti-cheat remain later work.",
+            "Versions count from zero while the game is in beta. The online branch restarts the count at 0.1.0; the current online build is <strong>v0.7.0 Room service</strong>. The stable build remains v0.9.8 on GitHub Pages."
+          ]
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/assets/projects/adblock-island/title.png",
+          "alt": "AdBlock Island title screen with the online button"
+        },
+        {
+          "src": "/assets/projects/adblock-island/room.png",
+          "alt": "A room lobby with two heroes and a six-character code"
+        },
+        {
+          "src": "/assets/projects/adblock-island/island.png",
+          "alt": "A guest hero playing on the host's island with the room log"
+        }
+      ],
+      "related_projects": [
+        "tippy-card-monte"
+      ],
+      "related_posts": [],
+      "patch_notes": true,
+      "patch_branches": [
+        {
+          "title": "Patch notes · online beta",
+          "id": "patch-notes-online",
+          "filename": "adblock-online-changelog.md",
+          "source_url": "https://github.com/potaterrr/adblock-island/blob/online-beta/CHANGELOG.md",
+          "default_channel": "online beta",
+          "cta": {
+            "label": "Play online v0.10.0 →",
+            "href": "https://adblock-island.vercel.app/",
+            "external": true
+          }
+        }
+      ]
+    }
+  ]
+}

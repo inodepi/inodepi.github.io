@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>job-scrapper — Other Projects · potaterrr</title>
+  <meta name="description" content="A Python scraper that watches OnlineJobs.ph and posts one Discord embed per job." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/projects/job-scrapper/" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="job-scrapper — Other Projects · potaterrr" />
+  <meta property="og:description" content="A Python scraper that watches OnlineJobs.ph and posts one Discord embed per job." />
+  <meta property="og:url" content="https://potaterrr.github.io/projects/job-scrapper/" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/projects/job-scrapper.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="job-scrapper — Other Projects · potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="job-scrapper — Other Projects · potaterrr" />
+  <meta name="twitter:description" content="A Python scraper that watches OnlineJobs.ph and posts one Discord embed per job." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/projects/job-scrapper.png" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "job-scrapper",
+  "description": "Reads configurable job categories every four hours, summarizes each listing with Gemini, and posts only new roles to Discord \u2014 deduped by URL. Migrating from a single GitHub Actions run to an n8n workflow.",
+  "url": "https://potaterrr.github.io/projects/job-scrapper/",
+  "image": "https://potaterrr.github.io/assets/og/projects/job-scrapper.png",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "keywords": "Python, GitHub Actions, Gemini, Discord, BeautifulSoup"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Projects",
+      "item": "https://potaterrr.github.io/projects/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "job-scrapper"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <main id="main-content" class="page-content">
+
+    <section class="project-hero">
+      <div class="container">
+        <a class="back-link" href="/projects/">&larr; All projects</a>
+        <p class="project-kicker">// other projects</p>
+        <h1 class="project-title">job-scrapper</h1>
+        <p class="project-tagline">A Python scraper that watches OnlineJobs.ph and posts one Discord embed per job.</p>
+        <div class="project-badges"><span class="project-badge">GitHub Actions</span><span class="project-badge">Gemini</span><span class="project-badge">Discord</span><span class="project-badge">n8n</span><span class="project-badge project-badge-status">Live · every 4 hours · n8n migration in progress</span></div>
+        <div class="project-metrics"><div class="project-metric"><span>Cadence</span><strong>Every 4 hours</strong></div><div class="project-metric"><span>Output</span><strong>Discord embeds</strong></div><div class="project-metric"><span>Runtime</span><strong>GitHub Actions</strong></div></div>
+        <div class="cta-row project-actions"><a class="btn btn-primary" href="https://github.com/potaterrr/job-scrapper" target="_blank" rel="noopener">Repo</a><a class="btn btn-ghost" href="/blog/job-scrapper-discord-gemini.html">The Discord rewrite</a></div>
+      </div>
+    </section>
+
+    <section class="project-body">
+      <div class="container">
+        <div class="project-layout">
+          <div class="project-main">
+        <section class="project-block">
+          <h2>Overview</h2>
+          <p>Job boards reward the first reply. A scraper that checks every ten minutes gets blocked; one that checks once a day is too late.</p><p>job-scrapper searches OnlineJobs.ph on a four-hour cadence, keeps the freshest listing per keyword, and posts one rich Discord embed per job so the channel stays readable.</p>
+          
+        </section>
+        <section class="project-block" id="use-cases">
+          <h2>Use cases</h2>
+          <div class="use-case-grid"><article class="use-case-card"><h3>Job seekers</h3><p>Get fresh listings in Discord before the board fills with applicants.</p></article><article class="use-case-card"><h3>Recruiters</h3><p>Watch niche categories and keywords without refreshing the site all day.</p></article><article class="use-case-card"><h3>Niche boards</h3><p>Swap the source and keep the same summarize-and-post pipeline.</p></article><article class="use-case-card"><h3>Alert channels</h3><p>One embed per job, deduped, every four hours, so the channel stays readable.</p></article></div>
+        </section>
+        <section class="project-block">
+          <h2>How it works</h2>
+          
+          <ul class="project-list"><li>Searches each category&#x27;s keywords with a randomized 5–12 second pause between requests</li><li>Parses every result card and sorts by the exact posting timestamp</li><li>Keeps the top listing per keyword, dedupes across keywords, caps per category</li><li>Visits each listing for the full description and splits out the &quot;How to Apply&quot; section</li><li>Summarizes each job with Gemini (falling back to raw fields if the API fails)</li><li>Dedupes by URL through <code>seen_jobs.json</code> so repeat runs stay quiet</li></ul>
+        </section>
+        <section class="project-block">
+          <h2>Pipeline history</h2>
+          
+          <ul class="project-list"><li><strong>v1 · Make.com (retired):</strong> GitHub Actions POSTed each job as JSON to a Make webhook; the scenario routed it through Gemini and delivered to Telegram</li><li><strong>v2 · GitHub Actions (current):</strong> scrape, Gemini summary and Discord delivery all run in one workflow, deduped by <code>seen_jobs.json</code></li><li><strong>v3 · n8n (on hold):</strong> GitHub Actions posts a batch to an n8n webhook; n8n owns the <code>job_scrapper_seen</code> dedupe table, the Gemini summary and the Discord post. Saved and waiting on the new n8n version</li></ul>
+        </section>
+        <section class="project-block">
+          <h2>Notes</h2>
+          <p>It started as a Make.com webhook pipeline with Telegram delivery, then moved fully into GitHub Actions: scrape, summarize, post — no second platform in the loop.</p><p>The next step is an n8n workflow: GitHub Actions keeps the cron and the polite scraping, then posts a batch to an n8n webhook that owns dedupe state, the Gemini summary and the Discord delivery. The workflow is written and on hold until the new n8n version lands.</p>
+          
+        </section>
+
+        <section class="project-block">
+          <h2>Screenshots</h2>
+          <div class="project-gallery"><figure class="project-shot"><img src="/assets/projects/job-scrapper/pipeline-migration.svg" alt="Pipeline history: the Make.com era (retired), the current GitHub Actions run, and the n8n migration in progress" loading="lazy" decoding="async" /><figcaption>Pipeline history: the Make.com era (retired), the current GitHub Actions run, and the n8n migration in progress</figcaption></figure><figure class="project-shot"><img src="/assets/projects/job-scrapper/telegram-make-era.png" alt="The v1 Make.com scenario: webhook to router to Telegram Bot, with Gemini and HTTP nodes" loading="lazy" decoding="async" /><figcaption>The v1 Make.com scenario: webhook to router to Telegram Bot, with Gemini and HTTP nodes</figcaption></figure><figure class="project-shot"><img src="/assets/projects/job-scrapper/n8n-workflow-plan.svg" alt="Planned n8n canvas: webhook, split out, dedupe against the seen table, Gemini summary, Discord embed, respond 200 or 502" loading="lazy" decoding="async" /><figcaption>Planned n8n canvas: webhook, split out, dedupe against the seen table, Gemini summary, Discord embed, respond 200 or 502</figcaption></figure></div>
+        </section>
+        <section class="project-block">
+          <h2>Field notes</h2>
+          <div class="related-grid"><a class="related-card" href="/blog/job-scrapper-discord-gemini.html"><span class="related-meta">Nov 2, 2026 · 6 min read</span><strong>job-scrapper now posts to Discord with Gemini summaries</strong><span>How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence.</span></a><a class="related-card" href="/blog/feeding-make-com-from-python.html"><span class="related-meta">Aug 26, 2026 · 7 min read</span><strong>Feeding Make.com from Python</strong><span>How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline.</span></a></div>
+        </section>
+          </div>
+          <aside class="project-side" aria-label="Project details">
+            <div class="project-side-card">
+              <h2>Stack</h2>
+              <div class="proj-tech-row"><span class="proj-tech">Python</span><span class="proj-tech">GitHub Actions</span><span class="proj-tech">Gemini</span><span class="proj-tech">Discord</span><span class="proj-tech">BeautifulSoup</span></div>
+            </div>
+            <div class="project-side-card">
+              <h2>Links</h2>
+              <ul class="project-link-list">
+                <li><a href="https://github.com/potaterrr/job-scrapper" target="_blank" rel="noopener">Repo ↗</a></li><li><a href="/blog/job-scrapper-discord-gemini.html">The Discord rewrite</a></li>
+              </ul>
+            </div>
+            <div class="project-side-card">
+              <h2>Category</h2>
+              <p><a href="/projects/#other-projects">Other Projects</a></p>
+            </div>
+          </aside>
+        </div>
+        <nav class="post-nav project-nav" aria-label="More projects">
+          <a href="/projects/dead-lead-retrieval/">&larr; Dead Lead Retrieval</a>
+          <a href="/projects/signal-checker/">signal-checker &rarr;</a>
+        </nav>
+      </div>
+    </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/section-nav.js" defer></script>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

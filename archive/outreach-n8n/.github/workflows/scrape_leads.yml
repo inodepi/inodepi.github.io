@@ -1,0 +1,102 @@
+name: Daily Outreach Pipeline
+
+on:
+  schedule:
+    - cron: '0 9 * * 1-5' # Runs Monday to Friday at 9:00 AM UTC
+  workflow_dispatch: # Allows manual triggers from the GitHub UI
+    inputs:
+      city:
+        description: 'City/area to scrape leads from (blank = Austin, Texas default)'
+        required: false
+        default: ''
+      max_leads:
+        description: 'Max new leads to scrape into the queue'
+        required: false
+        default: '5'
+      dry_run:
+        description: 'Scrape but do not write leads.json (also skips sending)'
+        required: false
+        default: 'false'
+
+# Serialize runs: two overlapping runs would race on leads.json commits.
+concurrency:
+  group: outreach-pipeline
+  cancel-in-progress: false
+
+# The auto-commit steps push to main with the default GITHUB_TOKEN. Without
+# explicit write permission the token is read-only and `git push` fails with
+# 403 -> "Error: Invalid status code: 128".
+permissions:
+  contents: write
+
+jobs:
+  scrape-leads:
+    # Self-hosted runner: the outreach job must reach n8n on localhost:5678.
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q -r requirements.txt
+
+      - name: Scrape Real Leads Into Queue
+        env:
+          TARGET_CITY: ${{ inputs.city || 'Austin, Texas' }}
+          MAX_NEW_LEADS: ${{ inputs.max_leads || '5' }}
+          SCRAPER_USER_AGENT: ${{ secrets.SCRAPER_USER_AGENT }}
+          LEADS_SHEET_ID: ${{ secrets.LEADS_SHEET_ID }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/.gcloud-sa.json
+        run: |
+          if [ -n "${{ secrets.GOOGLE_SA_KEY_B64 }}" ]; then
+            echo "${{ secrets.GOOGLE_SA_KEY_B64 }}" | base64 -d > "$GOOGLE_APPLICATION_CREDENTIALS"
+          fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            .venv/bin/python scraper.py --dry-run
+          else
+            .venv/bin/python scraper.py
+          fi
+          rm -f "$GOOGLE_APPLICATION_CREDENTIALS"
+
+      - name: Commit Updated Queue
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: scraped new leads into queue"
+          file_pattern: leads.json seen_leads.json
+
+  run-outreach:
+    # Send even if scraping failed (Overpass down, etc.) — the queue from
+    # previous runs still has leads. But never send in dry-run mode.
+    if: ${{ !cancelled() && inputs.dry_run != 'true' }}
+    needs: scrape-leads
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }} # include the leads just committed by scrape-leads
+
+      - name: Install Dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -q -r requirements.txt
+
+      - name: Run Outreach Script
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_BASE_URL: ${{ secrets.N8N_BASE_URL }}
+          N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+          UNSUBSCRIBE_URL: ${{ secrets.UNSUBSCRIBE_URL }}
+          UNSUBSCRIBE_TEXT: ${{ secrets.UNSUBSCRIBE_TEXT }}
+          SENDER_NAME: ${{ secrets.SENDER_NAME }}
+          SENDER_BUSINESS_NAME: ${{ secrets.SENDER_BUSINESS_NAME }}
+          SENDER_ADDRESS: ${{ secrets.SENDER_ADDRESS }}
+        run: .venv/bin/python outreach.py --max 20
+
+      - name: Commit Updated Leads List
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: Processed daily outreach lead"
+          file_pattern: leads.json sent_log.json

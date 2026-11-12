@@ -1,0 +1,41 @@
+[
+ {
+  "id": "l1",
+  "text": "You hired a person to be a cable.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "Forty-seven invoices. Sixty-four leads. A hundred and twenty-eight calls a week.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "47 invoices, 64 leads, 128 calls a week."
+ },
+ {
+  "id": "l3",
+  "text": "All of it, actually running.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "Pick the process that eats your week. Two to three weeks. You approve what matters.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l6",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]

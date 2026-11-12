@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="460" viewBox="0 0 1280 460" role="img" aria-labelledby="title desc">
+  <title id="title">job-scrapper pipeline migration</title>
+  <desc id="desc">Three eras: Make.com retired, GitHub Actions current, n8n migration in progress.</desc>
+
+  <style>
+    .bg { fill: #0d1117; }
+    .panel { fill: #161b22; stroke: #30363d; stroke-width: 1.5; }
+    .node { fill: #1f2630; stroke: #3d4450; stroke-width: 1.5; }
+    .arrow { stroke: #8b949e; stroke-width: 2; fill: none; marker-end: url(#head); }
+    .label { fill: #e6edf3; font: 600 15px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .sub { fill: #9aa4b2; font: 400 12px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .title { fill: #e6edf3; font: 600 17px/1 "Segoe UI", Helvetica, Arial, sans-serif; }
+    .badge { font: 700 10px/1 "Segoe UI", Helvetica, Arial, sans-serif; letter-spacing: .08em; }
+  </style>
+
+  <defs>
+    <marker id="head" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+      <path d="M0,0 L7,3.2 L0,6.4 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1280" height="460" rx="14"/>
+
+  <text class="title" x="32" y="42">job-scrapper · pipeline history</text>
+  <text class="sub" x="32" y="64">OnlineJobs.ph → scrape → summarize → notify</text>
+
+  <!-- Panel 1 -->
+  <g>
+    <rect class="panel" x="32" y="92" width="380" height="330" rx="12"/>
+    <text class="label" x="56" y="126">v1 · Make.com</text>
+    <rect x="190" y="112" width="76" height="20" rx="10" fill="#3a2a2a" stroke="#8b5b5b"/>
+    <text class="badge" x="204" y="126" fill="#e6a3a3">RETIRED</text>
+
+    <rect class="node" x="72" y="170" width="130" height="58" rx="8"/>
+    <text class="label" x="86" y="197">Actions</text>
+    <text class="sub" x="86" y="214">cron scrape</text>
+
+    <rect class="node" x="232" y="170" width="130" height="58" rx="8"/>
+    <text class="label" x="246" y="197">Make webhook</text>
+    <text class="sub" x="246" y="214">SCRAPE_HOOK</text>
+
+    <path class="arrow" d="M202 199 H228"/>
+
+    <rect class="node" x="150" y="268" width="150" height="58" rx="8"/>
+    <text class="label" x="164" y="295">Telegram</text>
+    <text class="sub" x="164" y="312">Make scenario + AI</text>
+
+    <path class="arrow" d="M297 228 V264"/>
+
+    <text class="sub" x="56" y="372">Why retired: one external scenario,</text>
+    <text class="sub" x="56" y="390">queue limits, secrets spread across</text>
+    <text class="sub" x="56" y="408">platforms. All folded into CI.</text>
+  </g>
+
+  <!-- Panel 2 -->
+  <g>
+    <rect class="panel" x="450" y="92" width="380" height="330" rx="12"/>
+    <text class="label" x="474" y="126">v2 · GitHub Actions</text>
+    <rect x="608" y="112" width="76" height="20" rx="10" fill="#16301f" stroke="#3f7a52"/>
+    <text class="badge" x="622" y="126" fill="#7ee2a8">CURRENT</text>
+
+    <rect class="node" x="490" y="170" width="130" height="58" rx="8"/>
+    <text class="label" x="504" y="197">Actions</text>
+    <text class="sub" x="504" y="214">scrape + dedupe</text>
+
+    <rect class="node" x="650" y="170" width="130" height="58" rx="8"/>
+    <text class="label" x="664" y="197">Gemini</text>
+    <text class="sub" x="664" y="214">summarize in main.py</text>
+
+    <path class="arrow" d="M620 199 H646"/>
+
+    <rect class="node" x="568" y="268" width="130" height="58" rx="8"/>
+    <text class="label" x="582" y="295">Discord</text>
+    <text class="sub" x="582" y="312">embed per job</text>
+
+    <path class="arrow" d="M715 228 V264"/>
+
+    <text class="sub" x="474" y="372">Temporary home: everything runs in</text>
+    <text class="sub" x="474" y="390">one repo. Needs DISCORD_WEBHOOK_URL</text>
+    <text class="sub" x="474" y="408">and GEMINI_API_KEY in CI.</text>
+  </g>
+
+  <!-- Panel 3 -->
+  <g>
+    <rect class="panel" x="868" y="92" width="380" height="330" rx="12"/>
+    <text class="label" x="892" y="126">v3 · n8n</text>
+    <rect x="1006" y="112" width="92" height="20" rx="10" fill="#332914" stroke="#8a6d2f"/>
+    <text class="badge" x="1018" y="126" fill="#e8c56f">IN PROGRESS</text>
+
+    <rect class="node" x="888" y="164" width="108" height="52" rx="8"/>
+    <text class="label" x="900" y="188">Actions</text>
+    <text class="sub" x="900" y="204">POST webhook</text>
+
+    <rect class="node" x="1016" y="164" width="108" height="52" rx="8"/>
+    <text class="label" x="1028" y="188">n8n</text>
+    <text class="sub" x="1028" y="204">dedupe table</text>
+
+    <rect class="node" x="1144" y="164" width="84" height="52" rx="8"/>
+    <text class="label" x="1156" y="188">Gemini</text>
+    <text class="sub" x="1156" y="204">summarize</text>
+
+    <path class="arrow" d="M996 190 H1012"/>
+    <path class="arrow" d="M1124 190 H1140"/>
+
+    <rect class="node" x="1052" y="268" width="130" height="58" rx="8"/>
+    <text class="label" x="1066" y="295">Discord</text>
+    <text class="sub" x="1066" y="312">embed per job</text>
+
+    <path class="arrow" d="M1117 216 V264"/>
+
+    <text class="sub" x="892" y="372">On hold — new n8n version incoming.</text>
+    <text class="sub" x="892" y="390">Workflow JSON is saved in /n8n,</text>
+    <text class="sub" x="892" y="408">awaiting import.</text>
+  </g>
+</svg>

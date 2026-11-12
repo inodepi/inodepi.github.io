@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>potaterrr — Christian John · Automation Developer</title>
+  <meta name="description" content="Christian John, aka potaterrr (or just potater) — n8n automation developer building AI voice receptionists for appointment-based businesses — salons, clinics, med spas, trades — and custom workflows for busy teams. Builds default to n8n, with Make, Zapier or Python when your stack demands it. HIPAA-compliant build available. Mashing the boring stuff so you don't have to." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <meta name="keywords" content="potaterrr, potater, Christian John, n8n automation developer, n8n workflows, AI voice receptionist, Python automation, Make.com, Zapier, workflow automation, AI agents, AI voice receptionist, AI receptionist for clinics, HIPAA compliant voice agent, webhooks, GitHub Actions, scrapers, LLM pipelines" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:title" content="potaterrr — Automation for Busy Businesses" />
+  <meta property="og:description" content="AI voice receptionists for appointment-based businesses — salons, clinics, med spas, trades — plus custom automation — n8n workflows, integrations, AI agents and scrapers, with Make, Zapier or Python when your stack demands it. Missed calls answered, appointments booked, repetitive work handled. HIPAA-compliant build available." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://potaterrr.github.io/" />
+  <link rel="canonical" href="https://potaterrr.github.io/" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="potaterrr — Automation Developer" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="potaterrr — Automation for Busy Businesses" />
+  <meta name="twitter:description" content="AI voice receptionists for appointment-based businesses — salons, clinics, med spas, trades — plus custom automation — scrapers, workflows and AI agents on Make.com, n8n and Python. HIPAA-compliant build available." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Christian John",
+    "alternateName": ["potaterrr", "potater"],
+    "url": "https://potaterrr.github.io/",
+    "image": "https://potaterrr.github.io/assets/avatar-192.jpg",
+    "jobTitle": "Automation Developer",
+    "description": "n8n automation developer building AI voice receptionists for appointment-based businesses and custom pipelines, with Make, Zapier and Python when a stack demands it.",
+    "sameAs": [
+      "https://github.com/potaterrr",
+      "https://cal.com/christian-john-vallejos-adws8d/60min",
+      "https://www.facebook.com/profile.php?id=61593886946042"
+    ],
+    "knowsAbout": ["n8n", "Python", "Make.com", "Zapier", "workflow automation", "LLM pipelines", "AI voice receptionists", "AI receptionist for clinics", "HIPAA-compliant automation", "webhooks", "GitHub Actions", "web scraping"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Automation for Busy Businesses",
+    "serviceType": "Workflow automation and AI voice receptionist setup",
+    "description": "Automation for busy businesses: an AI receptionist that answers missed and after-hours calls, captures structured intake, books appointments, logs every call and alerts the front desk, plus custom scrapers, integrations and AI workflows built on n8n, or on Make, Zapier and Python when the client's tools demand it. A HIPAA-compliant build is available.",
+    "provider": {
+      "@type": "Person",
+      "name": "Christian John",
+      "url": "https://potaterrr.github.io/"
+    },
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Engagement options",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automation Sprint" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Voice Receptionist" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "HIPAA Build" } }
+      ]
+    }
+  }
+  </script>
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+    .barrel-slide{position:relative!important;inset:auto!important;opacity:1!important;visibility:visible!important;transform:none!important;pointer-events:auto!important}
+    .barrel-slide+.barrel-slide{display:none}
+    .barrel-controls,.barrel-hint{display:none}
+    @media (max-width:900px){
+      .theme-toggle{display:none!important}
+    }
+  </style></noscript>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <!-- Intro boot overlay (once per session, reduced-motion safe) -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-term" role="presentation">
+      <p class="intro-line">$ ssh potaterrr@github.io</p>
+      <p class="intro-line">mashing the boring stuff<span class="intro-dots"></span></p>
+      <p class="intro-line"><span class="intro-bar"><span class="intro-bar-fill"></span></span></p>
+    </div>
+  </div>
+
+  <div class="shell">
+    <!-- ============ Scrolling content panel ============ -->
+    <div class="panel" id="main-content">
+
+      <header class="hero-bento" id="top">
+        <canvas class="contour" id="contour" aria-hidden="true"></canvas>
+        <button type="button" class="hero-video" aria-label="Watch the promo film with sound" aria-haspopup="dialog" aria-controls="hero-promo-dialog">
+          <video autoplay muted loop playsinline preload="auto" poster="/assets/videos/home-promo.jpg" tabindex="-1" aria-hidden="true">
+            <source src="/assets/videos/home-promo.mp4" type="video/mp4">
+          </video>
+        </button>
+        <div class="container hero-inner">
+          <p class="hero-kicker reveal">$ whoami</p>
+          <h1 class="reveal">Missed calls answered.<br />Appointments booked.<br />Boring work <span class="accent">automated</span>. 🥔</h1>
+          <p class="reveal description">I'm <span class="accent">Christian John</span> — aka potaterrr. I build the automation behind that: AI voice receptionists for appointment-based businesses — salons, clinics, med spas, trades — plus workflow integrations, AI agents, scrapers and ops pipelines — built on n8n by default, with Make, Zapier or Python when your stack demands it.</p>
+          <p class="reveal personality">Nine years in high-volume BPO operations taught me where manual work hides. If it's repetitive, I'll automate it.</p>
+
+          <div class="cta-row hero-cta reveal">
+            <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+
+
+        </div>
+      </header>
+
+      <dialog id="hero-promo-dialog" class="hero-promo-dialog" aria-label="Home promo film">
+        <video id="hero-promo-player" controls playsinline preload="metadata" poster="/assets/videos/home-promo.jpg" width="1280" height="720">
+          <source src="/assets/videos/home-promo.mp4" type="video/mp4">
+          Your browser cannot play this film. <a href="/assets/videos/home-promo.mp4">Download it</a>.
+        </video>
+        <button type="button" class="hero-promo-close" aria-label="Close">✕</button>
+      </dialog>
+
+      <nav class="section-nav" aria-label="On this page">
+        <div class="container section-nav-inner">
+          <button type="button" class="section-nav-tour" data-quick-tour aria-pressed="false" aria-label="Quick tour: scroll through this page section by section">Quick tour</button>
+          <a href="#proof" data-section="proof">What I build</a>
+          <a href="#how" data-section="how">How it works</a>
+          <a href="#background" data-section="background">Career</a>
+        </div>
+      </nav>
+
+      <main>
+        <!-- Tools marquee -->
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee-track">
+            <span class="marquee-seq">
+              <i><img decoding="async" src="assets/icons/n8n.svg" alt="" />n8n</i><i><img decoding="async" src="assets/icons/python.svg" alt="" />Python</i><i><img decoding="async" src="assets/icons/make.svg" alt="" />Make.com</i><i><img decoding="async" src="assets/icons/openrouter.svg" alt="" />OpenRouter</i><i><img decoding="async" src="assets/icons/postman.svg" alt="" />Webhooks</i><i><img decoding="async" src="assets/icons/githubactions.svg" alt="" />GitHub Actions</i><i><img decoding="async" src="assets/icons/claude.svg" alt="" />Claude</i><i><img decoding="async" src="assets/icons/twilio.svg" alt="" />Twilio</i><i><img decoding="async" src="assets/icons/googlecalendar.svg" alt="" />Google Calendar</i><i><img decoding="async" src="assets/icons/gmail.svg" alt="" />Gmail API</i><i><img decoding="async" src="assets/icons/clickup.svg" alt="" />CRM</i><i><img decoding="async" src="assets/icons/nodedotjs.svg" alt="" />Node.js</i><i><img decoding="async" src="assets/icons/gnubash.svg" alt="" />Bash</i><i><img decoding="async" src="assets/icons/cal.svg" alt="" />Cal.com</i>
+            </span>
+            <span class="marquee-seq" aria-hidden="true">
+              <i><img decoding="async" src="assets/icons/n8n.svg" alt="" />n8n</i><i><img decoding="async" src="assets/icons/python.svg" alt="" />Python</i><i><img decoding="async" src="assets/icons/make.svg" alt="" />Make.com</i><i><img decoding="async" src="assets/icons/openrouter.svg" alt="" />OpenRouter</i><i><img decoding="async" src="assets/icons/postman.svg" alt="" />Webhooks</i><i><img decoding="async" src="assets/icons/githubactions.svg" alt="" />GitHub Actions</i><i><img decoding="async" src="assets/icons/claude.svg" alt="" />Claude</i><i><img decoding="async" src="assets/icons/twilio.svg" alt="" />Twilio</i><i><img decoding="async" src="assets/icons/googlecalendar.svg" alt="" />Google Calendar</i><i><img decoding="async" src="assets/icons/gmail.svg" alt="" />Gmail API</i><i><img decoding="async" src="assets/icons/clickup.svg" alt="" />CRM</i><i><img decoding="async" src="assets/icons/nodedotjs.svg" alt="" />Node.js</i><i><img decoding="async" src="assets/icons/gnubash.svg" alt="" />Bash</i><i><img decoding="async" src="assets/icons/cal.svg" alt="" />Cal.com</i>
+            </span>
+          </div>
+        </div>
+
+      <section class="section section-alt" id="proof">
+        <div class="container">
+          <h2 class="section-title reveal"><span class="hash">#</span> What I build</h2>
+          <p class="section-lead reveal">Four automations running in production — each with a one-minute film that shows the problem, the build and the branches. Human approval where it matters, n8n as the default stack.</p>
+          <ul class="stat-row reveal">
+            <li><strong>4</strong><span>builds, each with a film</span></li>
+            <li><strong>n8n</strong><span>default stack — plus Make, Zapier, Python</span></li>
+            <li><strong>9 yrs</strong><span>inside high-volume ops</span></li>
+          </ul>
+          <div class="proj-grid">
+            <a class="proj-card reveal" href="/projects/ai-voice-receptionist/#overview">
+          <span class="proj-film" aria-hidden="true"><img src="/assets/videos/ai-voice-receptionist.jpg" alt="" loading="lazy" width="640" height="360" decoding="async" /><span class="proj-play">▶ film · 1:37</span></span>
+           
+              
+
+              <h3>AI Voice Receptionist</h3>
+              <p>Answers missed and after-hours calls for appointment-based businesses, captures intake, books appointments and logs every call — built three times over one shared Retell voice layer.</p>
+              <div class="proj-card-foot">
+                <span class="proj-tech-row"><span class="proj-tech">Retell</span><span class="proj-tech">Make</span><span class="proj-tech">n8n</span></span>
+                <span class="proj-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <a class="proj-card reveal" href="/projects/ar-invoice-reminder/#overview">
+          <span class="proj-film" aria-hidden="true"><img src="/assets/videos/ar-invoice-reminder.jpg" alt="" loading="lazy" width="640" height="360" decoding="async" /><span class="proj-play">▶ film · 1:21</span></span>
+           
+              
+
+              <h3>AR Invoice Reminder</h3>
+              <p>Reads the invoice tracker, computes days past due, and files a tone-matched reminder as a Gmail draft — a human still presses send.</p>
+              <div class="proj-card-foot">
+                <span class="proj-tech-row"><span class="proj-tech">n8n</span><span class="proj-tech">Gemini</span><span class="proj-tech">Google Sheets</span></span>
+                <span class="proj-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <a class="proj-card reveal" href="/projects/dead-lead-retrieval/#overview">
+          <span class="proj-film" aria-hidden="true"><img src="/assets/videos/dead-lead-retrieval.jpg" alt="" loading="lazy" width="640" height="360" decoding="async" /><span class="proj-play">▶ film · 1:27</span></span>
+           
+              
+
+              <h3>Dead Lead Retrieval</h3>
+              <p>Drafts personalized check-ins for stale leads, files them as Gmail drafts, and tracks every lead in your CRM — with a human always in the loop.</p>
+              <div class="proj-card-foot">
+                <span class="proj-tech-row"><span class="proj-tech">n8n</span><span class="proj-tech">OpenRouter</span><span class="proj-tech">CRM</span></span>
+                <span class="proj-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+            <a class="proj-card reveal" href="/projects/sales-call-qa/#overview">
+          <span class="proj-film" aria-hidden="true"><img src="/assets/videos/sales-call-qa.jpg" alt="" loading="lazy" width="640" height="360" decoding="async" /><span class="proj-play">▶ film · 1:25</span></span>
+           
+              
+
+              <h3>Sales Call QA &amp; Coaching</h3>
+              <p>Scores every sales call with Gemini, verifies quotes against the transcript, and sends a weekly coaching digest to the team.</p>
+              <div class="proj-card-foot">
+                <span class="proj-tech-row"><span class="proj-tech">n8n</span><span class="proj-tech">Gemini</span><span class="proj-tech">Retell</span></span>
+                <span class="proj-arrow" aria-hidden="true">↗</span>
+              </div>
+            </a>
+          </div>
+          <div class="cta-row reveal section-cta"><a class="btn btn-primary" href="/projects/">All 11 projects →</a><a class="btn btn-ghost" href="/projects/#other-projects">Scrapers, digests and LLM pipelines</a></div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="container">
+          <h2 class="section-title reveal"><span class="hash">#</span> How it works</h2>
+          <p class="section-lead reveal">Three steps from "we do this by hand" to "it runs itself."</p>
+          <div class="grid grid-3">
+            <article class="card reveal">
+              <div class="card-body">
+                <p class="hero-kicker">$ step 1</p>
+                <h3>Fit call</h3>
+                <p>A 60-minute call. We map the process, count the hours it eats, and decide together whether automation is worth it. If it isn't, I say so.</p>
+              </div>
+            </article>
+            <article class="card reveal">
+              <div class="card-body">
+                <p class="hero-kicker">$ step 2</p>
+                <h3>Build the sprint</h3>
+                <p>Fixed scope, 2–3 weeks. You see a working automation in your own stack early — not a proposal deck. Weekly check-ins, no surprises.</p>
+              </div>
+            </article>
+            <article class="card reveal">
+              <div class="card-body">
+                <p class="hero-kicker">$ step 3</p>
+                <h3>Handoff</h3>
+                <p>Documentation, a walkthrough, and a live automation running without me. Need ongoing tuning? The partner retainer covers it.</p>
+              </div>
+            </article>
+          </div>
+          <div class="cta-row reveal section-cta">
+            <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            <a class="btn btn-ghost" href="/work-with-me/">See engagement options</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="background">
+        <div class="container">
+          <h2 class="section-title reveal"><span class="hash">#</span> Career</h2>
+          <p class="section-lead reveal">Nine years in high-volume BPO operations — the queues, SLAs and manual loops that taught me what to automate.</p>
+          <ol class="timeline">
+<li class="timeline-item reveal">
+  <span class="timeline-date">2026 – Present</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>Independent</h3>
+      <p class="career-role">Automation Developer</p>
+      <p>Voice receptionists, invoice agents, lead retrieval and scrapers.</p><p>Built on n8n by default, with Make, Zapier or Python when the stack demands it.</p>
+    </div>
+  </article>
+</li>
+<li class="timeline-item reveal">
+  <span class="timeline-date">2025 – 2026</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>TaskUs</h3>
+      <p class="career-role">Content Moderator</p>
+      <p>High-volume moderation queues against strict SLA and quality targets.</p><p>Policy review, escalation and accuracy under sustained load.</p>
+    </div>
+  </article>
+</li>
+<li class="timeline-item reveal">
+  <span class="timeline-date">2022 – 2025</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>Alorica</h3>
+      <p class="career-role">Messaging Customer Service / Messaging Tech / Team Leader</p>
+      <p>Messaging support across queues and channels, from front line to team lead.</p><p>Coaching, QA and escalation paths for a messaging team.</p>
+    </div>
+  </article>
+</li>
+<li class="timeline-item reveal">
+  <span class="timeline-date">2021</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>Concentrix</h3>
+      <p class="career-role">Customer Support</p>
+      <p>Voice and chat queues against strict SLA and quality targets.</p><p>Consistency and escalation across mixed channels.</p>
+    </div>
+  </article>
+</li>
+<li class="timeline-item reveal">
+  <span class="timeline-date">2019 – 2021</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>IBEX</h3>
+      <p class="career-role">Email Support</p>
+      <p>Written support at volume — tone, clarity and response-time targets.</p><p>Clear handoffs when email isn't enough and a voice has to pick it up.</p>
+    </div>
+  </article>
+</li>
+<li class="timeline-item reveal">
+  <span class="timeline-date">2017 – 2019</span>
+  <article class="card timeline-card">
+    <div class="card-body">
+      <h3>SPICRM / Inspiro</h3>
+      <p class="career-role">Technical Support</p>
+      <p>High-volume support queues against strict SLA and quality targets.</p><p>Troubleshooting, escalation paths and steady handoffs under load.</p>
+    </div>
+  </article>
+</li>
+          </ol>
+        </div>
+      </section>
+
+    <section class="page-nav-wrap">
+      <div class="container">
+        <p class="page-nav-kicker">$ cd ../projects</p>
+        <nav class="page-nav" aria-label="Previous and next page">
+          <a class="page-nav-btn is-next" href="/projects/"><span class="page-nav-dir">Next →</span><span class="page-nav-title">Wanna see what I'm up to?</span></a>
+        </nav>
+      </div>
+    </section>
+
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+          <p>© <span id="year"></span> Christian John</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Floating Action Button Container -->
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — jump to the contact section">
+
+    <!-- Rotating Circular Text Ring -->
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <!-- Organic Potato Core Icon -->
+    <div class="potato-body">
+      <picture><source srcset="assets/pfp-192.webp" type="image/webp" /><img src="assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <!-- Mobile floating tab bar -->
+
+  <!-- Accessibility menu -->
+<script src="js/section-nav.js" defer></script>
+  <script src="js/tour.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

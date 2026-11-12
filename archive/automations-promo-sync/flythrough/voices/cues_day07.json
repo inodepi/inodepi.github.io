@@ -1,0 +1,27 @@
+[
+ {
+  "t0": 0.4,
+  "t1": 4.4,
+  "text": "One record. Three tools."
+ },
+ {
+  "t0": 4.8,
+  "t1": 8.6,
+  "text": "Copy. Paste. Retype."
+ },
+ {
+  "t0": 9,
+  "t1": 12.6,
+  "text": "Same record. Every stop."
+ },
+ {
+  "t0": 12.9,
+  "t1": 15.9,
+  "text": "Then the pile lands."
+ },
+ {
+  "t0": 16.15,
+  "t1": 20,
+  "text": "Tomorrow: the same job, one hop."
+ }
+]

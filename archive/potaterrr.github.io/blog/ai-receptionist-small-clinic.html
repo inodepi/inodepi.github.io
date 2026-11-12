@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI receptionist for a small clinic: what it can and can&#x27;t do — potaterrr</title>
+  <meta name="description" content="A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/ai-receptionist-small-clinic.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="AI receptionist for a small clinic: what it can and can&#x27;t do — potaterrr" />
+  <meta property="og:description" content="A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/ai-receptionist-small-clinic.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/ai-receptionist-small-clinic.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="AI receptionist for a small clinic: what it can and can&#x27;t do — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI receptionist for a small clinic: what it can and can&#x27;t do — potaterrr" />
+  <meta name="twitter:description" content="A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/ai-receptionist-small-clinic.png" />
+  <meta property="article:published_time" content="2026-11-08" />
+  <meta property="article:modified_time" content="2026-11-08" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Voice" />
+  <meta property="article:tag" content="Ops" />
+  <meta property="article:tag" content="Guardrails" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI receptionist for a small clinic: what it can and can't do",
+  "description": "A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it.",
+  "datePublished": "2026-11-08",
+  "dateModified": "2026-11-08",
+  "inLanguage": "en",
+  "wordCount": 796,
+  "keywords": "Voice, Ops, Guardrails",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/ai-receptionist-small-clinic.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/ai-receptionist-small-clinic.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AI receptionist for a small clinic: what it can and can't do"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-11-08.md</p>
+            <h1 class="post-title">AI receptionist for a small clinic: what it can and can't do</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-11-08">Nov 8, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">4 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">796 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=voice">Voice</a><a class="tag-chip" href="/blog/?tag=ops">Ops</a><a class="tag-chip" href="/blog/?tag=guardrails">Guardrails</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>Most AI-receptionist marketing describes a machine that does everything. That's the fastest way to lose a clinic's trust: the moment an agent guesses at a symptom or confirms a slot it didn't check, the front desk turns it off. Here's the honest split for a small clinic — what it should handle, what it must hand over, and what to decide before a single patient hears it.</p>
+
+            <h2>What it handles well</h2>
+            <p>These are the calls where the answer is knowable, the data is structured, and a mistake is recoverable:</p>
+            <ul>
+              <li><strong>Missed and after-hours calls.</strong> The 12:40 call while the desk is rooming, and the 8 pm call nobody hears. This is the whole point.</li>
+              <li><strong>Service and hours questions.</strong> What you do, when you're open, where you are, parking, what to bring.</li>
+              <li><strong>New and returning patient bookings.</strong> Name, callback number, service, preferred time — the same fields a receptionist writes down.</li>
+              <li><strong>Reschedule and cancel requests.</strong> Captured as an intent with the appointment details, then routed to whoever owns the calendar.</li>
+              <li><strong>Logging and alerts.</strong> Every call becomes a row with a summary and a transcript link; the desk gets the useful part, not a JSON blob.</li>
+            </ul>
+            <p>Note what these have in common: none of them requires medical judgment. They're information and scheduling — the receptionist work, not the clinician work.</p>
+
+            <h2>What it can't do — and shouldn't pretend to</h2>
+            <ul>
+              <li><strong>Clinical triage or advice.</strong> "Is this serious?" is a clinician's call. The agent routes it; it never answers it.</li>
+              <li><strong>Emergencies.</strong> The greeting gives the emergency instruction first — hang up and call the local emergency number — and the call ends there.</li>
+              <li><strong>Insurance verification and billing edge cases.</strong> It can state which plans you accept. It can't confirm coverage, quote a patient's cost, or argue about a bill.</li>
+              <li><strong>Exceptions and negotiation.</strong> Squeezing someone in, waiving a fee, deciding whether a late cancellation is fine — judgment calls with consequences.</li>
+              <li><strong>De-escalating an angry patient.</strong> It can stay calm and take a callback number, but a human should be the one apologizing. The earlier a person gets involved, the better it goes.</li>
+            </ul>
+            <p>The rule I build with: if the answer isn't in a document you could hand a new receptionist on day one, the agent shouldn't answer it.</p>
+
+            <h2>The four decisions you make before launch</h2>
+            <ol>
+              <li><strong>When does it answer?</strong> After hours only, on a second ring, or when the line is busy. Pick one to start.</li>
+              <li><strong>Which services are bookable?</strong> Not "all of them" — the two or three appointment types that fit a standard slot.</li>
+              <li><strong>Where does a human come in?</strong> A transfer number, a callback queue, and the exact phrase that triggers the handoff.</li>
+              <li><strong>What confirms automatically, and what waits?</strong> Start conservative: everything books as a hold the desk approves for the first week, then loosen once you trust it.</li>
+            </ol>
+            <p>Each answer is a sentence, not a document. If a clinic can't answer one, that's the signal the process isn't ready for automation yet.</p>
+
+            <h2>Test it on scripted calls before a patient hears it</h2>
+            <p>Ten calls cover most of what goes wrong: a simple booking, a reschedule, a cancellation, a services question, an insurance question, an emergency phrasing, an angry caller, someone mumbling, a wrong number, and a caller who changes their mind halfway through.</p>
+            <p>Score each one on three things: did it ever confirm a slot it hadn't checked, did the emergency path work, and would you be comfortable reading the transcript to a patient. If all three pass, you're ready for real calls — starting with after-hours only, where a bad call costs the least.</p>
+
+            <h2>What good looks like in month one</h2>
+            <p>Three numbers: calls answered that would have been missed, calls that turned into booked slots, and bookings the desk had to correct. High, reasonable, low. If the third number isn't low, the fix is usually the intake fields or the confirmation rule — not the voice.</p>
+
+            <h2>What it costs, honestly</h2>
+            <p>Two moving parts: voice minutes from the voice platform, and the automation running the booking and alerts. Both scale with call volume, and both are scoped after the audit — there's no honest fixed price for "an AI receptionist" without knowing your hours, services and calendar. Treat any quote that doesn't ask those three questions as a guess.</p>
+
+            <h2>The summary</h2>
+            <p>An AI receptionist is not a cheaper front desk. It's a net that catches the calls that currently die — after hours, on a busy line, at lunch. The front desk keeps the judgment, the apologies, and the exceptions. That division is what makes it trustworthy, and it's the one thing to insist on when you're comparing vendors.</p>
+            <p>If your clinic's phone rings while nobody can pick up, <a href="/work-with-me/">here's how we'd scope it</a> — or <a href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">book a fit call</a> and bring the calls you're missing. 🥔</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ai-receptionist-answers-missed-calls.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>How an AI receptionist answers a clinic&#x27;s missed call</strong><span>A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in.</span></a><a class="related-card" href="/blog/ai-receptionist-cost-small-clinic.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>What an AI receptionist actually costs a small clinic</strong><span>Where the money goes when a clinic adds an AI receptionist: voice minutes, the automation layer, the one-time build, what moves each line, and how to compare quotes without getting anchored on a fake number.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/ai-voice-receptionist/">AI Voice Receptionist &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="hipaa-compliant-ai-receptionist.html">&larr; HIPAA-compliant AI receptionist: what healthcare actually needs</a>
+              <a href="ai-receptionist-cost-small-clinic.html">What an AI receptionist actually costs a small clinic &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

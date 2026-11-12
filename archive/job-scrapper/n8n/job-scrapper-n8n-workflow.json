@@ -1,0 +1,447 @@
+{
+  "name": "Job Scrapper — Summarize & Post",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-scrapper",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [-480, 0],
+      "webhookId": "job-scrapper",
+      "notes": "POST /webhook/job-scrapper with header x-webhook-token. Set up a Header Auth credential on this node."
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "jobs",
+        "include": "noOtherFields",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000002",
+      "name": "Split Out Jobs",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1.1,
+      "position": [-260, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fallback-check",
+              "leftValue": "={{ $json.kind }}",
+              "rightValue": "fallback",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000003",
+      "name": "Is Fallback?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [-40, 0],
+      "notes": "Fallback jobs bypass dedupe so the 'scraper found nothing' signal posts every run."
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "job_scrapper_seen"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "url",
+              "condition": "eq",
+              "keyValue": "={{ $json.url }}"
+            }
+          ]
+        }
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000004",
+      "name": "Drop Already Posted",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [180, 120],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "has-url",
+              "leftValue": "={{ $json.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000005",
+      "name": "Anything New?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [400, 120],
+      "notes": "When dedupe leaves nothing, post the 'no new listings' notice instead of silence."
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "No new job listings this run.",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000006",
+      "name": "Discord — No New Jobs",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [620, 240],
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "REPLACE_WITH_DISCORD_WEBHOOK_CREDENTIAL_ID",
+          "name": "Discord Webhook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true, \"posted\": 0 } }}",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000007",
+      "name": "Respond 200 — Nothing New",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [840, 240]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Summarize this job listing in 2-4 sentences for a Discord post. Include role, key skills, and a one-line 'why it is interesting' hook. Do not invent details. Keep it concise and professional.\n\nTitle: {{ $json.jobTitle }}\nCompany: {{ $json.company }}\nCategory: {{ $json.category }}\nRate: {{ $json.rate }}\nType: {{ $json.employmentType }}\nDescription: {{ $json.description }}\nHow to apply: {{ $json.howToApply }}",
+        "hasOutputParser": false
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000008",
+      "name": "Summarize with Gemini",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [620, -120],
+      "onError": "continueRegularOutput",
+      "notes": "On model failure the item continues with no summary; Discord falls back to the raw description."
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3-flash-preview",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-000000000009",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [620, -300],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REPLACE_WITH_GEMINI_CREDENTIAL_ID",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "embeds": {
+          "values": [
+            {
+              "inputMethod": "json",
+              "json": "={{ { \"title\": $json.jobTitle, \"url\": $json.url, \"description\": ($json.text || $json.description || '') . slice(0, 4000), \"fields\": [ { \"name\": \"Category\", \"value\": $json.category || 'N/A', \"inline\": true }, { \"name\": \"Rate\", \"value\": $json.rate || 'N/A', \"inline\": true }, { \"name\": \"Type\", \"value\": $json.employmentType || 'N/A', \"inline\": true }, { \"name\": \"Posted\", \"value\": $json.datePosted || 'N/A', \"inline\": true } ] } }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-00000000000a",
+      "name": "Discord — Job Embed",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [860, -120],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "REPLACE_WITH_DISCORD_WEBHOOK_CREDENTIAL_ID",
+          "name": "Discord Webhook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "job_scrapper_seen"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "url": "={{ $json.url }}",
+            "postedAt": "={{ $json.postedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "postedAt",
+              "displayName": "postedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-00000000000b",
+      "name": "Mark as Posted",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [1080, -120],
+      "notes": "Runs only after Discord accepts the message, so a failed post is retried on the next run."
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true, \"posted\": $items().length } }}",
+        "options": {}
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-00000000000c",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1300, -120]
+    },
+    {
+      "parameters": {
+        "jsCode": "const failed = $input.all().map((item) => item.json.url || item.json.error || 'unknown');\nreturn [{ json: { ok: false, posted: $('Discord — Job Embed').all().length, failed } }];"
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-00000000000d",
+      "name": "Collect Failures",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 80]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 502
+        }
+      },
+      "id": "6f2c4c1e-1f0a-4b1a-9a6e-00000000000e",
+      "name": "Respond 502",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1300, 80],
+      "notes": "Non-2xx makes the GitHub Actions run go red while successful embeds stay posted."
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Split Out Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Jobs": {
+      "main": [
+        [
+          {
+            "node": "Is Fallback?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Fallback?": {
+      "main": [
+        [
+          {
+            "node": "Summarize with Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Drop Already Posted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drop Already Posted": {
+      "main": [
+        [
+          {
+            "node": "Anything New?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anything New?": {
+      "main": [
+        [
+          {
+            "node": "Summarize with Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discord — No New Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord — No New Jobs": {
+      "main": [
+        [
+          {
+            "node": "Respond 200 — Nothing New",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize with Gemini": {
+      "main": [
+        [
+          {
+            "node": "Discord — Job Embed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarize with Gemini",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord — Job Embed": {
+      "main": [
+        [
+          {
+            "node": "Mark as Posted",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Collect Failures",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark as Posted": {
+      "main": [
+        [
+          {
+            "node": "Respond 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Failures": {
+      "main": [
+        [
+          {
+            "node": "Respond 502",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Receives scraped OnlineJobs.ph jobs from GitHub Actions, drops URLs already in job_scrapper_seen, summarizes with Gemini, posts one Discord embed per job, and records each URL only after Discord accepts it."
+  }
+}

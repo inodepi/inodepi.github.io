@@ -1,0 +1,1177 @@
+{
+  "name": "Sales Call QA & Coaching",
+  "nodes": [
+    {
+      "id": "02057171-2a4f-4aef-b680-21d219d78c39",
+      "name": "Retell Call Completed",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        -560,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sales-call-qa",
+        "responseMode": "onReceived"
+      },
+      "webhookId": "5db1d6cc-782a-4d24-b343-49556f7b2445"
+    },
+    {
+      "id": "cc604d97-833a-4083-9681-2eaa6d5150bc",
+      "name": "Normalize Call",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -300,
+        100
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const item = $input.first().json;\nconst body = item.body && typeof item.body === \"object\" ? item.body : item;\nconst call = body.call && typeof body.call === \"object\" ? body.call : body;\nconst raw = String(call.transcript || body.transcript || item.transcript || \"\").trim();\nconst transcript = raw.slice(0, 12000);\nconst rep = String(body.rep || body.rep_name || call.rep_name || call.agent_name || item.rep || item.agent || \"Unknown rep\").trim();\nconst callId = String(call.call_id || body.call_id || item.call_id || (\"call_\" + Date.now()));\nconst start = call.start_timestamp || body.start_timestamp || Date.now();\nconst when = Number(start) > 100000000000 ? Number(start) : Date.now();\nconst callDate = new Date(when).toISOString();\nconst duration = Number(call.duration_ms ? call.duration_ms / 1000 : (body.duration_seconds || item.duration_seconds || 0));\nconst source = body.call ? \"retell\" : \"form\";\nreturn [{ json: { call_id: callId, rep: rep, source: source, call_date: callDate, duration_seconds: duration, transcript: transcript } }];"
+      }
+    },
+    {
+      "id": "a2b9c022-b0c5-4228-9627-36618afacf57",
+      "name": "Paste a Call",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -560,
+        220
+      ],
+      "parameters": {
+        "formTitle": "Sales call QA",
+        "formDescription": "Paste a real or synthetic sales call transcript. The workflow scores opening, discovery, objection handling, next step and compliance, verifies the evidence, saves the scorecard, and only asks a sales manager to review what looks risky.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Rep name",
+              "fieldName": "rep",
+              "fieldType": "text",
+              "requiredField": true,
+              "placeholder": "e.g. Maya"
+            },
+            {
+              "fieldLabel": "Call ID",
+              "fieldName": "call_id",
+              "fieldType": "text",
+              "requiredField": false,
+              "placeholder": "optional"
+            },
+            {
+              "fieldLabel": "Transcript",
+              "fieldName": "transcript",
+              "fieldType": "textarea",
+              "requiredField": true,
+              "placeholder": "Rep: Hi Dana, this is Maya from Northwind. Do you have two minutes?"
+            }
+          ]
+        },
+        "options": {
+          "path": "sales-call-qa-form",
+          "buttonLabel": "Score this call",
+          "appendAttribution": false,
+          "respondWithOptions": {
+            "values": {
+              "respondWith": "text",
+              "formSubmittedText": "Call scored. Check the Sales Call QA data table and the manager draft. You can close this tab."
+            }
+          }
+        }
+      },
+      "webhookId": "0ce4427b-8061-49cc-a9b8-3da42f77fcac"
+    },
+    {
+      "id": "43e61f3e-7c5d-4587-b861-51e7080bc63e",
+      "name": "Has Transcript?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        -60,
+        100
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.transcript }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "bacfe1c6-8cec-4812-b6fb-404df85339c8",
+      "name": "Score Call",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        180,
+        100
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Score this B2B sales call against the rubric.\n\nCALL METADATA\nRep: {{ $json.rep }}\nCall ID: {{ $json.call_id }}\nSource: {{ $json.source }}\n\nTRANSCRIPT\n\"\"\"\n{{ $json.transcript }}\n\"\"\"\n\nReturn only the structured JSON object. Every evidence field must be an exact quote from the transcript, or the literal string \"no evidence in transcript\". Do not paraphrase, invent, or merge lines.",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a strict, fair sales-call quality analyst. Score five dimensions from 1 to 5. 5 = excellent, 4 = good, 3 = adequate, 2 = weak, 1 = missing or harmful. opening: identifies themselves and the company, gets permission to continue, and gives a clear reason for the call without dumping the pitch. discovery: asks about the current situation, the pain, the impact, the decision process and the timeline; confirms understanding before moving on. objection_handling: acknowledges the objection, explores what is behind it, responds with relevant proof, and checks whether the answer landed. If no objection is raised, score 3 and use \"no objection in transcript\" as the evidence — do not penalize the rep for the prospect agreeing. next_step: proposes a specific next step with a date and an owner, and confirms it before the call ends; score 1 if there is no next step. compliance: discloses recording where required, avoids guarantees or misleading claims, respects do-not-call, and quotes pricing accurately. confidence is 0 to 1 and reflects how much direct transcript evidence you had. red_flags is an array of concrete issues (empty if none). coaching_tip is one specific, kind, actionable sentence. summary is two sentences for the sales manager. Never invent facts. If a dimension has no evidence, score it 1 and say so.",
+          "maxIterations": 1,
+          "enableStreaming": false
+        }
+      }
+    },
+    {
+      "id": "957cd053-2c81-481e-b326-614a41919664",
+      "name": "Gemini Sales Scorer",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        224
+      ],
+      "parameters": {
+        "modelName": "models/gemini-3-flash-preview",
+        "options": {
+          "temperature": 0.1,
+          "maxOutputTokens": 8192
+        }
+      }
+    },
+    {
+      "id": "7971699a-fcaf-4442-b5e0-1f2d5f37eeba",
+      "name": "Sales Scorecard Schema",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        816,
+        224
+      ],
+      "parameters": {
+        "schemaType": "fromJson",
+        "jsonSchemaExample": "{ \"opening\": { \"score\": 4, \"evidence\": \"exact quote from the transcript\" }, \"discovery\": { \"score\": 3, \"evidence\": \"exact quote\" }, \"objection_handling\": { \"score\": 4, \"evidence\": \"exact quote\" }, \"next_step\": { \"score\": 5, \"evidence\": \"exact quote\" }, \"compliance\": { \"score\": 4, \"evidence\": \"exact quote\" }, \"confidence\": 0.86, \"red_flags\": [\"concrete issue\"], \"coaching_tip\": \"one specific action\", \"summary\": \"two sentences for the sales manager\" }"
+      }
+    },
+    {
+      "id": "d08e836b-6e4c-4cb2-bda0-6559a8e34be8",
+      "name": "Validate Scorecard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        100
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const input = $json.output !== undefined ? $json.output : $json;\nlet raw = input;\nif (typeof raw === \"string\") { try { raw = JSON.parse(raw); } catch (e) { raw = {}; } }\nif (!raw || typeof raw !== \"object\") raw = {};\nconst transcript = String($(\"Normalize Call\").first().json.transcript || \"\");\nconst norm = transcript.toLowerCase().replace(/[^a-z0-9]+/g, \" \").trim();\nconst redact = (s) => String(s || \"\").replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/gi, \"[redacted email]\").replace(/(?:\\+?\\d[\\d\\s().-]{6,}\\d)/g, \"[redacted number]\").trim();\nconst short = (s) => redact(s).slice(0, 280);\nconst dim = (key) => { const v = raw[key] || {}; const n = Number(v.score); return { score: isFinite(n) ? Math.min(5, Math.max(1, Math.round(n))) : 1, evidence: short(v.evidence), raw: redact(v.evidence) }; };\nconst dims = { opening: dim(\"opening\"), discovery: dim(\"discovery\"), objection_handling: dim(\"objection_handling\"), next_step: dim(\"next_step\"), compliance: dim(\"compliance\") };\nconst check = (e) => {\n  if (!e || e === \"no evidence in transcript\") return false;\n  const parts = e.split(/\\.\\.\\.|\\n/).map((p) => p.replace(/^(Rep|Prospect|Caller|Buyer|Customer|Agent):\\s*/i, \"\").toLowerCase().replace(/[^a-z0-9]+/g, \" \").trim()).filter(Boolean);\n  return parts.length > 0 && parts.every((p) => norm.indexOf(p) !== -1);\n};\nconst verifiedCount = [dims.opening, dims.discovery, dims.objection_handling, dims.next_step, dims.compliance].filter((d) => check(d.raw)).length;\nconst evidenceVerified = verifiedCount >= 3;\nconst weighted = dims.opening.score * 15 + dims.discovery.score * 30 + dims.objection_handling.score * 25 + dims.next_step.score * 20 + dims.compliance.score * 10;\nconst overall = Math.round((weighted / 500) * 100);\nlet confidence = Number(raw.confidence);\nif (!isFinite(confidence)) confidence = 0.5;\nconfidence = Math.min(1, Math.max(0, confidence));\nif (!evidenceVerified) confidence = Math.max(0, confidence - 0.15);\nconst flags = Array.isArray(raw.red_flags) ? raw.red_flags.map((x) => String(x)).filter(Boolean) : [];\nif (dims.objection_handling.score <= 2) flags.push(\"An objection was dismissed or left unexplored.\");\nif (dims.next_step.score <= 2) flags.push(\"No specific next step, date or owner.\");\nif (dims.discovery.score <= 2) flags.push(\"Discovery stayed surface-level.\");\nif (dims.compliance.score <= 2) flags.push(\"Compliance risk: missing recording disclosure or an unverified claim.\");\nconst unique = flags.filter((v, i, a) => a.indexOf(v) === i);\nconst needsReview = confidence < 0.75 || unique.length > 0 || dims.compliance.score <= 2 || !evidenceVerified;\nconst status = needsReview ? \"needs_review\" : \"scored\";\nconst evidenceJson = JSON.stringify({ opening: dims.opening.evidence, discovery: dims.discovery.evidence, objection_handling: dims.objection_handling.evidence, next_step: dims.next_step.evidence, compliance: dims.compliance.evidence });\nreturn [{ json: { call_id: $(\"Normalize Call\").first().json.call_id, rep: $(\"Normalize Call\").first().json.rep, source: $(\"Normalize Call\").first().json.source, call_date: $(\"Normalize Call\").first().json.call_date, duration_seconds: $(\"Normalize Call\").first().json.duration_seconds, overall: overall, opening: dims.opening.score, discovery: dims.discovery.score, objection_handling: dims.objection_handling.score, next_step: dims.next_step.score, compliance: dims.compliance.score, confidence: Number(confidence.toFixed(2)), status: status, needs_review: needsReview, red_flags: unique.join(\" || \"), coaching_tip: redact(raw.coaching_tip), summary: redact(raw.summary), evidence: evidenceJson, evidence_verified: evidenceVerified, created_at: new Date().toISOString() } }];"
+      }
+    },
+    {
+      "id": "f868e4a5-49f1-4686-bbba-ecdb54b5be4d",
+      "name": "Needs Human Review?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.4,
+      "position": [
+        660,
+        100
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "needs_review"
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "0a363898-a308-443a-8484-8d3fbdcd70a6",
+      "name": "Save Review Case",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1140,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sales Call QA"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "call_id": "={{ $json.call_id }}",
+            "rep": "={{ $json.rep }}",
+            "source": "={{ $json.source }}",
+            "call_date": "={{ $json.call_date }}",
+            "duration_seconds": "={{ $json.duration_seconds }}",
+            "overall": "={{ $json.overall }}",
+            "opening": "={{ $json.opening }}",
+            "discovery": "={{ $json.discovery }}",
+            "objection_handling": "={{ $json.objection_handling }}",
+            "next_step": "={{ $json.next_step }}",
+            "compliance": "={{ $json.compliance }}",
+            "confidence": "={{ $json.confidence }}",
+            "status": "={{ $json.status }}",
+            "red_flags": "={{ $json.red_flags }}",
+            "coaching_tip": "={{ $json.coaching_tip }}",
+            "summary": "={{ $json.summary }}",
+            "evidence": "={{ $json.evidence }}",
+            "evidence_verified": "={{ $json.evidence_verified }}",
+            "created_at": "={{ $json.created_at }}"
+          },
+          "schema": [
+            {
+              "id": "call_id",
+              "displayName": "call_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rep",
+              "displayName": "rep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "call_date",
+              "displayName": "call_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "duration_seconds",
+              "displayName": "duration_seconds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "overall",
+              "displayName": "overall",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "opening",
+              "displayName": "opening",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discovery",
+              "displayName": "discovery",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "objection_handling",
+              "displayName": "objection_handling",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "next_step",
+              "displayName": "next_step",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "red_flags",
+              "displayName": "red_flags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "coaching_tip",
+              "displayName": "coaching_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence",
+              "displayName": "evidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence_verified",
+              "displayName": "evidence_verified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {
+          "optimizeBulk": false
+        }
+      }
+    },
+    {
+      "id": "d65aa2ea-8cb3-411a-adc7-7c7922f632ed",
+      "name": "Draft Manager Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        900,
+        0
+      ],
+      "parameters": {
+        "resource": "draft",
+        "operation": "create",
+        "subject": "=Sales QA review: {{ $json.rep }} · {{ $json.overall }}/100",
+        "emailType": "text",
+        "message": "=A sales call needs a human look before it counts as scored.\n\nRep: {{ $json.rep }}\nCall: {{ $json.call_id }}\nOverall: {{ $json.overall }}/100\nConfidence: {{ $json.confidence }}\nStatus: {{ $json.status }}\nRed flags: {{ $json.red_flags || \"none\" }}\nEvidence verified: {{ $json.evidence_verified }}\n\nSummary\n{{ $json.summary }}\n\nCoaching tip\n{{ $json.coaching_tip }}\n\nEvidence\n{{ $json.evidence }}\n\nThis is a draft. Read the call, adjust the score if needed, then reply to the rep yourself.",
+        "options": {
+          "sendTo": "sales-manager@example.com"
+        }
+      },
+      "webhookId": "98b338b9-149e-4b49-903a-6cc0571d8d3c",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "id": "21e3a001-d9d8-4304-88ef-b38d8589e097",
+      "name": "Save Scorecard",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        220
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sales Call QA"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "call_id": "={{ $json.call_id }}",
+            "rep": "={{ $json.rep }}",
+            "source": "={{ $json.source }}",
+            "call_date": "={{ $json.call_date }}",
+            "duration_seconds": "={{ $json.duration_seconds }}",
+            "overall": "={{ $json.overall }}",
+            "opening": "={{ $json.opening }}",
+            "discovery": "={{ $json.discovery }}",
+            "objection_handling": "={{ $json.objection_handling }}",
+            "next_step": "={{ $json.next_step }}",
+            "compliance": "={{ $json.compliance }}",
+            "confidence": "={{ $json.confidence }}",
+            "status": "={{ $json.status }}",
+            "red_flags": "={{ $json.red_flags }}",
+            "coaching_tip": "={{ $json.coaching_tip }}",
+            "summary": "={{ $json.summary }}",
+            "evidence": "={{ $json.evidence }}",
+            "evidence_verified": "={{ $json.evidence_verified }}",
+            "created_at": "={{ $json.created_at }}"
+          },
+          "schema": [
+            {
+              "id": "call_id",
+              "displayName": "call_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rep",
+              "displayName": "rep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "call_date",
+              "displayName": "call_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "duration_seconds",
+              "displayName": "duration_seconds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "overall",
+              "displayName": "overall",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "opening",
+              "displayName": "opening",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discovery",
+              "displayName": "discovery",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "objection_handling",
+              "displayName": "objection_handling",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "next_step",
+              "displayName": "next_step",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "red_flags",
+              "displayName": "red_flags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "coaching_tip",
+              "displayName": "coaching_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence",
+              "displayName": "evidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence_verified",
+              "displayName": "evidence_verified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {
+          "optimizeBulk": false
+        }
+      }
+    },
+    {
+      "id": "8b4ce050-1e21-4d00-a6a4-5da8db116485",
+      "name": "Log Skipped Call",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        360
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sales Call QA"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "call_id": "={{ $json.call_id }}",
+            "rep": "={{ $json.rep }}",
+            "source": "={{ $json.source }}",
+            "call_date": "={{ $json.call_date }}",
+            "overall": 0,
+            "confidence": 0,
+            "status": "needs_transcript",
+            "summary": "No usable transcript reached the workflow.",
+            "red_flags": "",
+            "coaching_tip": "",
+            "evidence": "",
+            "evidence_verified": false,
+            "created_at": "={{ new Date().toISOString() }}"
+          },
+          "schema": [
+            {
+              "id": "call_id",
+              "displayName": "call_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rep",
+              "displayName": "rep",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "call_date",
+              "displayName": "call_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "duration_seconds",
+              "displayName": "duration_seconds",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "overall",
+              "displayName": "overall",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "opening",
+              "displayName": "opening",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "discovery",
+              "displayName": "discovery",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "objection_handling",
+              "displayName": "objection_handling",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "next_step",
+              "displayName": "next_step",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "compliance",
+              "displayName": "compliance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "red_flags",
+              "displayName": "red_flags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "coaching_tip",
+              "displayName": "coaching_tip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "summary",
+              "displayName": "summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence",
+              "displayName": "evidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "evidence_verified",
+              "displayName": "evidence_verified",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "date",
+              "canBeUsedToMatch": false
+            }
+          ]
+        },
+        "options": {
+          "optimizeBulk": false
+        }
+      }
+    },
+    {
+      "id": "2e522a72-12bc-40e0-be38-2ea9b15c4faf",
+      "name": "Draft Missing Transcript Note",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        180,
+        360
+      ],
+      "parameters": {
+        "resource": "draft",
+        "operation": "create",
+        "subject": "=Sales QA skipped: no transcript for {{ $json.rep }}",
+        "emailType": "text",
+        "message": "=The workflow received a call without a usable transcript, so it did not score it.\n\nRep: {{ $json.rep }}\nCall: {{ $json.call_id }}\nSource: {{ $json.source }}\n\nCheck the Retell recording or upload a transcript through the Paste a Call form.",
+        "options": {
+          "sendTo": "sales-manager@example.com"
+        }
+      },
+      "webhookId": "72e8f19e-cd49-4f55-b7c7-4d7151c837f2",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    },
+    {
+      "id": "e64e5540-c68b-4d38-85e7-8f9018db6b7b",
+      "name": "Weekly Coaching Digest",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -300,
+        560
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "12ac728d-9a3a-48ee-a608-80072ac575a2",
+      "name": "Read Scorecards",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        560
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sales Call QA"
+        },
+        "returnAll": true,
+        "orderBy": true,
+        "orderByColumn": "created_at",
+        "orderByDirection": "DESC"
+      }
+    },
+    {
+      "id": "110cf784-7851-4773-a040-9401f105316b",
+      "name": "Build Coaching Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        180,
+        560
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const rows = $input.all().map((i) => i.json);\nconst cutoff = Date.now() - 7 * 86400000;\nconst recent = rows.filter((r) => new Date(r.created_at || r.createdAt || 0).getTime() >= cutoff);\nconst source = recent.length ? recent : rows;\nconst byRep = {};\nfor (const r of source) {\n  const a = String(r.rep || \"Unknown rep\");\n  if (!byRep[a]) byRep[a] = { calls: [], review: 0, flags: [] };\n  byRep[a].calls.push(r);\n  if (String(r.status || \"\").indexOf(\"review\") !== -1) byRep[a].review += 1;\n  if (r.red_flags) byRep[a].flags.push(String(r.red_flags));\n}\nconst avg = (arr) => arr.length ? Math.round(arr.reduce((s, n) => s + Number(n || 0), 0) / arr.length) : 0;\nconst lines = [];\nconst reps = Object.keys(byRep).sort();\nfor (const a of reps) {\n  const c = byRep[a].calls;\n  lines.push(\"## \" + a);\n  lines.push(\"- Calls scored: \" + c.length);\n  lines.push(\"- Average overall: \" + avg(c.map((r) => r.overall)) + \"/100\");\n  lines.push(\"- Opening / discovery / objection / next step / compliance: \" + [avg(c.map((r) => r.opening)), avg(c.map((r) => r.discovery)), avg(c.map((r) => r.objection_handling)), avg(c.map((r) => r.next_step)), avg(c.map((r) => r.compliance))].join(\" / \"));\n  lines.push(\"- Needs human review: \" + byRep[a].review);\n  if (byRep[a].flags.length) lines.push(\"- Recurring flags: \" + byRep[a].flags.slice(0, 3).join(\"; \"));\n  lines.push(\"\");\n}\nconst body = [\"# Sales call QA — weekly coaching digest\", \"\", \"Calls in this digest: \" + source.length, \"\", ...(lines.length ? lines : [\"No calls scored yet. Run the Paste a Call form to seed the table.\"]), \"---\", \"Draft only. Read the flagged calls, adjust anything that looks off, then send the coaching notes yourself.\"].join(\"\\n\");\nreturn [{ json: { digest_subject: \"Sales call QA — weekly coaching digest\", digest_body: body, row_count: source.length } }];"
+      }
+    },
+    {
+      "id": "81f94506-de66-4939-887e-6e5931e34745",
+      "name": "Draft Coaching Digest",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        560
+      ],
+      "parameters": {
+        "resource": "draft",
+        "operation": "create",
+        "subject": "={{ $json.digest_subject }}",
+        "emailType": "text",
+        "message": "={{ $json.digest_body }}",
+        "options": {
+          "sendTo": "sales-manager@example.com"
+        }
+      },
+      "webhookId": "8d0131ea-55bf-4f37-860a-460b41628609",
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2
+    }
+  ],
+  "connections": {
+    "Retell Call Completed": {
+      "main": [
+        [
+          {
+            "node": "Normalize Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Call": {
+      "main": [
+        [
+          {
+            "node": "Has Transcript?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Paste a Call": {
+      "main": [
+        [
+          {
+            "node": "Normalize Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Transcript?": {
+      "main": [
+        [
+          {
+            "node": "Score Call",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Skipped Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Call": {
+      "main": [
+        [
+          {
+            "node": "Validate Scorecard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini Sales Scorer": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Score Call",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sales Scorecard Schema": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Score Call",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Scorecard": {
+      "main": [
+        [
+          {
+            "node": "Needs Human Review?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Needs Human Review?": {
+      "main": [
+        [
+          {
+            "node": "Save Review Case",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save Scorecard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Review Case": {
+      "main": [
+        [
+          {
+            "node": "Draft Manager Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Skipped Call": {
+      "main": [
+        [
+          {
+            "node": "Draft Missing Transcript Note",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Weekly Coaching Digest": {
+      "main": [
+        [
+          {
+            "node": "Read Scorecards",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Scorecards": {
+      "main": [
+        [
+          {
+            "node": "Build Coaching Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Coaching Digest": {
+      "main": [
+        [
+          {
+            "node": "Draft Coaching Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true
+  },
+  "pinData": {},
+  "notes": "Import into n8n, create a data table named \"Sales Call QA\" with the columns used in the Save/Read nodes, set the manager email in the Gmail nodes, then reconnect the Gemini and Gmail credentials. The Retell webhook path is /sales-call-qa; the form path is /sales-call-qa-form. Credentials are intentionally removed from this export."
+}

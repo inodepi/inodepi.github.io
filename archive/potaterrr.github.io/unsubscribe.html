@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unsubscribe · potaterrr</title>
+  <meta name="description" content="Stop receiving email from potaterrr. Your address is added to a suppression list and never contacted again." />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-180.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+  <main id="main-content" class="page-content">
+    <section class="section unsub">
+      <div class="container unsub-inner">
+
+        <div id="form-state">
+          <p class="hero-kicker reveal">$ unsubscribe</p>
+          <h1 class="unsub-title reveal">No more cold emails 🥔</h1>
+          <p class="unsub-lead reveal">
+            Enter the address you were emailed at and it goes on a permanent
+            suppression list. I check that list before every send, so you
+            won't hear from me again.
+          </p>
+
+          <form id="unsub-form" class="unsub-form reveal" method="post" enctype="text/plain" action="mailto:kristiandyanbusiness@gmail.com?subject=unsubscribe" novalidate>
+            <label class="unsub-label" for="email">Email address</label>
+            <input
+              class="unsub-input"
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="you@yourbusiness.com"
+              aria-describedby="unsub-help"
+            />
+            <button class="btn btn-primary unsub-submit" type="submit">Unsubscribe me</button>
+          </form>
+
+          <p id="unsub-error" class="unsub-help unsub-error" role="alert" tabindex="-1" hidden>
+            Unsubscribe is temporarily unavailable. Email
+            <a href="mailto:kristiandyanbusiness@gmail.com">kristiandyanbusiness@gmail.com</a>
+            and I'll remove you by hand.
+          </p>
+
+          <p id="unsub-help" class="unsub-help">
+            One click. Your mail app opens with the request — send it and I'll confirm by email.
+          </p>
+        </div>
+
+        <div id="done-state" tabindex="-1" hidden>
+          <p class="hero-kicker">$ done</p>
+          <h1 class="unsub-title">You're unsubscribed</h1>
+          <p class="unsub-lead">
+            <strong id="done-email"></strong> is queued for removal.
+            Your mail app should have opened with the request — press send,
+            and the opt-out is processed on the next check.
+          </p>
+          <p class="unsub-help">
+            No mail app? <a id="done-mailto" href="mailto:kristiandyanbusiness@gmail.com?subject=unsubscribe">Email me directly</a>
+            and I'll remove you by hand. Changed your mind, or that wasn't you?
+            Reply to the confirmation and I'll undo it.
+          </p>
+        </div>
+
+        <p class="unsub-legal">
+          Christian John Vallejos · 480 Rubyville St, Baesa, Caloocan City, Philippines
+        </p>
+        <p class="unsub-footer">
+          <a href="https://potaterrr.github.io/">← Back to potaterrr.github.io</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+<script>
+  (function () {
+    "use strict";
+
+    var EMAIL = "kristiandyanbusiness@gmail.com";
+    var form = document.getElementById("unsub-form");
+    var input = document.getElementById("email");
+    var formState = document.getElementById("form-state");
+    var doneState = document.getElementById("done-state");
+    var doneEmail = document.getElementById("done-email");
+    var doneMailto = document.getElementById("done-mailto");
+
+    var prefill = new URLSearchParams(window.location.search).get("email");
+    if (prefill) input.value = prefill.trim();
+
+    function mailto(value) {
+      return "mailto:" + EMAIL
+        + "?subject=" + encodeURIComponent("unsubscribe")
+        + "&body=" + encodeURIComponent("Unsubscribe " + value);
+    }
+
+    form.addEventListener("submit", function (e) {
+      var value = input.value.trim();
+      if (!value || (input.validity && !input.checkValidity())) {
+        e.preventDefault();
+        input.focus();
+        return;
+      }
+      e.preventDefault();
+      var url = mailto(value);
+      doneEmail.textContent = value;
+      doneMailto.href = url;
+      formState.hidden = true;
+      doneState.hidden = false;
+      doneState.focus();
+      /* Show the done state first; the mailto handoff must not lose it. */
+      window.location.href = url;
+    });
+  })();
+  </script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

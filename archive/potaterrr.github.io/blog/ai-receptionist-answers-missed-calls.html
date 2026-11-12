@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How an AI receptionist answers a clinic&#x27;s missed call — potaterrr</title>
+  <meta name="description" content="A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/ai-receptionist-answers-missed-calls.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="How an AI receptionist answers a clinic&#x27;s missed call — potaterrr" />
+  <meta property="og:description" content="A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/ai-receptionist-answers-missed-calls.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/ai-receptionist-answers-missed-calls.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="How an AI receptionist answers a clinic&#x27;s missed call — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How an AI receptionist answers a clinic&#x27;s missed call — potaterrr" />
+  <meta name="twitter:description" content="A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/ai-receptionist-answers-missed-calls.png" />
+  <meta property="article:published_time" content="2026-11-08" />
+  <meta property="article:modified_time" content="2026-11-08" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Voice" />
+  <meta property="article:tag" content="Ops" />
+  <meta property="article:tag" content="Guardrails" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How an AI receptionist answers a clinic's missed call",
+  "description": "A step-by-step walkthrough of what happens when a clinic misses a call: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk, with the human checkpoints left in.",
+  "datePublished": "2026-11-08",
+  "dateModified": "2026-11-08",
+  "inLanguage": "en",
+  "wordCount": 799,
+  "keywords": "Voice, Ops, Guardrails",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/ai-receptionist-answers-missed-calls.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/ai-receptionist-answers-missed-calls.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How an AI receptionist answers a clinic's missed call"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-11-08.md</p>
+            <h1 class="post-title">How an AI receptionist answers a clinic's missed call</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-11-08">Nov 8, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">4 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">799 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=voice">Voice</a><a class="tag-chip" href="/blog/?tag=ops">Ops</a><a class="tag-chip" href="/blog/?tag=guardrails">Guardrails</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>It's 12:40. The front desk is checking in a patient, the other line is ringing, and the third call goes to voicemail. That caller wanted to book an appointment, heard a recording, and is now dialing the clinic across town. Every missed call is a patient making a decision — usually without telling you.</p>
+            <p>This is the flow I build for that moment: an AI receptionist that answers when nobody can, does the intake a receptionist would, and hands the judgment back to a human. Here is what actually happens, step by step.</p>
+
+            <h2>Step 1 — The agent picks up when nobody can</h2>
+            <p>The clinic's number points at a voice agent, and a rule decides when it answers: after hours, on the second ring if the desk is busy, or only when the line is already occupied. The greeting introduces the practice, says plainly that it's an AI assistant, and gives the emergency instruction first — if this is an emergency, hang up and call the local emergency number.</p>
+            <p>That disclosure matters. A clinic should never trick a patient into thinking a person is listening, and it sets the expectation that the agent gathers information; it doesn't diagnose.</p>
+
+            <h2>Step 2 — The call: answer, don't diagnose</h2>
+            <p>The agent handles the questions a front desk answers all day: services offered, opening hours, address and parking, insurance accepted, and whether a new-patient slot exists this week. Anything clinical — symptoms, medication, test results — gets routed to a callback or a transfer. The agent's whole personality is one rule: be useful, then get a human involved.</p>
+            <p>By the end of the call it has collected the same fields a receptionist would write on a sticky note: name, callback number, intent, service, and the caller's preferred slot.</p>
+
+            <h2>Step 3 — One webhook, structured fields</h2>
+            <p>When the call ends, the voice platform fires a webhook with the transcript plus structured data. That contract is the important part:</p>
+            <ul>
+              <li><code>caller_name</code> and <code>callback_number</code></li>
+              <li><code>intent</code> — book, reschedule, question, cancel</li>
+              <li><code>service</code> — which appointment type was discussed</li>
+              <li><code>preferred_slot</code> — the date and time the caller asked for</li>
+            </ul>
+            <p>Because the automation only depends on those fields, the engine behind it is replaceable. I've built this same flow on Make, n8n and Zapier; the receptionist logic never changed, only the platform holding it. That's what keeps the clinic from being locked into one tool.</p>
+
+            <h2>Step 4 — Check the calendar before promising a slot</h2>
+            <p>This is where most naive builds fail. The caller says "Thursday at 3," and a bad automation books it without looking. The flow here checks the calendar first: if the slot is free, it books it and sends a confirmation; if it's taken, it offers the next two openings and flags the call for a human instead of guessing.</p>
+            <p>The rule is simple and worth writing down: never confirm a time the system hasn't verified.</p>
+
+            <h2>Step 5 — Log it and tell the front desk</h2>
+            <p>Every call becomes a row in a log: caller, intent, outcome, transcript link, and status. The front desk gets an alert with the useful part first — "New booking: Maria, cleaning, Thu 3:00" — not a 40-field JSON blob. If something needs a person, the alert says so.</p>
+            <p>The log is also how you find the interesting failures: calls where the caller gave up, bookings with missing intake, and the phrases the agent handled badly. Those become fixes, not mysteries.</p>
+
+            <h2>Step 6 — Keep the human in the loop</h2>
+            <p>Two gates stay in every build. Bookings from ambiguous intake wait for a person to approve before anything is confirmed. Anything clinical goes straight to a human, never through an automated answer. The agent is a receptionist, not a clinician, and the handoff has to be obvious.</p>
+
+            <h2>What it never does</h2>
+            <ul>
+              <li>No diagnosis, triage advice or medication guidance.</li>
+              <li>No outbound messages without a person approving them first.</li>
+              <li>No pretending to be human — the disclosure is in the greeting.</li>
+              <li>No real patient data in demos. The public version runs on synthetic calls; a HIPAA-compliant build (BAA, access controls, audit logging) is a separate scope.</li>
+            </ul>
+
+            <h2>What to measure in month one</h2>
+            <p>Three numbers tell you whether it's working: missed calls that got answered, calls that turned into booked slots, and bookings the desk had to correct. If the first is high, the second is reasonable and the third is low, the receptionist is doing its job. Everything else is tuning.</p>
+            <p>The point was never to replace the front desk. It's to stop the 12:40 call from going to the clinic across town while the desk does the work that needs a person.</p>
+            <p>If your clinic's phone rings while nobody can pick up, <a href="/work-with-me/">here's how we'd scope it</a> — or <a href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">book a fit call</a> and bring the process that eats your week. 🥔</p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/ai-receptionist-cost-small-clinic.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>What an AI receptionist actually costs a small clinic</strong><span>Where the money goes when a clinic adds an AI receptionist: voice minutes, the automation layer, the one-time build, what moves each line, and how to compare quotes without getting anchored on a fake number.</span></a><a class="related-card" href="/blog/ai-receptionist-small-clinic.html"><span class="related-meta">Nov 8, 2026 · 4 min read</span><strong>AI receptionist for a small clinic: what it can and can&#x27;t do</strong><span>A practical breakdown for clinic owners: the calls an AI receptionist should handle, the ones it must hand to a human, the decisions to make before launch, and how to test it on scripted calls before a real patient hears it.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/ai-voice-receptionist/">AI Voice Receptionist &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="ai-receptionist-cost-small-clinic.html">&larr; What an AI receptionist actually costs a small clinic</a>
+              <span></span>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

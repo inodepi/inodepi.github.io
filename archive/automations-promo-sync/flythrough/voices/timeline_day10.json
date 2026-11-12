@@ -1,0 +1,15 @@
+{
+ "day": 10,
+ "dur": 30,
+ "fps": 30,
+ "lines": [
+  {"id":"l1","t0":0.9,"text":"One record. Three tools."},
+  {"id":"l2","t0":4.2,"text":"Copy. Paste. Retype."},
+  {"id":"l3","t0":6.6,"text":"By hand, that's a morning gone."},
+  {"id":"l4","t0":10.55,"text":"One automated handoff. Seconds."},
+  {"id":"l5","t0":14.3,"text":"Built in n8n. Your own stack."},
+  {"id":"l6","t0":19.0,"text":"Delivered in two to three weeks."},
+  {"id":"l7","t0":24.8,"text":"Book a fit call at inodepi.github.io."}
+ ],
+ "sect": [[0,10.5,"problem"],[10.5,15.0,"proof"],[15.0,19.0,"proof"],[19.0,24.8,"offer"],[24.8,30,"cta"]]
+}

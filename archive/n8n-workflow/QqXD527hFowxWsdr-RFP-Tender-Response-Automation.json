@@ -1,0 +1,98 @@
+{
+  "updatedAt": "2026-08-29T10:50:26.379Z",
+  "createdAt": "2026-08-29T10:50:26.379Z",
+  "id": "QqXD527hFowxWsdr",
+  "name": "RFP/Tender Response Automation",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rfp-intake",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "n-wh",
+      "name": "Webhook Trigger",
+      "position": [
+        250,
+        300
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "webhookId": "rfp-intake"
+    },
+    {
+      "parameters": {
+        "assignments": [
+          {
+            "id": "resp1",
+            "name": "message",
+            "type": "string",
+            "value": "RFP received for processing"
+          }
+        ]
+      },
+      "id": "n-resp",
+      "name": "Return Response",
+      "position": [
+        450,
+        300
+      ],
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Return Response",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "meta": null,
+  "nodeGroups": [],
+  "pinData": null,
+  "versionId": "98bb13d9-4659-41ce-86ee-a53838c62b43",
+  "activeVersionId": null,
+  "versionCounter": 1,
+  "triggerCount": 0,
+  "sourceWorkflowId": null,
+  "shared": [
+    {
+      "updatedAt": "2026-08-29T10:50:26.381Z",
+      "createdAt": "2026-08-29T10:50:26.381Z",
+      "role": "workflow:owner",
+      "workflowId": "QqXD527hFowxWsdr",
+      "projectId": "Tahe82c0BsrZwmkA",
+      "project": {
+        "updatedAt": "2026-08-16T11:43:34.461Z",
+        "createdAt": "2026-08-16T11:22:39.146Z",
+        "id": "Tahe82c0BsrZwmkA",
+        "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "customTelemetryTags": [],
+        "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+      }
+    }
+  ],
+  "tags": []
+}

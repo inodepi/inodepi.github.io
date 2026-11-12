@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>job-scrapper now posts to Discord with Gemini summaries — potaterrr</title>
+  <meta name="description" content="How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence." />
+  <meta name="author" content="Christian John" />
+  <meta name="google-site-verification" content="QNQfraP7HxAO29cnHiJCMXKcEWGMC1i9ZpVe2efekuY" />
+  <meta name="google-site-verification" content="BHAxusjIlUmU4TL4ARcXEBX5Dl-WmESC4wgenC5SOeo" />
+  <link rel="canonical" href="https://potaterrr.github.io/blog/job-scrapper-discord-gemini.html" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="potaterrr" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="job-scrapper now posts to Discord with Gemini summaries — potaterrr" />
+  <meta property="og:description" content="How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence." />
+  <meta property="og:url" content="https://potaterrr.github.io/blog/job-scrapper-discord-gemini.html" />
+  <meta property="og:image" content="https://potaterrr.github.io/assets/og/blog/job-scrapper-discord-gemini.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="job-scrapper now posts to Discord with Gemini summaries — potaterrr" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="job-scrapper now posts to Discord with Gemini summaries — potaterrr" />
+  <meta name="twitter:description" content="How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence." />
+  <meta name="twitter:image" content="https://potaterrr.github.io/assets/og/blog/job-scrapper-discord-gemini.png" />
+  <meta property="article:published_time" content="2026-11-02" />
+  <meta property="article:modified_time" content="2026-11-02" />
+  <meta property="article:author" content="Christian John" />
+  <meta property="article:section" content="Automation" />
+  <meta property="article:tag" content="Python" />
+  <meta property="article:tag" content="Scraping" />
+  <meta property="article:tag" content="LLM" />
+  <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="application/rss+xml" title="potaterrr — posts" href="https://potaterrr.github.io/feed.xml" />
+  <link rel="alternate" type="application/feed+json" title="potaterrr — posts (JSON)" href="https://potaterrr.github.io/feed.json" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>(function(){var m=window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)");function set(){if(m&&m.matches)document.documentElement.setAttribute("data-theme","light");else document.documentElement.removeAttribute("data-theme")}set();if(m&&m.addEventListener)m.addEventListener("change",set)})();</script>
+  <noscript><style>
+    .reveal{opacity:1;transform:none}
+    .intro,.post-toc,.a11y-trigger,.theme-toggle{display:none!important}
+  </style></noscript>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "job-scrapper now posts to Discord with Gemini summaries",
+  "description": "How job-scrapper moved from Make.com to a self-contained GitHub Actions pipeline: Gemini summaries, Discord embeds, dedupe, and a 4-hour cadence.",
+  "datePublished": "2026-11-02",
+  "dateModified": "2026-11-02",
+  "inLanguage": "en",
+  "wordCount": 177,
+  "keywords": "Python, Scraping, LLM",
+  "author": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Christian John",
+    "url": "https://potaterrr.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://potaterrr.github.io/blog/job-scrapper-discord-gemini.html"
+  },
+  "image": "https://potaterrr.github.io/assets/og/blog/job-scrapper-discord-gemini.png"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://potaterrr.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://potaterrr.github.io/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "job-scrapper now posts to Discord with Gemini summaries"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+  <div class="post-progress" aria-hidden="true"><span class="post-progress-fill"></span></div>
+
+  <main id="main-content" class="page-content">
+
+    <section class="post-shell">
+      <div class="container">
+        <article class="post">
+          <a class="back-link" href="/blog/">&larr; All posts</a>
+          <header class="post-header">
+            <p class="post-kicker">$ cat notes/2026-11-02.md</p>
+            <h1 class="post-title">job-scrapper now posts to Discord with Gemini summaries</h1>
+            <div class="post-meta">
+              <time class="timeline-date" datetime="2026-11-02">Nov 2, 2026</time>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">6 min read</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="reading-time">177 words</span>
+              <span class="sep" aria-hidden="true">/</span>
+              <span class="post-author-inline"><img src="/assets/pfp-192.jpg" alt="" width="22" height="22" loading="lazy" decoding="async" />Christian John</span>
+            </div>
+            <div class="post-tags"><a class="tag-chip" href="/blog/?tag=python">Python</a><a class="tag-chip" href="/blog/?tag=scraping">Scraping</a><a class="tag-chip" href="/blog/?tag=llm">LLM</a></div>
+          </header>
+
+          <details class="post-toc" open>
+            <summary class="post-toc-title">On this page</summary>
+            <ol></ol>
+          </details>
+
+          <div class="post-body">
+<p>The scraper used to push raw job payloads to a Make.com webhook and let the scenario do the rest. That worked, but it meant a second platform in the loop and a secret I had to keep in sync. Now the whole thing runs inside GitHub Actions: scrape OnlineJobs.ph, summarize each listing with Gemini, post one Discord embed per job.</p>
+
+            <h2>What changed</h2>
+            <ul>
+              <li><strong>Discord instead of Make.com:</strong> each job becomes a rich embed (title, category, rate, type, posted date, how-to-apply, link).</li>
+              <li><strong>Gemini summaries:</strong> a short 2–4 sentence blurb per listing, with a fallback to raw fields if the API fails.</li>
+              <li><strong>Dedupe:</strong> <code>seen_jobs.json</code> remembers sent URLs so repeat runs don't spam the channel.</li>
+              <li><strong>Cadence:</strong> every 4 hours, with randomized delays to stay polite.</li>
+            </ul>
+
+            <h2>Why 4 hours and not 10 minutes</h2>
+            <p>OnlineJobs.ph has anti-bot interstitials. Hitting it every 10 minutes is a great way to get blocked. Four hours keeps listings fresh without tripping rate limits, and dedupe keeps the channel clean.</p>
+
+            <h2>Secrets needed</h2>
+            <ul>
+              <li><code>DISCORD_WEBHOOK_URL</code></li>
+              <li><code>GEMINI_API_KEY</code></li>
+              <li>Optional: <code>GEMINI_MODEL</code> (default <code>gemini-1.5-flash</code>), <code>CATEGORIES</code>, <code>MAX_PER_CATEGORY</code></li>
+            </ul>
+
+            <p><a href="https://github.com/potaterrr/job-scrapper" target="_blank" rel="noopener">View the repo on GitHub &rarr;</a></p>
+          </div>
+
+          <div class="post-foot">
+            <div class="related-posts">
+              <h2 class="related-title">Related notes</h2>
+              <div class="related-grid"><a class="related-card" href="/blog/feeding-make-com-from-python.html"><span class="related-meta">Aug 26, 2026 · 7 min read</span><strong>Feeding Make.com from Python</strong><span>How job-scrapper turns OnlineJobs.ph listings into clean webhook payloads for Make.com: flat JSON design, polite scraping, retries, and queue discipline.</span></a><a class="related-card" href="/blog/make-com-free-plan-ops-math.html"><span class="related-meta">Aug 26, 2026 · 6 min read</span><strong>The free-plan ops math</strong><span>Make.com&#x27;s free plan gives you 1,000 operations a month. Here&#x27;s the arithmetic that decides whether your polling interval is an automation or an ops bonfire.</span></a></div>
+            </div>
+            <p class="post-project-link">The build behind this note: <a href="/projects/job-scrapper/">job-scrapper &rarr;</a></p>
+
+            <div class="author-card">
+              <img src="/assets/pfp-192.jpg" alt="" width="52" height="52" loading="lazy" decoding="async" />
+              <p><strong>Christian John · potaterrr</strong>Automation developer building AI voice receptionists and n8n workflows, with Python and Make when a stack demands it. If a task is repetitive, I know a workflow for it. <a href="/work-with-me/">Work with me &rarr;</a></p>
+            </div>
+            <div class="post-cta">
+              <p><strong>Have a process like this one eating your week?</strong> I map it, build the pipeline, and hand over the docs plus a way to see when it breaks.</p>
+              <a class="btn btn-primary" href="https://cal.com/christian-john-vallejos-adws8d/60min" target="_blank" rel="noopener">Book a fit call</a>
+            </div>
+            <nav class="post-nav" aria-label="More posts">
+              <a href="ar-invoice-agent-challenges.html">&larr; The invoice chaser: three bugs, one rule</a>
+              <a href="sales-call-qa.html">The call is the evidence: building Sales Call QA &rarr;</a>
+            </nav>
+          </div>
+        </article>
+      </div>
+    </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><em>"Mashing the boring stuff so you don't have to."</em></p>
+      <p>© <span id="year"></span> Christian John</p>
+    </div>
+  </footer>
+  </main>
+
+  <a href="/contact/" class="potato-fab" aria-label="Got questions? Let’s get farming — open the contact page">
+
+    <div class="circular-text">
+      <svg viewBox="0 0 100 100" width="100" height="100">
+        <path id="textPath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" />
+        <text fill="#d97706" font-size="9" font-weight="700" letter-spacing="1">
+          <textPath href="#textPath" startOffset="0%">
+            GOT QUESTIONS? LET'S GET FARMING 🥔
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="potato-body">
+      <picture><source srcset="/assets/pfp-192.webp" type="image/webp" /><img src="/assets/pfp-192.jpg" alt="" width="48" height="48" decoding="async" /></picture>
+    </div>
+
+  </a>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

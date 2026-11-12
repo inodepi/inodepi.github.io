@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The world of E2 · a friendly, generous Discord community</title>
+  <meta name="description" content="E2 is a friendly, generous Discord community where people help each other out and try to make each other's days a little better.">
+  <meta name="theme-color" content="#1F1630">
+  <meta property="og:title" content="Join the world of E2">
+  <meta property="og:description" content="A friendly, generous corner of the internet where people help each other grow.">
+  <meta property="og:image" content="assets/promo-wide-dark.jpg">
+  <link rel="icon" type="image/png" href="assets/favicon-dark.png" id="favicon">
+  <!-- Dark mode is the default. Restore a saved choice before paint to avoid a flash. -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('e2-theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <nav class="nav container" aria-label="Main">
+      <a class="brand" href="#top" aria-label="E2 home">
+        <img class="brand-icon" src="assets/icon-dark.png" data-src-dark="assets/icon-dark.png" data-src-light="assets/icon-light.png" alt="" width="40" height="40">
+        <span class="brand-name">the world of <strong>E2</strong></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#story">Our story</a></li>
+        <li><a href="#what-we-do">What we do</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#streak">Kindness Streak</a></li>
+        <li><a href="#code">The E2 code</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        </button>
+        <a class="btn btn-primary btn-small" href="#" data-invite>Join</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" role="img" aria-label="A smiling cartoon globe with an orbit ring floats among soft clouds and little hearts."></div>
+      <div class="container hero-inner">
+        <p class="eyebrow">Welcome to</p>
+        <h1 id="hero-title">the world of E2</h1>
+        <p class="hero-tagline">A friendly, generous corner of the internet where people help each other out and try to make each other's days a little better.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-large" href="#" data-invite>
+            <svg class="discord-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1.1a15.7 15.7 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.7 9.3 1 13.2 1.3 17a17 17 0 0 0 5.2 2.6l1.1-1.8a11 11 0 0 1-1.7-.8l.4-.3a12.2 12.2 0 0 0 11.4 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.4-.7-8.3-3.1-11.7zM8.7 14.7c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1zm6.6 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1z"/></svg>
+            Join us on Discord
+          </a>
+          <a class="btn btn-ghost btn-large" href="#story">Read our story</a>
+        </div>
+        <p class="invite-note" role="status" aria-live="polite" hidden></p>
+      </div>
+    </section>
+
+    <!-- ROAD TO THE NEXT GOAL (live count from Discord; settings at the top of script.js) -->
+    <section class="road" aria-labelledby="road-title">
+      <div class="container road-card">
+        <div class="road-text">
+          <h2 id="road-title">Road to <span data-goal>1,000</span> <span aria-hidden="true">💛</span></h2>
+          <p><span data-members>857</span> kind humans and counting. Every new member is one more person who can help, and be helped. Bring one kind human with you!</p>
+        </div>
+        <div class="road-meter">
+          <div class="progress" role="progressbar" aria-labelledby="road-title" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="857" aria-valuetext="857 of 1,000 members">
+            <div class="progress-fill" style="width:85.7%"></div>
+          </div>
+          <div class="progress-labels" aria-hidden="true">
+            <span><strong data-members>857</strong> members</span>
+            <span>goal <strong data-goal>1,000</strong></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="section" id="story" aria-labelledby="story-title">
+      <div class="container story">
+        <figure class="story-art">
+          <img src="assets/globe-dark.jpg" data-src-dark="assets/globe-dark.jpg" data-src-light="assets/globe-light.jpg" alt="The little round world of E2, smiling, with a glowing orbit ring." width="440" height="440" loading="lazy">
+        </figure>
+        <div class="story-text">
+          <p class="eyebrow">Our story</p>
+          <h2 id="story-title">Once upon a time…</h2>
+          <p>Once upon a time, a small round world floated through the internet, smiling at everyone who passed by. One day, a lost traveler stopped to ask for directions, and the little world did something unusual: it helped, and asked for nothing back.</p>
+          <p>Word spread, more travelers arrived, and each one left a bit of kindness behind, a tip here, a laugh there, a hand up when someone needed it. Bit by bit that kindness built E2, a place where everyone's welcome and everyone has something to give.</p>
+          <p class="story-close">Pull up a seat, friend. The world keeps smiling because of people like you. <span aria-hidden="true">🌍</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section class="section section-alt" id="what-we-do" aria-labelledby="wwd-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">What we do</p>
+          <h2 id="wwd-title">We're always looking for ways to add value to people's lives</h2>
+        </div>
+        <ul class="cards">
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">🤝</span>
+            <h3>Help &amp; advice</h3>
+            <p>Stuck on something? Ask. Questions are welcome, nobody gets laughed at for asking, and someone here will have your back.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">🎓</span>
+            <h3>Skill-sharing</h3>
+            <p>Everyone has something to give. Teach a little of what you know, learn something new, and trade feedback on each other's projects.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">💛</span>
+            <h3>Kindness</h3>
+            <p>Shout-outs, thank-yous and small kind acts, online and off. We cheer for each other's wins, big or tiny.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon" aria-hidden="true">🎉</span>
+            <h3>Events</h3>
+            <p>Regular hangouts where we hype each other up, help each other out, and take on kindness challenges together.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- NEW HERE -->
+    <section class="section" id="new-here" aria-labelledby="new-title">
+      <div class="container welcome">
+        <div class="welcome-text">
+          <p class="eyebrow">New here?</p>
+          <h2 id="new-title">Make yourself at home</h2>
+          <p>Welcome to the world of E2! <span aria-hidden="true">🌍</span> We're really glad you're here. Take a minute to say hi in <span class="channel">#introductions</span>, tell us what you're into, and don't be shy about asking questions.</p>
+          <ol class="steps">
+            <li><strong>Read the E2 code.</strong> It's short and kind, promise.</li>
+            <li><strong>Introduce yourself.</strong> Say hi and tell us a little about you.</li>
+            <li><strong>Pick your roles.</strong> Choose your interests to see the right channels.</li>
+          </ol>
+          <div class="icebreakers">
+            <h3>Not sure what to say? Try one of these</h3>
+            <ul>
+              <li>What's one small thing that made you smile today?</li>
+              <li>What's a skill you'd love to learn, and one you could teach someone else?</li>
+              <li>Share a win this week, big or tiny. We'll cheer for you.</li>
+              <li>What's the best piece of advice anyone's ever given you?</li>
+              <li>Recommend something you love right now: a song, a show, a game, or a tool.</li>
+              <li>What's something you're working on that we could help with?</li>
+            </ul>
+          </div>
+        </div>
+        <figure class="welcome-art">
+          <img src="assets/welcome-dark.jpg" data-src-dark="assets/welcome-dark.jpg" data-src-light="assets/welcome-light.jpg" alt="Welcome to the world of E2, in three steps: 1, read the rules; 2, introduce yourself; 3, pick your roles." width="1200" height="675" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section section-alt" id="events" aria-labelledby="events-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Events</p>
+          <h2 id="events-title">Come hang out with us</h2>
+          <p class="section-sub">Times shown are examples in Philippine Time (PHT, UTC+8). Final times are announced in the server.</p>
+        </div>
+        <ul class="events">
+          <li class="event">
+            <div class="event-when"><span class="badge">Example time</span><span>Weekly · Saturdays, 8 PM PHT</span></div>
+            <h3>E2 Hype Squad Hour</h3>
+            <p>Share a post from a small creator, a student who's struggling, or anyone who could use some encouragement (yourself included!), and the squad spends an hour leaving genuine, supportive comments. Positivity only, no spam.</p>
+          </li>
+          <li class="event">
+            <div class="event-when"><span class="badge">Example time</span><span>Weekly · Wednesdays, 9 PM PHT</span></div>
+            <h3>E2 Help Desk Hour</h3>
+            <p>Bring your questions. Volunteer helpers answer them in a forum channel, with a different theme each week: study, careers, money, wellness and tech.</p>
+          </li>
+          <li class="event event-feature">
+            <div class="event-when"><span class="badge badge-gold">Nov 13 – Dec 1, 2026</span><span>Daily · 19 days</span></div>
+            <h3>One Day → Every Day Kindness Streak</h3>
+            <p>It starts on World Kindness Day and ends on GivingTuesday. You get one small kind act each day, and you log yours with a 💛. <a href="#streak">See all 19 prompts</a>.</p>
+          </li>
+        </ul>
+        <div class="dates" aria-label="Key dates">
+          <div class="date-pill"><time datetime="2026-11-13">Fri, Nov 13</time><span>World Kindness Day</span></div>
+          <div class="date-pill"><time datetime="2026-12-01">Tue, Dec 1</time><span>GivingTuesday</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KINDNESS STREAK -->
+    <section class="section" id="streak" aria-labelledby="streak-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Nov 13 – Dec 1, 2026</p>
+          <h2 id="streak-title">The One Day to Every Day Kindness Streak</h2>
+          <p class="section-sub">Do one small kind thing a day for 19 days. It starts on World Kindness Day and ends on GivingTuesday. When you've done the day's act, log it in the server with a <span aria-hidden="true">💛</span><span class="sr-only">heart</span>.</p>
+        </div>
+        <ol class="streak">
+          <li class="streak-day is-special" data-date="2026-11-13">
+            <div class="streak-head"><span class="streak-num">Day 1</span><time datetime="2026-11-13">Fri, Nov 13</time></div>
+            <p>Welcome someone new to E2 and ask them one question about themselves.</p>
+            <span class="streak-tag">World Kindness Day</span>
+          </li>
+          <li class="streak-day" data-date="2026-11-14">
+            <div class="streak-head"><span class="streak-num">Day 2</span><time datetime="2026-11-14">Sat, Nov 14</time></div>
+            <p>Send a thank-you message to someone who helped you this year, online or off.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-15">
+            <div class="streak-head"><span class="streak-num">Day 3</span><time datetime="2026-11-15">Sun, Nov 15</time></div>
+            <p>Share a useful tip, tool, or resource in the server that could save someone time.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-16">
+            <div class="streak-head"><span class="streak-num">Day 4</span><time datetime="2026-11-16">Mon, Nov 16</time></div>
+            <p>Give a genuine compliment to three different people today.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-17">
+            <div class="streak-head"><span class="streak-num">Day 5</span><time datetime="2026-11-17">Tue, Nov 17</time></div>
+            <p>Answer a question in E2 that's been waiting for a reply.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-18">
+            <div class="streak-head"><span class="streak-num">Day 6</span><time datetime="2026-11-18">Wed, Nov 18</time></div>
+            <p>Check in on a friend you haven't talked to in a while.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-19">
+            <div class="streak-head"><span class="streak-num">Day 7</span><time datetime="2026-11-19">Thu, Nov 19</time></div>
+            <p>Leave a kind review or shout-out for a small creator or business you love.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-20">
+            <div class="streak-head"><span class="streak-num">Day 8</span><time datetime="2026-11-20">Fri, Nov 20</time></div>
+            <p>Give thoughtful feedback on someone's project, starting with something you like.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-21">
+            <div class="streak-head"><span class="streak-num">Day 9</span><time datetime="2026-11-21">Sat, Nov 21</time></div>
+            <p>Do a chore or favor for someone at home without being asked.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-22">
+            <div class="streak-head"><span class="streak-num">Day 10</span><time datetime="2026-11-22">Sun, Nov 22</time></div>
+            <p>Share a song, quote, or meme that you think will make someone smile.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-23">
+            <div class="streak-head"><span class="streak-num">Day 11</span><time datetime="2026-11-23">Mon, Nov 23</time></div>
+            <p>Teach someone something small you know how to do.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-24">
+            <div class="streak-head"><span class="streak-num">Day 12</span><time datetime="2026-11-24">Tue, Nov 24</time></div>
+            <p>Pick up litter, tidy a shared space, or leave a place nicer than you found it.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-25">
+            <div class="streak-head"><span class="streak-num">Day 13</span><time datetime="2026-11-25">Wed, Nov 25</time></div>
+            <p>Be kind to yourself. Take a break and share one thing you're proud of.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-26">
+            <div class="streak-head"><span class="streak-num">Day 14</span><time datetime="2026-11-26">Thu, Nov 26</time></div>
+            <p>Post a gratitude note in E2 naming someone here who made your day better.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-27">
+            <div class="streak-head"><span class="streak-num">Day 15</span><time datetime="2026-11-27">Fri, Nov 27</time></div>
+            <p>Invite someone into a voice chat, game, or conversation who might feel left out.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-28">
+            <div class="streak-head"><span class="streak-num">Day 16</span><time datetime="2026-11-28">Sat, Nov 28</time></div>
+            <p>Hold the door, let someone go first, or offer your seat. Small courtesies count.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-29">
+            <div class="streak-head"><span class="streak-num">Day 17</span><time datetime="2026-11-29">Sun, Nov 29</time></div>
+            <p>Encourage someone who's working toward a goal and ask how you can help.</p>
+            
+          </li>
+          <li class="streak-day" data-date="2026-11-30">
+            <div class="streak-head"><span class="streak-num">Day 18</span><time datetime="2026-11-30">Mon, Nov 30</time></div>
+            <p>Write a kind note for a stranger to find, like a sticky note or a library bookmark.</p>
+            
+          </li>
+          <li class="streak-day is-special" data-date="2026-12-01">
+            <div class="streak-head"><span class="streak-num">Day 19</span><time datetime="2026-12-01">Tue, Dec 1</time></div>
+            <p>Give what you can: donate, volunteer an hour, or share a cause you care about. Then share your streak with E2! 💛</p>
+            <span class="streak-tag">GivingTuesday</span>
+          </li>        </ol>
+      </div>
+    </section>
+
+    <!-- THE E2 CODE -->
+    <section class="section section-alt" id="code" aria-labelledby="code-title">
+      <div class="container narrow">
+        <div class="section-head">
+          <p class="eyebrow">The E2 code</p>
+          <h2 id="code-title">Short, kind, and easy to live by</h2>
+        </div>
+        <ol class="rules">
+          <li><strong>Be kind.</strong> Treat everyone the way you'd want to be treated.</li>
+          <li><strong>Help where you can.</strong> Questions are welcome and nobody gets laughed at for asking.</li>
+          <li><strong>Keep it safe for everyone.</strong> No hate, harassment, or NSFW content.</li>
+          <li><strong>No spam or unsolicited self-promo.</strong> Share your stuff in the right channel.</li>
+          <li><strong>Respect privacy.</strong> Don't share anyone's personal info, including your own.</li>
+          <li><strong>Listen to the mods.</strong> They're here to keep E2 a good place to be.</li>
+        </ol>
+        <p class="rules-note">If something feels off, ping a mod. We'd rather hear it than not. <span aria-hidden="true">💛</span></p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container narrow">
+        <div class="section-head">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-title">Questions? Good, we love those.</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>What is E2?</summary>
+            <p>E2 is a Discord community, the world of E2. It's a friendly, generous place where people help each other, share what they know, and try to make each other's days a little better.</p>
+          </details>
+          <details>
+            <summary>Who can join?</summary>
+            <p>Anyone who's happy to follow the E2 code. Whether you're into gaming, creative stuff, tech, side hustles, fitness or music, there's room for you. You'll need a Discord account.</p>
+          </details>
+          <details>
+            <summary>I'm shy. Do I have to talk?</summary>
+            <p>Not at all. Lots of people start by quietly reading along. Say hi when you're ready. Someone here will have your back.</p>
+          </details>
+          <details>
+            <summary>I don't think I have anything to teach. Can I still join?</summary>
+            <p>Of course! "Still figuring it out" is a perfectly good answer. Good vibes and encouragement count too, and everyone has something to give.</p>
+          </details>
+          <details>
+            <summary>How do I take part in the Kindness Streak?</summary>
+            <p>From Nov 13 to Dec 1, 2026, do the day's kind act, then log it in the server with a 💛. Missed a day? Just pick up again the next day.</p>
+          </details>
+          <details>
+            <summary>When are events?</summary>
+            <p>The times on this page are examples in Philippine Time (UTC+8). Final times will be announced in the server.</p>
+          </details>
+          <details>
+            <summary>How can I help E2 grow?</summary>
+            <p>Bring one kind human with you! Share the invite with a friend who'd love a community like this, and help welcome new people when they arrive.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="container cta-inner">
+        <img class="cta-icon" src="assets/icon-dark.png" data-src-dark="assets/icon-dark.png" data-src-light="assets/icon-light.png" alt="E2 logo" width="96" height="96" loading="lazy">
+        <h2 id="cta-title">Pull up a seat, friend</h2>
+        <p>The world of E2 is <span data-members>857</span> strong and on the Road to <span data-goal>1,000</span>. We'd love for you to be part of it.</p>
+        <a class="btn btn-primary btn-large" href="#" data-invite>Join us on Discord</a>
+        <p class="invite-note" role="status" aria-live="polite" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <img class="brand-icon" src="assets/icon-dark.png" data-src-dark="assets/icon-dark.png" data-src-light="assets/icon-light.png" alt="" width="32" height="32" loading="lazy">
+        <span class="brand-name">the world of <strong>E2</strong></span>
+      </a>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="#story">Our story</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#streak">Kindness Streak</a></li>
+          <li><a href="#code">The E2 code</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#" data-invite>Discord</a></li>
+        </ul>
+      </nav>
+      <p class="footer-note">Made with <span aria-hidden="true">💛</span><span class="sr-only">love</span> by the E2 community · © <span data-year>2026</span></p>
+      <p class="footer-fine">E2 is a community server on Discord and is not affiliated with Discord Inc.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

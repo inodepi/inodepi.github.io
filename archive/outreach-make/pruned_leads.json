@@ -1,0 +1,752 @@
+[
+  {
+    "business_name": "Print Shoppe",
+    "website": "https://www.theprintshoppe.net",
+    "email": "info@theprintshoppe.net",
+    "niche": "Local Retail & Services",
+    "category": "shop=stationery",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3472707775",
+    "scraped_at": "2026-09-20T11:59:29.722194+00:00",
+    "phone": "+1-512-328-9206",
+    "address": "5321 Industrial Oaks Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Matrix Concepts LLC",
+    "website": "",
+    "email": "info@matrixconceptsllc.com",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3825357059",
+    "scraped_at": "2026-09-20T11:59:29.747479+00:00",
+    "phone": "+1-512-917-7127",
+    "address": "501 West Powell Lane, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries",
+      "email domain has no MX record (would bounce)"
+    ]
+  },
+  {
+    "business_name": "Maids and Moore Cleaning Austin",
+    "website": "https://maidsandmoore.com",
+    "email": "maidsandmoore@gmail.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=cleeaning",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3849864829",
+    "scraped_at": "2026-09-20T11:59:29.765159+00:00",
+    "phone": "+1-512-686-5034",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "NiteCore Store",
+    "website": "",
+    "email": "support@nitecorestore.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=yes",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3851205236",
+    "scraped_at": "2026-09-20T11:59:29.788821+00:00",
+    "phone": "+1-512-258-6649",
+    "address": "12112 Anderson Mill Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Strait Music",
+    "website": "https://www.straitmusic.com",
+    "email": "contactnorth@straitmusic.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=musical_instrument",
+    "source": "OpenStreetMap",
+    "osm_id": "node/1332570413",
+    "scraped_at": "2026-09-19T10:27:06.204306+00:00",
+    "phone": "+1-512-918-3743",
+    "address": "13945 Highway 183 North, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "T Nails & Spa",
+    "website": "https://tnailspaaustin.com",
+    "email": "mono_yumi1911@yahoo.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=beauty",
+    "source": "OpenStreetMap",
+    "osm_id": "node/1809241019",
+    "scraped_at": "2026-09-19T10:27:06.295120+00:00",
+    "phone": "+1- 512-989-6656",
+    "address": "1779 Wells Branch Parkway, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "KC Dental",
+    "website": "https://www.kcdentalaustin.com",
+    "email": "info@kcdentalaustin.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/2533220906",
+    "scraped_at": "2026-09-19T10:27:06.500509+00:00",
+    "phone": "+1-512-918-0888",
+    "address": "6301 West Parmer Lane, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Central Texas Pediatric Dentistry",
+    "website": "https://www.ctpdkid.com",
+    "email": "ctpd@ctpdkid.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/2992260019",
+    "scraped_at": "2026-09-19T10:27:06.633440+00:00",
+    "phone": "+1-512-474-7575",
+    "address": "1201 Barbara Jordan Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Domain Pest Control",
+    "website": "https://domainpestcontrol.com",
+    "email": "info@domainpestcontrol.com",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6475197483",
+    "scraped_at": "2026-09-27T00:28:09.777905+00:00",
+    "phone": "+1-512-888-9223",
+    "address": "13308 Mariscan Street, Manchaca",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries",
+      "email domain has no MX record (would bounce)"
+    ]
+  },
+  {
+    "business_name": "Keith Kristofer Salon",
+    "website": "https://www.keithkristofer.com",
+    "email": "mail@keithkristofer.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=hairdresser",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6643996881",
+    "scraped_at": "2026-09-27T00:28:09.829404+00:00",
+    "phone": "+1-512-233-1910",
+    "address": "2785 Bee Caves Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Med Security Inc",
+    "website": "https://med-securityinc.com/austin",
+    "email": "austin@med-securityinc.com",
+    "niche": "B2B Professional Services",
+    "category": "office=yes",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6724243263",
+    "scraped_at": "2026-09-27T00:28:09.866152+00:00",
+    "phone": "+1-210-314-1850",
+    "address": "9600 Great Hills Trail, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Creative Brick Builders",
+    "website": "https://creativebrickbuilders.com",
+    "email": "atx@creativebrickbuilders.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=toys",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6764039336",
+    "scraped_at": "2026-09-27T00:28:09.902466+00:00",
+    "phone": "+1-512-388-9003",
+    "address": "12 Chisholm Trail, Round Rock",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Yellow Bike Project",
+    "website": "https://austinyellowbike.org",
+    "email": "austinyellowbike@gmail.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=bicycle",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6786826186",
+    "scraped_at": "2026-09-27T00:28:09.902593+00:00",
+    "phone": "+1-512-524-5299",
+    "address": "1216 Webberville Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Apostille Texas",
+    "website": "https://www.apostilletexas.org",
+    "email": "support@apostilletexas.org",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6100762743",
+    "scraped_at": "2026-09-26T00:27:17.896683+00:00",
+    "phone": "+1-512-967-4900",
+    "address": "108 Wild Basin Road S, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Birth Certificate Texas",
+    "website": "https://www.birthcertificatetexas.org",
+    "email": "support@birthcertificatetexas.org",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6124016890",
+    "scraped_at": "2026-09-26T00:27:18.079657+00:00",
+    "phone": "+1-512-399-6433",
+    "address": "13359 N. Highway 183, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries",
+      "email domain has no MX record (would bounce)"
+    ]
+  },
+  {
+    "business_name": "ATXcursions",
+    "website": "https://atxcursions.com",
+    "email": "info@atxcursions.com",
+    "niche": "B2B Professional Services",
+    "category": "office=guide",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6381166244",
+    "scraped_at": "2026-09-26T00:27:18.172871+00:00",
+    "phone": "+1-866-759-7375",
+    "address": "1516 Tinnin Ford Rd, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Starbase Brewing",
+    "website": "https://starbasebrewery.com",
+    "email": "hello@starbasebrewery.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=brewery",
+    "source": "OpenStreetMap",
+    "osm_id": "node/6422741104",
+    "scraped_at": "2026-09-26T00:27:18.227503+00:00",
+    "phone": "+1 512-428-5217",
+    "address": "4700 Burleson Road, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Debbie Lowe",
+    "website": "https://debbielowerealtor.com",
+    "email": "dlowe@moreland.com",
+    "niche": "B2B Professional Services",
+    "category": "office=estate_agent",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5706277972",
+    "scraped_at": "2026-09-25T06:06:35.464303+00:00",
+    "phone": "+1-512-289-4167",
+    "address": "3825 Lake Austin Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Elite Heating and Air Conditioning",
+    "website": "https://eliteaustinac.com",
+    "email": "scheduling@eliteaustinac.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=hvac",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5706313100",
+    "scraped_at": "2026-09-25T06:06:35.545492+00:00",
+    "phone": "+1-512-637-4237",
+    "address": "8910 Research Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Whole Earth Provision Co.",
+    "website": "https://www.wholeearthprovision.com",
+    "email": "support@wholeearthprovision.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=clothes",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5771241708",
+    "scraped_at": "2026-09-25T06:06:35.627796+00:00",
+    "phone": "+1-512-899-0992",
+    "address": "4477 South Lamar Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Premium Cabinets",
+    "website": "https://premiumcabinets.com/austin",
+    "email": "alexm@premiumcabinets.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=carpenter",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5159265314",
+    "scraped_at": "2026-09-25T02:54:02.601536+00:00",
+    "phone": "+1-512-222-8060",
+    "address": "2335 Kramer Lane, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Last Stand Brewing Company",
+    "website": "https://www.laststandbrewing.com",
+    "email": "info@laststandbrewing.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=brewery",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5208921794",
+    "scraped_at": "2026-09-25T02:54:02.767211+00:00",
+    "phone": "+1-512-568-2800",
+    "address": "7601 South Congress Avenue, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Best Buy",
+    "website": "https://stores.bestbuy.com/tx/cedar-park/11066-pecan-park-blvd-178.html",
+    "email": "s-000178-leaders@bestbuy.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=electronics",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5248110721",
+    "scraped_at": "2026-09-25T02:54:02.779757+00:00",
+    "phone": "+1-512-336-2050",
+    "address": "11066 Pecan Park Boulevar, Cedar Park",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Vessel Coworking",
+    "website": "https://www.vesselcoworking.com",
+    "email": "info@vesselcoworking.com",
+    "niche": "B2B Professional Services",
+    "category": "office=coworking",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5451981713",
+    "scraped_at": "2026-09-25T02:54:02.915502+00:00",
+    "phone": "+1-512-381-7120",
+    "address": "500 East Saint John's Avenue, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "The Center for Vision Development",
+    "website": "https://www.visiontherapyaustin.com",
+    "email": "info@cvdaustin.com",
+    "niche": "Healthcare & Wellness",
+    "category": "healthcare=optometrist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5038117250",
+    "scraped_at": "2026-09-25T02:47:45.263210+00:00",
+    "phone": "+1-512-329-8900",
+    "address": "5656 Bee Caves Road, Building D, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Affordable Burial & Cremation Service",
+    "website": "https://www.centraltexascremation.com",
+    "email": "office@centraltexascremation.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=funeral_directors",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5152322974",
+    "scraped_at": "2026-09-25T02:47:45.429358+00:00",
+    "phone": "+1-512-354-2509",
+    "address": "13009 Dessau Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Kidd Roofing",
+    "website": "https://www.kiddroof.com",
+    "email": "info@kiddroof.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=roofer",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5157843388",
+    "scraped_at": "2026-09-25T02:47:45.523294+00:00",
+    "phone": "+1-512-671-7791",
+    "address": "1212 East Anderson Lane, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Nikk Nguyen Photo",
+    "website": "https://www.nikknguyenphoto.com",
+    "email": "nikknguyenphoto@gmail.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=photographer",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5157862430",
+    "scraped_at": "2026-09-25T02:47:45.523478+00:00",
+    "phone": "+1-469-237-7137",
+    "address": "106 East 6th Street, Austin",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Optique",
+    "website": "https://optiqueaustin.com",
+    "email": "staff@optiqueaustin.com",
+    "niche": "Healthcare & Wellness",
+    "category": "healthcare=optometrist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/5157872009",
+    "scraped_at": "2026-09-25T02:47:45.678771+00:00",
+    "phone": "+1-512-472-3937",
+    "address": "211 Walter Seaholm Drive, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Tesla Austin - The Domain",
+    "website": "",
+    "email": "thedomain_gallery@tesla.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=car",
+    "source": "OpenStreetMap",
+    "osm_id": "node/4486035558",
+    "scraped_at": "2026-09-24T13:56:02.079444+00:00",
+    "phone": "+1-512-833-6321",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Austin Family Allergy & Asthma",
+    "website": "http://familyallergyATX.com",
+    "email": "checkin@familyallergyatx.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=clinic, healthcare=clinic",
+    "source": "OpenStreetMap",
+    "osm_id": "node/4754975120",
+    "scraped_at": "2026-09-24T13:56:02.140565+00:00",
+    "phone": "+1-512-346-7936",
+    "address": "10801-2 North MoPac Expressway, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Hangups Frame Design",
+    "website": "https://www.hangupsdesign.com",
+    "email": "hangups@hangups.us",
+    "niche": "Local Retail & Services",
+    "category": "shop=photo",
+    "source": "OpenStreetMap",
+    "osm_id": "node/4848490821",
+    "scraped_at": "2026-09-24T13:56:02.255984+00:00",
+    "phone": "+1-512-263-9333",
+    "address": "500 Bushy Creek Road, Cedar Park",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "The Steamers",
+    "website": "http://the-steamers.com",
+    "email": "service@the-steamers.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=carpet",
+    "source": "OpenStreetMap",
+    "osm_id": "node/4885634483",
+    "scraped_at": "2026-09-24T13:56:02.425845+00:00",
+    "phone": "+1 855 260-2262",
+    "address": "111 West Anderson Lane, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "TastyPlacement SEO",
+    "website": "https://tastyplacement.com",
+    "email": "support@tastyplacement.com",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/4905172553",
+    "scraped_at": "2026-09-24T13:56:02.469026+00:00",
+    "phone": "+1-512-535-2492",
+    "address": "4150 Freidrich Lane, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Aloha Dental",
+    "website": "https://www.aloha-dental.com",
+    "email": "riverside@aloha-dental.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3856445942",
+    "scraped_at": "2026-09-23T13:59:05.695920+00:00",
+    "phone": "+1-512-707-7300",
+    "address": "1614 East Riverside Drive, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Secret Oktober",
+    "website": "https://www.secret-oktober.com",
+    "email": "secretoktober23@gmail.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=clothes",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3856650613",
+    "scraped_at": "2026-09-23T13:59:05.696085+00:00",
+    "phone": "+1-512-897-4803",
+    "address": "5314 Manchaca Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Portella Steel Doors and Windows",
+    "website": "https://portella.com",
+    "email": "sales@portella.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=doors",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3871939263",
+    "scraped_at": "2026-09-23T13:59:05.910831+00:00",
+    "phone": "+1-512-265-8695",
+    "address": "4111 Todd Lane, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Canvas Dental",
+    "website": "https://canvasdental.com",
+    "email": "smile@canvasdental.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3876692988",
+    "scraped_at": "2026-09-23T13:59:05.941805+00:00",
+    "phone": "+1-512-646-4505",
+    "address": "8517 Farm to Market Road 1826, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Anthony's Laundry and Dry Cleaning",
+    "website": "https://anthonyslaundryaustin.com",
+    "email": "info@anthonyslaundryaustin.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=laundry",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3956853928",
+    "scraped_at": "2026-09-23T13:59:05.973633+00:00",
+    "phone": "+1-512-472-1616",
+    "address": "1113 West Lynn Street, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Sugarwolf",
+    "website": "https://www.sugarwolfbakery.com",
+    "email": "hello@sugarwolfbakery.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=bakery",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3849777744",
+    "scraped_at": "2026-09-22T13:49:48.694858+00:00",
+    "address": "401 West 4th Street, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "MedSavers Pharmacy",
+    "website": "https://www.medsaverspharmacy.com",
+    "email": "medsaverspharmacy@gmail.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=chemist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3852062462",
+    "scraped_at": "2026-09-22T13:49:48.827097+00:00",
+    "phone": "+1-512-465-9292",
+    "address": "1800 West 35th Street, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Redbox+ Dumpster Rentals of Greater Austin",
+    "website": "https://www.redboxplus.com/greater-austin",
+    "email": "sdavis@redboxplus.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=rental",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3852272000",
+    "scraped_at": "2026-09-22T13:49:48.877588+00:00",
+    "phone": "+1-512-957-9701",
+    "address": "517 Thompson Lane, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Plume Salon",
+    "website": "https://plumesalonatx.com",
+    "email": "plumesalonatx@gmail.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=hairdresser",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3855741555",
+    "scraped_at": "2026-09-22T13:49:48.877734+00:00",
+    "phone": "+1-512-501-1334",
+    "address": "5212 Avenue F, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Matrix Concepts LLC",
+    "website": "",
+    "email": "info@matrixconceptsllc.com",
+    "niche": "B2B Professional Services",
+    "category": "office=company",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3825357059",
+    "scraped_at": "2026-09-20T11:59:29.747479+00:00",
+    "phone": "+1-512-917-7127",
+    "address": "501 West Powell Lane, Austin",
+    "prune_reasons": [
+      "niche 'B2B Professional Services' not in target industries",
+      "email domain has no MX record (would bounce)"
+    ]
+  },
+  {
+    "business_name": "Maids and Moore Cleaning Austin",
+    "website": "https://maidsandmoore.com",
+    "email": "maidsandmoore@gmail.com",
+    "niche": "Home Services & Trades",
+    "category": "craft=cleeaning",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3849864829",
+    "scraped_at": "2026-09-20T11:59:29.765159+00:00",
+    "phone": "+1-512-686-5034",
+    "prune_reasons": [
+      "niche 'Home Services & Trades' not in target industries"
+    ]
+  },
+  {
+    "business_name": "NiteCore Store",
+    "website": "",
+    "email": "support@nitecorestore.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=yes",
+    "source": "OpenStreetMap",
+    "osm_id": "node/3851205236",
+    "scraped_at": "2026-09-20T11:59:29.788821+00:00",
+    "phone": "+1-512-258-6649",
+    "address": "12112 Anderson Mill Road, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Strait Music",
+    "website": "https://www.straitmusic.com",
+    "email": "contactnorth@straitmusic.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=musical_instrument",
+    "source": "OpenStreetMap",
+    "osm_id": "node/1332570413",
+    "scraped_at": "2026-09-19T10:27:06.204306+00:00",
+    "phone": "+1-512-918-3743",
+    "address": "13945 Highway 183 North, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "T Nails & Spa",
+    "website": "https://tnailspaaustin.com",
+    "email": "mono_yumi1911@yahoo.com",
+    "niche": "Local Retail & Services",
+    "category": "shop=beauty",
+    "source": "OpenStreetMap",
+    "osm_id": "node/1809241019",
+    "scraped_at": "2026-09-19T10:27:06.295120+00:00",
+    "phone": "+1- 512-989-6656",
+    "address": "1779 Wells Branch Parkway, Austin",
+    "prune_reasons": [
+      "niche 'Local Retail & Services' not in target industries"
+    ]
+  },
+  {
+    "business_name": "KC Dental",
+    "website": "https://www.kcdentalaustin.com",
+    "email": "info@kcdentalaustin.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/2533220906",
+    "scraped_at": "2026-09-19T10:27:06.500509+00:00",
+    "phone": "+1-512-918-0888",
+    "address": "6301 West Parmer Lane, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  },
+  {
+    "business_name": "Central Texas Pediatric Dentistry",
+    "website": "https://www.ctpdkid.com",
+    "email": "ctpd@ctpdkid.com",
+    "niche": "Healthcare & Wellness",
+    "category": "amenity=dentist, healthcare=dentist",
+    "source": "OpenStreetMap",
+    "osm_id": "node/2992260019",
+    "scraped_at": "2026-09-19T10:27:06.633440+00:00",
+    "phone": "+1-512-474-7575",
+    "address": "1201 Barbara Jordan Boulevard, Austin",
+    "prune_reasons": [
+      "niche 'Healthcare & Wellness' not in target industries"
+    ]
+  }
+]

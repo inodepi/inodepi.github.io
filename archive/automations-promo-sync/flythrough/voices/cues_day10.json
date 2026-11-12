@@ -1,0 +1,38 @@
+[
+ {
+  "t0": 0.9,
+  "t1": 4,
+  "text": "One record. Three tools."
+ },
+ {
+  "t0": 4.2,
+  "t1": 6.5,
+  "text": "Copy. Paste. Retype."
+ },
+ {
+  "t0": 6.6,
+  "t1": 10.1,
+  "text": "By hand, that's a morning gone."
+ },
+ {
+  "t0": 10.55,
+  "t1": 14.2,
+  "text": "One automated handoff. Seconds."
+ },
+ {
+  "t0": 14.3,
+  "t1": 17.8,
+  "text": "Built in n8n. Your own stack."
+ },
+ {
+  "t0": 19,
+  "t1": 23,
+  "text": "Delivered in two to three weeks."
+ },
+ {
+  "t0": 24.8,
+  "t1": 30,
+  "text": "Book a fit call at inodepi.github.io.",
+  "cta": true
+ }
+]

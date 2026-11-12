@@ -1,0 +1,47 @@
+1
+00:00:00,900 --> 00:00:03,487
+A lead comes in at two a.m.
+
+2
+00:00:03,900 --> 00:00:06,008
+The form hits a webhook.
+
+3
+00:00:06,900 --> 00:00:09,255
+Enriched, deduped, and routed.
+
+4
+00:00:09,900 --> 00:00:12,616
+The right rep owns it before nine.
+
+5
+00:00:12,900 --> 00:00:15,600
+The CRM updates itself.
+
+6
+00:00:15,900 --> 00:00:18,952
+A digest lands in your inbox at seven.
+
+7
+00:00:19,100 --> 00:00:21,805
+New leads, what moved, what stalled.
+
+8
+00:00:22,100 --> 00:00:24,513
+You read it and press approve.
+
+9
+00:00:25,100 --> 00:00:27,592
+That is the whole morning stand-up.
+
+10
+00:00:28,100 --> 00:00:30,808
+No one typing. Nothing stale.
+
+11
+00:00:32,400 --> 00:00:34,200
+Book a fit call.
+
+12
+00:00:35,600 --> 00:00:38,313
+inodepi.github.io

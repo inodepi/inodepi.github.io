@@ -1,0 +1,43 @@
+{
+  "name": "GitHub commits to Facebook Page",
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebHook",
+      "version": 1,
+      "parameters": {
+        "hook": "<YOUR_MAKE_WEBHOOK_ID>"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": { "x": 0, "y": 0 }
+      }
+    },
+    {
+      "id": 2,
+      "module": "facebook-pages:CreatePost",
+      "version": 6,
+      "parameters": {
+        "__IMTCONN__": "<YOUR_FACEBOOK_CONNECTION_ID>"
+      },
+      "mapper": {
+        "page_id": "<YOUR_FACEBOOK_PAGE_ID>",
+        "message": "🚀 {{length(commits)}} new commit(s) in {{repository.name}} by {{pusher.name}}\n\n{{join(map(commits; \"message\"); \"\n\")}}\n\n🔗 {{compare}}"
+      },
+      "metadata": {
+        "expect": [
+          { "name": "page_id", "type": "select" },
+          { "name": "message", "type": "text" }
+        ],
+        "designer": { "x": 300, "y": 0 }
+      }
+    }
+  ],
+  "metadata": {
+    "instant": true,
+    "version": 1
+  },
+  "scheduling": {
+    "type": "immediately"
+  }
+}

@@ -1,0 +1,9 @@
+[
+ {"id":"l1","text":"One record. Three tools.","voice":"am_michael","speed":0.98},
+ {"id":"l2","text":"Copy. Paste. Retype.","voice":"am_michael","speed":0.98},
+ {"id":"l3","text":"By hand, that's a morning gone.","voice":"am_michael","speed":0.98},
+ {"id":"l4","text":"One automated handoff. Seconds.","voice":"am_michael","speed":0.98},
+ {"id":"l5","text":"Built in n8n. Your own stack.","voice":"am_michael","speed":0.98},
+ {"id":"l6","text":"Delivered in two to three weeks.","voice":"am_michael","speed":0.98},
+ {"id":"l7","text":"Book a fit call at inodepi dot github dot eye oh.","voice":"am_michael","speed":0.98,"asr":"book a fit call at patera.github.io."}
+]

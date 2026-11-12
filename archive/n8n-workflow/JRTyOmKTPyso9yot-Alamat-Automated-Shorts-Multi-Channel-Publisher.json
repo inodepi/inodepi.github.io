@@ -1,0 +1,243 @@
+{
+  "updatedAt": "2026-08-18T13:42:22.716Z",
+  "createdAt": "2026-08-18T10:46:39.536Z",
+  "id": "JRTyOmKTPyso9yot",
+  "name": "Alamat Automated Shorts Multi-Channel Publisher",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "={\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"options\": {}\n      },\n      \"id\": \"e5d0f622-4a00-4b53-8321-ba7918d3df62\",\n      \"name\": \"When clicking \\\"Test workflow\\\"\",\n      \"type\": \"n8n-nodes-base.manualTrigger\",\n      \"typeVersion\": 1,\n      \"position\": [\n        400,\n        300\n      ]\n    },\n    {\n      \"parameters\": {\n        \"prompt\": \"Say 'Ollama is working!' in exactly three words.\"\n      },\n      \"id\": \"27b68630-f9cc-43a7-bbf0-89196b2be0d7\",\n      \"name\": \"Basic LLM Chain\",\n      \"type\": \"@n8n/n8n-nodes-langchain.chainLlm\",\n      \"typeVersion\": 1.4,\n      \"position\": [\n        620,\n        300\n      ]\n    },\n    {\n      \"parameters\": {\n        \"model\": {\n          \"__rl\": true,\n          \"value\": \"llama3\",\n          \"mode\": \"id\"\n        },\n        \"options\": {}\n      },\n      \"id\": \"c1f72cf7-4f6c-48be-bc15-534df229e64e\",\n      \"name\": \"Ollama Model\",\n      \"type\": \"@n8n/n8n-nodes-langchain.lmChatOllama\",\n      \"typeVersion\": 1,\n      \"position\": [\n        680,\n        520\n      ]\n    }\n  ],\n  \"connections\": {\n    \"When clicking \\\"Test workflow\\\"\": {\n      \"main\": [\n        [\n          {\n            \"node\": \"Basic LLM Chain\",\n            \"type\": \"main\",\n            \"index\": 0\n          }\n        ]\n      ]\n    },\n    \"Ollama Model\": {\n      \"ai_languageModel\": [\n        [\n          {\n            \"node\": \"Basic LLM Chain\",\n            \"type\": \"ai_languageModel\",\n            \"index\": 0\n          ]
+        }
+      ]
+    }
+  }
+}"
+        }
+      },
+      {
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.7,
+        "position": [
+          240,
+          336
+        ],
+        "id": "5ea021e5-d245-437e-a699-632e68f163bc",
+        "name": "AI Alamat Scriptwriter"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Placeholder step for video generation (e.g., calling HeyGen, ElevenLabs, or Shotstack)\nconst inputItem = $input.item.json;\n\nreturn {\n  json: {\n    title: inputItem.title || \"Alamat ng Pilipinas\",\n    description: `${inputItem.hook} ${inputItem.body} #Alamat #PhilippineMythology #Shorts`,\n    videoUrl: \"https://example.com/generated-alamat-video.mp4\"\n  }\n};"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          528,
+          336
+        ],
+        "id": "8e7e1d72-cfdb-40a1-90d2-9dc20075e7d6",
+        "name": "Prepare Video Metadata"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Bearer YOUR_YOUTUBE_OAUTH_TOKEN"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"snippet\": {\n    \"title\": \"{{ $json.title }}\",\n    \"description\": \"{{ $json.description }}\",\n    \"tags\": [\"Alamat\", \"Mythology\", \"Shorts\"]\n  },\n  \"status\": {\n    \"privacyStatus\": \"public\"\n  }\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          800,
+          192
+        ],
+        "id": "1d914c27-aebf-4eb0-b7ce-835b30c3a279",
+        "name": "Publish to YouTube Shorts"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://open.tiktokapis.com/v2/post/publish/video/init/",
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Authorization",
+                "value": "Bearer YOUR_TIKTOK_ACCESS_TOKEN"
+              }
+            ]
+          },
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"post_info\": {\n    \"title\": \"{{ $json.title }}\",\n    \"privacy_level\": \"PUBLIC_TO_EVERYONE\"\n  },\n  \"source_info\": {\n    \"source_type\": \"FILE_URL\",\n    \"video_url\": \"{{ $json.videoUrl }}\"\n  }\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          800,
+          336
+        ],
+        "id": "c2cb656f-8176-49b7-b788-a7f3061ae9ef",
+        "name": "Publish to TikTok"
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "https://graph.facebook.com/v18.0/YOUR_FB_PAGE_ID/videos",
+          "sendBody": true,
+          "specifyBody": "json",
+          "jsonBody": "={\n  \"file_url\": \"{{ $json.videoUrl }}\",\n  \"description\": \"{{ $json.description }}\",\n  \"access_token\": \"YOUR_FB_ACCESS_TOKEN\"\n}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          800,
+          480
+        ],
+        "id": "4c9dc669-0c6a-4c9c-b9ea-1e7657084771",
+        "name": "Publish to Facebook Reels"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "typeVersion": 1.4,
+        "position": [
+          64,
+          336
+        ],
+        "id": "c27ba7d4-9b38-4c5c-bc74-9671d7c557c4",
+        "name": "When chat message received",
+        "webhookId": "51daa44b-0b4b-4363-9250-b921eb9b24af"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1.1,
+        "position": [
+          112,
+          544
+        ],
+        "id": "e22d68f4-c5f3-4379-bc80-1d0c2973eada",
+        "name": "Google Gemini Chat Model",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "xSx7EVca4p56bRpC",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "AI Alamat Scriptwriter": {
+        "main": [
+          [
+            {
+              "node": "Prepare Video Metadata",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Prepare Video Metadata": {
+        "main": [
+          [
+            {
+              "node": "Publish to YouTube Shorts",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Publish to TikTok",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Publish to Facebook Reels",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "AI Alamat Scriptwriter",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Alamat Scriptwriter",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "settings": {
+      "executionOrder": "v1",
+      "binaryMode": "separate",
+      "availableInMCP": false
+    },
+    "staticData": null,
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "nodeGroups": [],
+    "pinData": {},
+    "versionId": "1e44ecd2-d056-4be0-910d-faf0af74f37e",
+    "activeVersionId": null,
+    "versionCounter": 36,
+    "triggerCount": 0,
+    "sourceWorkflowId": null,
+    "shared": [
+      {
+        "updatedAt": "2026-08-18T10:46:39.541Z",
+        "createdAt": "2026-08-18T10:46:39.541Z",
+        "role": "workflow:owner",
+        "workflowId": "JRTyOmKTPyso9yot",
+        "projectId": "Tahe82c0BsrZwmkA",
+        "project": {
+          "updatedAt": "2026-08-16T11:43:34.461Z",
+          "createdAt": "2026-08-16T11:22:39.146Z",
+          "id": "Tahe82c0BsrZwmkA",
+          "name": "Christian John Vallejos <kristiandyanvallejos@gmail.com>",
+          "type": "personal",
+          "icon": null,
+          "description": null,
+          "customTelemetryTags": [],
+          "creatorId": "72c6e3b0-4586-453c-a49e-c06eb6a0e9aa"
+        }
+      }
+    ],
+    "tags": []
+}

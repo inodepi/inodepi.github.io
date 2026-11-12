@@ -1,0 +1,55 @@
+1
+00:00:00,600 --> 00:00:02,583
+The copy-paste morning.
+
+2
+00:00:03,000 --> 00:00:05,658
+Same record. Carried by hand.
+
+3
+00:00:06,900 --> 00:00:09,655
+This job used to take a morning.
+
+4
+00:00:10,100 --> 00:00:12,833
+Now it runs before you sit down.
+
+5
+00:00:13,300 --> 00:00:16,440
+It pulls every invoice that is due today.
+
+6
+00:00:16,500 --> 00:00:18,993
+Drafts the follow-up in your voice.
+
+7
+00:00:19,700 --> 00:00:22,155
+Sends it from your own inbox.
+
+8
+00:00:22,900 --> 00:00:25,646
+Then logs the thread back to the sheet.
+
+9
+00:00:26,100 --> 00:00:28,630
+Forty-seven invoices chased.
+
+10
+00:00:29,100 --> 00:00:31,886
+No spreadsheet. No copy-paste.
+
+11
+00:00:32,100 --> 00:00:34,680
+A whole morning back, every week.
+
+12
+00:00:35,100 --> 00:00:35,740
+Two to three weeks to build.
+
+13
+00:00:35,800 --> 00:00:37,600
+Book a fit call.
+
+14
+00:00:39,000 --> 00:00:41,713
+inodepi.github.io

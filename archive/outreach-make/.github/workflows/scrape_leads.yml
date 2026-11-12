@@ -1,0 +1,116 @@
+name: Daily Outreach Pipeline
+
+on:
+  schedule:
+    - cron: '0 9 * * 1-5' # Runs Monday to Friday at 9:00 AM UTC
+  workflow_dispatch: # Allows manual triggers from the GitHub UI
+    inputs:
+      batches:
+        description: 'YC batches to scan (comma separated, blank = recent six)'
+        required: false
+        default: ''
+      max_leads:
+        description: 'Max new startup leads to scrape into the queue'
+        required: false
+        default: '3'
+      dry_run:
+        description: 'Scrape but do not write leads.json (also skips sending)'
+        required: false
+        default: 'false'
+
+# Serialize runs: two overlapping runs would race on leads.json commits.
+concurrency:
+  group: outreach-state
+  cancel-in-progress: false
+
+# The auto-commit steps push to main with the default GITHUB_TOKEN. Without
+# explicit write permission the token is read-only and `git push` fails with
+# 403 -> "Error: Invalid status code: 128".
+permissions:
+  contents: write
+
+jobs:
+  scrape-leads:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Scrape Startup Leads Into Queue
+        env:
+          YC_BATCHES: ${{ inputs.batches || 'W26,S26,W25,S25,W24,S24' }}
+          MAX_NEW_LEADS: ${{ inputs.max_leads || '3' }}
+          SCRAPER_USER_AGENT: ${{ secrets.SCRAPER_USER_AGENT }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python startup_scraper.py --dry-run
+          else
+            python startup_scraper.py
+          fi
+
+      - name: Commit Updated Queue
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: scraped new leads into queue"
+          file_pattern: leads.json seen_leads.json
+
+  run-outreach:
+    # Send even if scraping failed (YC API down, etc.) — the queue from
+    # previous runs still has leads. But never send in dry-run mode.
+    if: ${{ !cancelled() && inputs.dry_run != 'true' }}
+    needs: scrape-leads
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main # pick up the leads committed by the scrape job
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Process Unsubscribes
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_FROM_NAME: ${{ secrets.GMAIL_FROM_NAME || 'Christian John Vallejos' }}
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          UNSUBSCRIBE_EMAIL: ${{ secrets.UNSUBSCRIBE_EMAIL }}
+          SENDER_NAME: ${{ secrets.SENDER_NAME || 'Christian John Vallejos' }}
+          SENDER_ADDRESS: ${{ secrets.SENDER_ADDRESS || '480 Rubyville St, Baesa, Caloocan City, Philippines' }}
+        run: python unsubscribe_poller.py
+
+      - name: Run Outreach Script
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_FROM_NAME: ${{ secrets.GMAIL_FROM_NAME || 'Christian John Vallejos' }}
+          GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+          GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          UNSUBSCRIBE_EMAIL: ${{ secrets.UNSUBSCRIBE_EMAIL }}
+          UNSUBSCRIBE_TEXT: ${{ secrets.UNSUBSCRIBE_TEXT || 'Unsubscribe' }}
+          SENDER_NAME: ${{ secrets.SENDER_NAME || 'Christian John Vallejos' }}
+          SENDER_BUSINESS_NAME: ${{ secrets.SENDER_BUSINESS_NAME || 'inodepi' }}
+          SENDER_ADDRESS: ${{ secrets.SENDER_ADDRESS || '480 Rubyville St, Baesa, Caloocan City, Philippines' }}
+          SENDER_URL: ${{ secrets.SENDER_URL || 'https://inodepi.github.io' }}
+        run: python outreach.py
+
+      - name: Commit Updated Leads List
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto: Processed daily outreach lead"
+          file_pattern: leads.json sent.json suppressions.json unsubscribes.json

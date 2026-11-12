@@ -1,0 +1,80 @@
+[
+ {
+  "id": "l1",
+  "text": "Every sales call, scored.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l2",
+  "text": "The recording lands. The transcript follows.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l3",
+  "text": "It scores the call against your rubric.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l4",
+  "text": "Did they ask about budget? Next step?",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l5",
+  "text": "A hundred and twenty-eight calls a week.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "128 calls a week."
+ },
+ {
+  "id": "l6",
+  "text": "The score card lands on the CRM record.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "the scorecard lands on the crm record."
+ },
+ {
+  "id": "l7",
+  "text": "A weak call alerts the rep the same day.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "a week call alerts the rep the same day."
+ },
+ {
+  "id": "l8",
+  "text": "Coaching, not a spreadsheet review.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "coaching na spreadsheet review."
+ },
+ {
+  "id": "l9",
+  "text": "128 every week.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l10",
+  "text": "Two to three weeks to build.",
+  "voice": "am_michael",
+  "speed": 0.98
+ },
+ {
+  "id": "l11",
+  "text": "Book a fit call.",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "book a fitcorn."
+ },
+ {
+  "id": "l12",
+  "text": "inodepi dot github dot eye oh",
+  "voice": "am_michael",
+  "speed": 0.98,
+  "asr": "patera.github.io"
+ }
+]
