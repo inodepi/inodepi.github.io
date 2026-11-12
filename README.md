@@ -56,6 +56,7 @@ Six alternative designs live under `/style/`:
 - `/style/fieldnotes/` — sage, Literata, calm single column
 - `/style/riso/` — two-colour risograph zine with tape, stamps, marquee
 - `/style/riso-2/` — the same riso ink language as a printed broadsheet newspaper
+- `/style/nodes/` — an n8n-style editor canvas with selectable nodes and parameters
 - `/style/control/` — operations dashboard with execution monitor and capability matrix
 - `/style/atelier/` — dark editorial gallery with a constellation graph
 
