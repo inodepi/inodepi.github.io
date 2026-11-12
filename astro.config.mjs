@@ -2,9 +2,9 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// Temporary hosting: potaterrr.github.io/inodepi. Update if the repo moves.
+// Project Pages URL: inodepi.github.io/inodepi.
 export default defineConfig({
-  site: 'https://potaterrr.github.io',
+  site: 'https://inodepi.github.io',
   base: '/inodepi',
   output: 'static',
   vite: {
