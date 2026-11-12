@@ -2,9 +2,9 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO: replace USERNAME with your GitHub username or org before the first deploy.
+// Temporary hosting: potaterrr.github.io/inodepi. Update if the repo moves.
 export default defineConfig({
-  site: 'https://USERNAME.github.io',
+  site: 'https://potaterrr.github.io',
   base: '/inodepi',
   output: 'static',
   vite: {
