@@ -1,6 +1,6 @@
 ---
 import { siteConfig } from '../data/projects';
-import WorkflowCanvas from './WorkflowCanvas.astro';
+import FeaturedRotator from './FeaturedRotator.astro';
 ---
 
 <section class="hero">
@@ -36,8 +36,7 @@ import WorkflowCanvas from './WorkflowCanvas.astro';
     </div>
 
     <div class="hero-visual">
-      <WorkflowCanvas />
-      <p class="visual-note">A sample graph: intake, qualify, write to CRM, notify the team.</p>
+      <FeaturedRotator />
     </div>
   </div>
 </section>
@@ -172,16 +171,7 @@ import WorkflowCanvas from './WorkflowCanvas.astro';
     gap: 0.85rem;
   }
 
-  .visual-note {
-    padding-left: 0.15rem;
-    color: var(--ink-dim);
-    font-size: 0.8125rem;
-  }
 
-  .visual-note::before {
-    content: '↳ ';
-    color: var(--line-strong);
-  }
 
   /* One orchestrated entrance, then stillness. */
   .hero-copy > * {

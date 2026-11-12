@@ -1,0 +1,295 @@
+---
+import { featuredAutomationRepos } from '../data/projects';
+
+const builds = featuredAutomationRepos;
+---
+
+<div class="rotator" data-rotator>
+  <div class="rotator-bar">
+    <span class="rotator-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="rotator-name" data-rotator-name>{builds[0].id}.workflow</span>
+    <span class="rotator-tag">n8n</span>
+    <span class="rotator-status"><i aria-hidden="true"></i>live</span>
+  </div>
+
+  <div class="rotator-body">
+    {builds.map((build, index) => (
+      <article
+        class:list={['rotator-panel', index === 0 && 'is-active']}
+        data-panel={index}
+        data-name={build.id}
+        style={`--hue:var(--node-${build.hue})`}
+      >
+        <h3>{build.title}</h3>
+        <p class="rotator-problem">{build.problem}</p>
+        <p class="rotator-summary">{build.summary}</p>
+        <ul class="rotator-stack" aria-label="Stack">
+          {build.stack.map((tool) => <li class="tag">{tool}</li>)}
+        </ul>
+        <a class="rotator-link" href={build.repoUrl}>
+          View the build
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </article>
+    ))}
+
+    <div class="rotator-dots" role="group" aria-label="Switch build">
+      {builds.map((build, index) => (
+        <button
+          type="button"
+          class:list={['rotator-dot', index === 0 && 'is-active']}
+          data-dot={index}
+          data-name={build.id}
+          aria-label={`Show ${build.title}`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const root = document.querySelector('[data-rotator]');
+    if (!root) return;
+
+    const panels = Array.from(root.querySelectorAll('[data-panel]'));
+    const dots = Array.from(root.querySelectorAll('[data-dot]'));
+    const nameEl = root.querySelector('[data-rotator-name]');
+    if (!panels.length) return;
+
+    const names = panels.map((panel) => panel.dataset.name || '');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = Math.floor(Math.random() * panels.length);
+    let timer = null;
+
+    const show = (index) => {
+      current = index;
+      panels.forEach((panel, i) => {
+        panel.classList.toggle('is-active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+      });
+      if (nameEl) nameEl.textContent = (names[index] || 'build') + '.workflow';
+    };
+
+    const advance = () => {
+      show((current + 1) % panels.length);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        if (timer) {
+          window.clearInterval(timer);
+          timer = null;
+        }
+        show(index);
+      });
+    });
+
+    show(current);
+
+    if (!reduced) {
+      timer = window.setInterval(advance, 9000);
+    }
+  })();
+</script>
+
+<style>
+  .rotator {
+    background: var(--panel);
+    border: 1px solid rgba(245, 166, 35, 0.22);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px -44px rgba(245, 166, 35, 0.28),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+
+  .rotator-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-raised);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--ink-dim);
+  }
+
+  .rotator-dots-top,
+  .rotator-bar .rotator-dots {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .rotator-bar .rotator-dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+
+  .rotator-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rotator-tag {
+    padding: 0.06rem 0.3rem;
+    border: 1px solid rgba(245, 166, 35, 0.4);
+    border-radius: 3px;
+    color: var(--accent);
+    font-size: 0.5rem;
+  }
+
+  .rotator-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: auto;
+    color: var(--node-teal);
+    font-size: 0.5rem;
+  }
+
+  .rotator-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: rot-breathe 2.8s ease-in-out infinite;
+  }
+
+  .rotator-body {
+    position: relative;
+    display: grid;
+    min-height: 19rem;
+  }
+
+  .rotator-panel {
+    grid-area: 1 / 1;
+    display: none;
+    padding: clamp(1.25rem, 2.6vw, 1.9rem);
+  }
+
+  .rotator-panel.is-active {
+    display: block;
+  }
+
+  .rotator-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--hue);
+    opacity: 0.9;
+  }
+
+  .rotator-panel h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+    font-weight: 620;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .rotator-problem {
+    margin-top: 0.65rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--hue);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    font-weight: 550;
+    line-height: 1.5;
+  }
+
+  .rotator-summary {
+    margin-top: 0.6rem;
+    max-width: 52ch;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .rotator-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rotator-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .rotator-link svg {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 160ms ease;
+  }
+
+  .rotator-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  .rotator-dots {
+    position: absolute;
+    right: clamp(1.25rem, 2.6vw, 1.9rem);
+    bottom: 1.1rem;
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .rotator-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease;
+  }
+
+  .rotator-dot:hover {
+    border-color: var(--accent);
+  }
+
+  .rotator-dot.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  @keyframes rot-breathe {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.8);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rotator-status i {
+      animation: none;
+    }
+  }
+</style>
