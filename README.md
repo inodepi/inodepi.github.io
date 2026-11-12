@@ -26,27 +26,27 @@ npm run preview
 3. **Enable Pages** — repository Settings → Pages → Source: **GitHub Actions**.
 4. The workflow in `.github/workflows/deploy.yml` builds and deploys on every push to `main`.
 
+## Contact and calendar
+
+The contact section embeds the Cal.com booking calendar directly
+(`siteConfig.calendarUrl` in `src/data/projects.ts`). The event must be public for the
+embed to load; a direct link is always shown as a fallback.
+
 ## Editing content
 
 Everything editable lives in two places.
 
 ### `src/data/projects.ts`
 
-- `siteConfig` — name, email, call link, form action, social URLs, response time.
-- `automationRepos` — the featured automation cards. Replace the placeholder fields and
-  toggle `featured` to choose what shows. Capped at four cards.
-- `sideProjects` — same idea for side project cards.
+- `siteConfig` — name, email, Cal.com link, social URLs, response time.
+- `automationRepos` — the featured repository cards. Toggle `featured` to choose what shows.
+- `sideProjects` — the side project cards. Set `size: 'large'` on one entry to make it the
+  feature card above the grid; `demoUrl` makes the card link to a playable build.
 
 ### `src/styles/global.css`
 
 The `:root` block holds the dark palette; `[data-theme='light']` holds the light palette.
 To switch themes, add `data-theme="light"` to the `<html>` tag in `src/layouts/Base.astro`.
-
-## Wiring the contact form
-
-The form posts to `siteConfig.formAction`, currently `#`. Point it at a form backend
-(Formspree, Netlify Forms, Basin, or your own endpoint) and the static build will submit
-there with no other changes.
 
 ## Brand
 

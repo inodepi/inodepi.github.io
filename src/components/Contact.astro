@@ -1,5 +1,7 @@
 ---
 import { siteConfig } from '../data/projects';
+
+const calUrl = siteConfig.calendarUrl;
 ---
 
 <section class="section contact" id="contact">
@@ -7,18 +9,20 @@ import { siteConfig } from '../data/projects';
     <div class="contact-copy">
       <h2>Tell me what should stop being manual.</h2>
       <p class="section-lede">
-        Describe the process, the tools involved, and where the handoffs hurt. If an n8n system
-        can carry it, I will map the build. If it can't, I will tell you that too.
+        The fastest way to find out is a 60-minute fit call. We map the process, count the hours
+        it eats, and decide together whether automation is worth it. If it isn't, I will say so.
       </p>
 
       <dl class="contact-direct">
         <div>
-          <dt>Email</dt>
-          <dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd>
+          <dt>Fit call</dt>
+          <dd>
+            <a href={calUrl} target="_blank" rel="noopener noreferrer">Book a 60-minute call</a>
+          </dd>
         </div>
         <div>
-          <dt>Intro call</dt>
-          <dd><a href={siteConfig.calendarUrl}>Book a 20-minute call</a></dd>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd>
         </div>
         <div>
           <dt>Response</dt>
@@ -27,45 +31,69 @@ import { siteConfig } from '../data/projects';
       </dl>
 
       <p class="contact-fine">
-        Typical engagements start with a fixed-scope audit, then move to a build plan with a
-        single agreed price.
+        No pitch deck. Bring the process that hurts and the tools it touches.
       </p>
     </div>
 
-    <form class="inquiry" action={siteConfig.formAction} method="post">
-      <div class="field-row">
-        <label class="field">
-          <span>Name</span>
-          <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
-        </label>
-        <label class="field">
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required placeholder="you@company.com" />
-        </label>
+    <div class="calendar">
+      <div class="calendar-head">
+        <div>
+          <strong>60-minute fit call</strong>
+          <span>Pick a time that works for you.</span>
+        </div>
+        <a href={calUrl} target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
       </div>
 
-      <label class="field">
-        <span>Company <em>optional</em></span>
-        <input type="text" name="company" autocomplete="organization" placeholder="Company or team" />
-      </label>
+      <div class="calendar-embed" id="cal-inline"></div>
 
-      <label class="field">
-        <span>What are you trying to automate?</span>
-        <textarea
-          name="automation"
-          rows="5"
-          required
-          placeholder="The process, the tools it touches, and what breaks today."
-        ></textarea>
-      </label>
-
-      <button class="btn btn-primary submit" type="submit">Send inquiry</button>
-      <p class="form-note">
-        No newsletters, no drip sequence. Your details are used only to reply to this inquiry.
+      <p class="calendar-note">
+        Calendar not loading? <a href={calUrl} target="_blank" rel="noopener noreferrer">Open it directly</a>
+        or email {siteConfig.email}.
       </p>
-    </form>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement('script')).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === 'string') {
+          cal.ns[namespace] = cal.ns[namespace] || api;
+          p(cal.ns[namespace], ar);
+          p(cal, ['initNamespace', namespace]);
+        } else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+  Cal('init', { origin: 'https://app.cal.com' });
+  Cal('inline', {
+    elementOrSelector: '#cal-inline',
+    calLink: 'christian-john-vallejos-adws8d/60min',
+    config: { layout: 'month_view', theme: 'dark' },
+  });
+  Cal('ui', {
+    hideEventTypeDetails: false,
+    layout: 'month_view',
+    styles: { branding: { brandColor: '#f5a623' } },
+  });
+</script>
 
 <style>
   .contact-grid {
@@ -76,7 +104,7 @@ import { siteConfig } from '../data/projects';
 
   @media (min-width: 960px) {
     .contact-grid {
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
     }
   }
 
@@ -132,92 +160,83 @@ import { siteConfig } from '../data/projects';
     max-width: 38ch;
   }
 
-  .inquiry {
-    display: grid;
-    gap: 1.1rem;
-    padding: clamp(1.35rem, 3vw, 2rem);
+  .calendar {
+    display: flex;
+    flex-direction: column;
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 10px;
+    overflow: hidden;
     box-shadow: var(--shadow);
   }
 
-  .field-row {
-    display: grid;
-    gap: 1.1rem;
-  }
-
-  @media (min-width: 560px) {
-    .field-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .field {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .field > span {
-    font-size: 0.875rem;
-    font-weight: 550;
-    color: var(--ink-soft);
-  }
-
-  .field em {
-    font-style: normal;
-    font-weight: 400;
-    color: var(--ink-dim);
-    font-size: 0.8125rem;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 0.7rem 0.8rem;
+  .calendar-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding: 1rem 1.15rem;
     background: var(--panel-raised);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 0.9688rem;
-    line-height: 1.5;
-    transition:
-      border-color 150ms ease,
-      background-color 150ms ease;
+    border-bottom: 1px solid var(--line);
   }
 
-  textarea {
-    resize: vertical;
-    min-height: 8rem;
+  .calendar-head strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 620;
+    letter-spacing: -0.015em;
   }
 
-  input::placeholder,
-  textarea::placeholder {
-    color: var(--ink-dim);
-  }
-
-  input:hover,
-  textarea:hover {
-    border-color: var(--line-strong);
-  }
-
-  input:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-    border-color: transparent;
-  }
-
-  .submit {
-    justify-self: start;
-    min-width: 11rem;
-    margin-top: 0.25rem;
-  }
-
-  .form-note {
+  .calendar-head span {
+    display: block;
+    margin-top: 0.1rem;
     color: var(--ink-dim);
     font-size: 0.8125rem;
-    line-height: 1.5;
+  }
+
+  .calendar-head a {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+
+  .calendar-head a:hover {
+    color: var(--accent);
+  }
+
+  .calendar-embed {
+    width: 100%;
+    height: 760px;
+    min-height: 620px;
+    overflow: hidden;
+    background: var(--panel);
+  }
+
+  .calendar-embed iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+  }
+
+  .calendar-note {
+    padding: 0.7rem 1.15rem;
+    border-top: 1px solid var(--line);
+    background: var(--panel-raised);
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+  }
+
+  .calendar-note a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .calendar-note a:hover {
+    color: var(--accent);
   }
 </style>

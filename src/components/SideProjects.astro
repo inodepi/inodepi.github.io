@@ -1,5 +1,11 @@
 ---
 import { featuredSideProjects } from '../data/projects';
+
+const feature = featuredSideProjects.find((project) => project.size === 'large');
+const rest = featuredSideProjects.filter((project) => project !== feature);
+const featureUrl = feature?.demoUrl
+  ? feature.demoUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  : '';
 ---
 
 <section class="section" id="side-projects">
@@ -12,45 +18,222 @@ import { featuredSideProjects } from '../data/projects';
       </p>
     </div>
 
-    {featuredSideProjects.length > 0 ? (
+    {feature && (
+      <article class="side-feature" style={`--hue:var(--node-${feature.hue})`}>
+        <div class="side-feature-main">
+          <span class="side-feature-label">
+            <i aria-hidden="true"></i>
+            Live build
+          </span>
+          <h3>{feature.title}</h3>
+          <p>{feature.summary}</p>
+          <ul class="side-stack" aria-label="Stack">
+            {feature.stack.map((tool) => <li class="tag">{tool}</li>)}
+          </ul>
+        </div>
+
+        <div class="side-feature-aside">
+          <div>
+            <span class="side-feature-status"><i aria-hidden="true"></i>Running in production</span>
+            <p class="side-feature-url">{featureUrl}</p>
+          </div>
+          <div class="side-feature-links">
+            {feature.demoUrl && (
+              <a class="btn btn-primary" href={feature.demoUrl} target="_blank" rel="noopener noreferrer">
+                Open live demo
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            )}
+            {feature.repoUrl && (
+              <a class="btn btn-secondary" href={feature.repoUrl} target="_blank" rel="noopener noreferrer">
+                View source
+              </a>
+            )}
+          </div>
+        </div>
+      </article>
+    )}
+
+    {rest.length > 0 ? (
       <ul class="side-grid">
-        {featuredSideProjects.map((project) => (
-          <li class="side-card" style={`--hue:var(--node-${project.hue})`}>
-            <span class="side-mark" aria-hidden="true"></span>
-            <div class="side-body">
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-              <ul class="side-stack" aria-label="Stack">
-                {project.stack.map((tool) => <li class="tag">{tool}</li>)}
-              </ul>
-            </div>
-            <a
-              class="side-link"
-              href={project.repoUrl}
-              target={project.repoUrl === '#' ? undefined : '_blank'}
-              rel={project.repoUrl === '#' ? undefined : 'noopener noreferrer'}
-              aria-label={`Open ${project.title}`}
-            >
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </a>
-          </li>
-        ))}
+        {rest.map((project) => {
+          const href = project.demoUrl ?? project.repoUrl ?? '#';
+          const label = project.demoUrl ? 'Play it' : 'View repository';
+          return (
+            <li class="side-card" style={`--hue:var(--node-${project.hue})`}>
+              <span class="side-mark" aria-hidden="true"></span>
+              <div class="side-body">
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+                <ul class="side-stack" aria-label="Stack">
+                  {project.stack.map((tool) => <li class="tag">{tool}</li>)}
+                </ul>
+                <a
+                  class="side-link"
+                  href={href}
+                  target={href === '#' ? undefined : '_blank'}
+                  rel={href === '#' ? undefined : 'noopener noreferrer'}
+                >
+                  {label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     ) : (
-      <p class="empty">
-        No side projects are featured yet. Set <code>featured: true</code> on an entry in
-        <code>src/data/projects.ts</code>.
-      </p>
+      !feature && (
+        <p class="empty">
+          No side projects are featured yet. Set <code>featured: true</code> on an entry in
+          <code>src/data/projects.ts</code>.
+        </p>
+      )
     )}
   </div>
 </section>
 
 <style>
+  .side-feature {
+    position: relative;
+    display: grid;
+    gap: 0;
+    margin-bottom: 1.25rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .side-feature::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--hue);
+    opacity: 0.9;
+  }
+
+  .side-feature-main {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    padding: clamp(1.5rem, 3.2vw, 2.4rem);
+  }
+
+  .side-feature-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    padding: 0.22rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .side-feature-label i {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--hue);
+  }
+
+  .side-feature-main h3 {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem);
+    letter-spacing: -0.03em;
+  }
+
+  .side-feature-main p {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .side-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .side-feature-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.35rem, 2.6vw, 2rem);
+    background: var(--panel-raised);
+    border-top: 1px solid var(--line);
+  }
+
+  .side-feature-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .side-feature-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--node-teal);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--node-teal) 16%, transparent);
+  }
+
+  .side-feature-url {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    overflow-wrap: anywhere;
+  }
+
+  .side-feature-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .side-feature-links .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .side-feature-links svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .side-feature {
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.75fr);
+    }
+
+    .side-feature-aside {
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+  }
+
   .side-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
     gap: 1rem;
     margin: 0;
     padding: 0;
@@ -59,9 +242,9 @@ import { featuredSideProjects } from '../data/projects';
 
   .side-card {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 1rem;
-    padding: 1.35rem 1.25rem 1.35rem 1.35rem;
+    padding: 1.35rem 1.25rem 1.35rem 1.1rem;
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 8px;
@@ -88,7 +271,8 @@ import { featuredSideProjects } from '../data/projects';
   }
 
   .side-body {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 0.55rem;
     flex: 1;
     min-width: 0;
@@ -108,40 +292,25 @@ import { featuredSideProjects } from '../data/projects';
     line-height: 1.6;
   }
 
-  .side-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    margin: 0.2rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
   .side-link {
-    flex: none;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--ink-dim);
-    transition:
-      color 160ms ease,
-      border-color 160ms ease,
-      background-color 160ms ease;
-  }
-
-  .side-link svg {
-    width: 0.85rem;
-    height: 0.85rem;
-  }
-
-  .side-link:hover {
+    gap: 0.35rem;
+    width: fit-content;
+    margin-top: auto;
+    padding-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
     color: var(--accent);
-    border-color: var(--line-strong);
-    background: var(--panel-raised);
+    text-decoration: none;
+  }
+
+  .side-link span {
+    transition: transform 160ms ease;
+  }
+
+  .side-link:hover span {
+    transform: translate(2px, -2px);
   }
 
   .empty {

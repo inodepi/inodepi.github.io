@@ -28,6 +28,9 @@ const steps = [
       <p class="section-lede">
         No discovery theatre. Each step ends with something you can read, review, or run.
       </p>
+      <p class="process-credit">
+        Nine years in high-volume BPO operations taught me where manual work hides.
+      </p>
     </div>
 
     <ol class="process">
@@ -161,5 +164,24 @@ const steps = [
     border-top: 1px solid var(--line);
     color: var(--ink-dim);
     font-size: 0.875rem;
+  }
+
+  .process-credit {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+  }
+
+  .process-credit::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
   }
 </style>

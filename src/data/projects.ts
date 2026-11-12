@@ -1,9 +1,8 @@
 /**
  * Single source of truth for the site's editable content.
  *
- * Every repo below is a generic placeholder. Replace the fields with real
- * projects and toggle `featured` to decide what appears on the page —
- * no component edits required.
+ * Repos and side projects are real builds. Toggle `featured` to control
+ * what appears; the layout adapts to the number of featured entries.
  */
 
 export type NodeHue = 'teal' | 'violet' | 'rose' | 'amber';
@@ -18,8 +17,10 @@ export interface AutomationRepo {
   stack: string[];
   /** Two or three sentences on what the system does and how it is wired */
   summary: string;
-  /** GitHub URL — placeholder until a real repo is chosen */
+  /** Link to the repo (or live build, when a repo is not public) */
   repoUrl: string;
+  /** Override the card's link label */
+  linkLabel?: string;
   /** Set to false to hide from the featured section */
   featured: boolean;
   /** Chip colour used on the card's node header */
@@ -29,10 +30,14 @@ export interface AutomationRepo {
 export interface SideProject {
   id: string;
   title: string;
-  /** What the project is and who it is for */
   summary: string;
   stack: string[];
-  repoUrl: string;
+  /** Source repository, when public */
+  repoUrl?: string;
+  /** Live demo or playable build */
+  demoUrl?: string;
+  /** `large` renders as the feature card above the grid */
+  size?: 'large' | 'small';
   featured: boolean;
   hue: NodeHue;
 }
@@ -42,8 +47,6 @@ export interface SiteConfig {
   role: string;
   email: string;
   calendarUrl: string;
-  /** Point this at your form backend (Formspree, Netlify Forms, etc.) */
-  formAction: string;
   githubUrl: string;
   linkedinUrl: string;
   responseTime: string;
@@ -53,8 +56,7 @@ export const siteConfig: SiteConfig = {
   name: 'inodepi',
   role: 'n8n automation architect',
   email: 'hello@inodepi.com',
-  calendarUrl: '#',
-  formAction: '#',
+  calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/60min',
   githubUrl: 'https://github.com/inodepi',
   linkedinUrl: '#',
   responseTime: 'Replies within one business day',
@@ -62,100 +64,102 @@ export const siteConfig: SiteConfig = {
 
 export const automationRepos: AutomationRepo[] = [
   {
-    id: 'automation-placeholder-01',
-    title: 'Automation placeholder 01',
-    problem: 'Replace with the manual process this system eliminates.',
-    stack: ['n8n', 'Webhook', 'PostgreSQL'],
+    id: 'voice-receptionist',
+    title: 'AI Voice Receptionist',
+    problem: 'Missed calls cost appointment-based businesses real revenue.',
+    stack: ['n8n', 'Retell', 'Make'],
     summary:
-      'Two sentences on the workflow graph: what triggers it, which services it touches, and what the output looks like. Keep it concrete and outcome-oriented.',
-    repoUrl: '#',
+      'Answers missed and after-hours calls, captures structured intake, books appointments and logs every call — built three times over one shared voice layer. HIPAA-compliant build available.',
+    repoUrl: 'https://github.com/inodepi/voice-receptionist',
     featured: true,
     hue: 'teal',
   },
   {
-    id: 'automation-placeholder-02',
-    title: 'Automation placeholder 02',
-    problem: 'Replace with the bottleneck this system removes.',
-    stack: ['n8n', 'OpenAI', 'Slack'],
+    id: 'ar-invoice-reminder-agent',
+    title: 'AR Invoice Reminder',
+    problem: 'Overdue invoices slip when chasing them is manual.',
+    stack: ['n8n', 'Gemini', 'Google Sheets'],
     summary:
-      'Describe the multi-step chain here — intake, validation, enrichment, delivery — and note any sub-workflows or error branches that keep it reliable.',
-    repoUrl: '#',
+      'Reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft — a human still presses send.',
+    repoUrl: 'https://github.com/inodepi/ar-invoice-reminder-agent',
     featured: true,
-    hue: 'violet',
+    hue: 'amber',
   },
   {
-    id: 'automation-placeholder-03',
-    title: 'Automation placeholder 03',
-    problem: 'Replace with the handoff this system takes over.',
-    stack: ['n8n', 'REST API', 'CRM'],
+    id: 'dead-lead-retrieval',
+    title: 'Dead Lead Retrieval',
+    problem: 'Stale leads die quietly in the CRM.',
+    stack: ['n8n', 'OpenRouter', 'CRM'],
     summary:
-      'Explain the integration surface: which APIs, which direction data flows, and how the workflow handles retries and rate limits in production.',
-    repoUrl: '#',
+      'Drafts personalised check-ins for dormant leads, files them as Gmail drafts and tracks every lead — human-in-the-loop by design.',
+    repoUrl: 'https://github.com/inodepi/dead-lead-retrieval',
     featured: true,
     hue: 'rose',
   },
   {
-    id: 'automation-placeholder-04',
-    title: 'Automation placeholder 04',
-    problem: 'Replace with the recurring task this system retires.',
-    stack: ['n8n', 'AI Agent', 'Google Sheets'],
+    id: 'sales-call-qa',
+    title: 'Sales Call QA & Coaching',
+    problem: 'Sales calls go unreviewed and coaching stays manual.',
+    stack: ['n8n', 'Gemini', 'Retell'],
     summary:
-      'Summarise the system end to end and the measurable result it produced. This is the card a prospective client will read first — make the outcome obvious.',
-    repoUrl: '#',
+      'Scores every sales call with Gemini, verifies quotes against the transcript and sends a weekly coaching digest to the team.',
+    repoUrl:
+      'https://inodepi.github.io/potaterrr.github.io/projects/sales-call-qa/demo/',
+    linkLabel: 'View the build',
     featured: true,
-    hue: 'amber',
+    hue: 'violet',
   },
 ];
 
 export const sideProjects: SideProject[] = [
   {
-    id: 'side-placeholder-01',
-    title: 'Side project placeholder 01',
+    id: 'happyfone-webui',
+    title: 'HappyFone WebUI',
     summary:
-      'One or two sentences on what this project is and why it exists. Replace from src/data/projects.ts.',
-    stack: ['Astro', 'TypeScript'],
-    repoUrl: '#',
-    featured: true,
-    hue: 'violet',
-  },
-  {
-    id: 'side-placeholder-02',
-    title: 'Side project placeholder 02',
-    summary:
-      'Describe the problem the project pokes at, and who it is useful for. Keep it short — this section is support, not the main pitch.',
-    stack: ['Python', 'CLI'],
-    repoUrl: '#',
+      'A production, dependency-free agent console for Telnyx WebRTC outbound calling — sign in, place real calls and manage the full call lifecycle from the browser.',
+    stack: ['Telnyx WebRTC', 'Vanilla JS', 'Agent console'],
+    demoUrl: 'https://inodepi.github.io/happyfone-webui/',
+    repoUrl: 'https://github.com/inodepi/happyfone-webui',
+    size: 'large',
     featured: true,
     hue: 'teal',
   },
   {
-    id: 'side-placeholder-03',
-    title: 'Side project placeholder 03',
+    id: 'adblock-island',
+    title: 'AdBlock Island',
     summary:
-      'A tool, experiment, or write-up. If it shipped something real, say what changed because of it.',
-    stack: ['n8n', 'Node.js'],
-    repoUrl: '#',
-    featured: true,
-    hue: 'rose',
-  },
-  {
-    id: 'side-placeholder-04',
-    title: 'Side project placeholder 04',
-    summary:
-      'Last card. Swap or delete entries freely — the layout reflows with however many featured items remain.',
-    stack: ['Rust', 'API'],
-    repoUrl: '#',
+      'Pick one of nine classes, sweep the static and survive the Algorithm — room-code co-op on a token-guarded Vercel room desk.',
+    stack: ['Browser game', 'Co-op'],
+    demoUrl: 'https://inodepi.github.io/adblock-island/',
+    repoUrl: 'https://github.com/inodepi/adblock-island',
     featured: true,
     hue: 'amber',
   },
+  {
+    id: 'tippy-card-monte',
+    title: 'Tippy Card Monte',
+    summary:
+      'Follow the shuffle. Six modes, 15 medals and one very smug coin — a pixel-art card monte in a single page, no build and no backend.',
+    stack: ['Canvas', 'Vanilla JS'],
+    demoUrl:
+      'https://inodepi.github.io/potaterrr.github.io/projects/tippy-card-monte/',
+    featured: true,
+    hue: 'violet',
+  },
+  {
+    id: 'ai-folklore',
+    title: 'AI Folklore',
+    summary:
+      'A zero-dependency Python scraper pulls Philippine mythology from Wikipedia and feeds Make.com / n8n, with Gemini script writing and importable blueprints.',
+    stack: ['Python', 'Make.com', 'Gemini'],
+    repoUrl: 'https://github.com/inodepi/ai-folklore',
+    featured: true,
+    hue: 'rose',
+  },
 ];
 
-/** Featured automation repos, capped at the four the layout is designed for. */
-export const featuredAutomationRepos = automationRepos
-  .filter((repo) => repo.featured)
-  .slice(0, 4);
+/** Featured automation repos. */
+export const featuredAutomationRepos = automationRepos.filter((repo) => repo.featured);
 
-/** Featured side projects, capped at four. */
-export const featuredSideProjects = sideProjects
-  .filter((project) => project.featured)
-  .slice(0, 4);
+/** Featured side projects; one may be marked `size: 'large'`. */
+export const featuredSideProjects = sideProjects.filter((project) => project.featured);
