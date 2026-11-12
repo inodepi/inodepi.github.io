@@ -41,8 +41,8 @@ import { featuredAutomationRepos } from '../data/projects';
             <a
               class="repo-link"
               href={repo.repoUrl}
-              target={repo.repoUrl === '#' ? undefined : '_blank'}
-              rel={repo.repoUrl === '#' ? undefined : 'noopener noreferrer'}
+              target={repo.repoUrl.startsWith('http') ? '_blank' : undefined}
+              rel={repo.repoUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
               aria-label={`${repo.linkLabel ?? 'Open repository'} — ${repo.title}`}
             >
               {repo.linkLabel ?? 'Open repository'}

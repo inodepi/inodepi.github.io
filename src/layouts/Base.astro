@@ -39,11 +39,11 @@ const base = import.meta.env.BASE_URL;
           <span class="wordmark-text" aria-hidden="true">inode<PiGlyph class="wordmark-pi" /></span>
         </a>
         <nav class="header-nav" aria-label="Primary">
-          <a href="#work">Work</a>
-          <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
+          <a href={`${base}#work`}>Work</a>
+          <a href={`${base}#process`}>Process</a>
+          <a href={`${base}#contact`}>Contact</a>
         </nav>
-        <a class="btn btn-primary header-cta" href="#contact">
+        <a class="btn btn-primary header-cta" href={`${base}#contact`}>
           <span class="cta-short">Book audit</span>
           <span class="cta-long">Book a systems audit</span>
         </a>
