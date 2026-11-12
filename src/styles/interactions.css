@@ -17,7 +17,8 @@
   transition: width 120ms linear;
 }
 
-header nav a.is-current {
+header nav a.is-current,
+nav[aria-label='Primary'] a.is-current {
   text-decoration: underline;
   text-underline-offset: 5px;
   text-decoration-thickness: 2px;

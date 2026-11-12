@@ -51,6 +51,16 @@ const boldStyles = [
     swatches: ['#12100d', '#efe6d6', '#c3a173', '#17140f'],
   },
 ];
+
+const proofStyles = [
+  {
+    name: 'Riso Broadsheet',
+    href: `${base}style/riso-2/`,
+    blurb: 'The riso ink language set as a newspaper: masthead, front-page figure, classifieds, method section, coupon form.',
+    type: 'Bodoni Moda + IBM Plex',
+    swatches: ['#f0e9da', '#16130f', '#f0522a', '#25399c'],
+  },
+];
 ---
 
 <!doctype html>
@@ -67,9 +77,9 @@ const boldStyles = [
       <header class="head">
         <a class="brand" href={base}>inodepi</a>
         <p class="kicker">Style previews</p>
-        <h1>Six directions.</h1>
+        <h1>Seven directions.</h1>
         <p class="lede">
-          Same content, same project config, six different visual languages. Each preview has a
+          Same content, same project config, seven different visual languages. Each preview has a
           runnable workflow graph and a live form. Open them in tabs, compare on desktop and
           mobile, then tell me which one becomes the site.
         </p>
@@ -100,6 +110,26 @@ const boldStyles = [
           <li>
             <a href={style.href}>
               <span class="index">{String(index + 4).padStart(2, '0')}</span>
+              <h2>{style.name}</h2>
+              <p>{style.blurb}</p>
+              <span class="type">{style.type}</span>
+              <span class="swatches" aria-hidden="true">
+                {style.swatches.map((color) => (
+                  <i style={`background:${color}`}></i>
+                ))}
+              </span>
+              <span class="open">Open preview</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <h2 class="group-title">Second proofs</h2>
+      <ul class="cards">
+        {proofStyles.map((style, index) => (
+          <li>
+            <a href={style.href}>
+              <span class="index">{String(index + 7).padStart(2, '0')}</span>
               <h2>{style.name}</h2>
               <p>{style.blurb}</p>
               <span class="type">{style.type}</span>

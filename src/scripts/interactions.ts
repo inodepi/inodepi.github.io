@@ -119,8 +119,8 @@ function initForms() {
 
     const clearError = (field: HTMLInputElement | HTMLTextAreaElement) => {
       field.removeAttribute('aria-invalid');
-      const error = field.closest('label')?.nextElementSibling;
-      if (error?.classList.contains('ix-field-error')) error.remove();
+      const error = field.closest('label')?.querySelector('.ix-field-error');
+      if (error) error.remove();
       status.textContent = '';
       status.classList.remove('is-success');
     };
@@ -128,11 +128,11 @@ function initForms() {
     const setError = (field: HTMLInputElement | HTMLTextAreaElement, message: string) => {
       field.setAttribute('aria-invalid', 'true');
       const label = field.closest('label');
-      let error = label?.nextElementSibling;
-      if (!error?.classList.contains('ix-field-error')) {
-        error = document.createElement('span');
+      let error = label?.querySelector<HTMLElement>('.ix-field-error');
+      if (!error) {
+        error = document.createElement('div');
         error.className = 'ix-field-error';
-        if (label) label.insertAdjacentElement('afterend', error);
+        field.insertAdjacentElement('afterend', error);
       }
       error.textContent = message;
     };
@@ -173,7 +173,7 @@ function initForms() {
 
 function initSectionNav() {
   const links = Array.from(
-    document.querySelectorAll<HTMLAnchorElement>('header nav a[href^="#"]'),
+    document.querySelectorAll<HTMLAnchorElement>('nav[aria-label="Primary"] a[href^="#"]'),
   );
   if (!links.length) return;
 
