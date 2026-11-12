@@ -48,7 +48,6 @@ export interface SiteConfig {
   email: string;
   calendarUrl: string;
   githubUrl: string;
-  linkedinUrl: string;
   responseTime: string;
 }
 
@@ -58,7 +57,6 @@ export const siteConfig: SiteConfig = {
   email: 'kristiandyanbusiness@gmail.com',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   githubUrl: 'https://github.com/inodepi',
-  linkedinUrl: '#',
   responseTime: 'Replies within one business day',
 };
 
@@ -104,8 +102,7 @@ export const automationRepos: AutomationRepo[] = [
     stack: ['n8n', 'Gemini', 'Retell'],
     summary:
       'Scores every sales call with Gemini, verifies quotes against the transcript and sends a weekly coaching digest to the team.',
-    repoUrl:
-      'https://inodepi.github.io/potaterrr.github.io/projects/sales-call-qa/demo/',
+    repoUrl: '/demos/sales-call-qa/',
     linkLabel: 'View the build',
     featured: true,
     hue: 'violet',
@@ -142,8 +139,7 @@ export const sideProjects: SideProject[] = [
     summary:
       'Follow the shuffle. Six modes, 15 medals and one very smug coin — a pixel-art card monte in a single page, no build and no backend.',
     stack: ['Canvas', 'Vanilla JS'],
-    demoUrl:
-      'https://inodepi.github.io/potaterrr.github.io/projects/tippy-card-monte/',
+    demoUrl: '/tippy-card-monte/',
     featured: true,
     hue: 'violet',
   },

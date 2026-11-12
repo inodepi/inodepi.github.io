@@ -73,8 +73,8 @@ const featureUrl = feature?.demoUrl
                 <a
                   class="side-link"
                   href={href}
-                  target={href === '#' ? undefined : '_blank'}
-                  rel={href === '#' ? undefined : 'noopener noreferrer'}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
                   {label}
                   <span aria-hidden="true">↗</span>

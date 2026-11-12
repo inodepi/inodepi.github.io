@@ -5,7 +5,6 @@ import { siteConfig } from '../data/projects';
 
 const base = import.meta.env.BASE_URL;
 const repoUrl = 'https://github.com/inodepi/voice-receptionist';
-const blogBase = 'https://inodepi.github.io/potaterrr.github.io/blog/';
 
 const badges = ['HIPAA-compliant build available', 'Built on n8n', 'Live on synthetic calls'];
 
@@ -38,23 +37,6 @@ const capabilities = [
 ];
 
 const stack = ['n8n', 'Retell', 'Google Calendar', 'Google Sheets', 'Gmail'];
-
-const fieldNotes = [
-  {
-    title: 'How an AI receptionist answers a clinic’s missed call',
-    meta: 'Nov 8, 2026 · 4 min read',
-    summary:
-      'A step-by-step walkthrough: the voice agent picks up, captures intake, checks the calendar, books the slot, logs the call and alerts the front desk.',
-    href: blogBase + 'ai-receptionist-answers-missed-calls.html',
-  },
-  {
-    title: 'AI receptionist for a small clinic: what it can and can’t do',
-    meta: 'Nov 8, 2026 · 4 min read',
-    summary:
-      'The calls an AI receptionist should handle, the ones it must hand to a human, and how to test it on scripted calls before a patient hears it.',
-    href: blogBase + 'ai-receptionist-small-clinic.html',
-  },
-];
 
 const nodes = [
   { x: 16, y: 34, w: 180, h: 64, label: 'Missed call', sub: 'after hours / overflow', hue: '#f5a623' },
@@ -266,21 +248,6 @@ const jsonLd = [
             deployment, not claimed by the public demo.
           </p>
         </section>
-
-        <section class="proj-section">
-          <h2>Field notes</h2>
-          <ul class="proj-notes">
-            {fieldNotes.map((note) => (
-              <li>
-                <a href={note.href} target="_blank" rel="noopener noreferrer">
-                  <span class="proj-note-meta">{note.meta}</span>
-                  <strong>{note.title}</strong>
-                  <span class="proj-note-summary">{note.summary}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
 
       <aside class="proj-side" aria-label="Build details">
@@ -467,50 +434,12 @@ const jsonLd = [
     font-size: 0.5rem;
   }
 
-  .proj-pan-hint {
-    display: none;
-    margin-left: auto;
-    color: var(--ink-dim);
-    font-size: 0.5rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 700px) {
-    .proj-pan-hint {
-      display: inline;
-    }
-
-    .proj-canvas-status {
-      margin-left: 0;
-    }
-  }
-
   .proj-canvas-status i {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: currentColor;
     animation: proj-breathe 2.8s ease-in-out infinite;
-  }
-
-  .proj-pan-hint {
-    display: none;
-    margin-left: auto;
-    color: var(--ink-dim);
-    font-size: 0.5rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  @media (max-width: 700px) {
-    .proj-pan-hint {
-      display: inline;
-    }
-
-    .proj-canvas-status {
-      margin-left: 0;
-    }
   }
 
   .proj-canvas-scroll {
@@ -711,49 +640,6 @@ const jsonLd = [
     border-left: 2px solid rgba(245, 166, 35, 0.45);
     color: var(--ink-dim) !important;
     font-size: 0.875rem !important;
-  }
-
-  .proj-notes {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-    padding: 0;
-    list-style: none;
-  }
-
-  .proj-notes a {
-    display: grid;
-    gap: 0.3rem;
-    padding: 1rem;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--panel);
-    text-decoration: none;
-    transition:
-      border-color 160ms ease,
-      transform 160ms ease;
-  }
-
-  .proj-notes a:hover {
-    border-color: rgba(245, 166, 35, 0.35);
-    transform: translateY(-1px);
-  }
-
-  .proj-note-meta {
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    color: var(--ink-dim);
-  }
-
-  .proj-notes strong {
-    font-size: 0.9375rem;
-    font-weight: 650;
-  }
-
-  .proj-note-summary {
-    color: var(--ink-soft);
-    font-size: 0.875rem;
-    line-height: 1.55;
   }
 
   /* Sidebar */
