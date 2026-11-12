@@ -45,12 +45,19 @@ const jsonLd = {
   stack={['Canvas', 'Vanilla JS', 'Web Audio', 'localStorage']}
   links={[
     { label: 'Play the game', href: '/tippy-card-monte/game/' },
+    { label: 'Full patch notes', href: 'https://github.com/inodepi/potaterrr.github.io/blob/main/data/tippy-changelog.md', external: true },
   ]}
   category="Games · browser"
   ctaTitle="Follow the shuffle."
   ctaBody="Find Tippy, bank the coins and chase depth — it runs in your browser."
   ctaLabel="Play Tippy"
   ctaHref="/tippy-card-monte/game/"
+  primaryLabel="Play it"
+  primaryHref="/tippy-card-monte/game/"
+  sideCtaTitle="Playable in your browser"
+  sideCtaBody="No install, no account — one file, any static host."
+  sideCtaLabel="Play it"
+  sideCtaHref="/tippy-card-monte/game/"
   jsonLd={jsonLd}
 >
   <div class="crt-frame" slot="visual">
@@ -97,6 +104,46 @@ const jsonLd = {
         <li><strong>{metric.value}</strong><span>{metric.label}</span></li>
       ))}
     </ul>
+  </section>
+
+
+  <section class="proj-section" id="patch-notes">
+    <h2>Patch notes</h2>
+    <p>Newest first — every release since the first build lives in the repository.</p>
+
+    <div class="patch-list">
+      <article class="patch-entry">
+        <h3>v1.3.6</h3>
+        <span class="patch-date">2026-11-05</span>
+        <ul>
+          <li>Reverse mode is temporarily removed while it is being reworked.</li>
+          <li>The game now shows <strong>six modes</strong>: Classic, Bet, Endless, Daily, Blitz and Zen.</li>
+          <li>Reverse-only medals are hidden; the visible gallery is now <strong>15 medals</strong>.</li>
+        </ul>
+      </article>
+
+      <article class="patch-entry">
+        <h3>v1.3.5</h3>
+        <span class="patch-date">2026-11-05</span>
+        <ul>
+          <li>Reverse mode now tracks a <strong>hidden card</strong> — the peek shows a card you must follow through the shuffle.</li>
+          <li>Picking the peeked card wins the round; picking Tippy or any other card loses.</li>
+          <li>Tippy is a <strong>decoy</strong> in Reverse — the peeked card is never named in the UI.</li>
+        </ul>
+      </article>
+
+      <article class="patch-entry">
+        <h3>v1.3.4</h3>
+        <span class="patch-date">2026-11-04</span>
+        <ul>
+          <li>Bet mode uses <strong>infinite rounds</strong> — after a win or loss it opens the next bet; no forced result.</li>
+          <li><strong>EXIT</strong> in the HUD now returns straight to the home/title screen.</li>
+          <li>An unbanked pot is forfeited on exit; cash out first.</li>
+        </ul>
+      </article>
+    </div>
+
+    <a class="patch-full" href="https://github.com/inodepi/potaterrr.github.io/blob/main/data/tippy-changelog.md" target="_blank" rel="noopener noreferrer">Full patch notes ↗</a>
   </section>
 
   <section class="proj-section">
@@ -213,4 +260,77 @@ const jsonLd = {
     text-transform: uppercase;
     color: var(--ink-dim);
   }
+  .patch-list {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+  }
+
+  .patch-entry {
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .patch-entry h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+  }
+
+  .patch-date {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-dim);
+  }
+
+  .patch-entry ul {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .patch-entry li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .patch-entry li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .patch-full {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  .patch-full:hover {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
 </style>

@@ -70,6 +70,23 @@ const calTimeZone = siteConfig.calendarTimeZone;
         <p class="booking-empty">Loading availability…</p>
       </div>
 
+      <div class="booking-done" data-cal-done hidden>
+        <p class="booking-done-kicker">Booked</p>
+        <strong>You're one step away from closing your loop.</strong>
+        <p class="booking-done-body">
+          Your 15-minute call is confirmed. The Zoom link and the passcode are in your
+          confirmation email — check it, then close the loop.
+        </p>
+        <a
+          class="booking-done-link"
+          href={calUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Book another time
+        </a>
+      </div>
+
       <p class="booking-note">
         Pick a day to see open slots. Or
         <a href={calUrl} target="_blank" rel="noopener noreferrer">open the full calendar</a>.
@@ -95,6 +112,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
     const timesEl = root.querySelector('[data-cal-times]');
     const prevBtn = root.querySelector('[data-cal-prev]');
     const nextBtn = root.querySelector('[data-cal-next]');
+    const doneEl = root.querySelector('[data-cal-done]');
+    const headNav = root.querySelector('.booking-nav');
     const calUrl = root.getAttribute('data-cal-url');
     const calLink = root.getAttribute('data-cal-link');
     const eventTypeId = root.getAttribute('data-event-type-id');

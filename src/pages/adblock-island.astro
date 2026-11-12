@@ -49,14 +49,21 @@ const jsonLd = {
   canvasNote="Nine classes. One island. Zero ads."
   stack={['Vanilla JS', 'Canvas', 'localStorage']}
   links={[
-    { label: 'Play the game', href: '/adblock-island/game/' },
-    { label: 'Repository', href: 'https://github.com/inodepi/adblock-island', external: true },
+    { label: 'Play online', href: 'https://adblock-island.vercel.app/', external: true },
+    { label: 'Play offline beta', href: '/adblock-island/game/' },
+    { label: 'Full patch notes', href: 'https://github.com/inodepi/potaterrr.github.io/blob/main/data/adblock-online-changelog.md', external: true },
   ]}
   category="Games · browser"
   ctaTitle="Bonk your first ad."
-  ctaBody="Wash ashore and sweep the static — it runs in your browser."
-  ctaLabel="Play AdBlock Island"
-  ctaHref="/adblock-island/game/"
+  ctaBody="Play the online beta — it runs in your browser."
+  ctaLabel="Play online"
+  ctaHref="https://adblock-island.vercel.app/"
+  primaryLabel="Play online"
+  primaryHref="https://adblock-island.vercel.app/"
+  sideCtaTitle="Playable in your browser"
+  sideCtaBody="No install, no account — the island runs anywhere."
+  sideCtaLabel="Play online"
+  sideCtaHref="https://adblock-island.vercel.app/"
   jsonLd={jsonLd}
 >
   <div class="crt-frame" slot="visual">
@@ -102,6 +109,39 @@ const jsonLd = {
     <ul class="proj-list">
       {inside.map((item) => <li>{item}</li>)}
     </ul>
+  </section>
+
+
+  <section class="proj-section" id="patch-notes">
+    <h2>Patch notes</h2>
+    <p>
+      The online build has its own notes — newest first. Full history lives in the repository.
+    </p>
+
+    <div class="patch-list">
+      <article class="patch-entry">
+        <h3>v0.10.0 — Blob room fallback</h3>
+        <span class="patch-date">2026-11-09</span>
+        <ul>
+          <li>Rooms no longer wait for an Upstash account: when Redis is absent, the same room desk runs on the Vercel Blob store already connected to the project.</li>
+          <li><strong>Ping reports the mode</strong> — <code>redis</code>, <code>blob</code> or <code>none</code>.</li>
+          <li>Per-writer files, no shared documents: presence, signals, chat and host state are HMAC’d, so the public store cannot be enumerated by room code alone.</li>
+          <li>Same contract as Redis — create, join, poll, signal, leave, promote, backup, takeover, chat and mute. Blob mode polls at ~1.2s.</li>
+        </ul>
+      </article>
+
+      <article class="patch-entry">
+        <h3>v0.9.1 — Room setup diagnostics</h3>
+        <span class="patch-date">2026-11-09</span>
+        <ul>
+          <li><code>ping</code> reports which storage names are missing, so a failed room setup can be diagnosed from the live URL.</li>
+          <li>The lobby has a try-again button — retry the same action without retyping the code.</li>
+          <li>Clearer error copy names the exact Vercel path: Storage → Create → Upstash Redis.</li>
+        </ul>
+      </article>
+    </div>
+
+    <a class="patch-full" href="https://github.com/inodepi/potaterrr.github.io/blob/main/data/adblock-online-changelog.md" target="_blank" rel="noopener noreferrer">Full patch notes ↗</a>
   </section>
 
   <section class="proj-section">
@@ -206,4 +246,77 @@ const jsonLd = {
     border-radius: 50%;
     background: var(--accent);
   }
+  .patch-list {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+  }
+
+  .patch-entry {
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .patch-entry h3 {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+  }
+
+  .patch-date {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-dim);
+  }
+
+  .patch-entry ul {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .patch-entry li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .patch-entry li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .patch-full {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  .patch-full:hover {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
 </style>

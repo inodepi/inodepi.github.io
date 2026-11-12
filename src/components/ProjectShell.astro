@@ -21,6 +21,12 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   backLabel?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  sideCtaTitle?: string;
+  sideCtaBody?: string;
+  sideCtaLabel?: string;
+  sideCtaHref?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -42,11 +48,19 @@ const {
   ctaLabel = 'Book a discovery call',
   ctaHref = '/#contact',
   backLabel = 'Back to home',
+  primaryLabel = 'Book a discovery call',
+  primaryHref,
+  sideCtaTitle = 'Like this build?',
+  sideCtaBody = 'Start with a 15-minute discovery call.',
+  sideCtaLabel = 'Book a call',
+  sideCtaHref,
   jsonLd,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const home = base === '/' ? '/' : `${base}/`;
+const primaryHrefResolved = primaryHref ?? `${home}#contact`;
+const sideCtaHrefResolved = sideCtaHref ?? `${home}#contact`;
 ---
 
 <Base title={title} description={description} jsonLd={jsonLd}>
@@ -73,7 +87,7 @@ const home = base === '/' ? '/' : `${base}/`;
             </ul>
 
             <div class="proj-actions">
-              <a class="btn btn-primary" href={`${home}#contact`}>Book a discovery call</a>
+              <a class="btn btn-primary" href={primaryHrefResolved}>{primaryLabel}</a>
               <slot name="actions" />
             </div>
           </div>
@@ -127,9 +141,9 @@ const home = base === '/' ? '/' : `${base}/`;
         </div>
 
         <div class="proj-side-card proj-side-cta">
-          <h2>Like this build?</h2>
-          <p class="proj-side-text">Start with a 15-minute discovery call.</p>
-          <a class="btn btn-primary" href={`${home}#contact`}>Book a call</a>
+          <h2>{sideCtaTitle}</h2>
+          <p class="proj-side-text">{sideCtaBody}</p>
+          <a class="btn btn-primary" href={sideCtaHrefResolved}>{sideCtaLabel}</a>
         </div>
       </aside>
     </div>
