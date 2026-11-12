@@ -2,6 +2,7 @@
 import { siteConfig } from '../data/projects';
 
 const calUrl = siteConfig.calendarUrl;
+const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 ---
 
 <section class="section contact" id="contact">
@@ -36,56 +37,37 @@ const calUrl = siteConfig.calendarUrl;
       </p>
     </div>
 
-    <div class="booking" data-booking data-cal-url={calUrl}>
+    <div class="booking" data-booking data-cal-link={calLink} data-cal-url={calUrl}>
       <div class="booking-head">
         <div>
           <strong>15-minute discovery call</strong>
-          <span>Two weeks at a glance.</span>
+          <span>Live availability · Asia/Manila</span>
         </div>
-        <div class="booking-nav">
-          <button type="button" data-cal-prev aria-label="Previous two weeks">←</button>
-          <span class="booking-range" data-cal-range>—</span>
-          <button type="button" data-cal-next aria-label="Next two weeks">→</button>
-        </div>
-      </div>
-
-      <div class="booking-grid">
-        <div class="booking-weekdays" aria-hidden="true">
-          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-        </div>
-        <div class="booking-days" data-cal-grid role="group" aria-label="Pick a call date"></div>
-      </div>
-
-      <div class="booking-foot">
-        <p class="booking-selected">
-          <span>Selected</span>
-          <strong data-cal-selected>—</strong>
-        </p>
         <a
-          class="btn btn-primary"
-          data-cal-cta
+          class="booking-external"
           href={calUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Continue to booking
+          Open in Cal.com
           <svg viewBox="0 0 16 16" aria-hidden="true">
             <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </a>
       </div>
 
-      <p class="booking-note">
-        Times are shown on the next step. Or
-        <a href={calUrl} target="_blank" rel="noopener noreferrer">open the full calendar</a>.
-      </p>
+      <div class="booking-embed" id="cal-inline" data-cal-inline>
+        <noscript>
+          <p class="booking-note">
+            <a href={calUrl} target="_blank" rel="noopener noreferrer">Open the booking calendar</a>
+            to pick a time.
+          </p>
+        </noscript>
+      </div>
 
-      <noscript>
-        <p class="booking-note">
-          <a href={calUrl} target="_blank" rel="noopener noreferrer">Open the booking calendar</a>
-          to pick a time.
-        </p>
-      </noscript>
+      <p class="booking-note">
+        Powered by Cal.com. Times open in your browser's time zone.
+      </p>
     </div>
   </div>
 </section>
@@ -93,123 +75,120 @@ const calUrl = siteConfig.calendarUrl;
 <script is:inline>
   (function () {
     const root = document.querySelector('[data-booking]');
-    if (!root) return;
+    const mount = document.querySelector('[data-cal-inline]');
+    if (!root || !mount) return;
 
-    const calUrl = root.getAttribute('data-cal-url');
-    const grid = root.querySelector('[data-cal-grid]');
-    const rangeEl = root.querySelector('[data-cal-range]');
-    const selectedEl = root.querySelector('[data-cal-selected]');
-    const cta = root.querySelector('[data-cal-cta]');
-    const prevBtn = root.querySelector('[data-cal-prev]');
-    const nextBtn = root.querySelector('[data-cal-next]');
+    const calLink = root.getAttribute('data-cal-link');
+    if (!calLink) return;
 
-    if (!grid || !rangeEl || !selectedEl || !cta || !prevBtn || !nextBtn) return;
+    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
 
-    const dayFmt = new Intl.DateTimeFormat('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-    });
-    const monthFmt = new Intl.DateTimeFormat('en-US', { month: 'short' });
-    const iso = (date) =>
-      date.getFullYear() +
-      '-' +
-      String(date.getMonth() + 1).padStart(2, '0') +
-      '-' +
-      String(date.getDate()).padStart(2, '0');
+    (function (C, A, L) {
+      const p = function (a, ar) {
+        a.q.push(ar);
+      };
+      const d = C.document;
+      C.Cal =
+        C.Cal ||
+        function () {
+          const cal = C.Cal;
+          const ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () {
+              p(api, arguments);
+            };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ['initNamespace', namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    Cal('init', { origin: 'https://app.cal.com' });
 
-    const base = new Date(today);
-    base.setDate(today.getDate() - today.getDay());
-
-    let offset = 0;
-    let selected = null;
-
-    const updateSelection = () => {
-      if (!selected) return;
-      const date = new Date(selected + 'T00:00:00');
-      selectedEl.textContent = dayFmt.format(date);
-      cta.href = calUrl + '?date=' + selected;
-      cta.removeAttribute('aria-disabled');
-    };
-
-    const render = () => {
-      const start = new Date(base);
-      start.setDate(base.getDate() + offset * 14);
-
-      const end = new Date(start);
-      end.setDate(start.getDate() + 13);
-
-      // Drop a selection that paged out of view.
-      if (selected) {
-        const selectedTime = new Date(selected + 'T00:00:00').getTime();
-        if (selectedTime < start.getTime() || selectedTime > end.getTime()) {
-          selected = null;
-        }
-      }
-
-      if (start.getMonth() === end.getMonth()) {
-        rangeEl.textContent =
-          monthFmt.format(start) + ' ' + start.getDate() + ' – ' + end.getDate() + ', ' + end.getFullYear();
-      } else {
-        rangeEl.textContent =
-          monthFmt.format(start) + ' ' + start.getDate() + ' – ' + monthFmt.format(end) + ' ' + end.getDate() + ', ' + end.getFullYear();
-      }
-
-      grid.innerHTML = '';
-
-      for (let index = 0; index < 14; index += 1) {
-        const date = new Date(start);
-        date.setDate(start.getDate() + index);
-
-        const value = iso(date);
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'booking-day';
-        button.textContent = String(date.getDate());
-        button.dataset.date = value;
-        button.setAttribute('aria-label', dayFmt.format(date));
-
-        if (date < today) button.disabled = true;
-        if (date.getTime() === today.getTime()) button.classList.add('is-today');
-        if (selected === value) button.classList.add('is-selected');
-
-        button.addEventListener('click', () => {
-          selected = value;
-          render();
-          updateSelection();
-        });
-
-        grid.append(button);
-      }
-
-      prevBtn.disabled = offset === 0;
-
-      if (!selected) {
-        const firstAvailable = grid.querySelector('button:not([disabled])');
-        if (firstAvailable) {
-          selected = firstAvailable.dataset.date;
-          firstAvailable.classList.add('is-selected');
-        }
-      }
-
-      updateSelection();
-    };
-
-    prevBtn.addEventListener('click', () => {
-      if (offset === 0) return;
-      offset -= 1;
-      render();
+    Cal('inline', {
+      elementOrSelector: '[data-cal-inline]',
+      calLink: calLink,
+      config: { layout: 'month_view', theme: theme },
     });
 
-    nextBtn.addEventListener('click', () => {
-      offset += 1;
-      render();
-    });
+    Cal('ui', {
+      theme: theme,
+      layout: 'month_view',
+      hideEventTypeDetails: false,
+      cssVarsPerTheme: {
+        dark: {
+          'cal-brand': '#f5a623',
+          'cal-brand-emphasis': '#ffbc55',
+          'cal-brand-text': '#101a2b',
+          'cal-brand-subtle': '#8a5f14',
+          'cal-brand-accent': '#101a2b',
 
-    render();
+          'cal-text': '#eaf0f8',
+          'cal-text-emphasis': '#eaf0f8',
+          'cal-text-subtle': '#a5b8cf',
+          'cal-text-muted': '#7f97b3',
+          'cal-text-inverted': '#101a2b',
+
+          'cal-bg': '#122135',
+          'cal-bg-emphasis': '#16293f',
+          'cal-bg-subtle': '#16293f',
+          'cal-bg-muted': '#0f1c2e',
+          'cal-bg-inverted': '#eaf0f8',
+
+          'cal-border': '#23384f',
+          'cal-border-emphasis': '#3a5471',
+          'cal-border-subtle': '#23384f',
+          'cal-border-muted': '#1b2c40',
+
+          'cal-border-booker': 'transparent',
+          'cal-border-booker-width': '0px',
+
+          radius: '10px',
+        },
+        light: {
+          'cal-brand': '#f5a623',
+          'cal-brand-emphasis': '#e79a12',
+          'cal-brand-text': '#101a2b',
+          'cal-brand-subtle': '#ffd591',
+          'cal-brand-accent': '#101a2b',
+
+          'cal-text': '#0e1b2b',
+          'cal-text-emphasis': '#0e1b2b',
+          'cal-text-subtle': '#42586d',
+          'cal-text-muted': '#576c80',
+          'cal-text-inverted': '#ffffff',
+
+          'cal-bg': '#ffffff',
+          'cal-bg-emphasis': '#f6f9fa',
+          'cal-bg-subtle': '#f6f9fa',
+          'cal-bg-muted': '#eef2f4',
+          'cal-bg-inverted': '#0e1b2b',
+
+          'cal-border': '#d2dde5',
+          'cal-border-emphasis': '#9fb4c5',
+          'cal-border-subtle': '#d2dde5',
+          'cal-border-muted': '#e6edf2',
+
+          'cal-border-booker': 'transparent',
+          'cal-border-booker-width': '0px',
+
+          radius: '10px',
+        },
+      },
+    });
   })();
 </script>
 
@@ -280,7 +259,7 @@ const calUrl = siteConfig.calendarUrl;
 </style>
 
 <style is:global>
-  /* Custom two-week booking calendar */
+  /* Cal.com inline booking embed */
   .booking {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -315,149 +294,40 @@ const calUrl = siteConfig.calendarUrl;
     font-size: 0.8125rem;
   }
 
-  .booking-nav {
-    display: flex;
+  .booking-external {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-  }
-
-  .booking-nav button {
-    display: grid;
-    place-items: center;
-    width: 1.9rem;
-    height: 1.9rem;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--panel);
-    color: var(--ink-soft);
-    font-size: 0.75rem;
-    line-height: 1;
-    cursor: pointer;
-    transition:
-      border-color 140ms ease,
-      color 140ms ease;
-  }
-
-  .booking-nav button:hover:not(:disabled) {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .booking-nav button:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-
-  .booking-range {
-    min-width: 8.5rem;
-    text-align: center;
+    gap: 0.3rem;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     color: var(--ink-soft);
+    text-decoration: none;
     white-space: nowrap;
   }
 
-  .booking-grid {
-    padding: 1rem 1.15rem 0.9rem;
+  .booking-external svg {
+    width: 0.7rem;
+    height: 0.7rem;
   }
 
-  .booking-weekdays,
-  .booking-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.35rem;
-  }
-
-  .booking-weekdays {
-    margin-bottom: 0.45rem;
-    font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    text-align: center;
-  }
-
-  .booking-day {
-    display: grid;
-    place-items: center;
-    aspect-ratio: 1;
-    min-height: 2.4rem;
-    border: 1px solid transparent;
-    border-radius: 7px;
-    background: transparent;
-    color: var(--ink);
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    cursor: pointer;
-    transition:
-      background-color 140ms ease,
-      border-color 140ms ease,
-      color 140ms ease;
-  }
-
-  .booking-day:hover:not(:disabled) {
-    border-color: var(--line-strong);
-    background: var(--panel-raised);
-  }
-
-  .booking-day:disabled {
-    color: var(--line-strong);
-    cursor: default;
-  }
-
-  .booking-day.is-today {
-    border-color: rgba(245, 166, 35, 0.45);
+  .booking-external:hover {
     color: var(--accent);
   }
 
-  .booking-day.is-selected {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: var(--accent-ink);
-    font-weight: 600;
+  .booking-embed {
+    min-height: 30rem;
+    background: var(--panel);
+    color: var(--ink);
   }
 
-  .booking-foot {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem 1rem;
-    padding: 0.9rem 1.15rem;
-    background: var(--panel-raised);
-    border-top: 1px solid var(--line);
-  }
-
-  .booking-selected span {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-  }
-
-  .booking-selected strong {
-    display: block;
-    margin-top: 0.1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
-  .booking-foot .btn {
-    min-height: 2.6rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.8125rem;
-  }
-
-  .booking-foot .btn svg {
-    width: 0.75rem;
-    height: 0.75rem;
+  .booking-embed iframe {
+    width: 100%;
+    border: 0;
   }
 
   .booking-note {
     padding: 0.65rem 1.15rem 0.85rem;
+    border-top: 1px solid var(--line);
     color: var(--ink-dim);
     font-size: 0.75rem;
   }
@@ -470,22 +340,5 @@ const calUrl = siteConfig.calendarUrl;
 
   .booking-note a:hover {
     color: var(--accent);
-  }
-
-  @media (max-width: 640px) {
-    .booking-weekdays,
-    .booking-days {
-      gap: 0.25rem;
-    }
-
-    .booking-day {
-      min-height: 2rem;
-      font-size: 0.75rem;
-    }
-
-    .booking-range {
-      min-width: 7.5rem;
-      font-size: 0.625rem;
-    }
   }
 </style>

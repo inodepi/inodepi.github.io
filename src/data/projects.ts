@@ -80,7 +80,8 @@ export const automationRepos: AutomationRepo[] = [
     stack: ['n8n', 'Gemini', 'Google Sheets'],
     summary:
       'Reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft — a human still presses send.',
-    repoUrl: 'https://github.com/inodepi/ar-invoice-reminder-agent',
+    repoUrl: '/ar-invoice-reminder/',
+    linkLabel: 'View the build',
     featured: true,
     hue: 'amber',
   },
@@ -91,7 +92,8 @@ export const automationRepos: AutomationRepo[] = [
     stack: ['n8n', 'OpenRouter', 'CRM'],
     summary:
       'Drafts personalised check-ins for dormant leads, files them as Gmail drafts and tracks every lead — human-in-the-loop by design.',
-    repoUrl: 'https://github.com/inodepi/dead-lead-retrieval',
+    repoUrl: '/dead-lead-retrieval/',
+    linkLabel: 'View the build',
     featured: true,
     hue: 'rose',
   },
@@ -102,7 +104,7 @@ export const automationRepos: AutomationRepo[] = [
     stack: ['n8n', 'Gemini', 'Retell'],
     summary:
       'Scores every sales call with Gemini, verifies quotes against the transcript and sends a weekly coaching digest to the team.',
-    repoUrl: '/demos/sales-call-qa/',
+    repoUrl: '/sales-call-qa/',
     linkLabel: 'View the build',
     featured: true,
     hue: 'violet',
@@ -116,8 +118,9 @@ export const sideProjects: SideProject[] = [
     summary:
       'A production, dependency-free agent console for Telnyx WebRTC outbound calling — sign in, place real calls and manage the full call lifecycle from the browser.',
     stack: ['Telnyx WebRTC', 'Vanilla JS', 'Agent console'],
-    demoUrl: 'https://inodepi.github.io/happyfone-webui/',
-    repoUrl: 'https://github.com/inodepi/happyfone-webui',
+    demoUrl: '/happyfone-webui/app/',
+    repoUrl: '/happyfone-webui/',
+    linkLabel: 'View the build',
     size: 'large',
     featured: true,
     hue: 'teal',
@@ -128,8 +131,9 @@ export const sideProjects: SideProject[] = [
     summary:
       'Pick one of nine classes, sweep the static and survive the Algorithm — room-code co-op on a token-guarded Vercel room desk.',
     stack: ['Browser game', 'Co-op'],
-    demoUrl: 'https://inodepi.github.io/adblock-island/',
-    repoUrl: 'https://github.com/inodepi/adblock-island',
+    demoUrl: '/adblock-island/game/',
+    repoUrl: '/adblock-island/',
+    linkLabel: 'Play it',
     featured: true,
     hue: 'amber',
   },
@@ -139,7 +143,8 @@ export const sideProjects: SideProject[] = [
     summary:
       'Follow the shuffle. Six modes, 15 medals and one very smug coin — a pixel-art card monte in a single page, no build and no backend.',
     stack: ['Canvas', 'Vanilla JS'],
-    demoUrl: '/tippy-card-monte/',
+    demoUrl: '/tippy-card-monte/game/',
+    linkLabel: 'Play it',
     featured: true,
     hue: 'violet',
   },

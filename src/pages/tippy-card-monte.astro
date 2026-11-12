@@ -1,0 +1,216 @@
+---
+import ProjectShell from '../components/ProjectShell.astro';
+import { siteConfig } from '../data/projects';
+
+const modes = [
+  { name: 'Classic', sub: '10 rounds' },
+  { name: 'Bet', sub: 'bet & find' },
+  { name: 'Endless', sub: 'depth chase' },
+  { name: 'Daily', sub: 'seeded' },
+  { name: 'Blitz', sub: '6 rounds' },
+  { name: 'Zen', sub: 'relaxed' },
+];
+
+const metrics = [
+  { value: '6', label: 'modes' },
+  { value: '16', label: 'rounds, classic' },
+  { value: '15', label: 'medals' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  name: 'Tippy Card Monte',
+  description:
+    'A pixel-art card monte in a single page: six modes including Bet, uncapped streak payouts, checkpoint perks, 15 medals and landscape fullscreen. No build, no backend.',
+  url: 'https://inodepi.github.io/tippy-card-monte/',
+  playMode: 'SinglePlayer',
+  applicationCategory: 'Game',
+  author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+  genre: ['Casual', 'Card game'],
+  gamePlatform: 'Web browser',
+};
+---
+
+<ProjectShell
+  title="Tippy Card Monte — inodepi"
+  description="A pixel-art card monte in a single page: six modes including Bet, uncapped streak payouts, checkpoint perks, 15 medals and landscape fullscreen. No build, no backend."
+  kicker="side project · game"
+  name="Tippy Card Monte"
+  tagline="Follow the shuffle. Six modes. One very smug coin."
+  badges={['Playable', 'Single file', '6 modes']}
+  canvasName="tippy-card-monte"
+  canvasTag="v1.3.6"
+  canvasNote="Find the coin. Bank the coins."
+  stack={['Canvas', 'Vanilla JS', 'Web Audio', 'localStorage']}
+  links={[
+    { label: 'Play the game', href: '/tippy-card-monte/game/' },
+  ]}
+  category="Games · browser"
+  ctaTitle="Follow the shuffle."
+  ctaBody="Find Tippy, bank the coins and chase depth — it runs in your browser."
+  ctaLabel="Play Tippy"
+  ctaHref="/tippy-card-monte/game/"
+  jsonLd={jsonLd}
+>
+  <div class="crt-frame" slot="visual">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="/videos/tippy-card-monte-loop-poster.jpg"
+      src="/videos/tippy-card-monte-loop.mp4"
+    ></video>
+    <span class="crt-overlay" aria-hidden="true"></span>
+  </div>
+
+  <section class="proj-section">
+    <h2>Overview</h2>
+    <p>
+      A pixel-art card monte in a single page: six modes including Bet, uncapped streak payouts,
+      checkpoint perks, 15 medals and landscape fullscreen. No build, no backend.
+    </p>
+    <p>
+      Tippy hides under one card. The cards shuffle. Keep your eyes on the coin, pick the right
+      card and stay in the green — miss, and the pot remembers.
+    </p>
+  </section>
+
+  <section class="proj-section">
+    <h2>Six modes</h2>
+    <div class="mode-grid">
+      {modes.map((mode) => (
+        <article class="mode-card">
+          <h3>{mode.name}</h3>
+          <p>{mode.sub}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <h2>The numbers</h2>
+    <ul class="metric-row">
+      {metrics.map((metric) => (
+        <li><strong>{metric.value}</strong><span>{metric.label}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>How it's built</h2>
+    <p>
+      Canvas, Vanilla JS, Web Audio and localStorage — one file, no build and no backend. Runs
+      on any static host, scales to landscape fullscreen and respects reduced motion.
+    </p>
+  </section>
+</ProjectShell>
+
+<style>
+  .crt-frame {
+    position: relative;
+  }
+
+  .crt-frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #000;
+  }
+
+  .crt-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.12) 0px,
+        rgba(0, 0, 0, 0.12) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    mix-blend-mode: multiply;
+  }
+
+  .mode-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .mode-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .mode-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .mode-card {
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .mode-card h3 {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .mode-card p {
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+  }
+
+  .metric-row {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .metric-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .metric-row li {
+    padding: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .metric-row strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 640;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .metric-row span {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+import ProjectShell from '../components/ProjectShell.astro';
+import { siteConfig } from '../data/projects';
+
+const classes = [
+  { name: 'AdBlocker', role: 'shield & slam' },
+  { name: 'Fact-Checker', role: 'heal & mark' },
+  { name: 'Reader-Mode', role: 'ranged beams' },
+  { name: 'Engineer', role: 'turrets & overclock' },
+  { name: 'Medic', role: 'heal & support' },
+  { name: 'Hacker', role: 'debuff & exploit' },
+  { name: 'Streamer', role: 'AoE hype' },
+  { name: 'Archivist', role: 'support & mark' },
+  { name: 'Moderator', role: 'crowd control' },
+];
+
+const inside = [
+  'Nine classes with distinct kits — shields, beams, turrets and support.',
+  'Room-code co-op with server-moderated chat and shared bench-wall notes.',
+  'The kindness wall: pin notes for whoever washes ashore next.',
+  'Waves, upgrades and The Algorithm holding the last beach.',
+  'Mania mode, medals and confetti — it gets competitive.',
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoGame',
+  name: 'AdBlock Island',
+  description:
+    'A wholesome micro-MMO in a single file: pick a class, sweep the static and survive the Algorithm. Room-code co-op, kindness wall and medals.',
+  url: 'https://inodepi.github.io/adblock-island/',
+  playMode: 'SinglePlayer',
+  applicationCategory: 'Game',
+  author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+  genre: ['Casual', 'Browser game'],
+  gamePlatform: 'Web browser',
+};
+---
+
+<ProjectShell
+  title="AdBlock Island — inodepi"
+  description="A wholesome micro-MMO in a single file: pick a class, sweep the static and survive the Algorithm. Room-code co-op, kindness wall and medals."
+  kicker="side project · game"
+  name="AdBlock Island"
+  tagline="A wholesome micro-MMO about cleansing an ad-infested island."
+  badges={['Playable', 'Single file', 'Co-op']}
+  canvasName="adblock-island"
+  canvasTag="beta v0.9.8"
+  canvasNote="Nine classes. One island. Zero ads."
+  stack={['Vanilla JS', 'Canvas', 'localStorage']}
+  links={[
+    { label: 'Play the game', href: '/adblock-island/game/' },
+    { label: 'Repository', href: 'https://github.com/inodepi/adblock-island', external: true },
+  ]}
+  category="Games · browser"
+  ctaTitle="Bonk your first ad."
+  ctaBody="Wash ashore and sweep the static — it runs in your browser."
+  ctaLabel="Play AdBlock Island"
+  ctaHref="/adblock-island/game/"
+  jsonLd={jsonLd}
+>
+  <div class="crt-frame" slot="visual">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="/videos/adblock-island-loop-poster.jpg"
+      src="/videos/adblock-island-loop.mp4"
+    ></video>
+    <span class="crt-overlay" aria-hidden="true"></span>
+  </div>
+
+  <section class="proj-section">
+    <h2>Overview</h2>
+    <p>
+      The ads took the beach. Mania took the schedule. Grab a broom, bonk some sponsored
+      content, and leave a kind note for whoever washes ashore next.
+    </p>
+    <p>
+      Pick one of nine classes, sweep the static and survive the Algorithm — room-code co-op
+      runs on a token-guarded room desk with server-moderated chat, shared bench-wall notes,
+      spectators and host handover.
+    </p>
+  </section>
+
+  <section class="proj-section">
+    <h2>Pick a way to help</h2>
+    <div class="class-grid">
+      {classes.map((gameClass) => (
+        <article class="class-card">
+          <h3>{gameClass.name}</h3>
+          <p>{gameClass.role}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <h2>What's inside</h2>
+    <ul class="proj-list">
+      {inside.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>How it's built</h2>
+    <p>
+      One self-contained HTML file — vanilla JavaScript on canvas, no build and no backend for
+      solo play. Co-op rooms run on a token-guarded room desk, so the cozy parts stay cozy even
+      when strangers show up.
+    </p>
+  </section>
+</ProjectShell>
+
+<style>
+  .crt-frame {
+    position: relative;
+  }
+
+  .crt-frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #000;
+  }
+
+  .crt-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.12) 0px,
+        rgba(0, 0, 0, 0.12) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+    mix-blend-mode: multiply;
+  }
+
+  .class-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .class-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .class-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .class-card {
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .class-card h3 {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .class-card p {
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+  }
+
+  .proj-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proj-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .proj-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+</style>

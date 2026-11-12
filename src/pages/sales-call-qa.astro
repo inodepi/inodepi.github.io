@@ -1,0 +1,384 @@
+---
+import ProjectShell from '../components/ProjectShell.astro';
+import { siteConfig } from '../data/projects';
+
+const nodes = [
+  { x: 16, y: 30, w: 190, h: 72, label: 'Call recordings', sub: 'Retell + transcripts', hue: '#46cfc0' },
+  { x: 240, y: 30, w: 190, h: 72, label: 'n8n workflow', sub: 'score + verify', hue: '#f5a623' },
+  { x: 464, y: 30, w: 160, h: 72, label: 'Gemini rubric', sub: 'structured output', hue: '#9d8cff' },
+  { x: 240, y: 190, w: 190, h: 72, label: 'Coaching digest', sub: 'Gmail, weekly', hue: '#ff7f9f' },
+];
+
+const links = [
+  'M206 66 C 222 66, 224 66, 240 66',
+  'M430 66 C 448 66, 448 66, 464 66',
+  'M336 102 C 336 148, 336 156, 336 190',
+];
+
+const ports = [
+  [206, 66], [240, 66], [430, 66], [464, 66], [336, 102], [336, 190],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'Sales Call QA & Coaching',
+    description:
+      'An n8n workflow that scores every sales call with Gemini, verifies quotes against the transcript and files a weekly coaching digest for the team.',
+    url: 'https://inodepi.github.io/sales-call-qa/',
+    author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+    keywords: 'n8n, Gemini, Retell, sales coaching, QA',
+    isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://inodepi.github.io/' },
+      { '@type': 'ListItem', position: 2, name: 'Sales Call QA & Coaching', item: 'https://inodepi.github.io/sales-call-qa/' },
+    ],
+  },
+];
+
+const useCases = [
+  { title: 'New-hire onboarding', body: 'Baseline a new SDR in week one and track opening, discovery, objection handling, next step and compliance as they improve.' },
+  { title: 'Weekly rep coaching', body: 'Give every rep a scorecard with exact quotes instead of a manager’s memory of one call.' },
+  { title: 'Objection library', body: 'Find the objections that get dismissed and turn the best responses into a shared playbook.' },
+  { title: 'Next-step discipline', body: 'Catch calls that end with “I’ll follow up sometime” and coach the date-and-owner habit.' },
+  { title: 'AI SDR QA', body: 'Score the AI SDR with the same rubric as the humans, so the comparison is honest.' },
+  { title: 'Compliance review', body: 'Check recording disclosure, pricing claims and do-not-call handling across the team.' },
+];
+
+const how = [
+  'Retell posts the finished call to a webhook; a form accepts a pasted transcript for testing.',
+  'A Code node normalizes the payload and refuses to score a call without a usable transcript.',
+  'Gemini scores opening, discovery, objection handling, next step and compliance through a structured output parser.',
+  'A second Code node clamps the scores, recomputes the weighted overall, verifies each quote against the transcript, and redacts emails and phone numbers.',
+  'Clean calls go to the Sales Call QA data table; risky or low-confidence calls also become a Gmail draft for a manager.',
+  'Every Monday, a digest aggregates the last week per rep and files one coaching draft.',
+];
+
+const guardrails = [
+  'Every score must cite an exact quote; unverifiable evidence lowers confidence and forces review.',
+  'The overall is computed in code, not guessed by the model.',
+  'Any red flag, compliance below 3, or confidence below 0.75 always needs a human.',
+  'No objection? Objection handling scores 3 with “no objection in transcript” — the rep is not punished for an easy call.',
+  'Nothing is sent automatically — Gmail drafts wait for a manager.',
+  'Transcripts are truncated, and emails and phone numbers are redacted in the stored evidence.',
+];
+---
+
+<ProjectShell
+  title="Sales Call QA & Coaching — inodepi"
+  description="An n8n workflow that scores every sales call with Gemini, verifies quotes against the transcript and files a weekly coaching digest for the team."
+  kicker="n8n automation"
+  name="Sales Call QA & Coaching"
+  tagline="Score every sales call against the same rubric — and only bother a manager when the evidence is thin."
+  badges={['Human-in-the-loop', 'Evidence-checked', 'n8n', 'Working demo on synthetic calls']}
+  canvasName="sales-qa.workflow"
+  canvasTag="n8n"
+  canvasNote="Scores, verifies, redacts."
+  stack={['n8n', 'Gemini', 'Retell', 'Data table']}
+  links={[
+    { label: 'Working demo', href: '/sales-call-qa/demo/' },
+  ]}
+  category="Automations · sales enablement"
+  ctaTitle="Coach every call — not just the memorable ones."
+  ctaBody="Scores, exact quotes and a weekly digest your reps can act on."
+  ctaLabel="View the demo"
+  ctaHref="/sales-call-qa/demo/"
+  jsonLd={jsonLd}
+>
+  <section class="proj-section" slot="visual">
+    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: call recordings feed an n8n workflow, Gemini scores against a rubric, and a weekly coaching digest is filed.">
+      <g class="links">
+        {links.map((d) => <path d={d} />)}
+      </g>
+      <g class="ports">
+        {ports.map(([cx, cy]) => <circle cx={cx} cy={cy} r="3.1" />)}
+      </g>
+      <g class="pulses">
+        <circle class="pulse" r="3">
+          <animateMotion path="M206 66 C 222 66, 224 66, 240 66" dur="3.4s" begin="-0.8s" repeatCount="indefinite" />
+        </circle>
+        <circle class="pulse" r="3">
+          <animateMotion path="M336 102 C 336 148, 336 156, 336 190" dur="3.4s" begin="-1.8s" repeatCount="indefinite" />
+        </circle>
+      </g>
+      <g class="nodes">
+        {nodes.map((node) => (
+          <g class:list={[node.label.startsWith('n8n') && 'is-core']}>
+            <rect class="node" x={node.x} y={node.y} width={node.w} height={node.h} rx="6" />
+            <rect x={node.x + 10} y={node.y + 14} width="4" height={node.h - 28} rx="2" fill={node.hue} />
+            <text class="node-label" x={node.x + 24} y={node.y + 30}>{node.label}</text>
+            <text class="node-sub" x={node.x + 24} y={node.y + 48}>{node.sub}</text>
+          </g>
+        ))}
+      </g>
+    </svg>
+  </section>
+
+  <section class="proj-section">
+    <h2>Overview</h2>
+    <figure class="proj-video">
+      <video
+        controls
+        preload="metadata"
+        playsinline
+        poster="/videos/sales-call-qa.jpg"
+        width="1920"
+        height="1080"
+      >
+        <source src="/videos/sales-call-qa.mp4" type="video/mp4" />
+        Your browser cannot play this film.
+        <a href="/videos/sales-call-qa.mp4">Download it</a>.
+      </video>
+      <figcaption>Narrated build overview · 1:25</figcaption>
+    </figure>
+
+    <details class="proj-backend">
+      <summary>Show the backend — pipeline simulation</summary>
+      <div class="proj-embed">
+        <div class="proj-embed-bar">
+          <span class="proj-embed-url">inodepi.github.io/sales-call-qa/demo/</span>
+          <a href="/sales-call-qa/demo/" target="_blank" rel="noopener noreferrer">Open full screen ↗</a>
+        </div>
+        <iframe src="/sales-call-qa/demo/" title="Sales Call QA — interactive pipeline demo" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <p class="proj-embed-note">Runs in your browser on synthetic calls. If the frame doesn’t load, open the demo directly.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="proj-section">
+    <h2>Use cases</h2>
+    <div class="proj-cases">
+      {useCases.map((useCase) => (
+        <article class="proj-case">
+          <h3>{useCase.title}</h3>
+          <p>{useCase.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <h2>How it works</h2>
+    <ul class="proj-list">
+      {how.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>Guardrails</h2>
+    <ul class="proj-list">
+      {guardrails.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>Stack notes</h2>
+    <p>
+      Built on n8n with Gemini through a structured output parser. The demo runs on synthetic
+      calls; live telephony needs a real Retell agent and a public n8n URL. If your stack requires
+      something else, the same architecture can be delivered on another automation platform.
+    </p>
+  </section>
+</ProjectShell>
+
+<style>
+  .links path {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+
+  .ports circle {
+    fill: var(--panel);
+    stroke: var(--line-strong);
+    stroke-width: 1.2;
+  }
+
+  .pulse {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.8));
+  }
+
+  .nodes .is-core .node {
+    stroke: rgba(245, 166, 35, 0.55);
+  }
+
+  .node {
+    fill: var(--panel-raised);
+    stroke: var(--line-strong);
+    stroke-width: 1.1;
+  }
+
+  .node-label {
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .node-sub {
+    fill: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+  }
+
+  .proj-video {
+    margin: 1.25rem 0 0;
+  }
+
+  .proj-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .proj-video figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+  }
+
+  .proj-backend {
+    margin-top: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .proj-backend summary {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    list-style: none;
+  }
+
+  .proj-backend summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .proj-backend summary::before {
+    content: '▸';
+    margin-right: 0.45rem;
+    color: var(--accent);
+  }
+
+  .proj-backend[open] summary::before {
+    content: '▾';
+  }
+
+  .proj-embed {
+    margin: 0 0.9rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--panel-raised);
+  }
+
+  .proj-embed-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-dim);
+  }
+
+  .proj-embed-bar a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .proj-embed iframe {
+    display: block;
+    width: 100%;
+    height: 560px;
+    border: 0;
+    background: var(--panel-raised);
+  }
+
+  .proj-embed-note {
+    padding: 0.55rem 0.7rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--ink-dim);
+  }
+
+  .proj-cases {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 700px) {
+    .proj-cases {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .proj-case {
+    padding: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .proj-case h3 {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .proj-case p {
+    margin-top: 0.35rem;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .proj-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proj-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .proj-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+</style>

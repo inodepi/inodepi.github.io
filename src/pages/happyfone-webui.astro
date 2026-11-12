@@ -1,0 +1,157 @@
+---
+import ProjectShell from '../components/ProjectShell.astro';
+import { siteConfig } from '../data/projects';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: 'HappyFone WebUI',
+  description:
+    'A production-style agent console prototype for HappyPhone: Telnyx WebRTC calling, agent state machine, AUX pauses and persistent call history — no framework, no dependencies.',
+  url: 'https://inodepi.github.io/happyfone-webui/',
+  author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+  keywords: 'Telnyx WebRTC, agent console, softphone, vanilla JavaScript',
+  isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
+};
+
+const shots = [
+  { src: '/images/happyfone-signin.png', caption: 'Sign-in · Telnyx SIP credentials, extension and microphone preflight.' },
+  { src: '/images/happyfone-console.png', caption: 'Console · agent states, live timers and click-to-dial history.' },
+  { src: '/images/happyfone-call.png', caption: 'Simulated call lifecycle · ringing, connected timer, mute and hold.' },
+];
+
+const inside = [
+  'Mock auth and a session guard — direct dashboard visits bounce back to sign-in.',
+  'Agent state machine: AVAILABLE, ON_CALL, WRAP_UP and AUX with a live timer.',
+  'AUX reasons (lunch, short break, bio, coaching, training) that pause the dialer.',
+  'Simulated call lifecycle: ringing, connected timer, mute, hold/resume and hangup.',
+  'Keyboard-first dialing with T9 letter mapping and DTMF tones while connected.',
+  'Persistent call history that survives reloads, with click-to-dial.',
+];
+---
+
+<ProjectShell
+  title="HappyFone WebUI — inodepi"
+  description="A production-style agent console prototype for HappyPhone: Telnyx WebRTC calling, agent state machine, AUX pauses and persistent call history — no framework, no dependencies."
+  kicker="side project · web"
+  name="HappyFone WebUI"
+  tagline="The working prototype of the HappyPhone caller softphone."
+  badges={['Prototype', 'Part of HappyPhone']}
+  canvasName="happyphone.app"
+  canvasTag="prototype"
+  canvasNote="A production-style console, zero dependencies."
+  stack={['Vanilla JS', 'CSS', 'ES modules', 'Telnyx WebRTC']}
+  links={[
+    { label: 'Live demo', href: '/happyfone-webui/app/' },
+    { label: 'Repository', href: 'https://github.com/inodepi/happyfone-webui', external: true },
+  ]}
+  category="Side projects · web"
+  ctaTitle="Make the softphone real."
+  ctaBody="HappyPhone is taking the prototype into production — talk scope, timeline and what the caller sees on day one."
+  jsonLd={jsonLd}
+>
+  <div class="proj-shot" slot="visual">
+    <img src="/images/happyfone-signin.png" alt="HappyFone WebUI sign-in screen" loading="lazy" width="1280" height="800" />
+  </div>
+
+  <section class="proj-section">
+    <h2>Overview</h2>
+    <p>
+      HappyFone WebUI is the prototype of the softphone I'm building for HappyPhone. It is a
+      production-style agent console with no framework and no dependencies — plain HTML, CSS and
+      ES modules, deployed on GitHub Pages. The point was to make the caller's day concrete
+      before wiring real telephony: where they sign in, how they go available, what happens
+      between calls, and what they see when one ends.
+    </p>
+  </section>
+
+  <section class="proj-section">
+    <h2>Inside the console</h2>
+    <div class="proj-gallery">
+      {shots.map((shot) => (
+        <figure>
+          <img src={shot.src} alt={shot.caption} loading="lazy" width="1280" height="800" />
+          <figcaption>{shot.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <h2>What's inside</h2>
+    <ul class="proj-list">
+      {inside.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>What is still simulated</h2>
+    <p>
+      Auth is mocked and calls are simulated — there is no real audio path yet. The production
+      softphone is the one I'm building at happyphone.lol/caller: real JWT auth, a Kamailio +
+      RTPEngine gateway, and calls through the team's VoIP.ms sub-account.
+    </p>
+  </section>
+</ProjectShell>
+
+<style>
+  .proj-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .proj-gallery {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .proj-gallery figure {
+    margin: 0;
+  }
+
+  .proj-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel-raised);
+  }
+
+  .proj-gallery figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+  }
+
+  .proj-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proj-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .proj-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+</style>
