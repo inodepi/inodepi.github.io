@@ -28,9 +28,9 @@ npm run preview
 
 ## Contact and calendar
 
-The contact section embeds the Cal.com booking calendar directly
-(`siteConfig.calendarUrl` in `src/data/projects.ts`). The event must be public for the
-embed to load; a direct link is always shown as a fallback.
+The contact section renders a custom two-week calendar in the browser (Sunday start,
+past days disabled, paging by two weeks). Picking a day sends you to the Cal.com
+discovery event with `?date=YYYY-MM-DD`; `siteConfig.calendarUrl` sets the destination.
 
 ## Editing content
 
