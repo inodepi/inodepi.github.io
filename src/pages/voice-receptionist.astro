@@ -125,7 +125,12 @@ const jsonLd = [
   <article class="project">
     <header class="proj-hero">
       <div class="container">
-        <a class="proj-back" href={`${base}#work`}>← All builds</a>
+        <a class="btn btn-secondary proj-back" href={`${base}`}>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          Back to home
+        </a>
 
         <div class="proj-hero-grid">
           <div class="proj-copy">
@@ -153,7 +158,6 @@ const jsonLd = [
             <div class="proj-canvas-bar">
               <span class="proj-canvas-name">voice-intake.workflow</span>
               <span class="proj-canvas-tag">n8n</span>
-              <span class="proj-pan-hint" aria-hidden="true">scroll →</span>
               <span class="proj-canvas-status"><i aria-hidden="true"></i>live</span>
             </div>
 
@@ -330,20 +334,17 @@ const jsonLd = [
   }
 
   .proj-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
     margin-bottom: 1.75rem;
-    font-family: var(--font-body);
+    min-height: 2.4rem;
+    padding: 0.4rem 0.8rem;
     font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transition: color 140ms ease;
+    gap: 0.45rem;
+    width: fit-content;
   }
 
-  .proj-back:hover {
-    color: var(--accent);
+  .proj-back svg {
+    width: 0.8rem;
+    height: 0.8rem;
   }
 
   .proj-hero-grid {
@@ -440,21 +441,21 @@ const jsonLd = [
   .proj-canvas-bar {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.55rem 0.8rem;
+    gap: 0.5rem;
+    padding: 0.45rem 0.7rem;
     border-bottom: 1px solid var(--line);
     background: var(--panel-raised);
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.5625rem;
     color: var(--ink-dim);
   }
 
   .proj-canvas-tag {
-    padding: 0.08rem 0.35rem;
+    padding: 0.06rem 0.3rem;
     border: 1px solid rgba(245, 166, 35, 0.4);
     border-radius: 3px;
     color: var(--accent);
-    font-size: 0.5625rem;
+    font-size: 0.5rem;
   }
 
   .proj-canvas-status {
@@ -463,7 +464,7 @@ const jsonLd = [
     gap: 0.3rem;
     margin-left: auto;
     color: var(--node-teal);
-    font-size: 0.5625rem;
+    font-size: 0.5rem;
   }
 
   .proj-pan-hint {
@@ -493,15 +494,34 @@ const jsonLd = [
     animation: proj-breathe 2.8s ease-in-out infinite;
   }
 
+  .proj-pan-hint {
+    display: none;
+    margin-left: auto;
+    color: var(--ink-dim);
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .proj-pan-hint {
+      display: inline;
+    }
+
+    .proj-canvas-status {
+      margin-left: 0;
+    }
+  }
+
   .proj-canvas-scroll {
-    overflow-x: auto;
+    overflow: hidden;
     background-color: var(--bg);
     background-image: radial-gradient(rgba(140, 170, 209, 0.18) 1px, transparent 1.2px);
     background-size: 18px 18px;
   }
 
   .proj-canvas {
-    min-width: 560px;
+    width: 100%;
     aspect-ratio: 640 / 300;
   }
 
