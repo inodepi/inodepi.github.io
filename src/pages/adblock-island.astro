@@ -51,7 +51,7 @@ const jsonLd = {
   links={[
     { label: 'Play online', href: 'https://adblock-island.vercel.app/', external: true },
     { label: 'Play offline beta', href: '/adblock-island/game/' },
-    { label: 'Full patch notes', href: 'https://github.com/inodepi/potaterrr.github.io/blob/main/data/adblock-online-changelog.md', external: true },
+    { label: 'Full history', href: 'https://github.com/inodepi/adblock-island/blob/main/CHANGELOG.md', external: true },
   ]}
   category="Games · browser"
   ctaTitle="Bonk your first ad."
@@ -66,6 +66,11 @@ const jsonLd = {
   sideCtaHref="https://adblock-island.vercel.app/"
   jsonLd={jsonLd}
 >
+  <Fragment slot="actions">
+    <a class="btn btn-secondary" href="/adblock-island/game/">Play offline</a>
+    <a class="btn btn-secondary" href="#patch-notes">Patch notes</a>
+  </Fragment>
+
   <div class="crt-frame" slot="visual">
     <video
       autoplay
@@ -114,34 +119,67 @@ const jsonLd = {
 
   <section class="proj-section" id="patch-notes">
     <h2>Patch notes</h2>
-    <p>
-      The online build has its own notes — newest first. Full history lives in the repository.
-    </p>
+    <p>Two builds, two histories — newest first. Full history lives in the repository.</p>
 
-    <div class="patch-list">
-      <article class="patch-entry">
-        <h3>v0.10.0 — Blob room fallback</h3>
-        <span class="patch-date">2026-11-09</span>
-        <ul>
-          <li>Rooms no longer wait for an Upstash account: when Redis is absent, the same room desk runs on the Vercel Blob store already connected to the project.</li>
-          <li><strong>Ping reports the mode</strong> — <code>redis</code>, <code>blob</code> or <code>none</code>.</li>
-          <li>Per-writer files, no shared documents: presence, signals, chat and host state are HMAC’d, so the public store cannot be enumerated by room code alone.</li>
-          <li>Same contract as Redis — create, join, poll, signal, leave, promote, backup, takeover, chat and mute. Blob mode polls at ~1.2s.</li>
-        </ul>
-      </article>
-
-      <article class="patch-entry">
-        <h3>v0.9.1 — Room setup diagnostics</h3>
-        <span class="patch-date">2026-11-09</span>
-        <ul>
-          <li><code>ping</code> reports which storage names are missing, so a failed room setup can be diagnosed from the live URL.</li>
-          <li>The lobby has a try-again button — retry the same action without retyping the code.</li>
-          <li>Clearer error copy names the exact Vercel path: Storage → Create → Upstash Redis.</li>
-        </ul>
-      </article>
+    <div class="patch-track">
+      <h3 class="patch-track-title">Online beta · Vercel</h3>
+      <div class="patch-list">
+        <article class="patch-entry">
+          <h3>v0.10.0 — Blob room fallback</h3>
+          <span class="patch-date">2026-11-09</span>
+          <ul>
+            <li>Rooms no longer wait for an Upstash account: when Redis is absent, the same room desk runs on the Vercel Blob store already connected to the project.</li>
+            <li><strong>Ping reports the mode</strong> — <code>redis</code>, <code>blob</code> or <code>none</code>.</li>
+            <li>Per-writer files, no shared documents: presence, signals, chat and host state are HMAC’d, so the public store cannot be enumerated by room code alone.</li>
+            <li>Same contract as Redis — create, join, poll, signal, leave, promote, backup, takeover, chat and mute. Blob mode polls at ~1.2s.</li>
+          </ul>
+        </article>
+        <article class="patch-entry">
+          <h3>v0.9.1 — Room setup diagnostics</h3>
+          <span class="patch-date">2026-11-09</span>
+          <ul>
+            <li><code>ping</code> reports which storage names are missing, so a failed room setup can be diagnosed from the live URL.</li>
+            <li>The lobby has a try-again button — retry the same action without retyping the code.</li>
+            <li>Clearer error copy names the exact Vercel path: Storage → Create → Upstash Redis.</li>
+          </ul>
+        </article>
+      </div>
     </div>
 
-    <a class="patch-full" href="https://github.com/inodepi/potaterrr.github.io/blob/main/data/adblock-online-changelog.md" target="_blank" rel="noopener noreferrer">Full patch notes ↗</a>
+    <div class="patch-track">
+      <h3 class="patch-track-title">Offline beta · GitHub Pages</h3>
+      <div class="patch-list">
+        <article class="patch-entry">
+          <h3>v0.9.8 — Fullscreen option</h3>
+          <span class="patch-date">2026-11-04</span>
+          <ul>
+            <li>Added a fullscreen button to the title screen, alongside help and co-op.</li>
+            <li>The Settings fullscreen button now toggles in and out and updates its label.</li>
+            <li>Fullscreen is best-effort: if the browser blocks it, the game explains instead of failing silently.</li>
+            <li>Portrait and landscape both stay available as before.</li>
+          </ul>
+        </article>
+        <article class="patch-entry">
+          <h3>v0.9.7 — Upgrade exit &amp; ad trap</h3>
+          <span class="patch-date">2026-11-04</span>
+          <ul>
+            <li>After a wave clear, closing the upgrade shop now starts the normal 10-second next-wave countdown.</li>
+            <li>Pop-up ads have a real <strong>CLICK HERE</strong> button — clicking it takes 25–75% of current health. Click the ✕ instead.</li>
+          </ul>
+        </article>
+        <article class="patch-entry">
+          <h3>v0.9.6 — One boss, 50% per wave</h3>
+          <span class="patch-date">2026-11-04</span>
+          <ul>
+            <li>One boss only: the opening pair roll is gone; <code>spawnBoss()</code> always creates a single Algorithm.</li>
+            <li>Once the island is 64% clear, each wave rolls a 50% chance to wake the boss — once per run.</li>
+            <li>Splits, the 75% HP ladder and speed tiers are unchanged.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+
+    <a class="patch-full" href="https://github.com/inodepi/adblock-island/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Full history ↗</a>
   </section>
 
   <section class="proj-section">
@@ -317,6 +355,24 @@ const jsonLd = {
   .patch-full:hover {
     background: var(--accent);
     color: var(--accent-ink);
+  }
+
+  .patch-track {
+    margin-top: 1.2rem;
+  }
+
+  .patch-track-title {
+    margin-bottom: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .patch-track .patch-list {
+    margin-top: 0;
   }
 
 </style>
