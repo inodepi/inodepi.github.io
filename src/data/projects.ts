@@ -56,7 +56,7 @@ export const siteConfig: SiteConfig = {
   name: 'inodepi',
   role: 'n8n automation architect',
   email: 'kristiandyanbusiness@gmail.com',
-  calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/60min',
+  calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   githubUrl: 'https://github.com/inodepi',
   linkedinUrl: '#',
   responseTime: 'Replies within one business day',
