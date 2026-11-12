@@ -3,6 +3,7 @@ import { siteConfig } from '../data/projects';
 
 const calUrl = siteConfig.calendarUrl;
 const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
+const eventTypeId = siteConfig.calendarEventTypeId;
 ---
 
 <section class="section contact" id="contact">
@@ -37,37 +38,47 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
       </p>
     </div>
 
-    <div class="booking" data-booking data-cal-link={calLink} data-cal-url={calUrl}>
+    <div
+      class="booking"
+      data-booking
+      data-cal-link={calLink}
+      data-cal-url={calUrl}
+      data-event-type-id={eventTypeId}
+    >
       <div class="booking-head">
         <div>
           <strong>15-minute discovery call</strong>
-          <span>Live availability · Asia/Manila</span>
+          <span>Times shown in your time zone</span>
         </div>
-        <a
-          class="booking-external"
-          href={calUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open in Cal.com
-          <svg viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
+        <div class="booking-nav">
+          <button type="button" data-cal-prev aria-label="Previous week">←</button>
+          <span class="booking-range" data-cal-range>—</span>
+          <button type="button" data-cal-next aria-label="Next week">→</button>
+        </div>
       </div>
 
-      <div class="booking-embed" id="cal-inline" data-cal-inline>
-        <noscript>
-          <p class="booking-note">
-            <a href={calUrl} target="_blank" rel="noopener noreferrer">Open the booking calendar</a>
-            to pick a time.
-          </p>
-        </noscript>
+      <div class="booking-grid">
+        <div class="booking-weekdays" aria-hidden="true">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="booking-days" data-cal-grid role="group" aria-label="Pick a call date"></div>
+      </div>
+
+      <div class="booking-times" data-cal-times aria-live="polite">
+        <p class="booking-empty">Loading availability…</p>
       </div>
 
       <p class="booking-note">
-        Powered by Cal.com. Times open in your browser's time zone.
+        Pick a day to see open slots. Or
+        <a href={calUrl} target="_blank" rel="noopener noreferrer">open the full calendar</a>.
       </p>
+
+      <noscript>
+        <p class="booking-note">
+          <a href={calUrl} target="_blank" rel="noopener noreferrer">Open the booking calendar</a>
+          to pick a time.
+        </p>
+      </noscript>
     </div>
   </div>
 </section>
@@ -75,120 +86,216 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 <script is:inline>
   (function () {
     const root = document.querySelector('[data-booking]');
-    const mount = document.querySelector('[data-cal-inline]');
-    if (!root || !mount) return;
+    if (!root) return;
 
+    const grid = root.querySelector('[data-cal-grid]');
+    const rangeEl = root.querySelector('[data-cal-range]');
+    const timesEl = root.querySelector('[data-cal-times]');
+    const prevBtn = root.querySelector('[data-cal-prev]');
+    const nextBtn = root.querySelector('[data-cal-next]');
+    const calUrl = root.getAttribute('data-cal-url');
     const calLink = root.getAttribute('data-cal-link');
-    if (!calLink) return;
+    const eventTypeId = root.getAttribute('data-event-type-id');
+    const API = 'https://api.cal.com/v2/slots';
 
-    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    if (!grid || !rangeEl || !timesEl || !prevBtn || !nextBtn || !calUrl || !eventTypeId) return;
 
-    (function (C, A, L) {
-      const p = function (a, ar) {
-        a.q.push(ar);
-      };
-      const d = C.document;
-      C.Cal =
-        C.Cal ||
-        function () {
-          const cal = C.Cal;
-          const ar = arguments;
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = cal.q || [];
-            d.head.appendChild(d.createElement('script')).src = A;
-            cal.loaded = true;
-          }
-          if (ar[0] === L) {
-            const api = function () {
-              p(api, arguments);
-            };
-            const namespace = ar[1];
-            api.q = api.q || [];
-            if (typeof namespace === 'string') {
-              cal.ns[namespace] = cal.ns[namespace] || api;
-              p(cal.ns[namespace], ar);
-              p(cal, ['initNamespace', namespace]);
-            } else p(cal, ar);
-            return;
-          }
-          p(cal, ar);
-        };
-    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+    const dayFmt = new Intl.DateTimeFormat(undefined, {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    });
+    const rangeFmt = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+    const timeFmt = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
+    const pad = (n) => String(n).padStart(2, '0');
+    const iso = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
 
-    Cal('init', { origin: 'https://app.cal.com' });
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    Cal('inline', {
-      elementOrSelector: '[data-cal-inline]',
-      calLink: calLink,
-      config: { layout: 'month_view', theme: theme },
+    const weekStart = new Date(today);
+    weekStart.setDate(today.getDate() - today.getDay());
+
+    let pageStart = new Date(weekStart);
+    let selected = null;
+    let loading = false;
+    let failed = false;
+
+    /** Cache of local date key -> array of Date objects. */
+    const slotsByDay = new Map();
+    const fetchedWindows = new Set();
+
+    const addDays = (d, n) => {
+      const next = new Date(d);
+      next.setDate(d.getDate() + n);
+      return next;
+    };
+
+    const fetchWindow = async (start) => {
+      const key = iso(start);
+      if (fetchedWindows.has(key)) return;
+      fetchedWindows.add(key);
+
+      // Pad by a day so time zones never clip the visible range.
+      const from = iso(addDays(start, -1));
+      const to = iso(addDays(start, 15));
+
+      const res = await fetch(
+        API + '?eventTypeId=' + encodeURIComponent(eventTypeId) + '&start=' + from + '&end=' + to,
+        { headers: { 'cal-api-version': '2024-09-04' } }
+      );
+      if (!res.ok) throw new Error('Slots request failed: ' + res.status);
+
+      const json = await res.json();
+      const data = json && json.data ? json.data : {};
+
+      Object.keys(data).forEach((day) => {
+        const list = data[day];
+        if (!Array.isArray(list)) return;
+        list.forEach((slot) => {
+          const when = new Date(slot.start);
+          if (Number.isNaN(when.getTime())) return;
+          const localKey = iso(when);
+          const bucket = slotsByDay.get(localKey);
+          if (bucket) bucket.push(when);
+          else slotsByDay.set(localKey, [when]);
+        });
+      });
+    };
+
+    const renderTimes = () => {
+      timesEl.innerHTML = '';
+      if (loading) {
+        const p = document.createElement('p');
+        p.className = 'booking-empty';
+        p.textContent = 'Loading availability…';
+        timesEl.append(p);
+        return;
+      }
+      if (failed) {
+        const p = document.createElement('p');
+        p.className = 'booking-empty';
+        p.innerHTML =
+          'Live availability is unavailable right now. <a href="' +
+          calUrl +
+          '" target="_blank" rel="noopener noreferrer">Open the full calendar</a>.';
+        timesEl.append(p);
+        return;
+      }
+      if (!selected) {
+        const p = document.createElement('p');
+        p.className = 'booking-empty';
+        p.textContent = 'No open days in this range. Try the next week.';
+        timesEl.append(p);
+        return;
+      }
+
+      const slots = slotsByDay.get(selected) || [];
+      if (!slots.length) {
+        const p = document.createElement('p');
+        p.className = 'booking-empty';
+        p.textContent = 'No open slots that day. Try another date.';
+        timesEl.append(p);
+        return;
+      }
+
+      const label = document.createElement('p');
+      label.className = 'booking-times-label';
+      label.textContent = dayFmt.format(new Date(selected + 'T00:00:00')) + ' · pick a time';
+      timesEl.append(label);
+
+      const list = document.createElement('div');
+      list.className = 'booking-slots';
+      slots
+        .slice()
+        .sort((a, b) => a - b)
+        .forEach((slot) => {
+          const link = document.createElement('a');
+          link.className = 'booking-slot';
+          link.href = calUrl + '?date=' + selected;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = timeFmt.format(slot);
+          list.append(link);
+        });
+      timesEl.append(list);
+    };
+
+    const render = () => {
+      const start = new Date(pageStart);
+      const end = addDays(start, 13);
+
+      rangeEl.textContent = rangeFmt.format(start) + ' – ' + rangeFmt.format(end);
+      prevBtn.disabled = start.getTime() <= weekStart.getTime();
+
+      grid.innerHTML = '';
+
+      let firstOpen = null;
+
+      for (let i = 0; i < 14; i += 1) {
+        const date = addDays(start, i);
+        const key = iso(date);
+        const hasSlots = (slotsByDay.get(key) || []).length > 0;
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'booking-day';
+        button.textContent = String(date.getDate());
+        button.dataset.date = key;
+        button.setAttribute('aria-label', dayFmt.format(date));
+
+        if (date < today || (!hasSlots && !loading)) button.disabled = true;
+        if (loading) button.classList.add('is-loading');
+        if (date.getTime() === today.getTime()) button.classList.add('is-today');
+        if (hasSlots) button.classList.add('has-slots');
+        if (key === selected) button.classList.add('is-selected');
+        if (!firstOpen && hasSlots) firstOpen = key;
+
+        button.addEventListener('click', () => {
+          selected = key;
+          render();
+          renderTimes();
+        });
+
+        grid.append(button);
+      }
+
+      if (selected && !slotsByDay.has(selected)) selected = null;
+      if (!selected && firstOpen) selected = firstOpen;
+
+      renderTimes();
+    };
+
+    const load = async () => {
+      loading = true;
+      failed = false;
+      render();
+
+      try {
+        await fetchWindow(pageStart);
+        await fetchWindow(addDays(pageStart, 7));
+      } catch (error) {
+        failed = true;
+      } finally {
+        loading = false;
+        render();
+      }
+    };
+
+    prevBtn.addEventListener('click', () => {
+      if (pageStart.getTime() <= weekStart.getTime()) return;
+      pageStart = addDays(pageStart, -7);
+      selected = null;
+      load();
     });
 
-    Cal('ui', {
-      theme: theme,
-      layout: 'month_view',
-      hideEventTypeDetails: false,
-      cssVarsPerTheme: {
-        dark: {
-          'cal-brand': '#f5a623',
-          'cal-brand-emphasis': '#ffbc55',
-          'cal-brand-text': '#101a2b',
-          'cal-brand-subtle': '#8a5f14',
-          'cal-brand-accent': '#101a2b',
-
-          'cal-text': '#eaf0f8',
-          'cal-text-emphasis': '#eaf0f8',
-          'cal-text-subtle': '#a5b8cf',
-          'cal-text-muted': '#7f97b3',
-          'cal-text-inverted': '#101a2b',
-
-          'cal-bg': '#122135',
-          'cal-bg-emphasis': '#16293f',
-          'cal-bg-subtle': '#16293f',
-          'cal-bg-muted': '#0f1c2e',
-          'cal-bg-inverted': '#eaf0f8',
-
-          'cal-border': '#23384f',
-          'cal-border-emphasis': '#3a5471',
-          'cal-border-subtle': '#23384f',
-          'cal-border-muted': '#1b2c40',
-
-          'cal-border-booker': 'transparent',
-          'cal-border-booker-width': '0px',
-
-          radius: '10px',
-        },
-        light: {
-          'cal-brand': '#f5a623',
-          'cal-brand-emphasis': '#e79a12',
-          'cal-brand-text': '#101a2b',
-          'cal-brand-subtle': '#ffd591',
-          'cal-brand-accent': '#101a2b',
-
-          'cal-text': '#0e1b2b',
-          'cal-text-emphasis': '#0e1b2b',
-          'cal-text-subtle': '#42586d',
-          'cal-text-muted': '#576c80',
-          'cal-text-inverted': '#ffffff',
-
-          'cal-bg': '#ffffff',
-          'cal-bg-emphasis': '#f6f9fa',
-          'cal-bg-subtle': '#f6f9fa',
-          'cal-bg-muted': '#eef2f4',
-          'cal-bg-inverted': '#0e1b2b',
-
-          'cal-border': '#d2dde5',
-          'cal-border-emphasis': '#9fb4c5',
-          'cal-border-subtle': '#d2dde5',
-          'cal-border-muted': '#e6edf2',
-
-          'cal-border-booker': 'transparent',
-          'cal-border-booker-width': '0px',
-
-          radius: '10px',
-        },
-      },
+    nextBtn.addEventListener('click', () => {
+      pageStart = addDays(pageStart, 7);
+      selected = null;
+      load();
     });
+
+    load();
   })();
 </script>
 
@@ -259,7 +366,7 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 </style>
 
 <style is:global>
-  /* Cal.com inline booking embed */
+  /* Two-week availability calendar, two rows of seven days. */
   .booking {
     background: var(--panel);
     border: 1px solid var(--line);
@@ -274,7 +381,7 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem 1.25rem;
-    padding: 1rem 1.15rem;
+    padding: 0.9rem 1.15rem;
     background: var(--panel-raised);
     border-bottom: 1px solid var(--line);
   }
@@ -291,42 +398,179 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
     display: block;
     margin-top: 0.1rem;
     color: var(--ink-dim);
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
   }
 
-  .booking-external {
-    display: inline-flex;
+  .booking-nav {
+    display: flex;
     align-items: center;
-    gap: 0.3rem;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    gap: 0.5rem;
+  }
+
+  .booking-nav button {
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel);
     color: var(--ink-soft);
-    text-decoration: none;
-    white-space: nowrap;
+    font-size: 0.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
   }
 
-  .booking-external svg {
-    width: 0.7rem;
-    height: 0.7rem;
-  }
-
-  .booking-external:hover {
+  .booking-nav button:hover:not(:disabled) {
+    border-color: var(--accent);
     color: var(--accent);
   }
 
-  .booking-embed {
-    min-height: 30rem;
-    background: var(--panel);
-    color: var(--ink);
+  .booking-nav button:disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 
-  .booking-embed iframe {
-    width: 100%;
-    border: 0;
+  .booking-range {
+    min-width: 8rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .booking-grid {
+    padding: 0.9rem 1.15rem 0.6rem;
+  }
+
+  .booking-weekdays,
+  .booking-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.3rem;
+  }
+
+  .booking-weekdays {
+    margin-bottom: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    text-align: center;
+  }
+
+  .booking-day {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    min-height: 2.2rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .booking-day:hover:not(:disabled) {
+    border-color: var(--line-strong);
+    background: var(--panel-raised);
+  }
+
+  .booking-day:disabled {
+    color: var(--line-strong);
+    cursor: default;
+  }
+
+  .booking-day.has-slots {
+    border-color: var(--line);
+    background: var(--panel-raised);
+  }
+
+  .booking-day.is-loading {
+    opacity: 0.45;
+  }
+
+  .booking-day.is-today {
+    border-color: rgba(245, 166, 35, 0.45);
+    color: var(--accent);
+  }
+
+  .booking-day.is-selected {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+
+  .booking-times {
+    border-top: 1px solid var(--line);
+    padding: 0.75rem 1.15rem 0.85rem;
+  }
+
+  .booking-empty {
+    margin: 0;
+    color: var(--ink-dim);
+    font-size: 0.8125rem;
+  }
+
+  .booking-empty a {
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .booking-times-label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .booking-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    max-height: 7.5rem;
+    overflow-y: auto;
+  }
+
+  .booking-slot {
+    padding: 0.3rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--panel-raised);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease,
+      background-color 140ms ease;
+  }
+
+  .booking-slot:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
   }
 
   .booking-note {
-    padding: 0.65rem 1.15rem 0.85rem;
+    padding: 0.55rem 1.15rem 0.75rem;
     border-top: 1px solid var(--line);
     color: var(--ink-dim);
     font-size: 0.75rem;
@@ -340,5 +584,22 @@ const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 
   .booking-note a:hover {
     color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .booking-weekdays,
+    .booking-days {
+      gap: 0.25rem;
+    }
+
+    .booking-day {
+      min-height: 2rem;
+      font-size: 0.75rem;
+    }
+
+    .booking-range {
+      min-width: 7rem;
+      font-size: 0.5625rem;
+    }
   }
 </style>

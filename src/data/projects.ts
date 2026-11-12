@@ -36,6 +36,8 @@ export interface SideProject {
   repoUrl?: string;
   /** Live demo or playable build */
   demoUrl?: string;
+  /** Project page on this site */
+  buildUrl?: string;
   /** `large` renders as the feature card above the grid */
   size?: 'large' | 'small';
   featured: boolean;
@@ -47,6 +49,7 @@ export interface SiteConfig {
   role: string;
   email: string;
   calendarUrl: string;
+  calendarEventTypeId: number;
   githubUrl: string;
   responseTime: string;
 }
@@ -56,6 +59,7 @@ export const siteConfig: SiteConfig = {
   role: 'n8n automation architect',
   email: 'kristiandyanbusiness@gmail.com',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
+  calendarEventTypeId: 7623308,
   githubUrl: 'https://github.com/inodepi',
   responseTime: 'Replies within one business day',
 };
@@ -119,7 +123,8 @@ export const sideProjects: SideProject[] = [
       'A production, dependency-free agent console for Telnyx WebRTC outbound calling — sign in, place real calls and manage the full call lifecycle from the browser.',
     stack: ['Telnyx WebRTC', 'Vanilla JS', 'Agent console'],
     demoUrl: '/happyfone-webui/app/',
-    repoUrl: '/happyfone-webui/',
+    repoUrl: 'https://github.com/inodepi/happyfone-webui',
+    buildUrl: '/happyfone-webui/',
     linkLabel: 'View the build',
     size: 'large',
     featured: true,
@@ -132,8 +137,9 @@ export const sideProjects: SideProject[] = [
       'Pick one of nine classes, sweep the static and survive the Algorithm — room-code co-op on a token-guarded Vercel room desk.',
     stack: ['Browser game', 'Co-op'],
     demoUrl: '/adblock-island/game/',
-    repoUrl: '/adblock-island/',
-    linkLabel: 'Play it',
+    repoUrl: 'https://github.com/inodepi/adblock-island',
+    buildUrl: '/adblock-island/',
+    linkLabel: 'View the build',
     featured: true,
     hue: 'amber',
   },
@@ -144,7 +150,8 @@ export const sideProjects: SideProject[] = [
       'Follow the shuffle. Six modes, 15 medals and one very smug coin — a pixel-art card monte in a single page, no build and no backend.',
     stack: ['Canvas', 'Vanilla JS'],
     demoUrl: '/tippy-card-monte/game/',
-    linkLabel: 'Play it',
+    buildUrl: '/tippy-card-monte/',
+    linkLabel: 'View the build',
     featured: true,
     hue: 'violet',
   },

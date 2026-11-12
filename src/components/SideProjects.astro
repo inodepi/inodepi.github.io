@@ -46,10 +46,8 @@ const featureUrl = feature?.demoUrl
                 </svg>
               </a>
             )}
-            {feature.repoUrl && (
-              <a class="btn btn-secondary" href={feature.repoUrl} target="_blank" rel="noopener noreferrer">
-                View source
-              </a>
+            {feature.buildUrl && (
+              <a class="btn btn-secondary" href={feature.buildUrl}>View the build</a>
             )}
           </div>
         </div>
@@ -59,8 +57,8 @@ const featureUrl = feature?.demoUrl
     {rest.length > 0 ? (
       <ul class="side-grid">
         {rest.map((project) => {
-          const href = project.demoUrl ?? project.repoUrl ?? '#';
-          const label = project.linkLabel ?? (project.demoUrl ? 'Play it' : 'View repository');
+          const href = project.buildUrl ?? project.demoUrl ?? project.repoUrl ?? '#';
+          const label = project.linkLabel ?? (project.buildUrl ? 'View the build' : project.demoUrl ? 'Play it' : 'View repository');
           return (
             <li class="side-card" style={`--hue:var(--node-${project.hue})`}>
               <span class="side-mark" aria-hidden="true"></span>
