@@ -1,6 +1,5 @@
 ---
 import { siteConfig } from '../data/projects';
-import FeaturedRotator from './FeaturedRotator.astro';
 ---
 
 <section class="hero">
@@ -36,7 +35,18 @@ import FeaturedRotator from './FeaturedRotator.astro';
     </div>
 
     <div class="hero-visual">
-      <FeaturedRotator />
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/videos/hero-intro.jpg"
+        aria-label="Short introduction: loops in your operations, and the automations that close them."
+      >
+        <source src="/videos/hero-intro.mp4" type="video/mp4" />
+      </video>
     </div>
   </div>
 </section>
@@ -169,6 +179,33 @@ import FeaturedRotator from './FeaturedRotator.astro';
   .hero-visual {
     display: grid;
     gap: 0.85rem;
+  }
+
+  .hero-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+    object-fit: cover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+
+    .hero-visual::after {
+      content: '';
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: url('/videos/hero-intro.jpg') center / cover no-repeat;
+    }
   }
 
 
