@@ -68,13 +68,13 @@ export const siteConfig: SiteConfig = {
 
 export const automationRepos: AutomationRepo[] = [
   {
-    id: 'voice-receptionist',
-    title: 'AI Voice Receptionist',
-    problem: 'Missed calls cost appointment-based businesses real revenue.',
-    stack: ['n8n', 'Retell'],
+    id: 'omnichannel-receptionist',
+    title: 'Omnichannel AI Receptionist',
+    problem: 'Customers ask on every channel; only some get answered.',
+    stack: ['n8n', 'Telegram', 'WhatsApp', 'Email', 'Calendar'],
     summary:
-      'Answers missed and after-hours calls, captures structured intake, books appointments and logs every call — built on n8n over a shared Retell voice layer. HIPAA-compliant build available.',
-    repoUrl: '/voice-receptionist/',
+      'One receptionist brain across voice, chat and email — any model, any channel. Remembers each customer, books real slots, logs every conversation and alerts the team.',
+    repoUrl: '/omnichannel-receptionist/',
     linkLabel: 'View the build',
     featured: true,
     hue: 'teal',

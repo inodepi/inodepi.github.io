@@ -1,0 +1,776 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../data/projects';
+
+const base = import.meta.env.BASE_URL;
+const voiceUrl = '/voice-receptionist/';
+
+const badges = ['Omnichannel — voice + chat + email', 'Built on n8n', 'Model-agnostic — any LLM'];
+
+const useCases = [
+  {
+    title: 'Chat-first intake',
+    body: 'Customers who open a website chat or send a Telegram message get the same answers, the same slots and the same memory as callers.',
+  },
+  {
+    title: 'Inbox triage',
+    body: 'Patient emails are read, answered with real availability and filed — without anyone copying details into the calendar by hand.',
+  },
+  {
+    title: 'After-hours coverage',
+    body: 'Evenings, weekends and lunch rushes are covered on every channel, not just the phone.',
+  },
+  {
+    title: 'Escalation that holds',
+    body: 'Emergencies, legal mentions and upset customers are flagged to a human on the same channel, every time.',
+  },
+];
+
+const capabilities = [
+  'One brain across voice, chat and email — Telegram, WhatsApp, website chat, SMS',
+  'Shared conversation memory per customer, so switching channels never means repeating yourself',
+  'Checks the real calendar and offers genuine slots before it promises anything',
+  'Books only after the customer explicitly confirms',
+  'Escalates emergencies, legal mentions and upset customers to a human',
+  'Logs every conversation to one sheet, shared with the voice receptionist',
+  'Model-agnostic — the AI layer is swappable without touching the workflow',
+  'New channels are an added trigger and route, not a rebuild',
+];
+
+const stack = ['n8n', 'Telegram', 'WhatsApp', 'Website chat', 'Email', 'SMS', 'Calendar', 'Model-agnostic'];
+
+const nodes = [
+  { x: 16, y: 28, w: 180, h: 64, label: 'Telegram + chat', sub: 'inbound messages', hue: '#46cfc0' },
+  { x: 16, y: 128, w: 180, h: 64, label: 'Email + SMS', sub: 'patient inbox', hue: '#ff7f9f' },
+  { x: 246, y: 84, w: 176, h: 82, label: 'n8n workflow', sub: 'one brain, every channel', hue: '#f5a623' },
+  { x: 468, y: 26, w: 158, h: 64, label: 'AI model', sub: 'your choice', hue: '#46cfc0' },
+  { x: 468, y: 136, w: 158, h: 64, label: 'Calendar + log', sub: 'book, log, alert', hue: '#ff7f9f' },
+];
+
+const links = [
+  'M196 60 C 222 60, 222 108, 246 112',
+  'M196 160 C 222 160, 222 136, 246 136',
+  'M422 108 C 448 108, 444 58, 468 58',
+  'M422 126 C 448 126, 444 168, 468 168',
+];
+
+const ports = [
+  [196, 60], [196, 160], [246, 112], [246, 136],
+  [422, 108], [422, 126], [468, 58], [468, 168],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'Omnichannel AI Receptionist',
+    description:
+      'An omnichannel AI receptionist built on n8n: answers voice, chat and email, remembers each customer across channels, books real calendar slots, logs every conversation and alerts the team.',
+    url: 'https://inodepi.github.io/omnichannel-receptionist/',
+    author: {
+      '@type': 'Person',
+      name: 'Christian John',
+      url: 'https://inodepi.github.io/',
+    },
+    keywords: 'n8n, omnichannel, AI receptionist, Telegram, WhatsApp, website chat, email, SMS, Google Calendar',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'inodepi',
+      url: 'https://inodepi.github.io/',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://inodepi.github.io/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Omnichannel AI Receptionist',
+        item: 'https://inodepi.github.io/voice-receptionist/',
+      },
+    ],
+  },
+];
+---
+
+<Base
+  title="Omnichannel AI Receptionist — inodepi"
+  description="An omnichannel AI receptionist built on n8n: answers voice, chat and email, remembers each customer across channels, books real calendar slots, logs every conversation and alerts the team."
+  jsonLd={jsonLd}
+>
+  <article class="project">
+    <header class="proj-hero">
+      <div class="container">
+        <a class="btn btn-secondary proj-back" href={`${base}`}>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          Back to home
+        </a>
+
+        <div class="proj-hero-grid">
+          <div class="proj-copy">
+            <p class="proj-kicker">n8n automation</p>
+            <h1>Omnichannel AI Receptionist</h1>
+            <p class="proj-tagline">
+              One brain across voice, chat and email. Book the slot. Log the loop. Alert the team.
+            </p>
+
+            <ul class="proj-badges">
+              {badges.map((badge, index) => (
+                <li class:list={['proj-badge', index === 0 && 'proj-badge--accent']}>{badge}</li>
+              ))}
+            </ul>
+
+            <div class="proj-actions">
+              <a class="btn btn-primary" href={`${base}#contact`}>Book a discovery call</a>
+              <a class="btn btn-secondary" href={voiceUrl}>
+                See the voice build
+              </a>
+            </div>
+          </div>
+
+          <div class="proj-visual">
+            <div class="proj-canvas-bar">
+              <span class="proj-canvas-name">omnichannel.workflow</span>
+              <span class="proj-canvas-tag">n8n</span>
+              <span class="proj-canvas-status"><i aria-hidden="true"></i>live</span>
+            </div>
+
+            <div class="proj-canvas-scroll">
+              <div class="proj-canvas">
+                <svg viewBox="0 0 640 300" role="img" aria-label="Workflow: a missed call goes to the Retell agent, then the n8n workflow books a slot in Google Calendar and logs the call with a Gmail alert.">
+                  <g class="proj-links">
+                    {links.map((d) => <path d={d} />)}
+                  </g>
+                  <g class="proj-ports">
+                    {ports.map(([cx, cy]) => <circle cx={cx} cy={cy} r="3.1" />)}
+                  </g>
+                  <g class="proj-pulses">
+                    <circle class="proj-pulse" r="3">
+                      <animateMotion path="M106 98 C 106 132, 106 148, 106 182" dur="3.6s" begin="-0.8s" repeatCount="indefinite" />
+                    </circle>
+                    <circle class="proj-pulse" r="3">
+                      <animateMotion path="M422 128 C 448 128, 444 58, 468 58" dur="3.6s" begin="-2.4s" repeatCount="indefinite" />
+                    </circle>
+                  </g>
+                  <g class="proj-nodes">
+                    {nodes.map((node) => (
+                      <g class:list={[node.label === 'n8n workflow' && 'is-core']}>
+                        <rect class="proj-node" x={node.x} y={node.y} width={node.w} height={node.h} rx="6" />
+                        <rect x={node.x + 10} y={node.y + 14} width="4" height={node.h - 28} rx="2" fill={node.hue} />
+                        <text class="proj-node-label" x={node.x + 24} y={node.y + 27}>{node.label}</text>
+                        <text class="proj-node-sub" x={node.x + 24} y={node.y + 45}>{node.sub}</text>
+                      </g>
+                    ))}
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <p class="proj-canvas-note">One brain. Every channel. Booked, logged, escalated.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container proj-layout">
+      <div class="proj-main">
+        <section class="proj-section">
+          <h2>Overview</h2>
+          <figure class="proj-video">
+            <video
+              controls
+              preload="metadata"
+              playsinline
+              poster={`${base}videos/omnichannel-receptionist.jpg`}
+              width="1920"
+              height="1080"
+            >
+              <source src={`${base}videos/omnichannel-receptionist.mp4`} type="video/mp4" />
+              Your browser cannot play this film.
+              <a href={`${base}videos/omnichannel-receptionist.mp4`}>Download it</a>.
+            </video>
+            <figcaption>Narrated build overview · 1:16</figcaption>
+          </figure>
+        </section>
+
+        <section class="proj-section" id="use-cases">
+          <h2>Use cases</h2>
+          <div class="proj-cases">
+            {useCases.map((useCase) => (
+              <article class="proj-case">
+                <h3>{useCase.title}</h3>
+                <p>{useCase.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="proj-section">
+          <h2>What it does</h2>
+          <ul class="proj-list">
+            {capabilities.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+
+        <section class="proj-section">
+          <h2>How it’s built</h2>
+          <p>
+            Every channel has its own trigger — voice through the receptionist layer, chat through
+            a website widget, Telegram and WhatsApp through their bots, email through the inbox,
+            SMS through a provider. Each one normalizes the message into the same shape and hands it
+            to a single workflow.
+          </p>
+          <p>
+            From there it is one brain: the conversation history is loaded per customer, an AI model
+            writes the next reply, and calendar tools check availability and book only after the
+            customer confirms. Replies route back on the channel the message came from; everything
+            is logged to one sheet and alerts go out to the team.
+          </p>
+          <p>
+            The AI model is interchangeable, and new channels are an added trigger and route —
+            WhatsApp and SMS already have their placeholders wired.
+          </p>
+          <p class="proj-disclaimer">
+            Built on n8n. The voice layer is its own workflow — see the
+            <a href={voiceUrl}>voice build</a> for the call-side detail.
+          </p>
+        </section>
+
+        <section class="proj-section">
+          <h2>What stays configurable</h2>
+          <p>
+            Business hours, services, tone, escalation rules and which channels are live are all
+            configuration. The model can be swapped without touching the workflow, and channels can
+            be added or removed per client — the loop stays the same.
+          </p>
+        </section>
+      </div>
+
+      <aside class="proj-side" aria-label="Build details">
+        <div class="proj-side-card">
+          <h2>Stack</h2>
+          <ul class="proj-stack">
+            {stack.map((tool) => <li class="tag">{tool}</li>)}
+          </ul>
+        </div>
+
+        <div class="proj-side-card">
+          <h2>Links</h2>
+          <ul class="proj-links">
+            <li><a href={voiceUrl}>Voice build ↗</a></li>
+            <li><a href={`${base}#work`}>All builds →</a></li>
+          </ul>
+        </div>
+
+        <div class="proj-side-card">
+          <h2>Category</h2>
+          <p class="proj-side-text">Automations · voice + chat + email</p>
+        </div>
+
+        <div class="proj-side-card proj-side-cta">
+          <h2>Like this build?</h2>
+          <p class="proj-side-text">Start with a 15-minute discovery call.</p>
+          <a class="btn btn-primary" href={`${base}#contact`}>Book a call</a>
+        </div>
+      </aside>
+    </div>
+
+    <section class="proj-cta">
+      <div class="container">
+        <div class="proj-cta-inner">
+          <div>
+            <h2>One receptionist. Every channel.</h2>
+            <p>Bring your channels and your calendar; leave with a plan for the loops leaking customers today.</p>
+          </div>
+          <a class="btn btn-primary" href={`${base}#contact`}>Book a discovery call</a>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .proj-hero {
+    padding-block: clamp(2.25rem, 5vw, 3.5rem) clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .proj-back {
+    margin-bottom: 1.75rem;
+    min-height: 2.4rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8125rem;
+    gap: 0.45rem;
+    width: fit-content;
+  }
+
+  .proj-back svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  .proj-hero-grid {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1020px) {
+    .proj-hero-grid {
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    }
+  }
+
+  .proj-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.32rem 0.7rem 0.32rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .proj-kicker::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.14);
+  }
+
+  .proj-copy h1 {
+    margin-top: 0.9rem;
+    font-size: clamp(2.5rem, 1.5rem + 3.8vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    max-width: 14ch;
+  }
+
+  .proj-tagline {
+    margin-top: 1rem;
+    max-width: 40ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .proj-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+
+  .proj-badge {
+    padding: 0.24rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+  }
+
+  .proj-badge--accent {
+    border-color: rgba(245, 166, 35, 0.4);
+    color: var(--accent);
+  }
+
+  .proj-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.6rem;
+  }
+
+  /* Workflow visual */
+  .proj-visual {
+    background: var(--panel);
+    border: 1px solid rgba(245, 166, 35, 0.22);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px -44px rgba(245, 166, 35, 0.28),
+      0 26px 60px -34px rgba(0, 0, 0, 0.85);
+  }
+
+  .proj-canvas-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.7rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-raised);
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    color: var(--ink-dim);
+  }
+
+  .proj-canvas-tag {
+    padding: 0.06rem 0.3rem;
+    border: 1px solid rgba(245, 166, 35, 0.4);
+    border-radius: 3px;
+    color: var(--accent);
+    font-size: 0.5rem;
+  }
+
+  .proj-canvas-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: auto;
+    color: var(--node-teal);
+    font-size: 0.5rem;
+  }
+
+  .proj-canvas-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: proj-breathe 2.8s ease-in-out infinite;
+  }
+
+  .proj-canvas-scroll {
+    overflow: hidden;
+    background-color: var(--bg);
+    background-image: radial-gradient(rgba(140, 170, 209, 0.18) 1px, transparent 1.2px);
+    background-size: 18px 18px;
+  }
+
+  .proj-canvas {
+    width: 100%;
+    aspect-ratio: 640 / 300;
+  }
+
+  .proj-canvas svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .proj-links path {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+
+  .proj-ports circle {
+    fill: var(--panel);
+    stroke: var(--line-strong);
+    stroke-width: 1.2;
+  }
+
+  .proj-pulse {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.8));
+  }
+
+  .proj-node {
+    fill: var(--panel-raised);
+    stroke: var(--line-strong);
+    stroke-width: 1.1;
+  }
+
+  .proj-nodes .is-core .proj-node {
+    stroke: rgba(245, 166, 35, 0.55);
+  }
+
+  .proj-node-label {
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .proj-node-sub {
+    fill: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+  }
+
+  .proj-canvas-note {
+    padding: 0.6rem 0.85rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+  }
+
+  @keyframes proj-breathe {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.8);
+    }
+  }
+
+  /* Layout */
+  .proj-layout {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 1000px) {
+    .proj-layout {
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .proj-main > .proj-section + .proj-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .proj-section h2 {
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  }
+
+  .proj-section > p {
+    margin-top: 0.7rem;
+    max-width: 64ch;
+    color: var(--ink-soft);
+    font-size: 0.9688rem;
+    line-height: 1.7;
+  }
+
+  .proj-video {
+    margin: 1.25rem 0 0;
+  }
+
+  .proj-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .proj-video figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+  }
+
+  .proj-cases {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .proj-cases {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .proj-case {
+    padding: 1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .proj-case h3 {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .proj-case p {
+    margin-top: 0.35rem;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .proj-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proj-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .proj-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .proj-disclaimer {
+    margin-top: 1rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid rgba(245, 166, 35, 0.45);
+    color: var(--ink-dim) !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Sidebar */
+  .proj-side {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1000px) {
+    .proj-side {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .proj-side-card {
+    padding: 1.1rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .proj-side-card h2 {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .proj-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.65rem;
+  }
+
+  .proj-links {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+  }
+
+  .proj-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    width: fit-content;
+    padding-bottom: 1px;
+  }
+
+  .proj-links a:hover {
+    color: var(--accent);
+  }
+
+  .proj-side-text {
+    margin-top: 0.5rem;
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+  }
+
+  .proj-side-cta .btn {
+    margin-top: 0.8rem;
+    min-height: 2.6rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  /* Closing CTA */
+  .proj-cta {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .proj-cta-inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem 2rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--panel);
+    border: 1px solid rgba(245, 166, 35, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .proj-cta-inner::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 26rem;
+    height: 26rem;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.14), transparent 65%);
+    pointer-events: none;
+  }
+
+  .proj-cta-inner > * {
+    position: relative;
+  }
+
+  .proj-cta-inner h2 {
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  }
+
+  .proj-cta-inner p {
+    margin-top: 0.4rem;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj-pulses {
+      display: none;
+    }
+
+    .proj-canvas-status i {
+      animation: none;
+    }
+  }
+</style>
