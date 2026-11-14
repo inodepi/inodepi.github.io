@@ -35,21 +35,67 @@ import { siteConfig } from '../data/projects';
     </div>
 
     <div class="hero-visual">
-      <video
-        class="hero-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        poster="/videos/hero-intro.jpg"
-        aria-label="Short introduction: loops in your operations, and the automations that close them."
-      >
-        <source src="/videos/hero-intro.mp4" type="video/mp4" />
-      </video>
+      <button class="hero-video-btn" type="button" data-hero-open aria-label="Play the introduction with sound">
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/videos/hero-intro.jpg"
+          aria-hidden="true"
+        >
+          <source src="/videos/hero-intro.mp4" type="video/mp4" />
+        </video>
+        <span class="hero-video-hint" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M4.5 2.8 13 8l-8.5 5.2z" fill="currentColor"></path></svg>
+          Watch with sound
+        </span>
+      </button>
     </div>
   </div>
 </section>
+
+<dialog class="hero-modal" id="hero-video-modal" aria-label="Introduction video">
+  <button class="hero-modal-close" type="button" data-hero-close aria-label="Close video">✕</button>
+  <video class="hero-modal-player" controls playsinline preload="none" poster="/videos/hero-intro.jpg">
+    <source src="/videos/hero-intro.mp4" type="video/mp4" />
+  </video>
+</dialog>
+
+<script>
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-hero-open]');
+  const modal = document.getElementById('hero-video-modal') as HTMLDialogElement | null;
+  const player = modal?.querySelector('video') ?? null;
+  const heroVideo = openBtn?.querySelector('video') ?? null;
+  const closeBtn = modal?.querySelector<HTMLButtonElement>('[data-hero-close]');
+
+  if (openBtn && modal && player) {
+    openBtn.addEventListener('click', () => {
+      modal.showModal();
+      player.currentTime = 0;
+      player.play().catch(() => {});
+      heroVideo?.pause();
+    });
+
+    const close = () => {
+      modal.close();
+      player.pause();
+      heroVideo?.play().catch(() => {});
+    };
+
+    closeBtn?.addEventListener('click', close);
+    modal.addEventListener('close', close);
+
+    modal.addEventListener('click', (event) => {
+      const rect = player.getBoundingClientRect();
+      const { clientX: x, clientY: y } = event as MouseEvent;
+      const outside = x < rect.left || x > rect.right || y < rect.top || y > rect.bottom;
+      if (outside && event.target !== closeBtn) close();
+    });
+  }
+</script>
 
 <style>
   .hero {
@@ -181,6 +227,51 @@ import { siteConfig } from '../data/projects';
     gap: 0.85rem;
   }
 
+  .hero-video-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: 18px;
+  }
+
+  .hero-video-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .hero-video-hint {
+    position: absolute;
+    inset: auto 1rem 1rem auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: rgba(12, 23, 39, 0.82);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .hero-video-hint svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--accent);
+  }
+
+  .hero-video-btn:hover .hero-video-hint,
+  .hero-video-btn:focus-visible .hero-video-hint {
+    transform: translateY(-2px);
+    background: rgba(18, 33, 53, 0.95);
+  }
+
   .hero-video {
     display: block;
     width: 100%;
@@ -190,6 +281,50 @@ import { siteConfig } from '../data/projects';
     background: var(--panel);
     box-shadow: var(--shadow);
     object-fit: cover;
+  }
+
+  .hero-modal {
+    width: min(92vw, 1200px);
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 18px;
+    background: var(--bg);
+    box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.9);
+    overflow: visible;
+  }
+
+  .hero-modal::backdrop {
+    background: rgba(6, 12, 22, 0.82);
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-modal-player {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 17px;
+    background: #000;
+  }
+
+  .hero-modal-close {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--panel);
+    color: var(--ink);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .hero-modal-close:hover {
+    background: var(--panel-raised);
+    color: var(--accent);
   }
 
   @media (prefers-reduced-motion: reduce) {
