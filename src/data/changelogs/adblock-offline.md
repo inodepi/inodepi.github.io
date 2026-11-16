@@ -45,6 +45,15 @@ Until then, the honest description is: a single-player and local co-op cozy micr
 
 ---
 
+## v0.10.0 — GitHub build matches the online beta (2026-11-16)
+
+The GitHub Pages copy is no longer the old halloween build. It now ships the same single `index.html` as the Vercel version, so both servers run one game again.
+
+- Halloween theme, pumpkin decor and the autumn palette are gone; the island keeps its normal look year-round.
+- Ships everything from the online-beta line: waves ladder and wave cards, same-keyboard co-op, free aim with assist, nine classes with distinct kits, Mania mode, boss ladders and the Endless checkpoints.
+- Branding is now `inodepi` everywhere on the title card and the help panel.
+- **Co-op needs the hosted desk.** Room codes, the kindness wall and host handover call `/api/signaling`, which only exists on the Vercel deployment. On Pages those panels answer with "the lobby desk is not answering"; single-player and Mania work fully.
+
 ## v0.9.8 — Fullscreen option (2026-11-04)
 
 A small title-screen and settings addition. No gameplay changes.

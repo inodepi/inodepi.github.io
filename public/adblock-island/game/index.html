@@ -4,29 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#bde8f2">
-<meta name="description" content="AdBlock Island — a wholesome micro-MMO in beta (v0.9.8). Nine classes, a south-shore dock, and a Halloween theme. Clear the static and leave a kind note on the beach.">
+<meta name="description" content="AdBlock Island — a wholesome micro-RPG in beta (v0.10.0). Nine classes and a south-shore dock. Clear the static and leave a kind note on the beach.">
 <meta name="author" content="inodepi">
 <meta name="application-name" content="AdBlock Island">
 <meta name="apple-mobile-web-app-title" content="AdBlock Island">
 <meta name="color-scheme" content="light">
-<link rel="canonical" href="/adblock-island/game/">
+<link rel="canonical" href="https://inodepi.github.io/adblock-island/">
 <meta property="og:site_name" content="AdBlock Island">
-<meta property="og:title" content="AdBlock Island · a wholesome micro-MMO (beta)">
-<meta property="og:description" content="The ads took the beach. Pick one of nine classes, meet two companions, and clear the static. A single-file micro-MMO, in beta.">
+<meta property="og:title" content="AdBlock Island · a wholesome micro-RPG (beta)">
+<meta property="og:description" content="The ads took the beach. Pick one of nine classes, meet two companions, and clear the static. A single-file micro-RPG, in beta.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="/adblock-island/game/">
+<meta property="og:url" content="https://inodepi.github.io/adblock-island/">
 <meta property="og:locale" content="en_GB">
-<meta property="og:image" content="/adblock-island/game/social-card.jpg">
+<meta property="og:image" content="https://inodepi.github.io/adblock-island/social-card.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The AdBlock Island title screen: a pastel drawing of the island, the game logo, a beta badge, and a wash ashore button.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AdBlock Island · a wholesome micro-MMO (beta)">
+<meta name="twitter:title" content="AdBlock Island · a wholesome micro-RPG (beta)">
 <meta name="twitter:description" content="The ads took the beach. Pick one of nine classes, meet two companions, and clear the static.">
-<meta name="twitter:image" content="/adblock-island/game/social-card.jpg">
+<meta name="twitter:image" content="https://inodepi.github.io/adblock-island/social-card.jpg">
 <meta name="twitter:image:alt" content="The AdBlock Island title screen with the beta badge and wash ashore button.">
-<title>AdBlock Island · a wholesome micro-MMO (beta)</title>
+<title>AdBlock Island · a wholesome micro-RPG (beta)</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23fff8ec'/%3E%3Cpath d='M8 40c8-6 16 6 24 0s16 6 24 0v16H8z' fill='%238ad7e8'/%3E%3Ccircle cx='32' cy='28' r='12' fill='%23ffd98a'/%3E%3Cpath d='M32 18l7 5-2 9h-10l-2-9z' fill='%23ff9eb5'/%3E%3C/svg%3E">
 <style>
 /* ============================================================
@@ -227,21 +227,24 @@ button{cursor:pointer;border:0;background:none}
   background:var(--sun);box-shadow:0 0 0 2px rgba(255,255,255,.35);
 }
 .beta-pill b{font-weight:900;color:var(--sun);text-transform:none;letter-spacing:.06em}
-/* Mania is the loud one: black label, hot edge, and a warning note. */
-.mania-pill{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--ui);font-size:10px;font-weight:900;letter-spacing:.18em;
-  text-transform:uppercase;color:#fff2f6;
-  background:#3a2030;border:2px solid var(--line);border-radius:99px;
-  padding:4px 11px;transform:rotate(-1deg);
-  box-shadow:2px 2px 0 rgba(60,52,83,.28), inset 0 0 0 1px rgba(255,92,138,.35);
+.room-code{
+  display:inline-block;font-family:var(--ui);font-weight:900;font-size:clamp(22px,4vw,30px);
+  letter-spacing:.28em;color:var(--ink);background:var(--paper-2);
+  border:2px dashed var(--line);border-radius:10px;padding:8px 14px 8px 20px;
 }
-.mania-note{
-  display:inline-block;margin-top:10px;padding:5px 9px;
-  border:2px dashed rgba(194,55,95,.55);border-radius:8px;
-  background:rgba(255,227,234,.55);color:#8a2440;
-  font-family:var(--ui);font-size:9px;letter-spacing:.06em;line-height:1.5;
-}
+.net-line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:2px solid rgba(60,52,83,.14);border-radius:8px;background:var(--paper-2);margin:6px 0;font-family:var(--ui);font-size:11px}
+.net-line b{font-size:12px}
+.net-dot{width:9px;height:9px;border-radius:50%;background:#c9b9a5;flex:0 0 9px}
+.net-dot.on{background:#3f9a73;box-shadow:0 0 0 3px rgba(63,154,115,.18)}
+.net-dot.wait{background:var(--sun)}
+.net-hint{font-size:10px;color:var(--ink-faint);line-height:1.6;margin:10px 0 0}
+.net-row{display:flex;gap:8px;align-items:center;margin:10px 0}
+.net-input{flex:1;min-width:0;font-family:var(--ui);font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase;padding:10px 12px;border:2px solid var(--line);border-radius:8px;background:var(--paper-2);color:var(--ink)}
+.net-shop{display:grid;gap:8px;margin-top:6px}
+.net-shop .big-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left}
+.net-shop .big-btn small{font-family:var(--body,var(--ui));font-weight:600;font-size:10px;letter-spacing:0;text-transform:none;opacity:.72}
+.net-chat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.net-chat .btn{width:100%;justify-content:center}
 @keyframes betaPop{0%,100%{transform:rotate(1.5deg) scale(1)}50%{transform:rotate(1.5deg) scale(1.04)}}
 h1.logo{
   margin:0;font-family:var(--ui);font-weight:900;line-height:.92;
@@ -1216,102 +1219,6 @@ body.scanlines::after{
   background:repeating-linear-gradient(180deg,rgba(60,52,83,.18) 0 1px,transparent 1px 3px);
   mix-blend-mode:multiply;
 }
-/* Halloween theme: an autumn dusk. Warm parchment surfaces keep the ink
-   readable, while the title sky, moon, fog and bats carry the season. */
-.halloween-pill{
-  display:none;align-items:center;
-  font-family:var(--ui);font-size:10px;font-weight:900;letter-spacing:.16em;
-  text-transform:uppercase;color:#3a2233;
-  background:var(--sun);border:2px solid var(--line);border-radius:99px;
-  padding:4px 11px;transform:rotate(1deg);
-  box-shadow:2px 2px 0 rgba(58,34,51,.24);
-}
-body.halloween .halloween-pill{display:inline-flex}
-body.halloween{
-  --paper:#fff6e8;
-  --paper-2:#ffedd6;
-  --paper-3:#ffe0bf;
-  --ink:#3a2233;
-  --ink-soft:#5a3a4e;
-  --ink-faint:#7d5d6f;
-  --pink:#ffc4ad;
-  --rose:#e85d75;
-  --mint:#b9e2c6;
-  --sea:#8fd0d8;
-  --sea-deep:#5fb0c4;
-  --sky:#ffe1c2;
-  --lav:#cbb6f0;
-  --sun:#ffb347;
-  --coral:#ff8a5c;
-  --leaf:#a4d48f;
-  --line:#3a2233;
-  --shadow:4px 4px 0 rgba(58,34,51,.18);
-  --shadow-sm:2px 2px 0 rgba(58,34,51,.16);
-}
-body.halloween #titleScreen{
-  background:
-    radial-gradient(1100px 560px at 80% -10%, #ffe0a8 0%, rgba(255,224,168,0) 58%),
-    linear-gradient(180deg,#8fb6d8 0%,#b8a8dd 32%,#f4c6a4 64%,#ffb98a 100%);
-}
-body.halloween #titleScreen::before{
-  opacity:.4;background-image:radial-gradient(rgba(58,34,51,.13) 1px,transparent 1px);
-}
-body.halloween .title-sun{
-  background:radial-gradient(circle at 38% 34%,#fff2c4,#ffc45a 55%,#ff9a3c 100%);
-  box-shadow:0 0 0 18px rgba(255,180,71,.22),0 0 80px rgba(255,154,60,.45);
-}
-body.halloween .cloud{background:#fff6e8;opacity:.75}
-body.halloween .title-sea{
-  background:
-    repeating-linear-gradient(180deg,rgba(255,255,255,.25) 0 2px,transparent 2px 16px),
-    linear-gradient(180deg,#a9c9d4,#8fb8c9 55%,#6fa6b8);
-  border-top-color:rgba(58,34,51,.16);
-}
-body.halloween .title-sea::after{
-  background-image:radial-gradient(rgba(255,255,255,.55) 1.5px,transparent 1.5px);opacity:.45;
-}
-body.halloween .title-card{
-  background:linear-gradient(180deg,rgba(255,249,238,.97),rgba(255,235,210,.98));
-  box-shadow:8px 8px 0 rgba(58,34,51,.18),0 0 0 4px rgba(255,179,71,.25),0 26px 70px rgba(58,34,51,.18);
-}
-body.halloween .title-card::before{border-color:rgba(58,34,51,.12)}
-body.halloween .wave-card{background:rgba(255,246,232,.94)}
-/* wave changes are the one moment the whole screen reads a single card, so
-   the banner keeps a solid paper backing and hard dark text in this theme */
-body.halloween .wave-banner{
-  background:rgba(255,250,240,.98);
-  box-shadow:0 8px 0 rgba(58,34,51,.14),0 22px 44px rgba(58,34,51,.18);
-}
-body.halloween .wave-banner .wb-label{color:#2f1a2a}
-body.halloween .wave-banner .wb-kicker{color:#5a3a4e}
-body.halloween .wave-banner .wb-note{color:#4f3044}
-body.halloween .wave-banner .wb-count{background:rgba(58,34,51,.09);color:#3a2233}
-body.halloween .wave-banner.cleared .wb-label{color:#1f6b50}
-body.halloween .wave-banner.warn .wb-label{color:#b3264a}
-body.halloween .wave-card .wv-label{color:#2f1a2a}
-body.halloween .wave-card .wv-left,
-body.halloween .wave-card .wv-types{color:#5a3a4e}
-body.halloween .chat-panel{background:rgba(255,246,232,.95)}
-body.halloween .chat-line.note{color:#8a5a18}
-body.halloween .panel-foot{background:rgba(255,179,71,.12)}
-body.halloween .help-block,
-body.halloween .stat-box,
-body.halloween .setting-row,
-body.halloween .note-prompt{background:rgba(255,179,71,.13);color:var(--ink)}
-body.halloween .note-prompt:hover,
-body.halloween .panel-close:hover{background:rgba(255,179,71,.25)}
-body.halloween .beta-pill{background:#5a2b4a}
-body.halloween .logo-kicker{background:var(--sun);color:#3a2233}
-body.halloween .class-card{background:#fff6e8}
-body.halloween .class-card.selected{
-  background:linear-gradient(180deg,#fffdf7,#ffe7c2);
-  box-shadow:4px 4px 0 var(--line),0 0 0 4px var(--sun);
-}
-body.halloween .bar,
-body.halloween .bar.xp{background:#f0dcc2}
-body.halloween .quest-card #questList li .qmark,
-body.halloween .note-card,
-body.halloween .note-card .note-pin{background:#fffaf0}
 </style>
 </head>
 <body>
@@ -1433,22 +1340,20 @@ body.halloween .note-card .note-pin{background:#fffaf0}
     <div class="title-top">
       <div class="logo-wrap">
         <div class="logo-badges">
-          <div class="logo-kicker">a wholesome micro-MMO</div>
+          <div class="logo-kicker">a wholesome micro-RPG</div>
           <div class="beta-pill" id="betaPill" title="This is a beta build. The patch notes list what is still pending.">
-            <span class="beta-dot"></span>beta · <b id="betaVersion">v0.9.8</b>
+            <span class="beta-dot"></span>beta · <b id="betaVersion">v0.10.0</b>
           </div>
-          <div class="mania-pill" title="Mania rules: death resets the run to wave 1, and bosses bring friends.">MANIA</div>
-          <div class="halloween-pill" id="halloweenPill" title="Halloween theme is on. Toggle it in Settings.">HALLOWEEN</div>
         </div>
         <h1 class="logo">ADBLOCK<br><span>ISLAND</span></h1>
-        <p class="tagline">The ads took the beach. Mania took the schedule. Grab a broom, bonk some <b>sponsored content</b>, and leave a kind note for whoever washes ashore next.</p>
-        <div class="mania-note">MANIA MODE · death resets the run to wave 1 · bosses split at 75% · 1 → 2 → 4 · faster every split</div>
+        <p class="tagline">The ads took the beach. Grab a broom, bonk some <b>sponsored content</b>, and leave a kind note for whoever washes ashore next.</p>
       </div>
       <div class="title-side">
         <label class="field-label" for="nameInput">your island name</label>
         <input id="nameInput" maxlength="16" placeholder="a friendly nickname" autocomplete="off" spellcheck="false">
         <button class="big-btn" id="startBtn">wash ashore →</button>
-        <a class="big-btn" id="patchNotesBtn" href="/adblock-island/" target="_blank" rel="noopener">PATCH NOTES →</a>
+        <button class="big-btn" id="onlineBtn">play online →</button>
+        <a class="big-btn" id="patchNotesBtn" href="https://inodepi.github.io/projects/adblock-island/#patch-notes" target="_blank" rel="noopener">PATCH NOTES →</a>
         <button class="text-btn" id="titleHelpBtn">how to play &amp; controls</button>
         <button class="text-btn" id="titleFullscreenBtn">fullscreen</button>
         <button class="text-btn" id="coopBtn">play with a friend: off</button>
@@ -1494,7 +1399,7 @@ body.halloween .note-card .note-pin{background:#fffaf0}
 'use strict';
 /* ============================================================================
    ADBLOCK ISLAND
-   A single-file, dependency-free micro-MMO. Everything is drawn on canvas and
+   A single-file, dependency-free micro-RPG. Everything is drawn on canvas and
    every sound is synthesized with the Web Audio API. No external assets.
    ============================================================================ */
 
@@ -1603,7 +1508,7 @@ const ICONS = {
 };
 const svg = (name) => ICONS[name] || ICONS.spark;
 
-const VERSION = '0.9.8';
+const VERSION = '0.10.0';
 
 /* Endless mode tuning. Named on purpose: after a playtest, change these
    numbers instead of hunting through the wave and damage code. */
@@ -1842,8 +1747,7 @@ const store = {
 const settings = Object.assign({
   music: 0.5, sfx: 0.7, muted: false,
   shake: true, scanlines: true, particles: true,
-  numbers: true, names: true, reduceMotion: false, haptics: true,
-  halloween: true, quadBoss: true
+  numbers: true, names: true, reduceMotion: false, haptics: true
 }, store.get(SETTINGS_KEY, {}) || {});
 const saveSettings = () => store.set(SETTINGS_KEY, settings);
 
@@ -2145,22 +2049,20 @@ const DOCK = { x: 1725, y: 2005, radius: 175 };
 const SHOPKEEPER = { x: 1468, y: 1968, radius: 135, name: 'Mira' };
 const BOSS_CLARITY = 0.64;
 const WIN_CLARITY = 0.70;
-/* Mania: one boss can wake per run, with a 50% roll each wave after clarity.
-   At 75% HP a boss splits once;
-   its children can split again, so one boss can become two and then four.
-   Split children are smaller, and each live boss speeds up the whole fight. */
-const BOSS_SPAWN_CHANCE = 0.50;
-const BOSS_TWIN_CAP = 4;
+/* One boss can wake per run, with a 33% roll each wave after clarity. At 75%
+   HP a boss splits once into two smaller halves; children cannot split again,
+   so a fight tops out at two bosses. Two live bosses speed up the fight. */
+const BOSS_SPAWN_CHANCE = 0.33;
+const BOSS_TWIN_CAP = 2;
 const BOSS_SPLIT_FRAC = 0.75;
 function bossCanSplit(m) {
   if (game.bossSplitLocked) return false;
   if (!m || m.dead || (m.splits || 0) >= 1) return false;
-  if (!settings.quadBoss && (m.generation || 0) > 0) return false;
+  if ((m.generation || 0) > 0) return false;
   return true;
 }
 function bossSpeedMult() {
-  const n = activeBosses().length;
-  return n >= 3 ? 1.5 : n === 2 ? 1.25 : 1;
+  return activeBosses().length >= 2 ? 1.25 : 1;
 }
 const PATH_POINTS = [
   [1600, 1960], [1660, 1860], [1610, 1740], [1480, 1630], [1520, 1500],
@@ -2251,10 +2153,6 @@ function generateWorld() {
   for (let i = 0; i < 7; i++) {
     const a = (i / 7) * TAU + 0.3;
     world.decor.push({ kind: 'lantern', x: PLAZA.x + Math.cos(a) * (PLAZA.radius - 18), y: PLAZA.y + Math.sin(a) * (PLAZA.radius - 18), s: 1, tall: true, seed: i });
-  }
-  // a few Halloween pumpkins around the beach and plaza
-  for (const [px, py, i] of [[1490, 1878, 0], [1718, 1876, 1], [1480, 1035, 2], [1730, 1032, 3], [1600, 2010, 4]]) {
-    if (world.isLand(px, py)) world.decor.push({ kind: 'pumpkin', x: px, y: py, s: 1, seed: i });
   }
   // ---- ad clusters ----
   const tries = 220;
@@ -2806,6 +2704,8 @@ function buildClassCards() {
 
 function bindUI() {
   $('#startBtn').addEventListener('click', startGame);
+  const onlineBtn = $('#onlineBtn');
+  if (onlineBtn) onlineBtn.addEventListener('click', () => { openPanel('online'); audio.sfx('select'); });
   ui.nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') startGame(); });
   $('#titleHelpBtn').addEventListener('click', () => openPanel('help'));
   if (ui.titleFullscreenBtn) ui.titleFullscreenBtn.addEventListener('click', toggleFullscreen);
@@ -2815,6 +2715,11 @@ function bindUI() {
     syncCoopBtn();
     audio.sfx('ui');
   });
+  const urlRoom = new URLSearchParams(location.search).get('room');
+  if (urlRoom) {
+    NET.draftCode = urlRoom.toUpperCase().replace(/[^A-Z2-9]/g, '').slice(0, 6);
+    setTimeout(() => { if (game.state === 'title') openPanel('online'); }, 400);
+  }
   ui.muteBtn.addEventListener('click', () => {
     settings.muted = !settings.muted;
     audio.setMuted(settings.muted);
@@ -2899,16 +2804,21 @@ function bindUI() {
     if (k === 's') input.keys.down = true;
     if (k === 'a') input.keys.left = true;
     if (k === 'd') input.keys.right = true;
-    if (k === 'j') { input.attackHeld = true; doAttack(); }
-    if (k === 'q') useSkill(1);
-    if (k === 'e') useSkill(2);
-    if (k === ' ' || k === 'spacebar') doDash();
+    if (k === 'j') { input.attackHeld = true; if (!netIsGuest()) doAttack(); }
+    if (k === 'q') { if (netIsGuest()) netGuestRequestSkill(1); else useSkill(1); }
+    if (k === 'e') { if (netIsGuest()) netGuestRequestSkill(2); else useSkill(2); }
+    if (k === ' ' || k === 'spacebar') { if (netIsGuest()) netGuestRequestDash(); else doDash(); }
+    if (k === 'r') { if (netIsGuest()) netGuestRequestKettle(); }
+    if (['1','2','3','4'].includes(k) && netIsGuest() && netSession() && netSession().spectator) {
+      netSession().spectatorIdx = Number(k) - 1;
+      toast('Following hero ' + k + '.', '', '◉');
+    }
     if (k === 'f') interactBench();
-    if (k === 'u') openPanel('upgrades');
+    if (k === 'u') { if (netIsGuest()) { if (netSession()) openPanel('netshop'); } else openPanel('upgrades'); }
     if (k === 'h') openPanel('help');
     if (k === 'n' && game.waveState === 'cleared') openPanel(game.checkpointPending ? 'checkpoint' : 'wave');
     if (k === 'm') ui.muteBtn.click();
-    if (k === 'c') { if (input.touch) ui.chatPanel.classList.add('open'); ui.chatInput.focus(); }
+    if (k === 'c') { if (netSession()) openPanel('chat'); else if (input.touch) ui.chatPanel.classList.add('open'); if (!netSession()) ui.chatInput.focus(); }
   });
   document.addEventListener('keyup', (e) => {
     const k = e.key.toLowerCase();
@@ -2988,7 +2898,7 @@ function setupPointerInput() {
       input.mouse.lastMove = game.realElapsed;
     }
     input.attackHeld = true;
-    doAttack();
+    if (!netIsGuest()) doAttack();
     if (e.pointerType === 'mouse') input.mouse.down = true;
   });
   window.addEventListener('pointerup', (e) => {
@@ -3052,7 +2962,7 @@ function buildTouchButtons() {
     if (act === 'attack') {
       btn.addEventListener('pointerdown', (e) => {
         e.preventDefault(); if (game.state !== 'playing') return;
-        input.attackHeld = true; doAttack(); btn.classList.add('pressed');
+        input.attackHeld = true; if (!netIsGuest()) doAttack(); btn.classList.add('pressed');
       });
       const up = () => { input.attackHeld = false; btn.classList.remove('pressed'); };
       btn.addEventListener('pointerup', up);
@@ -3062,7 +2972,8 @@ function buildTouchButtons() {
       btn.addEventListener('pointerdown', (e) => {
         e.preventDefault(); if (game.state !== 'playing') return;
         btn.classList.add('pressed');
-        if (act === 'dash') doDash(); else useSkill(Number(act));
+        if (netIsGuest()) { if (act === 'dash') netGuestRequestDash(); else netGuestRequestSkill(Number(act)); }
+        else { if (act === 'dash') doDash(); else useSkill(Number(act)); }
         setTimeout(() => btn.classList.remove('pressed'), 120);
       });
     }
@@ -3087,8 +2998,9 @@ function buildActionBar() {
       e.preventDefault(); e.stopPropagation();
       if (game.state !== 'playing') return;
       const act = btn.dataset.act;
-      if (act === 'attack') { input.attackHeld = true; doAttack(); }
-      else if (act === 'dash') doDash();
+      if (act === 'attack') { input.attackHeld = true; if (!netIsGuest()) doAttack(); }
+      else if (act === 'dash') { if (netIsGuest()) netGuestRequestDash(); else doDash(); }
+      else if (netIsGuest()) netGuestRequestSkill(Number(act));
       else useSkill(Number(act));
     });
     btn.addEventListener('pointerup', () => { if (btn.dataset.act === 'attack') input.attackHeld = false; });
@@ -3177,6 +3089,7 @@ function updateHUD(force = false) {
   if (ui.questList.innerHTML !== qHtml) ui.questList.innerHTML = qHtml;
 
   const chips = [];
+  if (NET.session && NET.session.spectator) chips.push({ t: 'spectating · 1–4 follows', cls: 'good' });
   if (player.shield > 0) chips.push({ t: 'Bubble · ' + Math.ceil(player.shield), cls: 'good' });
   if (player.marked > 0) chips.push({ t: 'Tracked', cls: 'bad' });
   if (player.hp / player.maxHp < 0.35) chips.push({ t: 'Take a breather', cls: 'bad' });
@@ -3326,6 +3239,1777 @@ function seedChat() {
 }
 
 /* ------------------------------- panels --------------------------------- */
+/* ============================================================================
+   ONLINE LOBBY (phase 1)
+   Room codes and the WebRTC handshake. Every call here is inert until the
+   player opens the online panel, so the offline build makes no network calls.
+   ============================================================================ */
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+let TURN_CFG = store.get('adblock-island.turn.v0', null);
+const NET = {
+  phase: 'idle',          // idle | busy | room | error
+  role: null,             // host | guest
+  code: null,
+  peerId: null,
+  room: null,
+  error: '',
+  draftCode: '',
+  pollT: null,
+  peers: new Map(),       // peerId -> { pc, dc, connected, latency, pendingIce, pingT }
+  seen: new Set(),
+  joinAs: 'play',
+  ice: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }] },
+  reconnectTries: 0
+};
+
+function netIceServers() {
+  const turn = TURN_CFG || (typeof window !== 'undefined' && window.ADBLOCK_TURN) || null;
+  const servers = NET.ice.iceServers.slice();
+  if (turn && turn.urls) servers.push({ urls: turn.urls, username: turn.username || '', credential: turn.credential || '' });
+  return { iceServers: servers };
+}
+
+function netName() {
+  const typed = (ui.nameInput && ui.nameInput.value || '').trim();
+  return (typed || save.name || 'a neighbour').slice(0, 16);
+}
+
+async function netApi(action, extra = {}) {
+  const res = await fetch('/api/signaling', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.assign({ action, token: NET.token, code: NET.code || undefined, peerId: NET.peerId || undefined }, extra))
+  });
+  let data = null;
+  try { data = await res.json(); } catch (e) {}
+  if (!data) throw new Error('The lobby desk is not answering. Try again in a moment.');
+  if (data.token) NET.token = data.token;
+  if (!data.ok) throw new Error(data.error || 'The lobby desk said no.');
+  return data;
+}
+
+function netRender() {
+  if (game.modalType === 'online') renderOnlinePanel();
+}
+
+async function netCreateRoom() {
+  if (NET.phase === 'busy') return;
+  NET.phase = 'busy'; NET.error = ''; NET.lastAction = { kind: 'create' }; netRender();
+  try {
+    const data = await netApi('create', { name: netName(), cls: selectedClass });
+    NET.role = 'host';
+    NET.code = data.code;
+    NET.peerId = data.peerId;
+    NET.room = data.room;
+    NET.phase = 'room';
+    netStartPolling();
+    audio.sfx('start');
+  } catch (e) {
+    NET.phase = 'error'; NET.error = e.message;
+  }
+  netRender();
+}
+
+async function netJoinRoom() {
+  if (NET.phase === 'busy') return;
+  const code = (NET.draftCode || '').toUpperCase().replace(/[^A-Z2-9]/g, '').slice(0, 6);
+  if (code.length !== 6) { toast('A room code is six letters and numbers.', 'warn', '!'); return; }
+  NET.phase = 'busy'; NET.error = ''; NET.lastAction = { kind: 'join' }; netRender();
+  try {
+    const data = await netApi('join', { code, name: netName(), cls: selectedClass, mode: NET.joinAs === 'watch' ? 'watch' : 'play' });
+    NET.role = 'guest';
+    NET.code = code;
+    NET.peerId = data.peerId;
+    NET.room = data.room;
+    NET.phase = 'room';
+    netStartPolling();
+    audio.sfx('start');
+  } catch (e) {
+    NET.phase = 'error'; NET.error = e.message;
+  }
+  netRender();
+}
+
+function netReset(message) {
+  const wasGuest = netIsGuest();
+  netEndSession(message || 'The room closed.');
+  if (wasGuest) { netGuestAbort(message || 'The room closed.'); return; }
+  clearTimeout(NET.pollT); NET.pollT = null;
+  for (const rec of NET.peers.values()) netDropPeer(rec);
+  NET.peers.clear();
+  NET.seen.clear();
+  NET.phase = message ? 'error' : 'idle';
+  NET.error = message || '';
+  NET.role = null; NET.code = null; NET.peerId = null; NET.room = null; NET.token = null;
+  netRender();
+}
+
+function netLeave() {
+  if (NET.code && NET.peerId) {
+    try {
+      fetch('/api/signaling', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'leave', code: NET.code, peerId: NET.peerId, token: NET.token }),
+        keepalive: true
+      }).catch(() => {});
+    } catch (e) {}
+  }
+  netReset('');
+}
+
+function netApiQuiet(action, extra) {
+  try {
+    fetch('/api/signaling', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({ action, token: NET.token, code: NET.code || undefined, peerId: NET.peerId || undefined }, extra))
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+function netStartPolling() {
+  clearTimeout(NET.pollT);
+  const tick = async () => {
+    if (NET.phase !== 'room' || !NET.code) return;
+    let waited = false;
+    try {
+      const data = await netApi('poll', { code: NET.code, peerId: NET.peerId, wait: 8000 });
+      if (NET.phase !== 'room' || !NET.code) return;
+      waited = !!(data && data.waited);
+      NET.room = data.room;
+      for (const m of (data.messages || [])) {
+        if (!m || !m.id || NET.seen.has(m.id)) continue;
+        NET.seen.add(m.id);
+        if (NET.seen.size > 400) NET.seen.clear();
+        if (m.kind === 'chat') { netHandleServerChat(m); continue; }
+        if (m.kind === 'system') { chatAdd('', m.text || '', 'system'); continue; }
+        netHandleSignal(m);
+      }
+      if (NET.role === 'host') netHostStayInTouch();
+      netPrunePeers();
+      if (NET.role === 'guest' && NET.room && !netHostPeerAlive()) {
+        NET.hostStaleSince = NET.hostStaleSince || Date.now();
+        if (Date.now() - NET.hostStaleSince > 4000) {
+          NET.hostStaleSince = 0;
+          const hostId = NET.room.host ? NET.room.host.id : null;
+          const first = (NET.room.peers || []).filter((p) => p.id !== hostId && (p.mode || 'play') === 'play')[0];
+          if (first && first.id === NET.peerId) { if (netIsGuest() || !netSession()) netTryTakeover(); }
+        }
+      } else NET.hostStaleSince = 0;
+      netRender();
+    } catch (e) {
+      if (/left the room|closed|No room|not found/i.test(e.message)) {
+        netReset(e.message);
+        return;
+      }
+    }
+    const pause = waited ? 60 : (netSession() ? 2600 : 1200);
+    NET.pollT = setTimeout(tick, pause);
+  };
+  tick();
+}
+
+function netHostStayInTouch() {
+  if (!NET.room) return;
+  const ids = new Set((NET.room.peers || []).map((p) => p.id));
+  for (const p of NET.room.peers || []) {
+    if (p.id === NET.peerId) continue;
+    if (!NET.peers.has(p.id)) netOfferTo(p.id);
+  }
+  for (const id of NET.peers.keys()) {
+    if (!ids.has(id)) { netDropPeer(NET.peers.get(id)); NET.peers.delete(id); }
+  }
+}
+
+function netPrunePeers() {
+  if (!NET.room) return;
+  const ids = new Set((NET.room.peers || []).map((p) => p.id));
+  for (const [id, rec] of NET.peers) {
+    if (!ids.has(id)) { netDropPeer(rec); NET.peers.delete(id); }
+  }
+}
+
+function netPeerRec(id) {
+  let rec = NET.peers.get(id);
+  if (!rec) {
+    rec = { pc: null, dc: null, connected: false, latency: 0, pendingIce: [], pingT: null };
+    NET.peers.set(id, rec);
+  }
+  return rec;
+}
+
+function netDropPeer(rec) {
+  if (!rec) return;
+  if (rec.pingT) { clearInterval(rec.pingT); rec.pingT = null; }
+  try { if (rec.dc) rec.dc.close(); } catch (e) {}
+  try { if (rec.pc) rec.pc.close(); } catch (e) {}
+  rec.connected = false;
+}
+
+function netSendSignal(to, kind, payload) {
+  netApiQuiet('signal', { code: NET.code, from: NET.peerId, to, kind, payload });
+}
+
+function netWire(id, rec, dc) {
+  rec.dc = dc;
+  dc.onopen = () => {
+    rec.connected = true;
+    if (netIsHost()) netSpawnGuestBot(id);
+    // a guest asks again in case the host's first hello went out before this
+    // channel had its listener attached
+    if (!netIsHost() && NET.role === 'guest') netSendTo(id, { t: 'who' });
+    if (rec.pingT) clearInterval(rec.pingT);
+    rec.pingT = setInterval(() => {
+      try { if (dc.readyState === 'open') dc.send(JSON.stringify({ t: 'ping', at: Date.now() })); } catch (e) {}
+    }, 2500);
+    netRender();
+  };
+  dc.onmessage = (e) => {
+    let msg = null;
+    try { msg = JSON.parse(e.data); } catch (err) { return; }
+    if (!msg) return;
+    if (msg.t === 'ping') {
+      try { dc.send(JSON.stringify({ t: 'pong', at: msg.at })); } catch (err) {}
+    } else if (msg.t === 'pong') {
+      rec.latency = Math.max(0, Date.now() - (msg.at || Date.now()));
+      netRender();
+    } else if (msg.t && netIsHost()) {
+      netHostOnData(id, msg);
+    } else if (msg.t && (netIsGuest() || msg.t === 'hello')) {
+      netGuestOnData(msg);
+    }
+  };
+  dc.onclose = () => {
+    rec.connected = false;
+    if (rec.pingT) { clearInterval(rec.pingT); rec.pingT = null; }
+    if (netIsHost()) {
+      NET.peers.delete(id);
+      const warm = netBotForPeer(id);
+      if (warm) {
+        clearTimeout(warm.dropT);
+        warm.dropT = setTimeout(() => {
+          if (!netIsHost()) return;
+          const cur = NET.peers.get(id);
+          if (!cur || !cur.connected) netHostDropPeer(id);
+        }, 12000);
+      }
+    } else if (netIsGuest()) {
+      netDropPeer(rec);
+      NET.peers.delete(id);
+      netScheduleRecovery();
+    }
+    netRender();
+  };
+  dc.onerror = () => { rec.connected = false; netRender(); };
+}
+
+async function netOfferTo(id) {
+  const rec = netPeerRec(id);
+  try {
+    const pc = new RTCPeerConnection(netIceServers());
+    rec.pc = pc;
+    const dc = pc.createDataChannel('island', { ordered: true });
+    netWire(id, rec, dc);
+    pc.onicecandidate = (e) => {
+      if (e.candidate) netSendSignal(id, 'ice', e.candidate.toJSON ? e.candidate.toJSON() : e.candidate);
+    };
+    pc.onconnectionstatechange = () => {
+      if (['failed', 'disconnected', 'closed'].includes(pc.connectionState)) {
+        rec.connected = false;
+        netRender();
+      }
+    };
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
+    netSendSignal(id, 'offer', { type: 'offer', sdp: pc.localDescription.sdp });
+  } catch (e) {
+    NET.peers.delete(id);
+  }
+}
+
+async function netAcceptOffer(from, rec, payload) {
+  if (!payload || !payload.sdp) return;
+  try {
+    if (!rec.pc) {
+      const pc = new RTCPeerConnection(netIceServers());
+      rec.pc = pc;
+      pc.ondatachannel = (e) => netWire(from, rec, e.channel);
+      pc.onicecandidate = (e) => {
+        if (e.candidate) netSendSignal(from, 'ice', e.candidate.toJSON ? e.candidate.toJSON() : e.candidate);
+      };
+    }
+    await rec.pc.setRemoteDescription(payload);
+    for (const c of rec.pendingIce) { try { await rec.pc.addIceCandidate(c); } catch (e) {} }
+    rec.pendingIce = [];
+    const answer = await rec.pc.createAnswer();
+    await rec.pc.setLocalDescription(answer);
+    netSendSignal(from, 'answer', { type: 'answer', sdp: rec.pc.localDescription.sdp });
+  } catch (e) {}
+}
+
+async function netHandleSignal(m) {
+  const rec = netPeerRec(m.from);
+  if (m.kind === 'offer') {
+    await netAcceptOffer(m.from, rec, m.payload);
+  } else if (m.kind === 'answer') {
+    if (rec.pc) {
+      try {
+        await rec.pc.setRemoteDescription(m.payload);
+        for (const c of rec.pendingIce) { try { await rec.pc.addIceCandidate(c); } catch (e) {} }
+        rec.pendingIce = [];
+      } catch (e) {}
+    }
+  } else if (m.kind === 'ice' && m.payload) {
+    if (rec.pc && rec.pc.remoteDescription) {
+      try { await rec.pc.addIceCandidate(m.payload); } catch (e) {}
+    } else {
+      rec.pendingIce.push(m.payload);
+    }
+  }
+  netRender();
+}
+
+function buildOnlinePanel() {
+  renderOnlinePanel();
+  panelFoot([{ label: 'Close', action: 'close' }]);
+}
+
+function renderOnlinePanel() {
+  const body = ui.modalBody;
+  if (!body) return;
+  const phase = NET.phase;
+  if (NET.lastPhase !== phase) { NET.lastPhase = phase; NET.lastKey = null; }
+  if (phase === 'room') {
+    const peers = (NET.room && NET.room.peers) ? NET.room.peers : [];
+    const hostId = NET.room && NET.room.host ? NET.room.host.id : null;
+    // polling must not rebuild the button under the player's finger
+    const key = 'room|' + NET.code + '|' + peers.map((p) => [p.id, p.name, p.cls, p.mode, p.id === NET.peerId || (NET.peers.get(p.id) && NET.peers.get(p.id).connected) ? 1 : 0].join(',')).join('|');
+    if (NET.lastKey === key && body.querySelector('.room-code')) return;
+    NET.lastKey = key;
+    const rows = peers
+      .slice()
+      .sort((a, b) => (a.id === hostId ? -1 : b.id === hostId ? 1 : 0))
+      .map((p) => {
+        const rec = NET.peers.get(p.id);
+        const connected = p.id === NET.peerId || (rec && rec.connected);
+        const latency = rec && rec.latency ? ' · ' + rec.latency + 'ms' : '';
+        const tag = p.id === hostId ? 'host' : 'hero';
+        const you = p.id === NET.peerId ? ' · you' : '';
+        return `<div class="net-line">
+          <span class="net-dot ${connected ? 'on' : 'wait'}"></span>
+          <b>${escapeHtml(p.name)}</b>
+          <span>${escapeHtml((CLASSES[p.cls] && CLASSES[p.cls].name) || 'AdBlocker')}${p.mode === 'watch' ? ' · watching' : ''}</span>
+          <span style="margin-left:auto;color:var(--ink-faint)">${tag}${you}${latency}</span>
+        </div>`;
+      })
+      .join('');
+    const connectedCount = peers.filter((p) => p.id === NET.peerId || (NET.peers.get(p.id) && NET.peers.get(p.id).connected)).length;
+    body.innerHTML = `
+      <div class="help-block">
+        <h4>Your room</h4>
+        <p>Share this code, or send the invite link. Up to four heroes. The room closes when the host leaves.</p>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px">
+          <span class="room-code" id="roomCodeText">${escapeHtml(NET.code || '')}</span>
+          <button class="btn" id="netCopyBtn">copy code</button>
+          <button class="btn" id="netCopyLinkBtn">copy invite link</button>
+        </div>
+      </div>
+      <div class="help-block">
+        <h4>Heroes (${connectedCount}/${peers.length})</h4>
+        ${rows || '<p>Nobody else yet. The code is waiting.</p>'}
+      </div>
+      <p class="net-hint">Phase 2: the host runs the island and every hero is spawned into it. Guests send input and see the host's world.</p>
+      ${NET.role === 'host'
+        ? `<div class="net-row"><button class="big-btn" id="netStartBtn" ${connectedCount < 2 ? 'disabled' : ''}>start co-op →</button></div>
+           <p class="net-hint">${connectedCount < 2 ? 'Waiting for one more hero to connect.' : 'Everyone here will wash ashore with you.'}</p>`
+        : `<p class="net-hint">Waiting for the host to start the island.</p>`}
+      <div class="net-row">
+        <button class="btn danger" id="netLeaveBtn">leave the room</button>
+      </div>
+    `;
+    const copy = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        toast('Copied.', 'good', '✦');
+      } catch (e) {
+        toast('Copy failed — select the code and copy it by hand.', 'warn', '!');
+      }
+    };
+    const copyBtn = $('#netCopyBtn', body);
+    if (copyBtn) copyBtn.addEventListener('click', () => { copy(NET.code || ''); audio.sfx('ui'); });
+    const linkBtn = $('#netCopyLinkBtn', body);
+    if (linkBtn) linkBtn.addEventListener('click', () => {
+      const link = location.origin + location.pathname + '?room=' + (NET.code || '');
+      copy(link); audio.sfx('ui');
+    });
+    const leaveBtn = $('#netLeaveBtn', body);
+    if (leaveBtn) leaveBtn.addEventListener('click', () => { netLeave(); audio.sfx('ui'); });
+    const startBtn = $('#netStartBtn', body);
+    if (startBtn) startBtn.addEventListener('click', () => { netHostStart(); audio.sfx('select'); });
+    return;
+  }
+  if (phase === 'busy') {
+    if (NET.lastKey === 'busy') return;
+    NET.lastKey = 'busy';
+    body.innerHTML = `<p style="padding:14px 0;font-family:var(--ui);font-size:12px">Tuning the lobby desk…</p>`;
+    return;
+  }
+  if (phase === 'error') {
+    if (NET.lastKey === 'error|' + NET.error) return;
+    NET.lastKey = 'error|' + NET.error;
+    body.innerHTML = `
+      <div class="help-block"><h4>The desk could not help</h4><p>${escapeHtml(NET.error || 'Something went wrong.')}</p></div>
+      <div class="net-row">
+        <button class="btn" id="netBackBtn">back</button>
+        ${NET.lastAction ? '<button class="btn primary" id="netRetryBtn">try again</button>' : ''}
+      </div>
+    `;
+    const back = $('#netBackBtn', body);
+    if (back) back.addEventListener('click', () => { NET.phase = 'idle'; NET.error = ''; renderOnlinePanel(); audio.sfx('ui'); });
+    const retry = $('#netRetryBtn', body);
+    if (retry) retry.addEventListener('click', () => {
+      if (NET.lastAction && NET.lastAction.kind === 'create') netCreateRoom();
+      else if (NET.lastAction && NET.lastAction.kind === 'join') { NET.phase = 'idle'; renderOnlinePanel(); netJoinRoom(); }
+    });
+    return;
+  }
+  if (NET.lastKey === 'idle|' + NET.joinAs) return;
+  NET.lastKey = 'idle|' + NET.joinAs;
+  body.innerHTML = `
+    <div class="help-block">
+      <h4>Room-code co-op</h4>
+      <p>Open a room and share the six-character code, or type a friend's code. Up to four heroes, no accounts, no chat. The room closes when the host leaves.</p>
+    </div>
+    <button class="big-btn" id="netCreateBtn">open a room →</button>
+    <div class="net-row">
+      <input class="net-input" id="netCodeInput" maxlength="6" placeholder="ROOM CODE" autocomplete="off" spellcheck="false" value="${escapeHtml(NET.draftCode || '')}">
+      <button class="btn" id="netJoinBtn">join</button>
+    </div>
+    <div class="net-row">
+      <span style="font-family:var(--ui);font-size:10px;color:var(--ink-faint)">join as</span>
+      <button class="btn" id="netModeBtn">${NET.joinAs === 'watch' ? 'spectator' : 'hero'}</button>
+      <span class="net-hint" style="margin:0">${NET.joinAs === 'watch' ? 'watch the island, no hero' : 'play on the island'}</span>
+    </div>
+    <p class="net-hint">The host runs the island; every hero joins over WebRTC. Spectators get their own camera and can follow any of the four heroes.</p>
+  `;
+  const create = $('#netCreateBtn', body);
+  if (create) create.addEventListener('click', () => { netCreateRoom(); audio.sfx('select'); });
+  const input = $('#netCodeInput', body);
+  if (input) {
+    input.addEventListener('input', () => { NET.draftCode = input.value.toUpperCase().replace(/[^A-Z2-9]/g, '').slice(0, 6); input.value = NET.draftCode; });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') netJoinRoom(); });
+  }
+  const join = $('#netJoinBtn', body);
+  if (join) join.addEventListener('click', () => { netJoinRoom(); audio.sfx('ui'); });
+  const modeBtn = $('#netModeBtn', body);
+  if (modeBtn) modeBtn.addEventListener('click', () => {
+    NET.joinAs = NET.joinAs === 'watch' ? 'play' : 'watch';
+    renderOnlinePanel(); audio.sfx('ui');
+  });
+}
+
+
+/* ============================================================================
+   ONLINE SESSION (phase 2)
+   One host runs the real simulation. Guests send input frames and receive
+   snapshots, then render the same island from the host's point of view. The
+   host stays authoritative for damage, waves, the boss and every pop-up.
+   ============================================================================ */
+function netForceClosePanel() {
+  game.modalType = null;
+  ui.modalLayer.classList.remove('show');
+  ui.modalLayer.classList.add('hidden');
+}
+function netSession() { return NET.session && NET.session.active ? NET.session : null; }
+function netIsHost() { const s = netSession(); return !!(s && s.host); }
+function netIsGuest() { const s = netSession(); return !!(s && s.guest); }
+
+function netBroadcastRaw(json) {
+  for (const [, rec] of NET.peers) {
+    if (!rec.connected || !rec.dc || rec.dc.readyState !== 'open') continue;
+    try { rec.dc.send(json); } catch (e) {}
+  }
+}
+function netSendTo(peerId, msg) {
+  const rec = NET.peers.get(peerId);
+  if (!rec || !rec.dc || rec.dc.readyState !== 'open') return false;
+  try { rec.dc.send(JSON.stringify(msg)); return true; } catch (e) { return false; }
+}
+function netSendToHost(msg) {
+  const room = NET.room;
+  const hostId = room && room.host ? room.host.id : null;
+  if (hostId) netSendTo(hostId, msg);
+}
+
+function netBotForPeer(peerId) { return bots.find((b) => b.net && b.netId === peerId) || null; }
+
+function netSpawnGuestBot(peerId) {
+  const existing = netBotForPeer(peerId);
+  if (existing) {
+    clearTimeout(existing.dropT);
+    netSendTo(peerId, { t: 'resume', seed: world.seed, corrupt: netPackCorrupt(), wave: game.wave });
+    return existing;
+  }
+  const info = (NET.room && NET.room.peers || []).find((x) => x.id === peerId) || {};
+  if (info.mode === 'watch') {
+    netSendTo(peerId, { t: 'hello', seed: world.seed, corrupt: netPackCorrupt(), hostName: player.name, wave: game.wave, spectator: true });
+    return null;
+  }
+  let x = player.x + 52, y = player.y + 18;
+  if (!world.canWalk(x, y, 16)) { x = player.x - 52; y = player.y; }
+  const b = {
+    id: 'n' + peerId, net: true, netId: peerId, human: true,
+    name: info.name || 'friend', cls: info.cls || 'blocker',
+    x, y, homeX: x, homeY: y, r: 14, hp: 130, maxHp: 130,
+    level: 1, xp: 0, joy: 0, xpNext: 50,
+    upg: {}, dmgMult: 1, joyMult: 1, cleanseMult: 1, cdMult: 1,
+    facing: player.facing, vx: 0, vy: 0, speed: 196, state: 'human', stateT: 999,
+    target: null, chatCd: 999, bubble: '', bubbleT: 0, bob: rand(TAU),
+    cosmetic: 'none', sit: false, atkAnim: 0, atkCd: 0, helpCd: 999,
+    moving: false, netInput: null, netLast: 0
+  };
+  bots.push(b);
+  netSendTo(peerId, {
+    t: 'hello',
+    seed: world.seed,
+    hostName: player.name,
+    wave: game.wave,
+    corrupt: netPackCorrupt(),
+    spectator: false
+  });
+  return b;
+}
+
+function netHostStart() {
+  if (NET.role !== 'host' || NET.phase !== 'room') return;
+  const guests = [...NET.peers.entries()].filter(([, r]) => r.connected);
+  if (!guests.length) { toast('Wait for a hero to connect first.', 'warn', '!'); return; }
+  NET.session = {
+    active: true, host: true, guest: false,
+    snapT: null, inT: null, lastCorrupt: 0, popups: new Map(), seq: 0
+  };
+  coopEnabled = false;
+  netForceClosePanel();
+  startGame();
+  for (const [id] of guests) netSpawnGuestBot(id);
+  NET.session.snapT = setInterval(netHostTick, input.touch ? 160 : 100);
+  netStartBackup();
+  toast('Co-op is live. Everyone is on the island.', 'good', '✦');
+}
+
+function netPackCorrupt() {
+  const bytes = new Uint8Array(world.corrupt.length);
+  for (let i = 0; i < world.corrupt.length; i++) bytes[i] = Math.max(0, Math.min(255, Math.round(world.corrupt[i] * 254)));
+  let bin = '';
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+function netApplyCorrupt(b64) {
+  if (!b64) return;
+  let bin = '';
+  try { bin = atob(b64); } catch (e) { return; }
+  const n = Math.min(bin.length, world.corrupt.length);
+  for (let i = 0; i < n; i++) world.corrupt[i] = bin.charCodeAt(i) / 254;
+  world.clarityDirty = true;
+}
+
+function netPackPlayer(p, id) {
+  return {
+    id, name: p.name, cls: p.cls, x: Math.round(p.x * 10) / 10, y: Math.round(p.y * 10) / 10,
+    r: p.r, hp: Math.round(p.hp), maxHp: Math.round(p.maxHp),
+    facing: Math.round(p.facing * 100) / 100, bob: Math.round((p.bob || 0) * 10) / 10,
+    atkAnim: Math.round((p.atkAnim || 0) * 100) / 100, moving: !!p.moving,
+    down: !!p.down, human: !!p.human, net: !!p.net,
+    cosmetic: p.cosmetic || 'none', level: p.level || 1,
+    joy: Math.round(p.joy || 0), xp: Math.round(p.xp || 0),
+    shield: Math.round(p.shield || 0), sit: !!p.sit,
+    bubble: p.bubble || '', bubbleT: Math.round((p.bubbleT || 0) * 10) / 10,
+    upg: p.upg || null,
+    cd1: Math.max(0, Math.round(((p.skill1Cd || 0) - game.time) * 10) / 10),
+    cd2: Math.max(0, Math.round(((p.skill2Cd || 0) - game.time) * 10) / 10),
+    dcd: Math.max(0, Math.round(((p.dashCd || 0) - game.time) * 10) / 10)
+  };
+}
+function netPackMonster(m) {
+  return {
+    id: m.id, type: m.type, x: Math.round(m.x * 10) / 10, y: Math.round(m.y * 10) / 10,
+    r: m.r, hp: Math.round(m.hp), maxHp: Math.round(m.maxHp),
+    name: m.name, color: m.color, dark: m.dark,
+    spawnT: Math.round(m.spawnT * 100) / 100, facing: Math.round(m.facing * 100) / 100,
+    bob: Math.round((m.bob || 0) * 10) / 10, phase: m.phase,
+    isBoss: !!m.isBoss, adBreak: m.adBreak || 0, marked: m.marked || 0,
+    stun: m.stun || 0, flash: m.flash || 0, hidden: !!m.hidden,
+    scale: m.scale || 1, generation: m.generation || 0
+  };
+}
+function netPackProjectile(p) {
+  return {
+    x: Math.round(p.x * 10) / 10, y: Math.round(p.y * 10) / 10,
+    vx: Math.round(p.vx), vy: Math.round(p.vy), r: p.r, life: Math.round(p.life * 100) / 100,
+    kind: p.kind, color: p.color, angle: p.angle, friendly: !!p.friendly, pierce: p.pierce || 0
+  };
+}
+function netPackBeam(b) {
+  return { x: b.x, y: b.y, angle: b.angle, length: b.length, width: b.width, color: b.color, life: b.life, maxLife: b.maxLife, kind: b.kind };
+}
+function netPackHazard(h) {
+  return { x: h.x, y: h.y, angle: h.angle, length: h.length, width: h.width, color: h.color, t: h.t, windup: h.windup, fired: h.fired, damage: h.damage };
+}
+
+function netHostTick() {
+  const S = netSession();
+  if (!S || !S.host) return;
+  netExpireGuestPopups();
+  const now = Date.now();
+  const snap = {
+    t: 'snap', at: now,
+    wave: game.wave, ws: game.waveState, endless: !!game.endless,
+    clarity: Math.round(world.cleansePercent() * 1000) / 1000,
+    bossSpawned: !!game.bossSpawned, bossDefeated: !!game.bossDefeated, won: !!game.won,
+    p: [netPackPlayer(player, 'p1')].concat(bots.map((b) => netPackPlayer(b, b.net ? b.netId : b.id))),
+    m: monsters.filter((m) => !m.dead).map(netPackMonster),
+    pr: projectiles.filter((p) => !p.dead).map(netPackProjectile),
+    bm: beams.map(netPackBeam),
+    hz: hazards.map(netPackHazard),
+    tu: (game.turrets || []).map((t) => ({ x: t.x, y: t.y, t: t.t, cd: t.cd, color: t.color }))
+  };
+  if (now - S.lastCorrupt > 1000) { S.lastCorrupt = now; snap.corrupt = netPackCorrupt(); }
+  netBroadcastRaw(JSON.stringify(snap));
+}
+
+function netHostOnData(peerId, msg) {
+  if (!msg) return;
+  if (msg.t === 'who') { netSpawnGuestBot(peerId); return; }
+  if (msg.t === 'skill') { const b = netBotForPeer(peerId); if (b) netGuestSkill(b, msg.which); return; }
+  if (msg.t === 'dash') { const b = netBotForPeer(peerId); if (b) netGuestDash(b); return; }
+  if (msg.t === 'buy') { const b = netBotForPeer(peerId); if (b) netGuestBuy(b, msg.id); return; }
+  if (msg.t === 'kettle') { const b = netBotForPeer(peerId); if (b) netGuestKettle(b); return; }
+  if (msg.t === 'say') { netHostSay(peerId, msg.i); return; }
+  if (msg.t === 'chat') { netHostChat(peerId, msg.text); return; }
+  if (msg.t === 'wall') { netSendTo(peerId, { t: 'wall', notes: netHostWallNotes() }); return; }
+  if (msg.t === 'note') { netHostRemoteNote(peerId, msg.text); return; }
+  if (msg.t === 'in') {
+    const b = netBotForPeer(peerId);
+    if (!b) return;
+    const x = Math.max(-1, Math.min(1, Number(msg.x) || 0));
+    const y = Math.max(-1, Math.min(1, Number(msg.y) || 0));
+    b.netInput = { x, y, aim: Number(msg.aim), atk: !!msg.atk };
+    b.netLast = game.time;
+    const l = Math.hypot(x, y); if (l > 1.001) { b.netInput.x = x / l; b.netInput.y = y / l; }
+  } else if (msg.t === 'pop') {
+    netGuestPopupAction(peerId, msg.id, msg.a);
+  } else if (msg.t === 'bye') {
+    netHostDropPeer(peerId);
+  }
+}
+
+function netHostDropPeer(peerId) {
+  const b = netBotForPeer(peerId);
+  if (b) {
+    const i = bots.indexOf(b);
+    if (i >= 0) bots.splice(i, 1);
+  }
+  if (NET.session && NET.session.host) toast('A hero left the island.', 'warn', '↤');
+}
+
+function netPopupFor(m, owner) {
+  const S = netSession();
+  if (!S || !S.host) return;
+  const id = 'g' + (++S.seq);
+  const fx = rand(0.58, 0.12), fy = rand(0.6, 0.18);
+  const ttl = 6.5;
+  S.popups.set(id, { id, m, owner, until: Date.now() + ttl * 1000 });
+  netSendTo(owner.netId, { t: 'pop', id, fx, fy, ttl, title: pick(AD_TITLES), sub: pick(AD_SUBS) });
+}
+
+function netExpireGuestPopups() {
+  const S = netSession();
+  if (!S || !S.host) return;
+  const now = Date.now();
+  for (const [id, rec] of S.popups) {
+    if (rec.until > now) continue;
+    S.popups.delete(id);
+    netSendTo(rec.owner.netId, { t: 'popclose', id, gentle: true });
+  }
+}
+
+function netGuestPopupAction(peerId, id, action) {
+  const S = netSession();
+  if (!S || !S.host) return;
+  const rec = S.popups.get(id);
+  if (!rec) return;
+  S.popups.delete(id);
+  const owner = rec.owner;
+  if (action === 'x') {
+    owner.joy = (owner.joy || 0) + 3;
+    if (rec.m && !rec.m.dead) {
+      damageMonster(rec.m, 16, { player: false, by: owner });
+      rec.m.invuln = 0;
+      if (rec.m.phase === 'hidden') rec.m.phase = 'skip';
+    }
+  } else {
+    const cut = Math.max(1, Math.round(owner.hp * rand(0.75, 0.25)));
+    owner.hp = Math.max(1, owner.hp - cut);
+    owner.marked = 3;
+  }
+  netSendTo(peerId, { t: 'popclose', id, gentle: false });
+}
+
+
+/* --- guest abilities, executed on the host ------------------------------- */
+function netGuestDmg(b, base) {
+  return base * (1 + ((b.level || 1) - 1) * 0.06) * (b.dmgMult || 1) * ((b.dmgBoostUntil || 0) > game.time ? 1.4 : 1);
+}
+function netGuestSkill(b, which) {
+  if (!netSession() || !netSession().host) return;
+  const cls = CLASSES[b.cls] || CLASSES.blocker;
+  const now = game.time;
+  const key = which === 1 ? 'skill1Cd' : 'skill2Cd';
+  const def = which === 1 ? cls.q : cls.e;
+  const cd = ((def && def.cd) || 6) * (b.cdMult || 1);
+  if ((b[key] || 0) > now) return;
+  b[key] = now + cd;
+  const c = cls;
+  const x = b.x, y = b.y, ang = typeof b.facing === 'number' ? b.facing : 0;
+  const hit = (m, dmg, extra) => damageMonster(m, netGuestDmg(b, dmg), Object.assign({ player: false, by: b }, extra || {}));
+  if (which === 1) {
+    if (c === 'blocker') {
+      b.shield = 55 + (b.level || 1) * 4; b.shieldT = 4;
+      monstersInCircle(x, y, 135).forEach((m) => {
+        const a = angleTo(x, y, m.x, m.y);
+        m.knockX = (m.knockX || 0) + Math.cos(a) * 230;
+        m.knockY = (m.knockY || 0) + Math.sin(a) * 230;
+      });
+      ringFx(x, y, 30, 150, c.color, 0.6, 5);
+      burst(x, y, c.color, 18, { speed: 100, life: 0.8, size: 3.5, gravity: 0 });
+    } else if (c === 'checker') {
+      const heal = 26 + (b.level || 1) * 2;
+      b.hp = Math.min(b.maxHp, b.hp + heal);
+      world.cleanse(x, y, 185, 0.42, 'bot');
+      monstersInCircle(x, y, 185).forEach((m) => { m.marked = Math.max(m.marked, 4.5); });
+      ringFx(x, y, 30, 210, c.color, 0.8, 8);
+      burst(x, y, [c.color, PAL.pink, '#ffffff'], 22, { speed: 120, life: 1.1, size: 3.2, gravity: -20 });
+    } else if (c === 'engineer') {
+      game.turrets.push({ x, y, t: 6, cd: 0, color: c.color });
+      burst(x, y, [c.color, '#ffffff'], 16, { speed: 90, life: 0.7, size: 3 });
+    } else if (c === 'medic') {
+      const heal = 30 + (b.level || 1) * 2;
+      b.hp = Math.min(b.maxHp, b.hp + heal);
+      world.cleanse(x, y, 190, 0.45, 'bot');
+      monstersInCircle(x, y, 190).forEach((m) => { m.marked = Math.max(m.marked, 3); });
+      ringFx(x, y, 30, 210, c.color, 0.8, 8);
+      burst(x, y, [c.color, PAL.pink, '#ffffff'], 22, { speed: 120, life: 1.1, size: 3.2, gravity: -20 });
+    } else if (c === 'hacker') {
+      monstersInCircle(x, y, 160).forEach((m) => { hit(m, 12, { knock: 40 }); m.marked = Math.max(m.marked, 4); });
+      world.cleanse(x, y, 140, 0.35, 'bot');
+      ringFx(x, y, 25, 160, c.color, 0.6, 6);
+      burst(x, y, [c.color, PAL.mint], 16, { speed: 100, life: 0.7, size: 3 });
+    } else if (c === 'streamer') {
+      const len = 320, width = 90;
+      monstersOnLine(x, y, ang, len, width).forEach((m, i) => hit(m, 18 - i * 2, { knock: 30 }));
+      for (let i = 1; i <= 5; i++) {
+        const t = i / 5;
+        world.cleanse(x + Math.cos(ang) * len * t, y + Math.sin(ang) * len * t, 50, 0.18, 'bot');
+      }
+      beamFx(x, y, ang, len, width, c.color, 0.45, { kind: 'cone' });
+      burst(x + Math.cos(ang) * 80, y + Math.sin(ang) * 80, [c.color, '#fff'], 20, { speed: 120, life: 0.6, size: 3, gravity: 0 });
+    } else if (c === 'archivist') {
+      monstersInArc(x, y, ang, 280, 0.9).forEach((m) => {
+        m.marked = Math.max(m.marked, 5);
+        m.stun = Math.max(m.stun, 0.8);
+        hit(m, 7);
+      });
+      world.cleanse(x, y, 230, 0.4, 'bot');
+      beamFx(x, y, ang, 280, 70, c.color, 0.4, { kind: 'cone' });
+      ringFx(x, y, 20, 210, c.color, 0.6, 7);
+      burst(x, y, [c.color, PAL.sun, '#fff'], 18, { speed: 100, life: 0.7, size: 3 });
+    } else if (c === 'moderator') {
+      monstersInCircle(x, y, 180).forEach((m) => {
+        m.stun = Math.max(m.stun, 2.2);
+        m.marked = Math.max(m.marked, 3);
+        hit(m, 8);
+      });
+      world.cleanse(x, y, 190, 0.32, 'bot');
+      ringFx(x, y, 25, 200, c.color, 0.65, 9);
+      burst(x, y, [c.color, '#ffffff'], 22, { speed: 120, life: 0.8, size: 3.5 });
+    } else {
+      // reader and anything new: a short step forward with a beam
+      for (let i = 0; i < 18; i++) {
+        const nx = x + Math.cos(ang) * (260 / 18), ny = y + Math.sin(ang) * (260 / 18);
+        if (world.canWalk(nx, ny, b.r * 0.8)) { b.x = nx; b.y = ny; } else break;
+      }
+      monstersInArc(b.x, b.y, ang, 100, 1.4).concat(monstersInArc(x - Math.cos(ang) * 120, y - Math.sin(ang) * 120, ang, 220, 1.2))
+        .forEach((m) => { m.stun = Math.max(m.stun, 1.1); hit(m, 12); });
+      beamFx(x, y, ang, 260, 30, c.color, 0.3, { kind: 'dash' });
+    }
+  } else {
+    if (c === 'blocker') {
+      monstersInCircle(x, y, 150).forEach((m) => {
+        const a = angleTo(x, y, m.x, m.y);
+        hit(m, 34, { knock: 260 });
+        m.knockX = (m.knockX || 0) + Math.cos(a) * 320;
+        m.knockY = (m.knockY || 0) + Math.sin(a) * 320;
+      });
+      world.cleanse(x, y, 175, 0.56, 'bot');
+      b.hp = Math.min(b.maxHp, b.hp + 12);
+      b.shield = Math.max(b.shield || 0, 22); b.shieldT = Math.max(b.shieldT || 0, 2.5);
+      ringFx(x, y, 25, 195, c.color2, 0.65, 10);
+      burst(x, y, [c.color, '#ffffff', PAL.sun], 26, { speed: 170, life: 0.9, size: 4 });
+      screenShake(7, 0.3);
+    } else if (c === 'checker') {
+      let pool = monsters.filter((m) => !m.dead && m.spawnT <= 0 && dist(x, y, m.x, m.y) < 380);
+      pool.sort((a, b2) => dist(x, y, a.x, a.y) - dist(x, y, b2.x, b2.y));
+      pool = pool.slice(0, 3);
+      let px = x, py = y;
+      pool.forEach((m) => {
+        m.marked = Math.max(m.marked, 5);
+        beamFx(px, py, angleTo(px, py, m.x, m.y), dist(px, py, m.x, m.y), 7, c.color2, 0.25, { kind: 'chain' });
+        px = m.x; py = m.y;
+        hit(m, 31);
+        b.hp = Math.min(b.maxHp, b.hp + 9);
+        burst(m.x, m.y, [c.color, PAL.sun], 8, { speed: 80, life: 0.6, size: 2.5 });
+      });
+      ringFx(x, y, 16, 70, c.color, 0.5, 5);
+    } else if (c === 'engineer') {
+      b.dmgBoostUntil = game.time + 5;
+      b.shield = Math.max(b.shield || 0, 18); b.shieldT = Math.max(b.shieldT || 0, 2);
+      ringFx(x, y, 20, 120, c.color, 0.6, 6);
+      burst(x, y, [c.color, '#ffffff', PAL.sun], 20, { speed: 120, life: 0.8, size: 3 });
+    } else if (c === 'medic') {
+      b.hp = Math.min(b.maxHp, b.hp + 40 + (b.level || 1) * 3);
+      b.shield = Math.max(b.shield || 0, 24); b.shieldT = Math.max(b.shieldT || 0, 3);
+      world.cleanse(x, y, 220, 0.5, 'bot');
+      for (const a of bots) if (a !== b && dist(a.x, a.y, x, y) < 300) a.hp = Math.min(a.maxHp, a.hp + 18);
+      ringFx(x, y, 30, 220, c.color, 0.7, 8);
+    } else if (c === 'hacker') {
+      monstersInCircle(x, y, 200).forEach((m) => { hit(m, 20); m.marked = Math.max(m.marked, 5); });
+      world.cleanse(x, y, 180, 0.4, 'bot');
+      ringFx(x, y, 25, 210, c.color, 0.6, 7);
+    } else if (c === 'streamer') {
+      monstersInCircle(x, y, 220).forEach((m) => { hit(m, 24); m.marked = Math.max(m.marked, 2); });
+      ringFx(x, y, 30, 240, c.color, 0.7, 8);
+      burst(x, y, [c.color, PAL.sun, '#fff'], 30, { speed: 140, life: 0.8, size: 3.5 });
+      screenShake(6, 0.3);
+    } else if (c === 'archivist') {
+      b.hp = Math.min(b.maxHp, b.hp + 26);
+      b.shield = Math.max(b.shield || 0, 20); b.shieldT = Math.max(b.shieldT || 0, 3);
+      monstersInArc(x, y, ang, 260, 1.0).forEach((m) => { m.marked = Math.max(m.marked, 5); hit(m, 12); });
+      world.cleanse(x, y, 240, 0.45, 'bot');
+      ringFx(x, y, 25, 230, c.color, 0.7, 8);
+    } else if (c === 'moderator') {
+      monstersInCircle(x, y, 240).forEach((m) => {
+        m.stun = Math.max(m.stun, 1.8);
+        m.knockX = (m.knockX || 0) + Math.cos(angleTo(x, y, m.x, m.y)) * 260;
+        m.knockY = (m.knockY || 0) + Math.sin(angleTo(x, y, m.x, m.y)) * 260;
+        hit(m, 16);
+      });
+      ringFx(x, y, 30, 260, c.color, 0.75, 10);
+      screenShake(6, 0.3);
+    } else {
+      monstersOnLine(x, y, ang, 300, 40).forEach((m) => hit(m, 28));
+      beamFx(x, y, ang, 300, 40, c.color, 0.35, { kind: 'text' });
+      beamFx(x, y, ang, 300, 14, c.color2, 0.3);
+    }
+  }
+  audio.sfx(which === 1 ? 'mark' : 'beam');
+}
+function netGuestDash(b) {
+  const now = game.time;
+  if ((b.dashCd || 0) > now) return;
+  b.dashCd = now + 1.8;
+  const ang = typeof b.facing === 'number' ? b.facing : 0;
+  const dist = 170;
+  beamFx(b.x, b.y, ang, dist, 24, '#dff6ff', 0.28, { kind: 'dash' });
+  for (let i = 0; i < 18; i++) {
+    const nx = b.x + Math.cos(ang) * (dist / 18), ny = b.y + Math.sin(ang) * (dist / 18);
+    if (world.canWalk(nx, ny, b.r * 0.8)) { b.x = nx; b.y = ny; } else break;
+  }
+  monstersInCircle(b.x, b.y, 60).forEach((m) => {
+    const a = angleTo(m.x, m.y, b.x, b.y);
+    m.knockX = (m.knockX || 0) + Math.cos(a) * 120;
+    m.knockY = (m.knockY || 0) + Math.sin(a) * 120;
+  });
+  burst(b.x, b.y, '#dff6ff', 9, { speed: 70, life: 0.45, size: 3.5, gravity: 0 });
+  audio.sfx('dash');
+}
+function netGuestBuy(b, id) {
+  const u = UPGRADES.find((x) => x.id === id);
+  if (!u) return;
+  b.upg = b.upg || {};
+  const rank = b.upg[id] || 0;
+  const cost = rank >= u.max ? null : u.costs[rank];
+  if (cost == null) { netSendTo(b.netId, { t: 'deny', id, reason: 'maxed' }); return; }
+  if ((b.joy || 0) < cost) { netSendTo(b.netId, { t: 'deny', id, reason: 'joy' }); return; }
+  b.joy -= cost;
+  b.upg[id] = rank + 1;
+  if (id === 'damage') b.dmgMult = 1 + 0.10 * (rank + 1);
+  else if (id === 'vitality') { b.maxHp = Math.round(b.maxHp + 15); b.hp = Math.min(b.maxHp, b.hp + 15); }
+  else if (id === 'speed') b.speed = Math.round(b.speed * 1.05);
+  else if (id === 'cleanse') b.cleanseMult = 1 + 0.18 * (rank + 1);
+  else if (id === 'cooldown') b.cdMult = 1 - 0.07 * (rank + 1);
+  else if (id === 'joy') b.joyMult = 1 + 0.20 * (rank + 1);
+  netSendTo(b.netId, { t: 'bought', id, rank: rank + 1, cost, joy: b.joy });
+  toast(b.name + ' bought ' + u.name + ' ' + (rank + 1) + '/' + u.max + '.', 'good', '✿');
+}
+
+/* --- guest-side requests and shop ---------------------------------------- */
+function netGuestRequestSkill(which) {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  const now = Date.now();
+  const key = which === 1 ? 'sk1' : 'sk2';
+  const def = (CLASSES[player.cls] || CLASSES.blocker)[which === 1 ? 'q' : 'e'];
+  const cd = ((def && def.cd) || 6) * 1000;
+  if (S[key] && now - S[key] < cd * 0.9) return;
+  S[key] = now;
+  player[which === 1 ? 'skill1Cd' : 'skill2Cd'] = cd / 1000;
+  netSendToHost({ t: 'skill', which });
+  audio.sfx('ui');
+}
+function netGuestKettle(b) {
+  if (b.kettleWave === game.wave) return;
+  b.kettleWave = game.wave;
+  const heal = Math.round(b.maxHp * 0.3);
+  b.hp = Math.min(b.maxHp, b.hp + heal);
+  b.bubble = 'kettle break ☕';
+  b.bubbleT = 2.5;
+  burst(b.x, b.y, [PAL.mint, '#fff'], 14, { speed: 90, life: 0.9, size: 3, gravity: -12 });
+  floatingText(b.x, b.y - 42, '+' + heal + ' hp', '#2f9468', 13, 1);
+  toast(b.name + ' took a kettle break.', 'good', '☕');
+  netSendTo(b.netId, { t: 'kettled', heal });
+}
+function netGuestRequestKettle() {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  if (S.kettleWave === game.wave) { toast('The kettle is empty this wave.', 'warn', '☕'); return; }
+  S.kettleWave = game.wave;
+  netSendToHost({ t: 'kettle' });
+  audio.sfx('heal');
+}
+function netGuestRequestDash() {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  const now = Date.now();
+  if (S.dashAt && now - S.dashAt < 1500) return;
+  S.dashAt = now;
+  player.dashCd = 1.8;
+  netSendToHost({ t: 'dash' });
+  audio.sfx('dash');
+}
+const NET_CHAT = [
+  { label: 'nice bonk!', text: 'nice bonk!' },
+  { label: 'behind me', text: 'behind me!' },
+  { label: 'pop-ups!', text: 'pop-ups! pop-ups!' },
+  { label: 'kettle break', text: 'kettle break?' },
+  { label: 'thank you', text: 'thank you ♥' },
+  { label: 'brb', text: 'brb, staring at the sea' }
+];
+function netSayLocal(hero, i) {
+  const line = NET_CHAT[i];
+  if (!line) return;
+  hero.bubble = line.text;
+  hero.bubbleT = 3;
+}
+function netHostSay(peerId, i) {
+  const line = NET_CHAT[i];
+  if (!line) return;
+  const b = netBotForPeer(peerId);
+  if (b) { b.bubble = line.text; b.bubbleT = 3; }
+}
+function netSendSay(i) {
+  if (!NET_CHAT[i]) return;
+  if (netIsGuest()) {
+    netSayLocal(player, i);
+    netSendToHost({ t: 'say', i });
+  } else if (netIsHost()) {
+    netSayLocal(player, i);
+  }
+}
+function netGuestShopOpen() {
+  if (game.state === 'title') return;
+  if (game.modalType === 'netshop') { renderNetshop(); return; }
+  openPanel('netshop');
+}
+function renderNetshop() {
+  const body = ui.modalBody;
+  if (!body) return;
+  const S = netSession();
+  const joy = (S && S.myJoy) || 0;
+  const upg = (S && S.myUpg) || {};
+  const shopWave = S && S.shopWave ? `<div class="help-block"><h4>Wave ${S.shopWave} cleared${S.shopTier ? ' · ' + escapeHtml(S.shopTier) : ''}</h4><p>${S.shopReward ? 'Reward: <b>' + escapeHtml(S.shopReward) + '</b>. ' : ''}Spend your own Joy before the host starts the next wave.</p></div>` : '';
+  body.innerHTML = `
+    ${shopWave}
+    <div class="kind-row">
+      <span class="chip on">✿ <b id="netJoyChip">${Math.floor(joy)}</b> Joy</span>
+      <span class="chip">Level ${player.level}</span>
+      <span class="chip">your hero, your broom</span>
+    </div>
+    <p class="net-hint">Kills pay your own Joy. Spend it on your own hero; the host applies every rank on the island.</p>
+    <div class="upgrade-grid">
+      ${UPGRADES.map((u) => {
+        const rank = upg[u.id] || 0;
+        const cost = rank >= u.max ? null : u.costs[rank];
+        return `<div class="upgrade-row ${rank >= u.max ? 'maxed' : ''}">
+          <div class="ur-top">
+            <span class="ur-ico">${svg(u.icon)}</span>
+            <h4>${u.name}</h4>
+            <span class="ur-rank">${rank}/${u.max}</span>
+          </div>
+          <p>${u.desc}</p>
+          <div class="ur-buy">
+            <span class="pips">${Array.from({ length: u.max }, (_, i) => `<i class="${i < rank ? 'on' : ''}"></i>`).join('')}</span>
+            ${cost == null ? '<span class="ur-cost">maxed ♥</span>' : `<button class="small-btn" data-netbuy="${u.id}" ${joy < cost ? 'disabled' : ''}>✿ ${cost}</button>`}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <p class="net-hint">The host's own Joy shop is theirs; this one is yours alone.</p>
+  `;
+  $$('[data-netbuy]', body).forEach((btn) => btn.addEventListener('click', () => {
+    netSendToHost({ t: 'buy', id: btn.dataset.netbuy });
+    audio.sfx('select');
+  }));
+}
+function netShopWallet() {
+  const chip = $('#netJoyChip', ui.modalBody);
+  if (chip) chip.textContent = String(Math.floor((netSession() || {}).myJoy || 0));
+}
+function buildNetshopPanel() { renderNetshop(); panelFoot([{ label: 'Back to the island', action: 'close', kind: 'primary' }]); }
+
+function buildNetWallPanel() {
+  const notes = (NET.wallNotes || []).slice().sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  ui.modalBody.innerHTML = `
+    <div class="bench-banner">
+      <div class="bb-ico">♥</div>
+      <p><b>The host's bench wall, shared with this room.</b> Notes you add here land on the host's island and stay after you leave. Be gentle; this is somebody's bench.</p>
+    </div>
+    <form class="note-form" id="netWallForm">
+      <textarea id="netWallText" maxlength="140" placeholder="write something gentle…" aria-label="Your note"></textarea>
+      <div class="nf-row">
+        <span class="char-count"><span id="netWallCount">0</span>/140</span>
+        <button class="btn primary" type="submit">pin it to the host's wall ♥</button>
+      </div>
+    </form>
+    <div class="section-title">On the wall (${notes.length})</div>
+    <div class="notes-list">
+      ${notes.length ? notes.map((n, i) => `
+        <div class="note-card" style="--rot:${(hash2(i, notes.length) * 1.6 - 0.8).toFixed(2)}deg">
+          <div class="nc-text">${esc(n.text)}</div>
+          <div class="nc-meta"><span>— ${esc(n.name)}${n.cls && CLASSES[n.cls] ? ' · ' + CLASSES[n.cls].name : ''} · ${timeAgo(n.ts)}</span><span>♥ ${n.hearts || 0}</span></div>
+        </div>`).join('') : '<div class="empty-note">The wall is waiting for its first note.</div>'}
+    </div>
+  `;
+  const ta = $('#netWallText', ui.modalBody);
+  const count = $('#netWallCount', ui.modalBody);
+  ta.addEventListener('input', () => { count.textContent = String(ta.value.length); });
+  $('#netWallForm', ui.modalBody).addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = ta.value.replace(/\s+/g, ' ').trim();
+    if (text.length < 3) { toast('A few more words? Even "you got this" counts.', 'warn', '♥'); return; }
+    netSendToHost({ t: 'note', text });
+    ta.value = '';
+    toast('Pinned to the host\'s wall.', 'good', '♥');
+  });
+  panelFoot([{ label: 'Step back outside', action: 'close', kind: 'primary' }]);
+}
+function buildTurnPanel() {
+  const t = TURN_CFG || { urls: '', username: '', credential: '' };
+  ui.modalBody.innerHTML = `
+    <div class="help-block"><h4>Relay (TURN)</h4><p>STUN alone cannot connect some symmetric NATs. If you have a TURN relay (for example a free Cloudflare TURN app), paste its URL and credentials here. They are saved only in this browser, and new connections use them.</p></div>
+    <div class="net-row"><input class="net-input" id="turnUrl" style="text-transform:none;letter-spacing:0" placeholder="turn:host:3478" value="${escapeHtml(t.urls || '')}"></div>
+    <div class="net-row"><input class="net-input" id="turnUser" style="text-transform:none;letter-spacing:0" placeholder="username" value="${escapeHtml(t.username || '')}"></div>
+    <div class="net-row"><input class="net-input" id="turnCred" style="text-transform:none;letter-spacing:0" placeholder="credential" value="${escapeHtml(t.credential || '')}"></div>
+    <p class="net-hint">Saved locally. Hosts and guests each need it, and it applies to connections made after saving.</p>
+  `;
+  const save = () => {
+    const urls = $('#turnUrl', ui.modalBody).value.trim();
+    const username = $('#turnUser', ui.modalBody).value.trim();
+    const credential = $('#turnCred', ui.modalBody).value.trim();
+    TURN_CFG = urls ? { urls, username, credential } : null;
+    store.set('adblock-island.turn.v0', TURN_CFG);
+    toast(urls ? 'Relay saved. New connections will use it.' : 'Relay cleared.', 'good', '✦');
+    audio.sfx('ui');
+  };
+  panelFoot([
+    { label: 'Save relay', action: 'saverelay', kind: 'primary' },
+    { label: 'Clear', action: 'clearrelay' },
+    { label: 'Close', action: 'close' }
+  ]);
+  $$('[data-panel-action]', ui.modalFoot).forEach((btn) => {
+    const act = btn.dataset.panelAction;
+    if (act === 'saverelay') btn.addEventListener('click', save);
+    if (act === 'clearrelay') btn.addEventListener('click', () => {
+      TURN_CFG = null; store.set('adblock-island.turn.v0', null);
+      $('#turnUrl', ui.modalBody).value = ''; $('#turnUser', ui.modalBody).value = ''; $('#turnCred', ui.modalBody).value = '';
+      toast('Relay cleared.', '', '✦');
+    });
+  });
+}
+function buildChatPanel() {
+  const muted = NET.muted || {};
+  const watchList = netIsHost()
+    ? ((NET.room && NET.room.peers) || []).filter((p) => p.id !== NET.peerId)
+    : [];
+  ui.modalBody.innerHTML = `
+    <div class="help-block">
+      <h4>Say something</h4>
+      <p>Preset lines or one short line of your own. The room service strips links, masks blocked words, rate-limits every voice and enforces host mutes. Bubbles only, no chat log.</p>
+    </div>
+    <div class="net-chat">
+      ${NET_CHAT.map((c, i) => `<button class="btn" data-say="${i}">${escapeHtml(c.label)}</button>`).join('')}
+    </div>
+    <div class="net-row" style="margin-top:12px">
+      <input class="net-input" id="netChatInput" maxlength="140" placeholder="say something kind">
+      <button class="btn" id="netChatSend">send</button>
+    </div>
+    <p class="net-hint">140 characters · links become [link] · one line every 1.5s</p>
+    ${watchList.length ? `<div class="section-title">Mute in this room</div>
+      ${watchList.map((p) => `<div class="net-line">
+        <b>${escapeHtml(p.name)}</b>
+        <button class="btn" data-mute="${p.id}" style="margin-left:auto">${muted[p.id] ? 'unmute' : 'mute'}</button>
+      </div>`).join('')}` : ''}
+  `;
+  $$('[data-say]', ui.modalBody).forEach((btn) => btn.addEventListener('click', () => {
+    netSendSay(Number(btn.dataset.say));
+    audio.sfx('ui');
+    closePanel();
+  }));
+  const send = () => {
+    const input = $('#netChatInput', ui.modalBody);
+    if (!input) return;
+    netSendChat(input.value);
+    input.value = '';
+  };
+  const sendBtn = $('#netChatSend', ui.modalBody);
+  if (sendBtn) sendBtn.addEventListener('click', send);
+  const chatInput = $('#netChatInput', ui.modalBody);
+  if (chatInput) chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') send(); });
+  $$('[data-mute]', ui.modalBody).forEach((btn) => btn.addEventListener('click', () => {
+    NET.muted = NET.muted || {};
+    const target = btn.dataset.mute;
+    const on = !NET.muted[target];
+    NET.muted[target] = on;
+    netApi('mute', { peerId: target, on }).catch(() => {});
+    buildChatPanel();
+    audio.sfx('ui');
+  }));
+  panelFoot([{ label: 'Close', action: 'close' }]);
+}
+
+/* --- rejoin after a dropped channel -------------------------------------- */
+async function netGuestRejoin() {
+  if (!NET.code) { setTimeout(() => location.reload(), 400); return; }
+  try {
+    const data = await netApi('join', { code: NET.code, name: netName(), cls: selectedClass });
+    // the host id is stable, so the old closed peer record has to go or the
+    // new offer would be applied to a dead connection
+    for (const rec of NET.peers.values()) netDropPeer(rec);
+    NET.peers.clear();
+    NET.seen.clear();
+    NET.peerId = data.peerId;
+    NET.room = data.room;
+    NET.role = 'guest';
+    NET.phase = 'room';
+    netStartPolling();
+    toast('Rejoined the room. Waiting for the host to drop you back in.', 'good', '✦');
+  } catch (e) {
+    NET.reconnectTries = (NET.reconnectTries || 0) + 1;
+    if (NET.reconnectTries >= 3) { toast(e.message || 'The room is gone.', 'warn', '!'); setTimeout(() => location.reload(), 900); return; }
+    setTimeout(netGuestRejoin, 1800);
+  }
+}
+
+
+/* --- phase 5: state transfer and host migration -------------------------- */
+const NET_HERO_FIELDS = ['id','name','cls','x','y','r','hp','maxHp','level','xp','xpNext','joy','speed','facing','bob','moving','state','stateT','down','downT','human','net','netId','cosmetic','upg','dmgMult','joyMult','cleanseMult','cdMult','atkCd','atkAnim','shield','shieldT','kettleWave','homeX','homeY','bubble','bubbleT','sit','dead','invuln','lastHurt','healGlow','hurtFlash'];
+const NET_MONSTER_FIELDS = ['id','type','isBoss','x','y','r','hp','maxHp','speed','dmg','xp','joy','color','dark','name','spawnT','facing','bob','vx','vy','knockX','knockY','flash','marked','stun','dead','deathT','atkCd','aggro','phase','phaseT','adBreak','attackT','beamT','summonStage','targetT','splits','scale','generation','invuln','hidden','popupCd','shootCd','cleanseT'];
+const NET_PROJECTILE_FIELDS = ['x','y','vx','vy','r','life','dmg','friendly','kind','color','dead','angle','pierce','markedHit','trail','knock','markOnHit','stunOnHit','healOnHit'];
+const NET_HAZARD_FIELDS = ['x','y','angle','length','width','color','damage','t','windup','fired'];
+const NET_BEAM_FIELDS = ['x','y','angle','length','width','color','life','maxLife','kind'];
+const NET_PICKUP_FIELDS = ['x','y','amount','t','vx','vy','life','kind'];
+
+function netPick(obj, fields) {
+  const out = {};
+  for (const f of fields) if (obj[f] !== undefined && typeof obj[f] !== 'function') out[f] = obj[f];
+  return out;
+}
+function netPackState() {
+  return {
+    v: 1,
+    seed: world.seed,
+    game: netPick(game, ['wave','waveState','waveT','waveTotal','endless','checkpointPending','checkpointAway','checkpointIndex','checkpointJoy','checkpointUpgradesBought','checkpointOpenT','waveUpgradesBought','bossSpawned','bossDefeated','bossRollWave','bossSplitLocked','won','pendingVictory','waveRestartPending']),
+    player: netPick(player, NET_HERO_FIELDS),
+    bots: bots.map((b) => netPick(b, NET_HERO_FIELDS)),
+    monsters: monsters.map((m) => netPick(m, NET_MONSTER_FIELDS)),
+    projectiles: projectiles.filter((p) => !p.dead).map((p) => netPick(p, NET_PROJECTILE_FIELDS)),
+    hazards: hazards.map((h) => netPick(h, NET_HAZARD_FIELDS)),
+    beams: beams.map((b) => netPick(b, NET_BEAM_FIELDS)),
+    turrets: (game.turrets || []).map((t) => netPick(t, ['x','y','t','cd','color'])),
+    pickups: pickups.map((p) => netPick(p, NET_PICKUP_FIELDS)),
+    corrupt: netPackCorrupt()
+  };
+}
+function netAdoptState(state) {
+  if (!state || typeof state !== 'object') return false;
+  world.seed = state.seed || world.seed;
+  generateWorld();
+  netApplyCorrupt(state.corrupt);
+  Object.assign(game, state.game || {});
+  game.state = 'playing';
+  game.boss = null;
+  const mine = (state.bots || []).find((b) => b.netId === NET.peerId) || state.player;
+  if (mine) {
+    Object.assign(player, mine);
+    player.net = false; player.netId = null; player.human = false;
+    player.down = false; player.dead = false; player.id = 'p1';
+  }
+  bots.length = 0;
+  if (state.player) {
+    const hb = Object.assign({}, netPick(state.player, NET_HERO_FIELDS), { id: 'oldhost', human: false, net: false, state: 'human', stateT: 999, down: false, netId: null, bubble: '', bubbleT: 0 });
+    bots.push(hb);
+  }
+  for (const b of state.bots || []) {
+    if (b.netId === NET.peerId) continue;
+    const nb = Object.assign({}, netPick(b, NET_HERO_FIELDS));
+    nb.human = !!b.net;
+    bots.push(nb);
+  }
+  monsters.length = 0;
+  for (const m of state.monsters || []) monsters.push(Object.assign({}, m));
+  projectiles.length = 0;
+  for (const p of state.projectiles || []) projectiles.push(Object.assign({}, p));
+  hazards.length = 0;
+  for (const h of state.hazards || []) hazards.push(Object.assign({}, h));
+  beams.length = 0;
+  for (const b of state.beams || []) beams.push(Object.assign({}, b));
+  pickups.length = 0;
+  for (const p of state.pickups || []) pickups.push(Object.assign({}, p));
+  game.turrets = [];
+  for (const t of state.turrets || []) game.turrets.push(Object.assign({}, t));
+  game.boss = monsters.find((m) => m.isBoss && !m.dead) || null;
+  return true;
+}
+function netStartBackup() {
+  const S = netSession();
+  if (!S || !S.host) return;
+  clearInterval(S.backupT);
+  const push = () => {
+    if (!netIsHost()) return;
+    netApiQuiet('backup', { code: NET.code, peerId: NET.peerId, state: JSON.stringify(netPackState()) });
+  };
+  push();
+  S.backupT = setInterval(push, 10000);
+}
+function netBecomeHost(state) {
+  const oldHost = NET.room && NET.room.host ? NET.room.host.id : null;
+  const peers = (NET.room && NET.room.peers) || [];
+  clearTimeout(NET.pollT); NET.pollT = null;
+  if (!netAdoptState(state)) { netGuestAbort('The handover failed.'); return; }
+  for (const rec of NET.peers.values()) netDropPeer(rec);
+  NET.peers.clear();
+  NET.seen.clear();
+  NET.session = { active: true, host: true, guest: false, snapT: null, popups: new Map(), seq: 0, lastCorrupt: 0, backupT: null };
+  NET.role = 'host'; NET.phase = 'room'; NET.handoffTo = null; NET.reconnectTries = 0;
+  netForceClosePanel();
+  ui.titleScreen.classList.add('hidden');
+  ui.hud.classList.remove('hidden');
+  netApiQuiet('promote', { code: NET.code, peerId: NET.peerId });
+  for (const p of peers) {
+    if (p.id === NET.peerId || p.id === oldHost) continue;
+    netOfferTo(p.id);
+  }
+  NET.session.snapT = setInterval(netHostTick, input.touch ? 160 : 100);
+  netStartBackup();
+  netStartPolling();
+  updateHUD(true);
+  updatePlayerCard();
+  grantAchievement('handover_hero');
+  toast('You are the host now. The island carries on.', 'good', '✦');
+}
+async function netTryTakeover() {
+  if (!netIsGuest()) return;
+  try {
+    const data = await netApi('takeover', { code: NET.code, peerId: NET.peerId });
+    const state = typeof data.state === 'string' ? JSON.parse(data.state) : data.state;
+    netBecomeHost(state);
+  } catch (e) {
+    netGuestAbort('No island state was left behind.');
+  }
+}
+function netHostPeerAlive() {
+  const hostId = NET.room && NET.room.host ? NET.room.host.id : null;
+  const hostPeer = ((NET.room && NET.room.peers) || []).find((p) => p.id === hostId);
+  return !!(hostPeer && hostPeer.lastSeen && Date.now() - hostPeer.lastSeen < 25000);
+}
+let netRecoveryT = null;
+function netScheduleRecovery() {
+  clearTimeout(netRecoveryT);
+  netRecoveryT = setTimeout(() => {
+    if (!netIsGuest()) return;
+    const rec = NET.peers.get(NET.room && NET.room.host ? NET.room.host.id : '');
+    if (rec && rec.connected) return;
+    if (NET.handoffTo) return;
+    if (netHostPeerAlive()) {
+      toast('Connection hiccup. Rejoining the island…', 'warn', '↻');
+      netGuestAbort('Rejoining…');
+    } else {
+      netHandleHostLoss();
+    }
+  }, 5000);
+}
+function netHandleHostLoss() {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  if (NET.handoffTo) {
+    toast('The host stepped away. Waiting for the handover…', 'warn', '↻');
+    setTimeout(() => { if (netIsGuest() && !netSession().host) netGuestAbort('The handover did not arrive.'); }, 16000);
+    return;
+  }
+  const hostId = NET.room && NET.room.host ? NET.room.host.id : null;
+  const remaining = ((NET.room && NET.room.peers) || []).filter((p) => p.id !== hostId && (p.mode || 'play') === 'play');
+  const first = remaining[0];
+  if (first && first.id === NET.peerId) {
+    toast('Host lost. Taking the island over…', 'warn', '↻');
+    setTimeout(() => netTryTakeover(), 2600);
+  } else {
+    toast('Host lost. Waiting for a new host…', 'warn', '↻');
+    setTimeout(() => { if (netIsGuest()) netGuestAbort('No host took over.'); }, 16000);
+  }
+}
+
+/* --- phase 5: chat with host-side filtering ------------------------------ */
+const NET_CHAT_BLOCK = ['fuck', 'shit', 'bitch', 'cunt', 'nigger', 'faggot', 'retard', 'asshole'];
+function netFilterChat(text) {
+  let t = String(text || '').slice(0, 140).replace(/\s+/g, ' ').trim();
+  t = t.replace(/https?:\/\/\S+|www\.\S+/gi, '[link]');
+  let hit = false;
+  for (const w of NET_CHAT_BLOCK) {
+    const re = new RegExp(w, 'gi');
+    if (re.test(t)) { hit = true; t = t.replace(re, '…'); }
+  }
+  return { text: t, hit };
+}
+function netHostWallNotes() {
+  return loadNotes().slice(-12).map((n) => ({ id: n.id, name: n.name, cls: n.cls, text: n.text, hearts: n.hearts || 0, ts: n.ts, local: !!n.local }));
+}
+function netBroadcastWall() {
+  const notes = netHostWallNotes();
+  for (const [id] of NET.peers) netSendTo(id, { t: 'wall', notes });
+}
+function netHostRemoteNote(peerId, raw) {
+  const text = String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 140);
+  if (text.length < 3) return;
+  const info = ((NET.room && NET.room.peers) || []).find((p) => p.id === peerId) || {};
+  const notes = loadNotes();
+  if (notes.some((n) => n.text.toLowerCase() === text.toLowerCase())) return;
+  notes.push({ id: 'net-' + Date.now() + '-' + Math.floor(Math.random() * 999), name: info.name || 'a visitor', cls: info.cls || 'blocker', text, hearts: 0, ts: Date.now(), local: false });
+  if (notes.length > 80) notes.splice(0, notes.length - 80);
+  notesCache = notes;
+  persistNotes();
+  netBroadcastWall();
+  toast((info.name || 'A visitor') + ' pinned a note to the bench wall.', 'good', '♥');
+}
+function netHostChat(fromId, text) {
+  if (!netIsHost()) return;
+  NET.chatRate = NET.chatRate || {};
+  const now = Date.now();
+  if (NET.chatRate[fromId] && now - NET.chatRate[fromId] < 1500) return;
+  NET.chatRate[fromId] = now;
+  if (NET.muted && NET.muted[fromId]) return;
+  const f = netFilterChat(text);
+  if (!f.text) return;
+  if (fromId === NET.peerId) {
+    player.bubble = f.text; player.bubbleT = 4;
+  } else {
+    const b = netBotForPeer(fromId);
+    if (b) { b.bubble = f.text; b.bubbleT = 4; }
+    else {
+      // spectators have no hero: put their line in the room log and toast it
+      const info = ((NET.room && NET.room.peers) || []).find((p) => p.id === fromId) || {};
+      const who = info.name || 'someone';
+      chatAdd('', who + ': ' + f.text, 'system');
+      toast(who + ': ' + f.text, '', '✎');
+      netBroadcastRaw(JSON.stringify({ t: 'saytext', name: who, text: f.text }));
+    }
+  }
+}
+function netSendChat(text) {
+  const t = String(text || '').trim().slice(0, 140);
+  if (!t) return;
+  if (netSession()) {
+    netApi('chat', { text: t }).catch(() => {
+      // the room service is down: fall back to host-relayed chat
+      if (netIsGuest()) netSendToHost({ t: 'chat', text: t });
+      else if (netIsHost()) netHostChat(NET.peerId, t);
+    });
+    player.bubble = t;
+    player.bubbleT = 4;
+  } else if (netIsGuest()) {
+    netSendToHost({ t: 'chat', text: t });
+    player.bubble = t; player.bubbleT = 4;
+  } else if (netIsHost()) {
+    netHostChat(NET.peerId, t);
+  }
+  audio.sfx('ui');
+}
+function netHandleServerChat(msg) {
+  if (!msg || msg.from === NET.peerId) return;
+  const line = (msg.name || 'someone') + ': ' + (msg.text || '');
+  chatAdd('', line, 'system');
+  toast(line, '', '✎');
+  if (netIsHost()) {
+    const b = netBotForPeer(msg.from);
+    if (b) { b.bubble = msg.text; b.bubbleT = 4; }
+  }
+}
+
+function netGuestStart(msg) {
+  // a duplicate hello (spawn + channel-open) must not restart the run
+  if (netIsGuest() && Date.now() - (NET.session.startedAt || 0) < 3000) return;
+  NET.reconnectTries = 0;
+  NET.session = {
+    startedAt: Date.now(),
+    active: true, host: false, guest: true, spectator: !!msg.spectator,
+    hostName: msg.hostName || 'the host',
+    myId: NET.peerId, hostId: NET.room && NET.room.host ? NET.room.host.id : null,
+    ghosts: { players: new Map(), monsters: new Map() },
+    lastSnap: 0, lastInput: 0, lastHud: 0
+  };
+  coopEnabled = false;
+  netForceClosePanel();
+  startGame();
+  world.seed = msg.seed || world.seed;
+  generateWorld();
+  netApplyCorrupt(msg.corrupt);
+  NET.session.ghosts = { players: new Map(), monsters: new Map() };
+  if (msg.spectator) grantAchievement('front_row');
+  toast('Connected to ' + (msg.hostName || 'the host') + '. The island is theirs to run.', 'good', '✦');
+}
+
+function netGuestApplySnapshot(snap) {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  S.lastSnap = Date.now();
+  game.wave = snap.wave;
+  game.waveState = snap.ws;
+  game.endless = !!snap.endless;
+  game.bossSpawned = !!snap.bossSpawned;
+  game.bossDefeated = !!snap.bossDefeated;
+  game.won = !!snap.won;
+  if (snap.corrupt) netApplyCorrupt(snap.corrupt);
+
+  // my own avatar comes from the host's simulation
+  const mine = (snap.p || []).find((p) => p.id === S.myId);
+  if (mine) {
+    if (S.lastSnap && !S.hadSnap) { player.x = mine.x; player.y = mine.y; }
+    S.hadSnap = true;
+    player._tx = mine.x; player._ty = mine.y;
+    player.hp = mine.hp; player.maxHp = mine.maxHp;
+    player.level = mine.level; player.xp = mine.xp; player.joy = mine.joy;
+    player.shield = mine.shield || 0;
+    S.myJoy = mine.joy; S.myUpg = mine.upg || {}; S.myLevel = mine.level;
+    if (mine.cd1 != null) player.skill1Cd = mine.cd1;
+    if (mine.cd2 != null) player.skill2Cd = mine.cd2;
+    if (mine.dcd != null) player.dashCd = mine.dcd;
+    if (game.modalType === 'netshop') netShopWallet();
+    player.moving = mine.moving; player.facing = mine.facing;
+    player.atkAnim = mine.atkAnim; player.bob = mine.bob;
+    player.dead = false;
+    if (game.bossSpawned !== false) {}
+  }
+
+  // everyone else renders as a ghost bot
+  const seenP = new Set();
+  for (const p of snap.p || []) {
+    if (p.id === S.myId) continue;
+    seenP.add(p.id);
+    let g = S.ghosts.players.get(p.id);
+    if (!g) {
+      g = { x: p.x, y: p.y, r: p.r, bob: 0, atkAnim: 0, bubbleT: 0, cosmetic: 'none', state: 'human' };
+      S.ghosts.players.set(p.id, g);
+    }
+    Object.assign(g, {
+      id: p.id, name: p.name, cls: p.cls, hp: p.hp, maxHp: p.maxHp,
+      facing: p.facing, moving: p.moving, down: p.down, human: p.human,
+      cosmetic: p.cosmetic, level: p.level, net: p.net, netId: p.net, _temp: true,
+      bubble: p.bubble || '', bubbleT: p.bubbleT || 0
+    });
+    g._tx = p.x; g._ty = p.y;
+  }
+  for (const id of [...S.ghosts.players.keys()]) if (!seenP.has(id)) S.ghosts.players.delete(id);
+  bots.length = 0;
+  for (const g of S.ghosts.players.values()) bots.push(g);
+
+  // monsters
+  const seenM = new Set();
+  for (const m of snap.m || []) {
+    seenM.add(m.id);
+    let g = S.ghosts.monsters.get(m.id);
+    if (!g) {
+      g = { x: m.x, y: m.y, deathT: 0, dead: false, bomb: 0, state: 'idle', atkAnim: 0, moveAnim: 0 };
+      S.ghosts.monsters.set(m.id, g);
+    }
+    Object.assign(g, m);
+    g._tx = m.x; g._ty = m.y;
+  }
+  for (const id of [...S.ghosts.monsters.keys()]) if (!seenM.has(id)) S.ghosts.monsters.delete(id);
+  monsters.length = 0;
+  for (const g of S.ghosts.monsters.values()) monsters.push(g);
+
+  game.boss = monsters.find((m) => m.isBoss && !m.dead) || null;
+
+  // straight-line objects are cheap to rebuild every snapshot
+  projectiles.length = 0;
+  for (const p of snap.pr || []) projectiles.push(Object.assign({}, p));
+  beams.length = 0;
+  for (const b of snap.bm || []) beams.push(Object.assign({}, b));
+  hazards.length = 0;
+  for (const h of snap.hz || []) hazards.push(Object.assign({}, h));
+  game.turrets = game.turrets || [];
+  game.turrets.length = 0;
+  for (const t of snap.tu || []) game.turrets.push(Object.assign({}, t));
+}
+
+function netGuestOnData(msg) {
+  if (!msg) return;
+  if (msg.t === 'hello') netGuestStart(msg);
+  else if (msg.t === 'snap') netGuestApplySnapshot(msg);
+  else if (msg.t === 'pop') netOpenGuestPopup(msg);
+  else if (msg.t === 'popclose') {
+    const p = (NET.guestPopups || []).find((x) => x.id === msg.id);
+    if (p) netCloseGuestPopup(p, msg.gentle ? 'expired' : 'closed');
+  } else if (msg.t === 'kettled') {
+    toast('Kettle break: +' + msg.heal + ' hp.', 'good', '☕');
+  } else if (msg.t === 'shop') {
+    const S = netSession();
+    if (S) {
+      S.kettleWave = -1;
+      S.shopWave = msg.wave;
+      S.shopTier = msg.tier || '';
+      S.shopReward = msg.reward || null;
+    }
+    netGuestShopOpen();
+  } else if (msg.t === 'bought') {
+    const S = netSession();
+    if (S) {
+      S.myJoy = msg.joy;
+      S.myUpg = S.myUpg || {};
+      S.myUpg[msg.id] = msg.rank;
+    }
+    const u = UPGRADES.find((x) => x.id === msg.id);
+    toast((u ? u.name : 'Upgrade') + ' ' + msg.rank + (u ? '/' + u.max : '') + ' applied on the host.', 'good', '✿');
+    if (game.modalType === 'netshop') renderNetshop();
+  } else if (msg.t === 'deny') {
+    toast(msg.reason === 'maxed' ? 'That one is already maxed.' : 'Not quite enough Joy yet.', 'warn', '✿');
+    if (game.modalType === 'netshop') renderNetshop();
+  } else if (msg.t === 'takeover') {
+    setTimeout(() => netTryTakeover(), 900);
+  } else if (msg.t === 'handoff') {
+    NET.handoffTo = msg.to;
+    toast('The host is handing the island over. Hold on.', 'warn', '↻');
+  } else if (msg.t === 'wall') {
+    NET.wallNotes = msg.notes || [];
+    if (game.modalType === 'wallnet') buildNetWallPanel();
+    toast('The host shared the bench wall.', '', '♥');
+  } else if (msg.t === 'wave') {
+    if (msg.banner) waveBannerShow(msg.banner);
+  } else if (msg.t === 'saytext') {
+    toast(msg.name + ': ' + msg.text, '', '✎');
+  } else if (msg.t === 'resume') {
+    const S = netSession();
+    if (!S || !S.guest) return;
+    world.seed = msg.seed || world.seed;
+    generateWorld();
+    netApplyCorrupt(msg.corrupt);
+    toast('Back in the island. The new host has it.', 'good', '✦');
+  } else if (msg.t === 'end') {
+    netGuestAbort('The host closed the room.');
+  }
+}
+
+function netGuestAbort(reason) {
+  if (!NET.session) return;
+  NET.session = null;
+  clearTimeout(NET.pollT);
+  NET.pollT = null;
+  NET.phase = 'idle';
+  if (NET.guestPopups) {
+    for (const p of NET.guestPopups) if (p.el && p.el.parentNode) p.el.remove();
+    NET.guestPopups = [];
+  }
+  if (NET.role === 'guest' && NET.code && (NET.reconnectTries || 0) < 3) {
+    NET.reconnectTries = (NET.reconnectTries || 0) + 1;
+    const deadPeer = NET.peerId;
+    if (deadPeer) {
+      try {
+        fetch('/api/signaling', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'leave', code: NET.code, peerId: deadPeer, token: NET.token }),
+          keepalive: true
+        }).catch(() => {});
+      } catch (e) {}
+    }
+    toast('The line dropped. Trying to rejoin the room…', 'warn', '↻');
+    setTimeout(netGuestRejoin, 1200);
+    return;
+  }
+  toast(reason || 'The room closed.', 'warn', '!');
+  setTimeout(() => { location.reload(); }, 900);
+}
+
+function netOpenGuestPopup(msg) {
+  NET.guestPopups = NET.guestPopups || [];
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const x = Math.round(Math.min(Math.max(8, msg.fx * vw), vw - 240));
+  const y = Math.round(Math.min(Math.max(8, msg.fy * vh), vh - 200));
+  const el = document.createElement('div');
+  el.className = 'ad-popup';
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+  el.style.transform = 'rotate(' + rand(2.4, -2.4).toFixed(1) + 'deg)';
+  el.innerHTML = `
+    <div class="ad-bar"><span>SPONSORED · AD</span><span class="ad-time">6s</span></div>
+    <div class="ad-body">
+      <p class="ad-title">${escapeHtml(msg.title || 'A word from our sponsor')}</p>
+      <p class="ad-sub">${escapeHtml(msg.sub || 'You will not believe this one.')}</p>
+      <button type="button" class="ad-cta">CLICK HERE →</button>
+    </div>
+    <button class="ad-x" aria-label="Close pop-up ad">✕</button>
+  `;
+  ui.popupLayer.appendChild(el);
+  const p = { id: msg.id, el, life: Number(msg.ttl) || 6.5, timeEl: $('.ad-time', el) };
+  NET.guestPopups.push(p);
+  const send = (a) => { netSendToHost({ t: 'pop', id: msg.id, a }); netCloseGuestPopup(p, a); };
+  $('.ad-x', el).addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); send('x'); });
+  $('.ad-x', el).addEventListener('click', (e) => { e.stopPropagation(); e.preventDefault(); });
+  $('.ad-cta', el).addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); send('cta'); });
+  $('.ad-cta', el).addEventListener('click', (e) => { e.stopPropagation(); e.preventDefault(); });
+  el.addEventListener('pointerdown', (e) => e.stopPropagation());
+  audio.sfx('ui');
+}
+function netCloseGuestPopup(p, why) {
+  if (!p || p.dead) return;
+  p.dead = true;
+  if (p.el && p.el.parentNode) {
+    p.el.classList.add('leaving');
+    setTimeout(() => p.el.remove(), 200);
+  }
+  NET.guestPopups = (NET.guestPopups || []).filter((x) => x !== p);
+  if (why === 'x') audio.sfx('pop');
+}
+function netGuestPopupTick(dt) {
+  const list = NET.guestPopups || [];
+  for (const p of list.slice()) {
+    p.life -= dt;
+    if (p.timeEl) p.timeEl.textContent = Math.max(0, Math.ceil(p.life)) + 's';
+    if (p.life <= 0) netCloseGuestPopup(p, 'expired');
+  }
+}
+
+function netGuestSendInput() {
+  const S = netSession();
+  if (!S || !S.guest || S.spectator) return;
+  const k = input.keys;
+  let x = 0, y = 0;
+  if (k.up) y -= 1;
+  if (k.down) y += 1;
+  if (k.left) x -= 1;
+  if (k.right) x += 1;
+  const l = Math.hypot(x, y);
+  if (l > 1) { x /= l; y /= l; }
+  let aim = player.facing;
+  if (input.pointer === 'mouse') {
+    const w = screenToWorld(input.mouse.x, input.mouse.y);
+    aim = angleTo(player.x, player.y, w.x, w.y);
+  } else if (l > 0.1) {
+    aim = Math.atan2(y, x);
+  }
+  netSendToHost({ t: 'in', x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100, aim: Math.round(aim * 100) / 100, atk: !!input.attackHeld });
+}
+
+function netLerpGhosts(dt) {
+  const S = netSession();
+  if (!S || !S.guest) return;
+  if (S.spectator) {
+    const list = [...S.ghosts.players.values()];
+    const target = list[(S.spectatorIdx || 0) % Math.max(1, list.length)];
+    if (target) {
+      player.x = target.x; player.y = target.y;
+      player.cls = target.cls || player.cls;
+      player.facing = target.facing || 0;
+      player.hp = player.maxHp;
+    }
+  }
+  const k = Math.min(1, dt * 14);
+  if (player._tx != null) {
+    player.x += (player._tx - player.x) * k;
+    player.y += (player._ty - player.y) * k;
+  }
+  for (const g of S.ghosts.players.values()) {
+    g.x += ((g._tx != null ? g._tx : g.x) - g.x) * k;
+    g.y += ((g._ty != null ? g._ty : g.y) - g.y) * k;
+  }
+  for (const g of S.ghosts.monsters.values()) {
+    g.x += ((g._tx != null ? g._tx : g.x) - g.x) * k;
+    g.y += ((g._ty != null ? g._ty : g.y) - g.y) * k;
+  }
+}
+
+function updateGuestView(dt) {
+  game.dt = dt;
+  game.time += dt;
+  player.atkCd = Math.max(0, (player.atkCd || 0) - dt);
+  player.skill1Cd = Math.max(0, (player.skill1Cd || 0) - dt);
+  player.skill2Cd = Math.max(0, (player.skill2Cd || 0) - dt);
+  player.dashCd = Math.max(0, (player.dashCd || 0) - dt);
+  game.elapsed += dt;
+  game.worldTime += dt;
+  netLerpGhosts(dt);
+  netGuestPopupTick(dt);
+  for (let i = projectiles.length - 1; i >= 0; i--) {
+    const p = projectiles[i];
+    p.x += (p.vx || 0) * dt; p.y += (p.vy || 0) * dt;
+    p.life -= dt;
+    if (p.life <= 0) projectiles.splice(i, 1);
+  }
+  for (let i = beams.length - 1; i >= 0; i--) { beams[i].life -= dt; if (beams[i].life <= 0) beams.splice(i, 1); }
+  for (let i = hazards.length - 1; i >= 0; i--) { hazards[i].t += dt; if (hazards[i].t > hazards[i].windup + 0.5) hazards.splice(i, 1); }
+  const ts = game.turrets || []; for (let i = ts.length - 1; i >= 0; i--) { ts[i].t -= dt; if (ts[i].t <= 0) ts.splice(i, 1); }
+  updateEffects(dt);
+  updateCamera(dt);
+  game.hudT = (game.hudT || 0) - dt;
+  if (game.hudT <= 0) { game.hudT = 0.14; updateHUD(); }
+  const S = netSession();
+  if (S && game.time - S.lastInput > 0.05) { S.lastInput = game.time; netGuestSendInput(); }
+}
+
+function netEndSession(reason) {
+  const S = netSession();
+  if (!S) return;
+  if (S.host) {
+    const others = [...NET.peers.entries()].filter(([id, r]) => r.connected && id !== NET.peerId);
+    const succ = others[0];
+    if (succ) {
+      netApiQuiet('backup', { code: NET.code, peerId: NET.peerId, state: JSON.stringify(netPackState()) });
+      netSendTo(succ[0], { t: 'takeover' });
+      for (const [id] of NET.peers) if (id !== succ[0]) netSendTo(id, { t: 'handoff', to: succ[0] });
+    } else {
+      for (const [id] of NET.peers) netSendTo(id, { t: 'end', reason: reason || 'The host left.' });
+    }
+    if (S.snapT) clearInterval(S.snapT);
+    if (S.backupT) clearInterval(S.backupT);
+  }
+  if (NET.guestPopups) {
+    for (const p of NET.guestPopups) if (p.el && p.el.parentNode) p.el.remove();
+    NET.guestPopups = [];
+  }
+  NET.session = null;
+}
+
 const PANEL_META = {
   upgrades: { title: 'A slightly better broom', sub: 'Spend Joy on small improvements for this run. The island rewards patience.', icon: 'spark' },
   kindness: { title: 'The kindness wall', sub: 'A bench, a wall, and a quiet promise: no ads, no rush, no bad faith.', icon: 'note' },
@@ -3335,6 +5019,11 @@ const PANEL_META = {
   wave: { title: 'Wave cleared', sub: 'The island takes a breath. You decide what comes next.', icon: 'sun' },
   checkpoint: { title: 'Endless checkpoint', sub: 'The island pauses. Spend a little Joy, then climb again.', icon: 'spark' },
   dock: { title: 'Mira’s dock shop', sub: 'A quiet counter at the end of the pier. Stock is still arriving.', icon: 'coin' },
+  online: { title: 'Play online', sub: 'A short room code, a WebRTC handshake, and up to four heroes.', icon: 'spark' },
+  netshop: { title: 'Your broom, your call', sub: 'Spend your own Joy on your own hero. The host applies it on the island.', icon: 'spark' },
+  chat: { title: 'Quick chat', sub: 'Presets plus one short line, filtered and rate-limited by the room service.', icon: 'note' },
+  wallnet: { title: 'The host’s kindness wall', sub: 'A shared bench wall for this room. Notes stay on the host’s island.', icon: 'note' },
+  turn: { title: 'Relay settings', sub: 'Optional TURN relay for stubborn NATs. Saved in this browser only.', icon: 'gear' },
   victory: { title: 'Island restored', sub: 'You did a good thing. Look at all this green.', icon: 'sun' }
 };
 
@@ -3374,6 +5063,7 @@ function closePanel() {
     openPanel('checkpoint');
     return;
   }
+  if (game.modalType === 'online' && NET.phase === 'room' && !netSession()) netLeave();
   ui.modalLayer.classList.remove('show');
   const wasType = game.modalType;
   game.modalType = null;
@@ -3414,6 +5104,7 @@ function panelFoot(buttons) {
       if (act === 'checkpoint') openPanel('checkpoint');
       if (act === 'continueendless') continueEndless();
       if (act === 'closecheckpoint') closeCheckpoint();
+      if (act === 'leaveonline') { netLeave(); toast('Leaving the island…', '', '↤'); setTimeout(() => location.reload(), 500); }
     });
   });
 }
@@ -3427,6 +5118,11 @@ function buildPanel(type) {
   else if (type === 'wave') buildWavePanel();
   else if (type === 'checkpoint') buildCheckpointPanel();
   else if (type === 'dock') buildDockPanel();
+  else if (type === 'online') buildOnlinePanel();
+  else if (type === 'netshop') buildNetshopPanel();
+  else if (type === 'chat') buildChatPanel();
+  else if (type === 'wallnet') buildNetWallPanel();
+  else if (type === 'turn') buildTurnPanel();
   else if (type === 'victory') buildVictoryPanel();
 }
 
@@ -3643,16 +5339,17 @@ function buildHelpPanel() {
         <p>Every run starts at <b>Super Easy</b>. Clear the crew and choose <b>Upgrade</b> or <b>Next wave</b>; the next wave is always available, and leaving the upgrade shop after a clear starts the next-wave countdown automatically. Each clear hands you a medal or a free item and a chapter of the island's log. Clear <b>Super Hard</b> and <b>Endless mode</b> begins — every third wave is a checkpoint that pauses the island, pays you Joy, and offers an optional upgrade. Continue is always available. Enemy damage climbs with depth, so a hero who never buys <b>Deep Breaths</b> will not last. The Algorithm still interrupts when the island is clear enough to wake it.</p>
       </div>
       <div class="help-block">
-        <h4>Mania rules</h4>
-        <p>Death is a reset: the run returns to <b>wave 1</b>, and Joy, upgrades, level and island progress start over. There is <b>one boss per run</b>: once the island is <b>64%</b> clear, each wave has a <b>50%</b> chance to wake the Algorithm. At <b>75%</b> health a boss splits once, and its children can split again: one boss becomes two, then four. Split bosses are smaller. Two live bosses move and attack <b>25% faster</b>; three or four move and attack <b>50% faster</b>. Beams and summons are randomised. Turn <b>Four-boss Mania</b> off in Settings to stop children from splitting. Downing one boss pays partial Joy and XP; only the last one ends the fight.</p>
+        <h4>Boss &amp; death rules</h4>
+        <p>There is <b>one boss per run</b>: once the island is <b>64%</b> clear, each wave has a <b>33%</b> chance to wake the Algorithm, and a failed roll tries again on the next wave. At <b>75%</b> health a boss splits once into two smaller halves. Two live bosses move and attack <b>25% faster</b>, and the halves cannot split again. Beams and summons are randomised. Downing one half pays partial Joy and XP; only the last one ends the fight. If you go down, the island sets you back on your feet at the bench. In <b>Endless mode</b> during a fight, the current wave restarts instead, and your Joy and upgrades are kept.</p>
       </div>
       <div class="help-block">
         <h4>Play with a friend</h4>
         <p>Turn on <b>play with a friend</b> on the title screen for same-keyboard co-op. You keep <kbd>WASD</kbd>, <kbd>J</kbd>, <kbd>Q</kbd>, <kbd>E</kbd>; your friend moves with the <kbd>arrow keys</kbd> and auto-swings at whatever they face. The camera holds you both, so stay within a screen of each other.</p>
+        <p>For separate keyboards, press <b>play online</b> on the title screen. Open a room, share the six-character code or the invite link, and up to four heroes can join over WebRTC — or join as a <b>spectator</b> and watch any hero with <kbd>1</kbd>–<kbd>4</kbd>. The host runs the island; guests move with <kbd>WASD</kbd>, aim with the mouse, hold <kbd>J</kbd> to attack, use <kbd>Q</kbd> <kbd>E</kbd> and <kbd>Space</kbd> (the host executes guest skills and dashes), and press <kbd>R</kbd> for one kettle-break heal per wave. Pop-ups reach everyone and damage is host-authoritative. Guests spend their own Joy in their own full upgrade tree (<kbd>U</kbd>), and <kbd>C</kbd> opens preset lines plus one line filtered, rate-limited and mutes enforced by the room service. If the host leaves, the island hands over to the next hero and the room keeps playing. A dropped guest tries to rejoin on its own.</p>
       </div>
       <div class="help-block">
         <h4>This build</h4>
-        <p>AdBlock Island <b>v${VERSION}</b> is a <b>beta</b> — one HTML file, no build step, no trackers, no accounts. Notes are saved in this browser only. Patch notes live on the <a href="/adblock-island/" target="_blank" rel="noopener">project page</a>; its <b>still pending</b> section lists the achievements, items and MMORPG pieces that are not in yet (online play needs servers, which a static page cannot provide).</p>
+        <p>AdBlock Island <b>v${VERSION}</b> is a <b>beta</b> — one HTML file, no build step, no trackers, no accounts. Notes are saved in this browser only. Patch notes live on the <a href="https://inodepi.github.io/projects/adblock-island/#patch-notes" target="_blank" rel="noopener">project page</a>; its <b>still pending</b> section lists the achievements, items and online co-op pieces that are not in yet (the room-code co-op build is the next thing on the bench).</p>
       </div>
     </div>
     <div class="help-credit">
@@ -3685,8 +5382,6 @@ function buildSettingsPanel() {
     ${toggle('numbers', 'Damage numbers', 'numbers are satisfying')}
     ${toggle('names', 'Floating names', 'show who is nearby')}
     ${toggle('scanlines', 'Soft CRT scanlines', 'retro-ish, very subtle')}
-    ${toggle('halloween', 'Halloween theme', 'warm dusk, pumpkins and a few bats')}
-    ${toggle('quadBoss', 'Four-boss Mania', 'one boss splits into two, then four, at 75% HP')}
     ${toggle('reduceMotion', 'Reduce motion', 'calmer animations and camera')}
     ${toggle('haptics', 'Tiny vibrations', 'on supported phones')}
     <div class="section-title">Island admin</div>
@@ -3694,6 +5389,7 @@ function buildSettingsPanel() {
       <button class="btn" id="fullscreenBtn">Fullscreen</button>
       <button class="btn danger" id="resetBtn">Start a fresh island</button>
       <button class="btn" id="saveNowBtn">Save now</button>
+      <button class="btn" id="turnBtn">Relay settings</button>
     </div>
     <p style="font-size:10px;color:var(--ink-faint);line-height:1.6;margin:8px 0 0">Your progress, notes, and cosmetics live in this browser's local storage. No account, no server, no tracking. The kindness wall is private to this device.</p>
   `;
@@ -3714,13 +5410,14 @@ function buildSettingsPanel() {
     btn.setAttribute('aria-pressed', String(settings[key]));
     if (key === 'muted') { audio.setMuted(settings.muted); ui.muteBtn.innerHTML = svg(settings.muted ? 'mute' : 'sound'); }
     if (key === 'reduceMotion') document.body.classList.toggle('reduce-motion', settings.reduceMotion);
-    if (key === 'halloween') document.body.classList.toggle('halloween', settings.halloween);
     saveSettings();
     audio.sfx('ui');
   }));
   $('#fullscreenBtn', ui.modalBody).addEventListener('click', toggleFullscreen);
   syncFullscreenUI();
   $('#saveNowBtn', ui.modalBody).addEventListener('click', () => { saveGame(); toast('Saved. The island remembers.', 'good', '✿'); });
+  const turnBtn = $('#turnBtn', ui.modalBody);
+  if (turnBtn) turnBtn.addEventListener('click', () => openPanel('turn'));
   $('#resetBtn', ui.modalBody).addEventListener('click', (e) => {
     if (!resetArmed) {
       resetArmed = true;
@@ -3736,6 +5433,26 @@ function buildSettingsPanel() {
   panelFoot([{ label: 'Back', action: 'close', kind: 'primary' }]);
 }
 function buildPausePanel() {
+  if (netIsGuest()) {
+    const S = netSession() || {};
+    ui.modalBody.innerHTML = `
+      <div class="kind-row">
+        <span class="chip on">Level ${player.level}</span>
+        <span class="chip">✿ ${Math.floor(player.joy)} Joy</span>
+        <span class="chip">${Math.round(world.cleansePercent() * 100)}% clarity</span>
+        <span class="chip">${S.spectator ? 'watching' : 'guest'}</span>
+      </div>
+      <div class="help-block"><h4>On ${escapeHtml((S.hostName || 'the host')) + '’s island'}</h4>
+      <p>${S.spectator ? 'You are watching this room. Use 1–4 to follow a hero; C to talk.' : 'Your hero is simulated by the host. Closing this panel keeps you in the room; leaving ends your visit.'}</p></div>
+      <div class="help-block"><h4>Small pause</h4><p>Nothing is chasing you right now. The host may keep the wave moving, so stretch while the kettle is on.</p></div>
+    `;
+    panelFoot([
+      { label: 'Keep playing', action: 'resume', kind: 'primary' },
+      { label: 'Settings', action: 'settings' },
+      { label: 'Leave the island', action: 'leaveonline' }
+    ]);
+    return;
+  }
   ui.modalBody.innerHTML = `
     <div class="kind-row">
       <span class="chip on">Level ${player.level}</span>
@@ -3980,9 +5697,11 @@ function startGame() {
   game.checkpointUpgradesBought = 0;
   game.waveUpgradesBought = 0;
   game.waveRestartPending = false;
-  startWave(1, { silent: false });
+  // the partner must exist before the first wave is planned, or wave 1 spawns
+  // with the solo recipe
   game.coop = !!coopEnabled;
   if (game.coop) spawnPartner();
+  startWave(1, { silent: false });
   ui.titleScreen.classList.add('hidden');
   ui.hud.classList.remove('hidden');
   refreshHintBar();
@@ -4026,6 +5745,12 @@ function interactBench() {
   player.facing = Math.PI / 2;
   player.x = BENCH.x - 26; player.y = BENCH.y + 10;
   audio.sfx('note');
+  if (netIsGuest()) {
+    netSendToHost({ t: 'wall' });
+    NET.wallNotes = NET.wallNotes || [];
+    openPanel('wallnet');
+    return;
+  }
   openPanel('kindness');
 }
 
@@ -4649,6 +6374,7 @@ function damageMonster(m, amount, opts = {}) {
   m.hp -= dmg;
   m.flash = 0.16;
   m.aggro = true;
+  m.lastHitBy = opts.by || (opts.player ? player : null);
   if (opts.knock) {
     const a = angleTo(player.x, player.y, m.x, m.y);
     m.knockX = (m.knockX || 0) + Math.cos(a) * opts.knock;
@@ -4700,8 +6426,12 @@ function knockOut() {
   audio.setIntense(false);
   screenShake(10, 0.5);
   burst(player.x, player.y, [PAL.pink, PAL.lav, '#fff'], 28, { speed: 130, life: 1.4, size: 4, gravity: -20 });
-  game.waveRestartPending = false;
-  toast('Mania reset. The run goes back to wave 1 — Joy, upgrades and the island start over.', 'warn', '!');
+  game.waveRestartPending = !!(game.endless && game.waveState === 'fight' && !(game.boss && !game.boss.dead));
+  if (game.waveRestartPending) {
+    toast('The feed pushed you back. Wave ' + game.wave + ' restarts — your Joy and upgrades are safe.', 'warn', '♥');
+  } else {
+    toast('The island caught you. Take a breath — you will be back at the bench.', 'warn', '♥');
+  }
   if (!statUp('vitality') && game.wave >= 7) {
     const tm = setTimeout(() => {
       if (game.state === 'title') return;
@@ -4710,66 +6440,55 @@ function knockOut() {
     pendingTimeouts.push(tm);
   }
 }
-function restartManiaRun() {
-  player.dead = false;
-  player.deadT = 0;
-  game.state = 'playing';
-  game.waveRestartPending = false;
-  resetRunProgress();
-  resetPlayer();
-  generateWorld();
-  makeCompanions();
-  if (game.coop) spawnPartner();
-  monsters.length = 0;
-  projectiles.length = 0;
-  pickups.length = 0;
-  hazards.length = 0;
-  particles.length = 0;
-  floaters.length = 0;
-  game.boss = null;
-  resizeCanvas();
-  rings.length = 0;
-  beams.length = 0;
-  clearPopups(true);
-  game.boss = null;
-  game.bossSplitLocked = false;
-  game.bossSpawned = false;
-  game.bossDefeated = false;
-  game.bossRollWave = 0;
-  game.won = false;
-  game.pendingVictory = false;
-  game.endless = false;
-  game.checkpointPending = false;
-  game.checkpointAway = false;
-  game.checkpointIndex = 0;
-  game.checkpointJoy = 0;
-  game.checkpointOpenT = 0;
-  game.checkpointUpgradesBought = 0;
-  game.waveUpgradesBought = 0;
-  game.waveStory = null;
-  game.waveReward = null;
-  game.lastSave = game.realElapsed;
-  input.keys = Object.create(null);
-  input.attackHeld = false;
-  input.p2.up = input.p2.down = input.p2.left = input.p2.right = false;
-  player.invuln = 2.5;
-  startWave(1, { silent: false });
-  cam.x = player.x; cam.y = player.y - 100;
-  updatePlayerCard();
-  updateHUD(true);
-  audio.setIntense(false);
-  audio.sfx('start');
-  toast('MANIA RESET · back to wave 1. Nothing carries.', 'warn', '!');
-  saveGame();
-}
 function respawnPlayer() {
-  restartManiaRun();
+  const restartWave = game.waveRestartPending;
+  game.waveRestartPending = false;
+  player.dead = false;
+  player.hp = player.maxHp;
+  player.x = BENCH.x - 40; player.y = BENCH.y + 70;
+  player.invuln = 3;
+  player.deadT = 0;
+  player.marked = 0; player.shield = 0; player.shieldT = 0;
+  game.state = 'playing';
+  game.lastSave = game.realElapsed;
+  burst(player.x, player.y, [PAL.mint, '#fff'], 22, { speed: 100, life: 1, size: 3.5, gravity: -10 });
+  audio.sfx('heal');
+  updateHpUI();
+  if (restartWave) {
+    for (let i = monsters.length - 1; i >= 0; i--) {
+      const m = monsters[i];
+      if (!m.isBoss && m.wave === game.wave) monsters.splice(i, 1);
+    }
+    toast('Back on your feet. Wave ' + game.wave + ' restarts — the checkpoint kept your Joy and upgrades.', 'good', '♥');
+    startWave(game.wave, { silent: false });
+    return;
+  }
+  toast('Back on your feet. Your Joy is safe. The bench saved your seat.', 'good', '♥');
+  if (game.waveState === 'cleared') {
+    game.wavePanelPending = true;
+    game.wavePanelT = 0.9;
+    setTimeout(openWavePanel, 900);
+  }
+  const bot = pick(bots);
+  if (bot) { botSay(bot, pick(CHAT.heal)); }
 }
 function killMonster(m) {
   if (m.dead) return;
   m.dead = true;
   m.deathT = 0.3;
   const isBoss = m.isBoss;
+  const credited = m.lastHitBy && m.lastHitBy.net ? m.lastHitBy : null;
+  if (credited && !isBoss) {
+    credited.joy = (credited.joy || 0) + Math.round((m.joy || 5) * (credited.joyMult || stats.joyMult()));
+    credited.xp = (credited.xp || 0) + Math.round(m.xp || 8);
+    credited.xpNext = credited.xpNext || 50;
+    while (credited.xp >= credited.xpNext) {
+      credited.xp -= credited.xpNext;
+      credited.level = (credited.level || 1) + 1;
+      credited.xpNext = Math.round(credited.xpNext * 1.35);
+      credited.maxHp = Math.round(credited.maxHp * 1.08);
+    }
+  }
   if (!isBoss) {
     // companions are your party: a kill is a kill, whoever lands the last hit
     const joy = Math.round((m.joy || 5) * stats.joyMult());
@@ -5034,6 +6753,9 @@ const EXTRA_ACHIEVEMENTS = [
   { id: 'tea_break', name: 'Tea Break', desc: 'Reach your first Endless checkpoint.', icon: 'spark' },
   { id: 'kettle_on', name: 'Kettle On', desc: 'Reach five Endless checkpoints.', icon: 'sun' },
   { id: 'better_together', name: 'Better Together', desc: 'Clear a wave in co-op.', icon: 'heart' },
+  { id: 'room_crew', name: 'Room Crew', desc: 'Clear a wave with an online hero.', icon: 'star' },
+  { id: 'handover_hero', name: 'Handover Hero', desc: 'Take over the island as the new host.', icon: 'spark' },
+  { id: 'front_row', name: 'Front Row', desc: 'Join a room as a spectator.', icon: 'sun' },
   { id: 'big_spender', name: 'Big Spender', desc: 'Spend 500 Joy on upgrades.', icon: 'coin' },
   { id: 'spotless', name: 'Spotless', desc: 'Clear every tile of static on the island.', icon: 'leaf' }
 ];
@@ -5070,6 +6792,25 @@ function waveStoryFor(n) {
   return WAVE_STORY[n] || WAVE_STORY_ENDLESS[(n - 11) % WAVE_STORY_ENDLESS.length];
 }
 
+/* Solo runs are the baseline. Each extra human in the party adds a few ads and
+   a little monster health, so two brooms do not trivialise the ladder. The
+   crew cap keeps the canvas honest on weak GPUs. */
+const PARTY_WAVE_CAP = 22;
+function humanCount() {
+  let n = 1;
+  for (const b of bots) if (b.human) n++;
+  return n;
+}
+function scaleCrewForParty(crew, party) {
+  if (party <= 1) return crew;
+  const add = Math.min(6, Math.round(crew.length * 0.3));
+  for (let i = 0; i < add && crew.length < PARTY_WAVE_CAP; i++) crew.push(crew[i % crew.length]);
+  return crew;
+}
+function partyHpScale(party) {
+  return 1 + (party - 1) * 0.55;
+}
+
 /* The ladder itself. Each stage is a fixed recipe plus its own numbers, so a
    wave reads the same twice, the preview never lies, and every stage is
    allowed to introduce something rather than just multiplying the last one.
@@ -5102,15 +6843,17 @@ function endlessCrew(n) {
 
 function wavePlan(n) {
   const tier = waveTier(n);
+  const party = humanCount();
   const stage = STAGE_CREWS[n - 1];
   if (stage) {
-    return { n, tier, crew: stage.crew.slice(), count: stage.crew.length, hp: stage.hp, dmg: stage.dmg, speed: stage.speed, note: stage.note };
+    const crew = scaleCrewForParty(stage.crew.slice(), party);
+    return { n, tier, crew, count: crew.length, hp: stage.hp * partyHpScale(party), dmg: stage.dmg, speed: stage.speed, note: stage.note };
   }
   const extra = n - STAGE_CREWS.length;
-  const crew = endlessCrew(n);
+  const crew = scaleCrewForParty(endlessCrew(n), party);
   return {
     n, tier, crew, count: crew.length,
-    hp: 1.80 + extra * 0.10,
+    hp: (1.80 + extra * 0.10) * partyHpScale(party),
     dmg: 1.45 + extra * 0.06,
     speed: 1.0 + Math.min(0.18, extra * 0.02),
     note: 'they keep coming'
@@ -5264,13 +7007,15 @@ function startWave(n, opts = {}) {
     game.waveTotal++;
   }
   if (opts.silent) { updateWaveChip(); return; }
-  waveBannerShow({
+  const banner = {
     kicker: isEndlessStart ? 'endless mode' : 'wave ' + n,
     label: isEndlessStart ? 'The ladder ends here' : plan.tier.label,
     note: isEndlessStart ? 'the ads keep coming · checkpoint every 3 waves' : (plan.note || plan.tier.note),
     count: plan.count + (plan.count === 1 ? ' ad' : ' ads') + ' incoming',
     cls: isEndlessStart ? 'cleared' : ''
-  });
+  };
+  waveBannerShow(banner);
+  netBroadcastRaw(JSON.stringify({ t: 'wave', banner }));
   audio.sfx(n >= 7 ? 'boss' : 'wave');
   if (isEndlessStart) {
     toast('Endless mode. Every third wave is a checkpoint — spend Joy before the next climb.', 'good', '∞');
@@ -5301,6 +7046,8 @@ function waveCleared(n) {
   save.totalJoy = (save.totalJoy || 0) + bonus;
   gainXp(5 + n * 2);
   save.stats.waves = (save.stats.waves || 0) + 1;
+  if (bots.some((b) => b.net)) grantAchievement('room_crew');
+  for (const b of bots) if (b.net) netSendTo(b.netId, { t: 'shop', wave: n, tier: waveTier(n).label, reward: game.waveReward ? game.waveReward.name : null });
   if (n >= 5) {
     if (player.cls === 'blocker') grantAchievement('shield_wall');
     if (player.cls === 'checker') grantAchievement('sharpshooter');
@@ -5565,10 +7312,16 @@ function updateMonsters(dt) {
       if (td > desired + 30) moveWithCollision(m, Math.cos(ang) * m.speed * dt, Math.sin(ang) * m.speed * dt);
       else if (td < desired - 45) moveWithCollision(m, -Math.cos(ang) * m.speed * 0.7 * dt, -Math.sin(ang) * m.speed * 0.7 * dt);
       m.popupCd -= dt;
-      if (m.popupCd <= 0 && popups.length < 3 && t === player && !player.dead && td < 640 && game.state === 'playing') {
-        m.popupCd = rand(9, 6);
-        spawnAdPopup(m);
-        floatingText(m.x, m.y - m.r - 22, 'pop!', PAL.rose, 12, 0.8);
+      if (m.popupCd <= 0 && t && !t.dead && td < 640 && game.state === 'playing') {
+        if (t === player && popups.length < 3) {
+          m.popupCd = rand(9, 6);
+          spawnAdPopup(m);
+          floatingText(m.x, m.y - m.r - 22, 'pop!', PAL.rose, 12, 0.8);
+        } else if (t.net && netSession() && netSession().host && netSession().popups.size < 3) {
+          m.popupCd = rand(9, 6);
+          netPopupFor(m, t);
+          floatingText(m.x, m.y - m.r - 22, 'pop!', PAL.rose, 12, 0.8);
+        }
       }
       if (td < m.r + t.r + 6) contactAttack(m, t, dt);
     } else if (m.type === 'behemoth') {
@@ -5655,7 +7408,13 @@ function contactAttack(m, target, dt, multiplier = 1) {
   } else {
     const bot = target;
     if (bot.down) return;
-    bot.hp = Math.max(0, bot.hp - m.dmg * 0.6);
+    let bdmg = m.dmg * 0.6 * multiplier;
+    if (bot.net && bot.shield > 0) {
+      const absorbed = Math.min(bot.shield, bdmg);
+      bot.shield -= absorbed;
+      bdmg -= absorbed;
+    }
+    bot.hp = Math.max(0, bot.hp - bdmg);
     bot.bubble = pick(['eep!', 'rude!', 'i am okay!', 'bonk it back!']);
     bot.bubbleT = 2;
     burst(bot.x, bot.y, PAL.rose, 5, { speed: 50, life: 0.4, size: 2 });
@@ -5690,7 +7449,7 @@ function activeBosses() {
 function refreshBossRef() {
   const bosses = activeBosses();
   game.boss = bosses[0] || null;
-  // once four feeds are live, stop splitting for the rest of this fight:
+  // once two feeds are live, stop splitting for the rest of this fight:
   // the player can then kill the remaining bosses one at a time.
   if (bosses.length >= BOSS_TWIN_CAP) game.bossSplitLocked = true;
   // entering or leaving a boss fight changes the render resolution cap
@@ -5700,7 +7459,9 @@ function createBoss(x, y, opts = {}) {
   const def = MONSTER_TYPES.algorithm;
   // sized so a focused fight lasts about half a minute at any level, and the
   // companions' chip damage is a garnish rather than the whole meal
-  const hp = opts.hp || (1100 + player.level * 95);
+  // scaled by the party: two brooms get a tougher Algorithm, solo keeps the
+  // tuned numbers
+  const hp = opts.hp || Math.round((1100 + player.level * 95) * partyHpScale(humanCount()));
   const scale = clamp(opts.scale || 1, 0.62, 1);
   const m = {
     id: 'boss', type: 'algorithm', isBoss: true, x, y, r: Math.round(64 * scale),
@@ -5719,8 +7480,8 @@ function createBoss(x, y, opts = {}) {
 function spawnBossTwin(parent) {
   if (!bossCanSplit(parent)) return null;
   if (activeBosses().length >= BOSS_TWIN_CAP) return null;
-  // The parent is consumed by the split: 1 boss becomes two smaller ones, and
-  // each of those can do the same once, producing the 1 → 2 → 4 ladder.
+  // The parent is consumed by the split: 1 boss becomes two smaller ones.
+  // Children cannot split again, so the ladder stops at two.
   parent.splits = (parent.splits || 0) + 1;
   parent.dead = true;
   parent.deathT = 0;
@@ -5962,7 +7723,7 @@ function checkProgress() {
   if (game.state !== 'playing') return;
   if (game.bossDefeated && !game.won && world.cleansePercent() >= WIN_CLARITY) winGame();
   else if (!game.bossSpawned && !game.bossDefeated && world.cleansePercent() >= BOSS_CLARITY && game.bossRollWave !== game.wave) {
-    // One boss per run, but each wave after the clarity milestone gets a 50%
+    // One boss per run, but each wave after the clarity milestone gets a 33%
     // roll. A failed roll tries again when the next wave starts.
     game.bossRollWave = game.wave;
     if (chance(BOSS_SPAWN_CHANCE)) spawnBoss();
@@ -6064,24 +7825,31 @@ const PARTNER_LEASH = 560;
 function updatePartner(b, dt) {
   const k = input.p2;
   let dx = 0, dy = 0;
-  if (k.left) dx -= 1;
-  if (k.right) dx += 1;
-  if (k.up) dy -= 1;
-  if (k.down) dy += 1;
+  let netAim = null, netAtk = null;
+  if (b.net) {
+    const ni = b.netInput;
+    if (ni) { dx = ni.x || 0; dy = ni.y || 0; netAim = ni.aim; netAtk = !!ni.atk; }
+  } else {
+    if (k.left) dx -= 1;
+    if (k.right) dx += 1;
+    if (k.up) dy -= 1;
+    if (k.down) dy += 1;
+  }
   const l = Math.hypot(dx, dy);
   if (l > 1) { dx /= l; dy /= l; }
   b.moving = l > 0.05;
   if (b.moving) {
-    b.facing = Math.atan2(dy, dx);
+    if (!b.net) b.facing = Math.atan2(dy, dx);
     moveWithCollision(b, dx * b.speed * dt, dy * b.speed * dt);
     b.bob += dt * 7;
   } else {
     b.bob += dt * 2.4;
   }
+  if (b.net && typeof netAim === 'number' && isFinite(netAim)) b.facing = netAim;
 
-  // keep both heroes on one screen
-  const d = dist(b.x, b.y, player.x, player.y);
-  if (d > PARTNER_LEASH) {
+  // keep both heroes on one screen (the keyboard partner only)
+  const d = b.net ? 0 : dist(b.x, b.y, player.x, player.y);
+  if (!b.net && d > PARTNER_LEASH) {
     const a = angleTo(b.x, b.y, player.x, player.y);
     const pull = Math.min(1, dt * 5);
     moveWithCollision(b, Math.cos(a) * (d - PARTNER_LEASH) * pull, Math.sin(a) * (d - PARTNER_LEASH) * pull);
@@ -6093,14 +7861,15 @@ function updatePartner(b, dt) {
 
   b.hp = Math.min(b.maxHp, b.hp + dt * 2.4);
   if (b.atkCd > 0) return; // already ticked down in updateBots
+  if (b.net && !netAtk) return;
   const reach = b.cls === 'blocker' ? 82 : 230;
   const target = nearestTargetInCone(b.x, b.y, b.facing, reach, 1.05);
   if (!target) return;
   b.atkCd = 0.68;
   b.atkAnim = 0.2;
   b.facing = angleTo(b.x, b.y, target.x, target.y);
-  const dmg = (b.cls === 'blocker' ? 15 : 12) * (1 + (player.level - 1) * 0.04);
-  damageMonster(target, dmg, { player: false, knock: 0 });
+  const dmg = (b.cls === 'blocker' ? 15 : 12) * (1 + ((b.level || player.level) - 1) * 0.04) * (b.dmgMult || 1);
+  damageMonster(target, dmg, { player: false, knock: 0, by: b });
   if (b.cls === 'checker') target.marked = Math.max(target.marked, 1.4);
   beamFx(b.x, b.y, b.facing, Math.min(reach, dist(b.x, b.y, target.x, target.y) + 16), 7, CLASSES[b.cls].color2, 0.13);
   audio.sfx('swing');
@@ -6121,6 +7890,7 @@ function updateBots(dt) {
       continue;
     }
     b.hp = Math.min(b.maxHp, b.hp + dt * 0.5);
+    if (b.net && b.shieldT > 0) { b.shieldT -= dt; if (b.shieldT <= 0) b.shield = 0; }
     if (b.human) { updatePartner(b, dt); continue; }
     if (b.stateT <= 0) {
       const nearM = nearestMonster(b.x, b.y, 560);
@@ -6494,6 +8264,7 @@ function updateEffects(dt) {
   cleanupEffects();
 }
 function update(dt) {
+  if (NET.session && NET.session.active && NET.session.guest) { updateGuestView(dt); return; }
   game.dt = dt;
   game.time += dt;
   if (game.state === 'playing') {
@@ -6614,7 +8385,6 @@ document.addEventListener('webkitfullscreenchange', syncFullscreenUI);
 function applySettingsVisuals() {
   document.body.classList.toggle('scanlines', settings.scanlines);
   document.body.classList.toggle('reduce-motion', settings.reduceMotion);
-  document.body.classList.toggle('halloween', settings.halloween);
   ui.muteBtn.innerHTML = svg(settings.muted ? 'mute' : 'sound');
 }
 
@@ -6628,7 +8398,7 @@ const miniCtx = miniCanvas.getContext('2d');
 /* Cached gradients and offscreen layers. Re-creating full-screen gradients
    every frame is one of the most reliable ways to make a canvas game stutter
    on a phone, so they are built once per size and reused. */
-const renderCache = { waterH: 0, water: null, vignetteW: 0, vignetteH: 0, vignette: null, halloweenW: 0, halloweenH: 0, halloween: null, miniBase: null, miniBaseDirty: true };
+const renderCache = { waterH: 0, water: null, vignetteW: 0, vignetteH: 0, vignette: null, miniBase: null, miniBaseDirty: true };
 
 function rr(g, x, y, w, h, r) {
   r = Math.min(r, w / 2, h / 2);
@@ -6941,22 +8711,6 @@ function drawGroundDecor() {
       g.fillStyle = '#fff3df'; g.fillRect(-1.5, -4, 3, 5);
       g.fillStyle = '#ff9eb5'; g.beginPath(); g.ellipse(0, -5, 5, 3, 0, Math.PI, 0); g.fill();
       g.fillStyle = 'rgba(255,255,255,0.8)'; g.beginPath(); g.arc(-1.5, -5.5, 1, 0, TAU); g.fill();
-    } else if (d.kind === 'pumpkin') {
-      g.fillStyle = 'rgba(40,20,30,0.2)';
-      g.beginPath(); g.ellipse(0, 2, 9, 3, 0, 0, TAU); g.fill();
-      g.fillStyle = settings.halloween ? '#ff9a3c' : '#e8a04a';
-      g.strokeStyle = '#7a3a1e'; g.lineWidth = 1.2;
-      g.beginPath(); g.ellipse(0, -3, 8, 6, 0, 0, TAU); g.fill(); g.stroke();
-      g.strokeStyle = 'rgba(122,58,30,0.55)'; g.lineWidth = 0.8;
-      for (let i = -1; i <= 1; i++) { g.beginPath(); g.moveTo(i * 3, -8); g.quadraticCurveTo(i * 4, -3, i * 3, 2); g.stroke(); }
-      g.strokeStyle = '#5a6b3a'; g.lineWidth = 1.5;
-      g.beginPath(); g.moveTo(0, -8); g.lineTo(1.5, -12); g.stroke();
-      if (settings.halloween) {
-        g.fillStyle = '#3a1b22';
-        g.beginPath(); g.moveTo(-4, -4); g.lineTo(-2.5, -1.5); g.lineTo(-5.5, -1.5); g.closePath(); g.fill();
-        g.beginPath(); g.moveTo(4, -4); g.lineTo(5.5, -1.5); g.lineTo(2.5, -1.5); g.closePath(); g.fill();
-        g.beginPath(); g.moveTo(-5, 0); g.lineTo(-3, 2.5); g.lineTo(-1, 0); g.lineTo(1, 2.5); g.lineTo(3, 0); g.lineTo(5, 2.5); g.lineTo(5, 1); g.lineTo(-5, 1); g.closePath(); g.fill();
-      }
     }
     g.restore();
   }
@@ -8952,19 +10706,17 @@ function drawScreenFX(w, h) {
   g.fillStyle = '#8ad7e8';
   g.fillRect(0, 0, w, h);
   g.restore();
-  // vignette (Halloween already draws its own softer one)
-  if (!settings.halloween) {
-    if (!renderCache.vignette || renderCache.vignetteW !== w || renderCache.vignetteH !== h) {
-      const grd = g.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.35, w / 2, h / 2, Math.max(w, h) * 0.78);
-      grd.addColorStop(0, 'rgba(60,52,83,0)');
-      grd.addColorStop(1, 'rgba(60,52,83,0.18)');
-      renderCache.vignette = grd;
-      renderCache.vignetteW = w;
-      renderCache.vignetteH = h;
-    }
-    g.fillStyle = renderCache.vignette;
-    g.fillRect(0, 0, w, h);
+  // vignette
+  if (!renderCache.vignette || renderCache.vignetteW !== w || renderCache.vignetteH !== h) {
+    const grd = g.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.35, w / 2, h / 2, Math.max(w, h) * 0.78);
+    grd.addColorStop(0, 'rgba(60,52,83,0)');
+    grd.addColorStop(1, 'rgba(60,52,83,0.18)');
+    renderCache.vignette = grd;
+    renderCache.vignetteW = w;
+    renderCache.vignetteH = h;
   }
+  g.fillStyle = renderCache.vignette;
+  g.fillRect(0, 0, w, h);
   if (player.hurtFlash > 0) {
     g.save();
     g.globalAlpha = player.hurtFlash * 1.4;
@@ -9606,7 +11358,7 @@ function drawScene() {
     if (m.dead || !inView(m.x, m.y, 160)) continue;
     list.push({ y: m.y + (m.isBoss ? 14 : 0), draw: () => drawMonster(m) });
   }
-  list.push({ y: player.y + (player.sit ? 40 : 0), draw: drawPlayer });
+  if (!(NET.session && NET.session.spectator)) list.push({ y: player.y + (player.sit ? 40 : 0), draw: drawPlayer });
   list.sort((a, b) => a.y - b.y);
   for (const item of list) item.draw();
 }
@@ -9629,72 +11381,6 @@ function drawTurrets() {
     ctx.stroke();
     ctx.globalAlpha = 1;
     ctx.restore();
-  }
-}
-
-function drawBat(g, x, y, s, t) {
-  g.save();
-  g.translate(x, y);
-  const flap = Math.sin(t * 8 + x * 0.03) * 0.5;
-  g.fillStyle = 'rgba(35,18,46,0.72)';
-  g.beginPath();
-  g.moveTo(0, 0);
-  g.quadraticCurveTo(-s * 0.7, -s * (0.5 + flap), -s * 1.8, -s * 0.15);
-  g.quadraticCurveTo(-s * 0.9, s * 0.1, 0, s * 0.18);
-  g.quadraticCurveTo(s * 0.9, s * 0.1, s * 1.8, -s * 0.15);
-  g.quadraticCurveTo(s * 0.7, -s * (0.5 + flap), 0, 0);
-  g.fill();
-  g.restore();
-}
-function buildHalloweenLayer(w, h) {
-  const c = document.createElement('canvas');
-  c.width = Math.max(1, Math.round(w));
-  c.height = Math.max(1, Math.round(h));
-  const g = c.getContext('2d');
-  g.fillStyle = 'rgba(255,170,90,0.04)';
-  g.fillRect(0, 0, w, h);
-  const vg = g.createRadialGradient(w * 0.5, h * 0.45, Math.min(w, h) * 0.2, w * 0.5, h * 0.45, Math.max(w, h) * 0.8);
-  vg.addColorStop(0, 'rgba(0,0,0,0)');
-  vg.addColorStop(0.72, 'rgba(90,40,80,0.06)');
-  vg.addColorStop(1, 'rgba(58,34,51,0.2)');
-  g.fillStyle = vg;
-  g.fillRect(0, 0, w, h);
-  const mx = w * 0.70, my = h * 0.12, mr = Math.min(w, h) * 0.07;
-  const glow = g.createRadialGradient(mx, my, mr * 0.5, mx, my, mr * 3);
-  glow.addColorStop(0, 'rgba(255,178,74,0.24)');
-  glow.addColorStop(1, 'rgba(255,178,74,0)');
-  g.fillStyle = glow;
-  g.beginPath(); g.arc(mx, my, mr * 3, 0, TAU); g.fill();
-  g.fillStyle = '#ffd08a';
-  g.beginPath(); g.arc(mx, my, mr, 0, TAU); g.fill();
-  g.fillStyle = 'rgba(255,255,255,0.35)';
-  g.beginPath(); g.arc(mx - mr * 0.28, my - mr * 0.28, mr * 0.24, 0, TAU); g.fill();
-  return c;
-}
-function drawHalloweenOverlay(w, h) {
-  const g = ctx;
-  const t = game.worldTime;
-  if (!renderCache.halloween || renderCache.halloweenW !== w || renderCache.halloweenH !== h) {
-    renderCache.halloween = buildHalloweenLayer(w, h);
-    renderCache.halloweenW = w;
-    renderCache.halloweenH = h;
-  }
-  g.drawImage(renderCache.halloween, 0, 0, w, h);
-  // low fog bands (kept animated, but cheap and fewer on touch)
-  const fogCount = input.touch ? 3 : 4;
-  for (let i = 0; i < fogCount; i++) {
-    const fy = h * (0.42 + i * 0.11) + Math.sin(t * 0.18 + i) * 14;
-    g.fillStyle = 'rgba(255,235,215,' + (0.04 + i * 0.012) + ')';
-    g.beginPath();
-    g.ellipse(w * (0.18 + i * 0.23), fy, w * 0.5, 30 + i * 8, 0, 0, TAU);
-    g.fill();
-  }
-  // a handful of bats crossing the screen
-  const batCount = input.touch ? 5 : 7;
-  for (let i = 0; i < batCount; i++) {
-    const bx = ((i * 197 + t * (18 + i * 3)) % (w + 120)) - 60;
-    const by = h * (0.08 + hash2(i, 7) * 0.28) + Math.sin(t * 1.4 + i * 2) * 12;
-    drawBat(g, bx, by, 4 + hash2(i, 3) * 4, t);
   }
 }
 
@@ -9726,7 +11412,6 @@ function render() {
 
   ctx.restore();
 
-  if (settings.halloween) drawHalloweenOverlay(w, h);
   drawScreenFX(w, h);
   drawAimReticle();
   drawFloaters();
