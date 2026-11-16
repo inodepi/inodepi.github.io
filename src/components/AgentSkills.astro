@@ -1,0 +1,275 @@
+---
+import { featuredAgentSkills, agensiProfileUrl } from '../data/skills';
+
+const skillJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Agent skills',
+  itemListElement: featuredAgentSkills.map((skill, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'CreativeWork',
+      name: skill.title,
+      description: skill.summary,
+      url: skill.agensiUrl,
+      author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+    },
+  })),
+};
+---
+
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-head">
+      <h2>Agent skills</h2>
+      <p class="section-lede">
+        Packaged playbooks I use on real builds, published on Agensi for Claude Code, Cursor,
+        Codex and any agent that reads <code>SKILL.md</code>. Your agent follows the same
+        process I do — the checklists, the failure catalogue, the guardrails.
+      </p>
+    </div>
+
+    <ul class="skill-grid">
+      {featuredAgentSkills.map((skill) => (
+        <li class="skill-card" style={`--hue:var(--node-${skill.hue})`}>
+          <div class="skill-bar">
+            <span class="skill-chip" aria-hidden="true"></span>
+            <span class="skill-id">skill/{skill.id}</span>
+            <span class="skill-price">
+              {skill.price}
+              {skill.priceNote ? <span class="skill-price-note">{skill.priceNote}</span> : null}
+            </span>
+          </div>
+
+          <div class="skill-body">
+            <h3>{skill.title}</h3>
+
+            <p class="skill-tagline">{skill.tagline}</p>
+            <p class="skill-summary">{skill.summary}</p>
+
+            <ul class="skill-meta" aria-label="Details">
+              <li class="tag">{skill.category}</li>
+              <li class="tag">SKILL.md</li>
+              <li class="tag">MIT</li>
+            </ul>
+          </div>
+
+          <div class="skill-actions">
+            <a
+              class="skill-link"
+              href={skill.agensiUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${skill.title} on Agensi`}
+            >
+              View on Agensi
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <a
+              class="skill-source"
+              href={skill.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open the ${skill.title} source repository`}
+            >
+              Source
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <p class="skill-more">
+      Verified creator on Agensi — <a href={agensiProfileUrl} target="_blank" rel="noopener noreferrer">all five skills ↗</a>
+    </p>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(skillJsonLd)} />
+</section>
+
+<style>
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .skill-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    transition:
+      border-color 180ms ease,
+      transform 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  @media (hover: hover) {
+    .skill-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(245, 166, 35, 0.34);
+      box-shadow:
+        0 24px 44px -32px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(245, 166, 35, 0.08);
+    }
+  }
+
+  .skill-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-raised);
+  }
+
+  .skill-chip {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--hue);
+  }
+
+  .skill-id {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .skill-price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--hue);
+    white-space: nowrap;
+  }
+
+  .skill-price-note {
+    font-weight: 400;
+    color: var(--ink-dim);
+  }
+
+  .skill-body {
+    display: grid;
+    gap: 0.75rem;
+    flex: 1;
+    padding: 1.25rem 1.1rem 1.1rem;
+  }
+
+  .skill-body h3 {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+
+  .skill-tagline {
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--hue);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .skill-summary {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .skill-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .skill-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .skill-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    padding: 0.8rem 1.1rem;
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+
+  .skill-link svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    color: var(--ink-dim);
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .skill-link:hover {
+    background: var(--panel-raised);
+  }
+
+  .skill-link:hover svg {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .skill-source {
+    padding: 0.8rem 1.1rem;
+    border-left: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .skill-source:hover {
+    color: var(--accent);
+  }
+
+  .skill-more {
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-dim);
+  }
+
+  .skill-more a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .skill-more a:hover {
+    text-decoration: underline;
+  }
+</style>
