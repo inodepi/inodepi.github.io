@@ -123,13 +123,13 @@ const jsonLd = {
 
   <LeadsBand />
 
-  <section class="section">
+  <section class="section closing" id="build">
     <div class="container">
       <div class="section-head">
-        <h2>One build, two halves</h2>
+        <h2>What a build includes</h2>
         <p class="section-lede">
-          A site is only as good as what happens after someone presses send. The demo pages show
-          both halves, and so does a real build.
+          Two halves, one handover: the site that catches the lead and the workflows that run
+          everything after it.
         </p>
       </div>
 
@@ -138,14 +138,7 @@ const jsonLd = {
           <h3>The site</h3>
           <p>
             Fast on a phone, legible, and built around one action: call, book, or ask. Booking and
-            intake are wired in, not bolted on.
-          </p>
-        </li>
-        <li>
-          <h3>The loop behind it</h3>
-          <p>
-            Requests land in a workflow, not an inbox. Confirmation, reminders, invoices, and
-            follow-ups run on their own, with a human deciding anything sensitive.
+            intake wired in, not bolted on.
           </p>
         </li>
         <li>
@@ -157,23 +150,25 @@ const jsonLd = {
         </li>
       </ol>
 
-      <p class="halves-note">
-        If n8n is not the right fit for your stack, or automation is not worth it, the audit will
-        say so.
-      </p>
-    </div>
-  </section>
-
-  <section class="section page-cta">
-    <div class="container">
-      <h2>Bring me the site that is losing you money.</h2>
-      <p>
-        Fifteen minutes, no pitch deck. Bring the page that embarrasses you and the process that
-        eats your week.
-      </p>
-      <a class="btn btn-primary" href={siteConfig.calendarUrl} target="_blank" rel="noopener noreferrer">
-        Book a 15-minute call
-      </a>
+      <div class="closing-ask">
+        <p class="closing-ask-title">Bring me what's still manual.</p>
+        <p class="closing-ask-line">
+          Fifteen minutes, no pitch deck. We count what the follow-up costs and decide together
+          whether automation is worth it.
+        </p>
+        <a
+          class="btn btn-primary"
+          href={siteConfig.calendarUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Book a 15-minute call
+        </a>
+        <p class="closing-note">
+          If n8n is not the right fit for your stack, or automation is not worth it, the audit will
+          say so.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -320,7 +315,7 @@ const jsonLd = {
 
   @media (min-width: 860px) {
     .halves {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       border-bottom: 1px solid var(--line);
     }
 
@@ -361,20 +356,36 @@ const jsonLd = {
     font-size: 0.9375rem;
   }
 
-  .page-cta {
+
+
+
+  .closing-ask {
     display: grid;
+    gap: 0.9rem;
     justify-items: start;
-    gap: 1.1rem;
+    margin-top: clamp(2.25rem, 5vw, 3.5rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--line);
   }
 
-  .page-cta h2 {
-    max-width: 22ch;
+  .closing-ask-title {
+    font-family: var(--font-display);
     font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
   }
 
-  .page-cta p {
+  .closing-ask-line {
     max-width: 48ch;
     color: var(--ink-soft);
     font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .closing-note {
+    margin-top: 0.35rem;
+    color: var(--ink-dim);
+    font-size: 0.875rem;
   }
 </style>
