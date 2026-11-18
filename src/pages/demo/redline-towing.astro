@@ -1,0 +1,872 @@
+---
+import '@fontsource/barlow-condensed/600.css';
+import '@fontsource/barlow-condensed/700.css';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoForm from '../../components/demo/DemoForm.astro';
+import LoopStrip from '../../components/demo/LoopStrip.astro';
+
+const phone = '(616) 555-0199';
+const tel = '+16165550199';
+---
+
+<DemoLayout
+  title="Redline Towing & Recovery — demo build"
+  description="A concept site for a fictional 24/7 towing company: instant dispatch, fleet accounts, and the workflows that keep both moving."
+  kind="towing and recovery company"
+>
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <a class="brand" href="#top">
+        <span class="brand-name">Redline</span>
+        <span class="brand-sub">Towing &amp; Recovery</span>
+      </a>
+      <nav class="head-nav" aria-label="Main">
+        <a href="#coverage">Coverage</a>
+        <a href="#fleet">Fleet accounts</a>
+        <a href="#request">Request a truck</a>
+      </nav>
+      <a class="head-call" href={`tel:${tel}`}>{phone}</a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1>Stuck on the shoulder?</h1>
+        <p class="hero-lede">
+          We are already rolling. Call and a truck gets assigned while you are still on the line —
+          flatbed, wheel-lift, jump starts, lockouts, winch-outs.
+        </p>
+
+        <div class="switch">
+          <input type="radio" name="mode" id="mode-driver" checked />
+          <label for="mode-driver">I am stranded</label>
+          <input type="radio" name="mode" id="mode-fleet" />
+          <label for="mode-fleet">I run a fleet</label>
+        </div>
+
+        <div class="panel panel-driver">
+          <a class="call-btn" href={`tel:${tel}`}>
+            <span class="call-btn-label">Call dispatch now</span>
+            <span class="call-btn-number">{phone}</span>
+          </a>
+          <p class="panel-note">One ring to a person. No queue, no callback list.</p>
+        </div>
+
+        <div class="panel panel-fleet">
+          <a class="fleet-btn" href="#fleet">How fleet billing works</a>
+          <p class="panel-note">
+            One monthly statement for every unit, PO numbers on every job, and reminders that chase
+            themselves.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-aside" aria-label="What to expect">
+        <ol class="expect">
+          <li>
+            <span class="expect-n" aria-hidden="true">01</span>
+            <div>
+              <h2>You call</h2>
+              <p>A dispatcher picks up and asks for the mile marker or the cross street.</p>
+            </div>
+          </li>
+          <li>
+            <span class="expect-n" aria-hidden="true">02</span>
+            <div>
+              <h2>A unit is assigned</h2>
+              <p>The nearest truck gets the job, and you get the driver's name by text.</p>
+            </div>
+          </li>
+          <li>
+            <span class="expect-n" aria-hidden="true">03</span>
+            <div>
+              <h2>The job is logged</h2>
+              <p>Vehicle, location, and payment go into the sheet before the hook lifts.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="aside-note">Sample flow from this demo build.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-label="Dispatch line">
+    <div class="wrap band-inner">
+      <p class="band-label">Dispatch, day or night</p>
+      <a class="band-phone" href={`tel:${tel}`}>{phone}</a>
+      <p class="band-note">Kent County and the surrounding counties</p>
+    </div>
+  </section>
+
+  <section class="section" id="coverage">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we roll for</h2>
+        <p>If it has wheels and it stopped moving, there is a unit for it.</p>
+      </div>
+
+      <ul class="units">
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M2 22h18M6 22V12h9v10M15 16h5l4 6M24 22a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM9 22a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+          </svg>
+          <h3>Flatbed towing</h3>
+          <p>All-wheel drive, lowered cars, and anything that should not roll on its own axles.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M10 13V8a6 6 0 0 1 12 0v5M8 13h16v14H8zM16 19v4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <h3>Lockouts</h3>
+          <p>Keys inside, battery dead, or a door that will not latch. Usually a ten-minute job.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 6v10l5 3M16 28a12 12 0 1 1 0-24 12 12 0 0 1 0 24Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <h3>Jump starts</h3>
+          <p>Boost, test, and a straight answer about whether the battery is done.</p>
+        </li>
+        <li>
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M4 24c4-6 8-9 12-9s8 3 12 9M20 12l4-4M16 15l-2-6M24 20h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <h3>Winch-outs</h3>
+          <p>Ditches, mud, snowbanks. Recovery first, paperwork second.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section fleet" id="fleet">
+    <div class="wrap fleet-grid">
+      <div class="fleet-copy">
+        <h2>Fleet accounts that stop chasing invoices</h2>
+        <p>
+          Every job lands on one monthly statement, sorted by unit and PO number. When a statement
+          goes past due, the reminder writes itself and a human only presses send.
+        </p>
+        <ul class="fleet-list">
+          <li>One statement per month, per account</li>
+          <li>PO and unit numbers captured at dispatch</li>
+          <li>Overdue reminders at day 7 and day 14, tone-matched</li>
+        </ul>
+        <a class="fleet-btn" href="#request">Open a fleet account</a>
+      </div>
+
+      <aside class="statement" aria-label="Sample fleet statement">
+        <div class="statement-top">
+          <span class="statement-org">Northside Landscaping</span>
+          <span class="statement-period">November</span>
+        </div>
+        <dl class="statement-rows">
+          <div><dt>Units serviced</dt><dd>4</dd></div>
+          <div><dt>Jobs logged</dt><dd>11</dd></div>
+          <div><dt>Statement total</dt><dd>$1,840.00</dd></div>
+        </dl>
+        <div class="statement-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Reminder scheduled for Dec 7</span>
+        </div>
+        <p class="statement-note">Sample statement from this demo build.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="wrap section-loop" aria-label="How the system runs">
+    <LoopStrip
+      heading="The part nobody sees"
+      lede="Dispatch is loud. The admin behind it should not be. Four workflows keep the paperwork off the phone line."
+      steps={[
+        {
+          title: 'Calls are caught',
+          body: 'After-hours calls are answered by an assistant that takes the location, vehicle, and callback number.',
+          tool: 'AI receptionist',
+        },
+        {
+          title: 'Jobs are logged',
+          body: 'Each request becomes a row with unit, location, and PO — no whiteboard, no lost sticky note.',
+          tool: 'n8n intake',
+        },
+        {
+          title: 'Fleet billing runs',
+          body: 'Jobs roll into one monthly statement per account, with the PO number already attached.',
+          tool: 'Statement builder',
+        },
+        {
+          title: 'Overdue is chased',
+          body: 'Reminders go out on day 7 and 14 as drafts, so a human stays in the loop.',
+          tool: 'AR reminder',
+        },
+      ]}
+      note="Same system in every demo: the site catches the request, the workflows do the follow-up."
+    />
+  </section>
+
+  <section class="section request" id="request">
+    <div class="wrap request-grid">
+      <div class="request-copy">
+        <h2>Request a truck</h2>
+        <p>
+          Stuck right now? Call — the phone is faster. For a scheduled tow, a fleet pickup, or a
+          quote, leave the details here.
+        </p>
+        <p class="request-call">
+          <a href={`tel:${tel}`}>{phone}</a>
+          <span>24 hours, including holidays</span>
+        </p>
+      </div>
+
+      <DemoForm
+        id="rl"
+        title="Tow or recovery request"
+        intro="Location first, everything else second."
+        fields={[
+          { name: 'name', label: 'Name', placeholder: 'Riley Sample', required: true },
+          { name: 'phone', label: 'Callback number', type: 'tel', placeholder: '(616) 555-0000', required: true },
+          { name: 'where', label: 'Where is the vehicle?', placeholder: 'I-96 eastbound, mile 38', required: true, full: true },
+          { name: 'vehicle', label: 'Vehicle', placeholder: '2019 Subaru Outback' },
+          {
+            name: 'kind',
+            label: 'What is needed?',
+            type: 'select',
+            options: ['Tow to a shop', 'Recovery / winch-out', 'Jump start or lockout', 'Fleet pickup'],
+          },
+          {
+            name: 'details',
+            label: 'Anything the driver should know?',
+            type: 'textarea',
+            placeholder: 'Low clearance, no keys in the car.',
+            full: true,
+          },
+        ]}
+        submit="Send to dispatch"
+        note="Demo form: nothing is sent and no truck is dispatched."
+        successTitle="Request received"
+        successBody="In the live build, this is what happens next."
+        nextSteps={[
+          { label: 'Dispatch is paged', detail: 'The on-call dispatcher sees the request within seconds.' },
+          { label: 'A unit is assigned', detail: 'Nearest truck takes it; you get the driver name and ETA text.' },
+          { label: 'The job is logged', detail: 'Location, vehicle, and PO number land in the sheet.' },
+          { label: 'Billing follows', detail: 'Fleet jobs join the monthly statement; overdue gets a reminder.' },
+        ]}
+      />
+    </div>
+  </section>
+</DemoLayout>
+
+<style is:global>
+  :root {
+    color-scheme: dark;
+    --d-bg: #14181a;
+    --d-surface: #1c2225;
+    --d-ink: #f3f4ef;
+    --d-muted: #a9b2ad;
+    --d-line: #2f383b;
+    --d-accent: #ffd400;
+    --d-accent-ink: #14181a;
+    --d-radius: 8px;
+    --d-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    --d-body: 'Inter Variable', system-ui, sans-serif;
+  }
+</style>
+
+<style>
+  .wrap {
+    width: min(1140px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(1140px, 100% - 5rem);
+    }
+  }
+
+  .site-head {
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .head-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    min-height: 4.5rem;
+  }
+
+  .brand {
+    display: grid;
+    line-height: 1;
+  }
+
+  .brand-name {
+    font-family: var(--d-display);
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  .brand-sub {
+    margin-top: 0.15rem;
+    color: var(--d-muted);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .head-nav {
+    display: none;
+    gap: 1.5rem;
+    margin-left: auto;
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .head-nav a:hover {
+    color: var(--d-ink);
+  }
+
+  .head-call {
+    margin-left: auto;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--d-accent) 55%, transparent);
+    border-radius: 4px;
+    color: var(--d-accent);
+    font-family: var(--d-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 780px) {
+    .head-nav {
+      display: flex;
+    }
+
+    .head-call {
+      margin-left: 0;
+    }
+  }
+
+  /* Hero ------------------------------------------------------------- */
+
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+  }
+
+  h1 {
+    max-width: 13ch;
+    font-size: clamp(3rem, 1.4rem + 6vw, 5.4rem);
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    line-height: 0.88;
+    text-transform: uppercase;
+  }
+
+  .hero-lede {
+    max-width: 44ch;
+    margin-top: 1.1rem;
+    color: var(--d-muted);
+    font-size: 1.0625rem;
+  }
+
+  /* Mode switch: two radios, two panels, no JavaScript. */
+  .switch {
+    display: inline-flex;
+    gap: 0.25rem;
+    margin-top: 1.6rem;
+    padding: 0.25rem;
+    border: 1px solid var(--d-line);
+    border-radius: 6px;
+    background: var(--d-surface);
+  }
+
+  .switch input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .switch label {
+    padding: 0.55rem 0.9rem;
+    border-radius: 4px;
+    color: var(--d-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .switch input:checked + label {
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+  }
+
+  .switch input:focus-visible + label {
+    outline: 2px solid var(--d-accent);
+    outline-offset: 2px;
+  }
+
+  .panel {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.1rem;
+    justify-items: start;
+  }
+
+  .hero-copy:has(#mode-driver:checked) .panel-fleet {
+    display: none;
+  }
+
+  .hero-copy:has(#mode-fleet:checked) .panel-driver {
+    display: none;
+  }
+
+  .panel-note {
+    color: var(--d-muted);
+    font-size: 0.875rem;
+    max-width: 42ch;
+  }
+
+  .call-btn {
+    display: grid;
+    gap: 0.15rem;
+    padding: 1rem 1.4rem;
+    border-radius: 6px;
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+    transition: filter 150ms ease;
+  }
+
+  .call-btn:hover {
+    filter: brightness(1.06);
+  }
+
+  .call-btn-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .call-btn-number {
+    font-family: var(--d-display);
+    font-size: clamp(1.9rem, 1.4rem + 1.8vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+
+  .fleet-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.1rem;
+    padding: 0.7rem 1.3rem;
+    border: 1px solid var(--d-ink);
+    border-radius: 6px;
+    color: var(--d-ink);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .fleet-btn:hover {
+    background: var(--d-surface);
+  }
+
+  .hero-aside {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    border: 1px solid var(--d-line);
+    border-radius: 8px;
+    background: var(--d-surface);
+  }
+
+  .expect {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .expect li {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .expect li:first-child {
+    padding-top: 0;
+  }
+
+  .expect li:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .expect-n {
+    color: var(--d-accent);
+    font-family: var(--d-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .expect h2 {
+    font-family: var(--d-body);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .expect p {
+    margin-top: 0.2rem;
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .aside-note {
+    color: color-mix(in srgb, var(--d-muted) 80%, transparent);
+    font-size: 0.75rem;
+  }
+
+  /* Hi-vis band ------------------------------------------------------ */
+
+  .band {
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+  }
+
+  .band-inner {
+    display: grid;
+    gap: 0.35rem;
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+  }
+
+  .band-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .band-phone {
+    font-family: var(--d-display);
+    font-size: clamp(2.6rem, 1.2rem + 6.5vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.12em;
+  }
+
+  .band-note {
+    font-size: 0.875rem;
+  }
+
+  /* Sections --------------------------------------------------------- */
+
+  .section {
+    padding-block: clamp(3.25rem, 7vw, 5.5rem);
+    border-top: 1px solid var(--d-line);
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.6rem;
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.005em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .section-head p {
+    color: var(--d-muted);
+  }
+
+  .units {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--d-line);
+  }
+
+  .units li {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  @media (min-width: 760px) {
+    .units {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-bottom: 1px solid var(--d-line);
+    }
+
+    .units li {
+      padding: 1.4rem 1.4rem 1.6rem;
+      border-bottom: 0;
+      border-left: 1px solid var(--d-line);
+    }
+
+    .units li:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .units li:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .units svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--d-accent);
+  }
+
+  .units h3 {
+    font-family: var(--d-body);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .units p {
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .section-loop {
+    padding-block: 0 clamp(3.25rem, 6vw, 5rem);
+  }
+
+  /* Fleet ------------------------------------------------------------ */
+
+  .fleet {
+    background: var(--d-surface);
+  }
+
+  .fleet-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .fleet-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .fleet-copy {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+  }
+
+  .fleet-copy p {
+    max-width: 46ch;
+    color: var(--d-muted);
+  }
+
+  .fleet-list {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0.25rem 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fleet-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9375rem;
+    color: var(--d-ink);
+  }
+
+  .fleet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 0.55rem;
+    height: 2px;
+    background: var(--d-accent);
+  }
+
+  .statement {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    border: 1px solid var(--d-line);
+    border-radius: 8px;
+    background: var(--d-bg);
+  }
+
+  .statement-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .statement-org {
+    font-weight: 650;
+    font-size: 1rem;
+  }
+
+  .statement-period {
+    color: var(--d-muted);
+    font-size: 0.8125rem;
+  }
+
+  .statement-rows {
+    display: grid;
+    gap: 0;
+    margin: 0;
+  }
+
+  .statement-rows div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .statement-rows dt {
+    color: var(--d-muted);
+    font-size: 0.875rem;
+  }
+
+  .statement-rows dd {
+    margin: 0;
+    font-family: var(--d-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .statement-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.7rem;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--d-accent) 12%, transparent);
+    color: var(--d-accent);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--d-accent);
+  }
+
+  .statement-note {
+    color: var(--d-muted);
+    font-size: 0.75rem;
+  }
+
+  /* Request ---------------------------------------------------------- */
+
+  .request-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 920px) {
+    .request-grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .request-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .request-copy p {
+    max-width: 42ch;
+    color: var(--d-muted);
+  }
+
+  .request-call {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .request-call a {
+    color: var(--d-accent);
+    font-family: var(--d-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .request-call span {
+    color: var(--d-muted);
+    font-size: 0.8125rem;
+  }
+
+  /* One authored entrance. */
+  .hero-copy > *,
+  .hero-aside {
+    animation: slide 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-aside {
+    animation-delay: 100ms;
+  }
+
+  @keyframes slide {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

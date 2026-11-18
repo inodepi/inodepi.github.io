@@ -1,5 +1,5 @@
 ---
-const capabilities = [
+const capabilities: { title: string; body: string; hue: string; href?: string }[] = [
   {
     title: 'Multi-workflow systems',
     body: 'Chained workflows, sub-workflows, and shared state. Built to survive production traffic, not just the demo.',
@@ -30,6 +30,12 @@ const capabilities = [
     body: 'Structured logs, alerts, idempotent retries, and dead-letter paths, so failures surface instead of vanishing.',
     hue: 'var(--node-amber)',
   },
+  {
+    title: 'Websites that catch leads',
+    body: 'A broken website is the first broken loop: forms that go nowhere, pages that crawl, no way to book. I design and fix the site, then wire it into the workflows behind it.',
+    hue: 'var(--node-rose)',
+    href: '/websites/',
+  },
 ];
 ---
 
@@ -45,10 +51,11 @@ const capabilities = [
 
     <ul class="cap-grid">
       {capabilities.map((cap) => (
-        <li class="cap">
+        <li class:list={['cap', { 'cap--wide': cap.href }]}>
           <span class="cap-mark" style={`--mark:${cap.hue}`} aria-hidden="true"></span>
           <h3>{cap.title}</h3>
           <p>{cap.body}</p>
+          {cap.href && <a class="cap-link" href={cap.href}>See the demo builds</a>}
         </li>
       ))}
     </ul>
@@ -102,5 +109,63 @@ const capabilities = [
     color: var(--ink-soft);
     font-size: 0.9375rem;
     line-height: 1.6;
+  }
+
+  .cap-link {
+    justify-self: start;
+    margin-top: 0.35rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    padding-bottom: 0.1rem;
+  }
+
+  .cap-link:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  /* The web-design capability closes the grid as a full-width band. */
+  .cap--wide {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+  }
+
+  .cap--wide .cap-mark,
+  .cap--wide h3,
+  .cap--wide p {
+    grid-column: 1;
+  }
+
+  .cap--wide p {
+    max-width: 68ch;
+  }
+
+  .cap--wide .cap-mark {
+    grid-row: 1;
+  }
+
+  .cap--wide .cap-link {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 639px) {
+    .cap--wide {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cap--wide .cap-link {
+      grid-column: 1;
+      grid-row: auto;
+      justify-self: start;
+    }
   }
 </style>

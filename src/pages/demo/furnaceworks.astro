@@ -1,0 +1,715 @@
+---
+import '@fontsource-variable/archivo';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoForm from '../../components/demo/DemoForm.astro';
+import LoopStrip from '../../components/demo/LoopStrip.astro';
+
+const base = import.meta.env.BASE_URL;
+const phone = '(616) 555-0142';
+const tel = '+16165550142';
+---
+
+<DemoLayout
+  title="FurnaceWorks Heating & Cooling — demo build"
+  description="A concept site for a fictional 24/7 heating and cooling company: dispatch board, online booking, and the workflows behind them."
+  kind="heating and cooling company"
+>
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">FW</span>
+        <span class="brand-name">FurnaceWorks</span>
+      </a>
+      <nav class="head-nav" aria-label="Main">
+        <a href="#services">What we fix</a>
+        <a href="#plan">The plan</a>
+        <a href="#book">Book</a>
+      </nav>
+      <a class="head-call" href={`tel:${tel}`}>{phone}</a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1>Heat out at 2am?<br />We answer.</h1>
+        <p class="hero-lede">
+          Furnace, AC, and water-heater repair for homes across Grand Rapids. Book online and the
+          rest is handled: dispatch, reminders, and the invoice after the job.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href={`tel:${tel}`}>Call dispatch</a>
+          <a class="btn btn-line" href="#book">Book a visit</a>
+        </div>
+        <p class="hero-fine">Serving Grand Rapids, open 24 hours. No hold music, no callbacks that never come.</p>
+      </div>
+
+      <aside class="board" aria-label="Sample dispatch board">
+        <div class="board-top">
+          <span class="board-dot" aria-hidden="true"></span>
+          <span class="board-title">Dispatch board</span>
+          <span class="board-live">Open now</span>
+        </div>
+
+        <a class="board-phone" href={`tel:${tel}`}>{phone}</a>
+        <p class="board-line">One ring, day or night.</p>
+
+        <ul class="board-queue">
+          <li>
+            <span class="q-time">21:40</span>
+            <span class="q-job">No heat · 2nd Ave</span>
+            <span class="q-state">Truck 2</span>
+          </li>
+          <li>
+            <span class="q-time">22:10</span>
+            <span class="q-job">Water heater · Oakdale</span>
+            <span class="q-state">Booked</span>
+          </li>
+          <li>
+            <span class="q-time">06:30</span>
+            <span class="q-job">Furnace tune-up · Creston</span>
+            <span class="q-state">Queued</span>
+          </li>
+        </ul>
+
+        <p class="board-note">Sample queue from this demo build.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we fix</h2>
+        <p>
+          Every visit starts with a diagnosis you can read before we touch anything. Prices below
+          are sample rates for this concept build.
+        </p>
+      </div>
+
+      <ul class="ledger">
+        <li>
+          <div class="ledger-main">
+            <h3>Furnace repair</h3>
+            <p>No heat, short cycling, error codes, failed igniters.</p>
+          </div>
+          <span class="ledger-price">Diagnostic $89</span>
+        </li>
+        <li>
+          <div class="ledger-main">
+            <h3>AC and cooling</h3>
+            <p>Warm air, frozen coils, refrigerant leaks, replacements.</p>
+          </div>
+          <span class="ledger-price">from $129</span>
+        </li>
+        <li>
+          <div class="ledger-main">
+            <h3>Water heaters</h3>
+            <p>Tank and tankless, same-day swaps, expansion tanks.</p>
+          </div>
+          <span class="ledger-price">from $149</span>
+        </li>
+        <li>
+          <div class="ledger-main">
+            <h3>Maintenance plan</h3>
+            <p>Two tune-ups a year, priority dispatch, no surprise fees.</p>
+          </div>
+          <span class="ledger-price">$19 / month</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap section-loop" aria-label="How the system runs">
+    <LoopStrip
+      heading="What happens after you press send"
+      lede="The site is the front door. These four steps run without anyone copying information between tabs."
+      steps={[
+        {
+          title: 'The request lands',
+          body: 'Your form is validated, deduplicated, and written to the dispatch sheet before a human sees it.',
+          tool: 'n8n intake',
+        },
+        {
+          title: 'Someone answers',
+          body: 'Missed calls get a text back in under a minute; the assistant books the slot and logs the transcript.',
+          tool: 'AI receptionist',
+        },
+        {
+          title: 'The visit is confirmed',
+          body: 'A calendar slot holds the truck, and a reminder goes out the evening before.',
+          tool: 'Cal + reminders',
+        },
+        {
+          title: 'The invoice is chased',
+          body: 'Unpaid invoices get a tone-matched reminder on day 7 and day 14, filed as drafts for a human to send.',
+          tool: 'AR reminder',
+        },
+      ]}
+      note="Each step is a workflow I build and hand over, documented, with error paths that surface instead of vanishing."
+    />
+  </section>
+
+  <section class="section plan" id="plan">
+    <div class="wrap plan-grid">
+      <div class="plan-copy">
+        <h2>The FurnaceWorks Plan</h2>
+        <p>
+          Two tune-ups a year, priority in the emergency queue, and a fixed diagnostic rate. Cancel
+          any month. Sample pricing for this demo.
+        </p>
+        <a class="btn btn-solid" href="#book">Join the plan</a>
+      </div>
+      <dl class="plan-list">
+        <div><dt>$19</dt><dd>per month, one system</dd></div>
+        <div><dt>2×</dt><dd>seasonal tune-ups included</dd></div>
+        <div><dt>$0</dt><dd>diagnostic when we do the repair</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section book" id="book">
+    <div class="wrap book-grid">
+      <div class="book-copy">
+        <h2>Book a visit</h2>
+        <p>
+          Tell us what the house is doing. Emergency requests go to the top of the queue; everything
+          else gets a two-hour arrival window.
+        </p>
+        <p class="book-call">
+          Rather talk? <a href={`tel:${tel}`}>{phone}</a>
+        </p>
+      </div>
+
+      <DemoForm
+        id="fw"
+        title="Request a visit"
+        intro="Two fields and a problem description. That is all dispatch needs."
+        fields={[
+          { name: 'name', label: 'Name', placeholder: 'Dana Reyes', required: true },
+          { name: 'phone', label: 'Phone', type: 'tel', placeholder: '(616) 555-0000', required: true },
+          {
+            name: 'urgency',
+            label: 'How urgent is it?',
+            type: 'select',
+            options: ['No heat — emergency', 'No cooling', 'Water leak', 'Schedule a tune-up'],
+            required: true,
+          },
+          {
+            name: 'system',
+            label: 'System',
+            type: 'select',
+            options: ['Furnace', 'AC', 'Water heater', 'Not sure'],
+          },
+          {
+            name: 'details',
+            label: 'What is happening?',
+            type: 'textarea',
+            placeholder: 'Furnace runs for a minute, then shuts off. Thermostat reads 58°F.',
+            full: true,
+          },
+        ]}
+        submit="Send to dispatch"
+        note="Demo form: nothing is sent and no visit is booked."
+        successTitle="Request received"
+        successBody="Here is what would happen next in the live build."
+        nextSteps={[
+          { label: 'Dispatch is notified', detail: 'A message hits the on-call tech in under 10 seconds.' },
+          { label: 'You get a confirmation text', detail: 'With the arrival window and the tech name.' },
+          { label: 'Reminder the evening before', detail: 'One tap to confirm or move the visit.' },
+          { label: 'Invoice after the job', detail: 'Unpaid invoices get a reminder on day 7.' },
+        ]}
+      />
+    </div>
+  </section>
+</DemoLayout>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --d-bg: #eef1f4;
+    --d-surface: #ffffff;
+    --d-ink: #101a24;
+    --d-muted: #55636f;
+    --d-line: #d5dce4;
+    --d-accent: #e4551f;
+    --d-accent-ink: #0b1219;
+    --d-radius: 10px;
+    --d-display: 'Archivo Variable', 'Arial Narrow', sans-serif;
+    --d-body: 'Inter Variable', system-ui, sans-serif;
+  }
+</style>
+
+<style>
+  .wrap {
+    width: min(1120px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(1120px, 100% - 5rem);
+    }
+  }
+
+  .site-head {
+    border-bottom: 1px solid var(--d-line);
+    background: var(--d-bg);
+  }
+
+  .head-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 4.5rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+    font-family: var(--d-display);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-name {
+    font-family: var(--d-display);
+    font-size: 1.15rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+  }
+
+  .head-nav {
+    display: none;
+    gap: 1.5rem;
+    margin-left: auto;
+    font-size: 0.9375rem;
+    color: var(--d-muted);
+  }
+
+  .head-nav a {
+    text-decoration: none;
+  }
+
+  .head-nav a:hover {
+    color: var(--d-ink);
+  }
+
+  .head-call {
+    margin-left: auto;
+    font-family: var(--d-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 760px) {
+    .head-nav {
+      display: flex;
+    }
+
+    .head-call {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .head-inner {
+      gap: 1rem;
+    }
+
+    .head-call {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Hero ------------------------------------------------------------- */
+
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 940px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 1.4rem + 4.4vw, 4.4rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+    max-width: 12ch;
+  }
+
+  .hero-lede {
+    max-width: 42ch;
+    margin-top: 1.25rem;
+    color: var(--d-muted);
+    font-size: 1.0625rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.25rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.9688rem;
+    font-weight: 650;
+    text-decoration: none;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+
+  .btn-solid {
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+  }
+
+  .btn-solid:hover {
+    background: color-mix(in srgb, var(--d-accent) 88%, #000);
+  }
+
+  .btn-line {
+    border: 1px solid color-mix(in srgb, var(--d-ink) 30%, transparent);
+    color: var(--d-ink);
+  }
+
+  .btn-line:hover {
+    border-color: var(--d-ink);
+  }
+
+  .hero-fine {
+    margin-top: 1rem;
+    color: var(--d-muted);
+    font-size: 0.875rem;
+  }
+
+  /* Dispatch board --------------------------------------------------- */
+
+  .board {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.25rem, 2.5vw, 1.85rem);
+    border-radius: 12px;
+    background: var(--d-ink);
+    color: var(--d-bg);
+    box-shadow: 0 26px 50px -34px rgba(16, 26, 36, 0.65);
+  }
+
+  .board-top {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--d-bg) 18%, transparent);
+    font-size: 0.8125rem;
+  }
+
+  .board-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4fd18b;
+  }
+
+  .board-title {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--d-bg) 82%, transparent);
+  }
+
+  .board-live {
+    margin-left: auto;
+    color: #4fd18b;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .board-phone {
+    font-family: var(--d-display);
+    font-size: clamp(1.9rem, 1.3rem + 1.6vw, 2.6rem);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    text-decoration: none;
+    padding-top: 0.2rem;
+  }
+
+  .board-phone:hover {
+    color: var(--d-accent);
+  }
+
+  .board-line {
+    color: color-mix(in srgb, var(--d-bg) 70%, transparent);
+    font-size: 0.875rem;
+  }
+
+  .board-queue {
+    display: grid;
+    gap: 0;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .board-queue li {
+    display: grid;
+    grid-template-columns: 3.2rem 1fr auto;
+    gap: 0.6rem;
+    align-items: baseline;
+    padding: 0.6rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--d-bg) 12%, transparent);
+    font-size: 0.875rem;
+  }
+
+  .q-time {
+    color: color-mix(in srgb, var(--d-bg) 55%, transparent);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.75rem;
+  }
+
+  .q-job {
+    color: color-mix(in srgb, var(--d-bg) 92%, transparent);
+  }
+
+  .q-state {
+    color: var(--d-accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .board-note {
+    color: color-mix(in srgb, var(--d-bg) 50%, transparent);
+    font-size: 0.75rem;
+  }
+
+  /* Sections --------------------------------------------------------- */
+
+  .section {
+    padding-block: clamp(3.25rem, 7vw, 6rem);
+    border-top: 1px solid var(--d-line);
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .section-head p {
+    color: var(--d-muted);
+  }
+
+  .ledger {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--d-line);
+  }
+
+  .ledger li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.5rem;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .ledger-main {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .ledger-main h3 {
+    font-family: var(--d-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .ledger-main p {
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .ledger-price {
+    font-family: var(--d-display);
+    font-size: 1rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .section-loop {
+    padding-block: clamp(1rem, 2vw, 2rem) clamp(3.25rem, 7vw, 6rem);
+  }
+
+  /* Plan ------------------------------------------------------------- */
+
+  .plan {
+    background: var(--d-ink);
+    color: var(--d-bg);
+    border-top: 0;
+  }
+
+  .plan-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .plan-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+  }
+
+  .plan-copy {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+  }
+
+  .plan-copy h2 {
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .plan-copy p {
+    max-width: 46ch;
+    color: color-mix(in srgb, var(--d-bg) 72%, transparent);
+  }
+
+  .plan-list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--d-bg) 18%, transparent);
+  }
+
+  .plan-list div {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--d-bg) 18%, transparent);
+  }
+
+  .plan-list dt {
+    font-family: var(--d-display);
+    font-size: 1.6rem;
+    font-weight: 750;
+    color: var(--d-accent);
+    letter-spacing: -0.02em;
+    min-width: 3.5rem;
+  }
+
+  .plan-list dd {
+    margin: 0;
+    color: color-mix(in srgb, var(--d-bg) 78%, transparent);
+    font-size: 0.9375rem;
+  }
+
+  /* Booking ---------------------------------------------------------- */
+
+  .book-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 920px) {
+    .book-grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .book-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .book-copy h2 {
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .book-copy p {
+    color: var(--d-muted);
+    max-width: 40ch;
+  }
+
+  .book-call {
+    font-size: 1.0625rem;
+  }
+
+  .book-call a {
+    color: var(--d-ink);
+    font-weight: 650;
+    text-underline-offset: 3px;
+  }
+
+  /* Entrance: one authored moment. */
+  .hero-copy > *,
+  .board {
+    animation: rise 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .board {
+    animation-delay: 120ms;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

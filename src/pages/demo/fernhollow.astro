@@ -1,0 +1,664 @@
+---
+import '@fontsource-variable/gabarito';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoForm from '../../components/demo/DemoForm.astro';
+import LoopStrip from '../../components/demo/LoopStrip.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// Three depth layers of fir silhouettes along the hero's lower edge.
+const pineLayers = [
+  { opacity: 0.07, scale: 0.9, gap: 54 },
+  { opacity: 0.13, scale: 1.2, gap: 66 },
+  { opacity: 0.2, scale: 1.55, gap: 82 },
+].map((layer) => ({
+  ...layer,
+  xs: Array.from({ length: Math.ceil(1520 / layer.gap) }, (_, i) => -20 + i * layer.gap + ((i * 37) % 23) - 11),
+}));
+---
+
+<DemoLayout
+  title="Fernhollow Stays — demo build"
+  description="A concept site for a fictional off-grid cabin rental: calm hospitality, an availability checker, and the booking workflows behind it."
+  kind="cabin rental"
+>
+  <div class="hero">
+    <header class="site-head">
+      <div class="wrap head-inner">
+        <a class="brand" href="#top">Fernhollow<span>Stays</span></a>
+        <nav class="head-nav" aria-label="Main">
+          <a href="#cabins">Cabins</a>
+          <a href="#land">The land</a>
+          <a href="#stay">Request dates</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="wrap hero-inner" id="top">
+      <h1>Three cabins.<br />Forty acres.<br />No signal.</h1>
+      <p class="hero-lede">
+        Off-grid cabins on the ridge above Lake Michigan. Wood stove, outdoor shower, and a porch
+        that faces the weather. Bring a book, not a schedule.
+      </p>
+
+      <form class="checker" data-avail novalidate>
+        <div class="checker-fields">
+          <label>
+            <span>Check in</span>
+            <input type="date" name="arrive" required />
+          </label>
+          <label>
+            <span>Check out</span>
+            <input type="date" name="leave" required />
+          </label>
+          <label>
+            <span>Guests</span>
+            <select name="guests">
+              <option>2 guests</option>
+              <option>3 guests</option>
+              <option>4 guests</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit">Check availability</button>
+        <p class="checker-result" data-avail-result hidden role="status" aria-live="polite"></p>
+      </form>
+      <p class="hero-fine">Minimum two nights. Sample availability from this demo build.</p>
+    </div>
+
+    <svg class="pines" viewBox="0 0 1440 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <path id="fir" d="M0 0L-8 14H-4L-11 30H-5L-14 48H14L5 30H11L4 14H8Z" />
+      </defs>
+      {
+        pineLayers.map((layer) => (
+          <g fill="#eef1e4" opacity={layer.opacity}>
+            {layer.xs.map((x) => (
+              <use
+                href="#fir"
+                transform={`translate(${x} ${160 - 48 * layer.scale}) scale(${layer.scale})`}
+              />
+            ))}
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+
+  <section class="section" id="cabins">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The cabins</h2>
+        <p>
+          Built by hand between 2019 and 2024. Each one sleeps differently, heats differently, and
+          has its own stretch of ridge.
+        </p>
+      </div>
+
+      <ul class="cabins">
+        <li>
+          <h3>Hollow</h3>
+          <p class="cabin-line">The smallest. A wood stove, a reading chair, and a view of the valley.</p>
+          <dl class="cabin-facts">
+            <div><dt>Sleeps</dt><dd>2</dd></div>
+            <div><dt>Nights</dt><dd>$185</dd></div>
+          </dl>
+        </li>
+        <li>
+          <h3>Ridge</h3>
+          <p class="cabin-line">The long porch. Outdoor shower, hammock hooks, west-facing sunset.</p>
+          <dl class="cabin-facts">
+            <div><dt>Sleeps</dt><dd>3</dd></div>
+            <div><dt>Nights</dt><dd>$210</dd></div>
+          </dl>
+        </li>
+        <li>
+          <h3>Fen</h3>
+          <p class="cabin-line">The family one. Bunk room, big table, and a trail straight to the water.</p>
+          <dl class="cabin-facts">
+            <div><dt>Sleeps</dt><dd>4</dd></div>
+            <div><dt>Nights</dt><dd>$240</dd></div>
+          </dl>
+        </li>
+      </ul>
+      <p class="cabins-note">Sample cabins and rates for this concept build.</p>
+    </div>
+  </section>
+
+  <section class="section land" id="land">
+    <div class="wrap land-grid">
+      <div class="land-copy">
+        <h2>Forty acres, one trail out</h2>
+        <p>
+          The road turns to gravel a mile before the gate. Past that, it is birdsong and wind. The
+          land is working forest: we thin it in winter, tap it in spring, and leave the rest alone.
+        </p>
+        <p>
+          No televisions. No wifi. Phone signal arrives if you walk to the ridge. That is the point.
+        </p>
+      </div>
+      <ul class="amenities">
+        <li>Wood stove and split wood at the door</li>
+        <li>Outdoor shower with hot water</li>
+        <li>Propane cooktop, French press, basics</li>
+        <li>Fresh linens and wool blankets</li>
+        <li>Trail map and a canoe at the dock</li>
+        <li>Dogs welcome in Hollow and Fen</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap section-loop" aria-label="How booking works">
+    <LoopStrip
+      heading="You send a date. Someone answers."
+      lede="No booking engine maze. A request reaches a person — or an assistant that knows the calendar — and the details arrive before you close the tab."
+      steps={[
+        {
+          title: 'The request lands',
+          body: 'From this form, Instagram, or email — every channel reaches one inbox with the dates attached.',
+          tool: 'AI receptionist',
+        },
+        {
+          title: 'The cabin is held',
+          body: 'The assistant checks the calendar, holds the nights, and replies with the total and the deposit link.',
+          tool: 'Cal + intake',
+        },
+        {
+          title: 'The deposit arrives',
+          body: 'A paid deposit confirms the stay; an unpaid one gets a quiet reminder after 48 hours.',
+          tool: 'Invoice + reminder',
+        },
+        {
+          title: 'The stay is prepared',
+          body: 'Directions, arrival notes, and the weather for the weekend are sent two days before check-in.',
+          tool: 'Guest sequence',
+        },
+      ]}
+      note="The guest sees a calm reply. The owner sees an inbox that empties itself."
+    />
+  </section>
+
+  <section class="section stay" id="stay">
+    <div class="wrap stay-grid">
+      <div class="stay-copy">
+        <h2>Request your dates</h2>
+        <p>
+          Tell us when you are thinking and who is coming. We answer within a day, usually sooner.
+        </p>
+        <p class="stay-note">
+          Two-night minimum · Check-in after 3pm · Check-out by 11am
+        </p>
+      </div>
+
+      <DemoForm
+        id="fh"
+        title="Ask about a stay"
+        intro="Dates, guests, and one line about the trip."
+        fields={[
+          { name: 'name', label: 'Name', placeholder: 'Sam Whitaker', required: true },
+          { name: 'email', label: 'Email', type: 'email', placeholder: 'sam@example.com', required: true },
+          { name: 'arrive', label: 'Arrive', type: 'date', required: true },
+          { name: 'leave', label: 'Leave', type: 'date', required: true },
+          {
+            name: 'guests',
+            label: 'Cabin',
+            type: 'select',
+            options: ['Not sure yet', 'Hollow (2)', 'Ridge (3)', 'Fen (4)'],
+          },
+          {
+            name: 'note',
+            label: 'Anything we should know?',
+            type: 'textarea',
+            placeholder: 'Bringing a dog, arriving late, celebrating something.',
+            full: true,
+          },
+        ]}
+        submit="Send request"
+        note="Demo form: nothing is sent and no cabin is held."
+        successTitle="On its way"
+        successBody="In the live build, here is what happens next."
+        nextSteps={[
+          { label: 'A real reply', detail: 'Dates, total, and the deposit link, usually within a few hours.' },
+          { label: 'The nights are held', detail: 'The calendar blocks them while you decide.' },
+          { label: 'A gentle follow-up', detail: 'If the deposit is unpaid after 48 hours, one reminder — then the hold releases.' },
+          { label: 'Arrival notes', detail: 'Directions, gate code, and the forecast, two days before.' },
+        ]}
+      />
+    </div>
+  </section>
+</DemoLayout>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --d-bg: #e9ecdf;
+    --d-surface: #f5f5ec;
+    --d-ink: #16251c;
+    --d-muted: #4d5f52;
+    --d-line: #c9d0bf;
+    --d-accent: #e2a33c;
+    --d-accent-ink: #16251c;
+    --d-radius: 12px;
+    --d-display: 'Gabarito Variable', 'Trebuchet MS', sans-serif;
+    --d-body: 'Inter Variable', system-ui, sans-serif;
+  }
+</style>
+
+<style>
+  .wrap {
+    width: min(1100px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(1100px, 100% - 5rem);
+    }
+  }
+
+  /* Forest hero ------------------------------------------------------ */
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: #1b3527;
+    color: #eef1e4;
+  }
+
+  .site-head {
+    position: relative;
+    z-index: 1;
+  }
+
+  .head-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 4.75rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    color: #eef1e4;
+    font-family: var(--d-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .brand span {
+    color: color-mix(in srgb, #eef1e4 62%, transparent);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .head-nav {
+    display: none;
+    gap: 1.6rem;
+    margin-left: auto;
+    color: color-mix(in srgb, #eef1e4 74%, transparent);
+    font-size: 0.9375rem;
+  }
+
+  .head-nav a:hover {
+    color: #eef1e4;
+  }
+
+  @media (min-width: 720px) {
+    .head-nav {
+      display: flex;
+    }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 1.5rem;
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(5.5rem, 12vw, 9rem);
+  }
+
+  h1 {
+    max-width: 15ch;
+    font-size: clamp(2.8rem, 1.3rem + 5.6vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  .hero-lede {
+    max-width: 46ch;
+    color: color-mix(in srgb, #eef1e4 82%, transparent);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  /* Availability checker */
+  .checker {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 42rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, #eef1e4 24%, transparent);
+    border-radius: 10px;
+    background: color-mix(in srgb, #0f2016 55%, transparent);
+  }
+
+  .checker-fields {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 640px) {
+    .checker-fields {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .checker {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+
+    .checker-fields {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .checker label {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .checker label span {
+    color: color-mix(in srgb, #eef1e4 68%, transparent);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .checker input,
+  .checker select {
+    width: 100%;
+    min-height: 2.8rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid color-mix(in srgb, #eef1e4 26%, transparent);
+    border-radius: 6px;
+    background: color-mix(in srgb, #0f2016 70%, transparent);
+    color: #eef1e4;
+    font: inherit;
+    font-size: 0.9375rem;
+    color-scheme: dark;
+  }
+
+  .checker input:focus-visible,
+  .checker select:focus-visible {
+    outline: 2px solid var(--d-accent);
+    outline-offset: 1px;
+  }
+
+  .checker button {
+    min-height: 2.8rem;
+    padding: 0.55rem 1.2rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 650;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .checker button:hover {
+    filter: brightness(1.06);
+  }
+
+  .checker-result {
+    grid-column: 1 / -1;
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in srgb, #eef1e4 20%, transparent);
+    color: #eef1e4;
+    font-size: 0.9375rem;
+  }
+
+  .checker-result[hidden] {
+    display: none;
+  }
+
+  .hero-fine {
+    color: color-mix(in srgb, #eef1e4 58%, transparent);
+    font-size: 0.8125rem;
+  }
+
+  .pines {
+    position: absolute;
+    inset: auto 0 0;
+    width: 100%;
+    height: clamp(5rem, 12vw, 9rem);
+    pointer-events: none;
+  }
+
+  /* Sections --------------------------------------------------------- */
+
+  .section {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .land {
+    background: #dfe3d6;
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 42rem;
+    margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 1.2rem + 2.8vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  .section-head p,
+  .land-copy p,
+  .stay-copy p {
+    color: var(--d-muted);
+    font-size: 1.0625rem;
+    max-width: 52ch;
+  }
+
+  .cabins {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--d-line);
+  }
+
+  .cabins li {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  @media (min-width: 820px) {
+    .cabins {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-bottom: 1px solid var(--d-line);
+    }
+
+    .cabins li {
+      padding: 1.75rem 1.75rem 1.9rem;
+      border-bottom: 0;
+      border-left: 1px solid var(--d-line);
+    }
+
+    .cabins li:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .cabins li:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .cabins h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .cabin-line {
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .cabin-facts {
+    display: flex;
+    gap: 2rem;
+    margin: 0.35rem 0 0;
+  }
+
+  .cabin-facts div {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .cabin-facts dt {
+    color: var(--d-muted);
+    font-size: 0.75rem;
+  }
+
+  .cabin-facts dd {
+    margin: 0;
+    font-family: var(--d-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .cabins-note {
+    margin-top: 1rem;
+    color: var(--d-muted);
+    font-size: 0.75rem;
+  }
+
+  .land-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 860px) {
+    .land-grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 4rem;
+      align-items: start;
+    }
+  }
+
+  .land-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .amenities {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in srgb, var(--d-ink) 18%, transparent);
+  }
+
+  .amenities li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--d-ink) 14%, transparent);
+    font-size: 0.9375rem;
+  }
+
+  .section-loop {
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .stay-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .stay-grid {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .stay-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .stay-note {
+    color: var(--d-muted);
+    font-size: 0.875rem;
+  }
+
+  /* One authored entrance. */
+  .hero-inner > * {
+    animation: settle 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-inner > *:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .hero-inner > *:nth-child(3) {
+    animation-delay: 160ms;
+  }
+
+  @keyframes settle {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const checker = document.querySelector<HTMLFormElement>('[data-avail]');
+  const result = checker?.querySelector<HTMLElement>('[data-avail-result]');
+
+  checker?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!result) return;
+
+    const data = new FormData(checker);
+    const arrive = String(data.get('arrive') ?? '');
+    const leave = String(data.get('leave') ?? '');
+    if (!arrive || !leave) {
+      result.hidden = false;
+      result.textContent = 'Pick an arrival and a departure date first.';
+      return;
+    }
+
+    const fmt = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
+    const from = fmt.format(new Date(`${arrive}T12:00:00`));
+    const to = fmt.format(new Date(`${leave}T12:00:00`));
+
+    result.hidden = false;
+    result.innerHTML = `<strong>2 cabins open ${from} – ${to}.</strong> From $185 a night, two-night minimum. In the live build this answer comes from the real calendar, not a sample.`;
+  });
+</script>

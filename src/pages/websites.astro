@@ -1,0 +1,377 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../data/projects';
+
+const demos = [
+  {
+    name: 'FurnaceWorks',
+    kind: 'Heating & cooling',
+    line: 'A 2am emergency call, an online booking, and an invoice that chases itself.',
+    href: '/demo/furnaceworks/',
+    image: '/websites/furnaceworks.jpg',
+  },
+  {
+    name: 'Redline',
+    kind: 'Towing & recovery',
+    line: 'Phone-first dispatch for stranded drivers, one monthly statement for fleet accounts.',
+    href: '/demo/redline-towing/',
+    image: '/websites/redline-towing.jpg',
+  },
+  {
+    name: 'Fernhollow',
+    kind: 'Cabin rental',
+    line: 'An availability checker that answers before the guest closes the tab.',
+    href: '/demo/fernhollow/',
+    image: '/websites/fernhollow.jpg',
+  },
+  {
+    name: 'Lumen Smile',
+    kind: 'Dental practice',
+    line: 'Text-first intake and reminders that keep the chair full without a phone tree.',
+    href: '/demo/lumen-dental/',
+    image: '/websites/lumen-dental.jpg',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Websites for local business',
+  provider: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+  description:
+    'Websites for local service businesses, built with the automation behind them: booking, lead routing, reminders, and invoicing.',
+  areaServed: 'Worldwide',
+};
+---
+
+<Base
+  title="Websites for local business — inodepi"
+  description="Sites that catch the lead and the workflows that close the loop: booking, intake, reminders, and invoicing behind one build."
+  jsonLd={jsonLd}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Your website is the first broken loop.</h1>
+      <p class="page-lede">
+        Most sites do not lose the lead at the form. They lose it before: a page that crawls, a
+        phone number nobody answers, a booking link that dead-ends. I build the site that catches
+        the lead, then wire the workflows that close the rest.
+      </p>
+      <div class="page-actions">
+        <a class="btn btn-primary" href="/#contact">Book a systems audit</a>
+        <a class="btn btn-secondary" href="#demos">See the demo builds</a>
+      </div>
+      <p class="page-fine">
+        Site and system, one handover. You keep every account and credential.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="demos">
+    <div class="container">
+      <div class="section-head">
+        <h2>Four demo builds</h2>
+        <p class="section-lede">
+          Fictional businesses in the verticals I build for. Each one is a real site with a real
+          booking or request flow — and a labelled systems layer showing what runs behind it.
+        </p>
+      </div>
+
+      <ul class="demo-grid">
+        {
+          demos.map((demo) => (
+            <li class="demo-card">
+              <img
+                class="demo-shot"
+                src={demo.image}
+                alt={`Preview of the ${demo.name} demo site`}
+                width="1200"
+                height="780"
+                loading="lazy"
+              />
+              <div class="demo-body">
+                <p class="demo-kind">{demo.kind}</p>
+                <h3>{demo.name}</h3>
+                <p>{demo.line}</p>
+              </div>
+              <a class="demo-link" href={demo.href}>
+                Open the demo
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M5 11 11 5M6 5h5v5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="demo-note">
+        Demo builds, not client work: the businesses and prices are invented, and every form says
+        so. Nothing on those pages sends data.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>One build, two halves</h2>
+        <p class="section-lede">
+          A site is only as good as what happens after someone presses send. The demo pages show
+          both halves, and so does a real build.
+        </p>
+      </div>
+
+      <ol class="halves">
+        <li>
+          <h3>The site</h3>
+          <p>
+            Fast on a phone, legible, and built around one action: call, book, or ask. Booking and
+            intake are wired in, not bolted on.
+          </p>
+        </li>
+        <li>
+          <h3>The loop behind it</h3>
+          <p>
+            Requests land in a workflow, not an inbox. Confirmation, reminders, invoices, and
+            follow-ups run on their own, with a human deciding anything sensitive.
+          </p>
+        </li>
+        <li>
+          <h3>The handover</h3>
+          <p>
+            Your domain, your accounts, your credentials. Documented workflows, error paths that
+            surface, and a walkthrough you can hand to the next person.
+          </p>
+        </li>
+      </ol>
+
+      <p class="halves-note">
+        If n8n is not the right fit for your stack, or automation is not worth it, the audit will
+        say so.
+      </p>
+    </div>
+  </section>
+
+  <section class="section page-cta">
+    <div class="container">
+      <h2>Bring me the site that is losing you money.</h2>
+      <p>
+        Fifteen minutes, no pitch deck. Bring the page that embarrasses you and the process that
+        eats your week.
+      </p>
+      <a class="btn btn-primary" href={siteConfig.calendarUrl} target="_blank" rel="noopener noreferrer">
+        Book a 15-minute call
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page-hero {
+    padding-block: clamp(3.5rem, 8vw, 7rem) clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .page-hero h1 {
+    max-width: 18ch;
+    font-size: clamp(2.75rem, 1.5rem + 4.6vw, 4.75rem);
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+
+  .page-lede {
+    max-width: 58ch;
+    margin-top: 1.5rem;
+    color: var(--ink-soft);
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
+    line-height: 1.6;
+  }
+
+  .page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .page-fine {
+    max-width: 46ch;
+    margin-top: 1.1rem;
+    color: var(--ink-dim);
+    font-size: 0.875rem;
+  }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .demo-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .demo-shot {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1200 / 780;
+    object-fit: cover;
+    object-position: top;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel-raised);
+  }
+
+  .demo-body {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1.4rem 1.35rem 1.2rem;
+    flex: 1;
+  }
+
+  .demo-kind {
+    color: var(--ink-dim);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .demo-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .demo-body p:last-child {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .demo-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.9rem 1.35rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .demo-link:hover {
+    background: var(--panel-raised);
+  }
+
+  .demo-link svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    color: var(--ink-dim);
+  }
+
+  .demo-link:hover svg {
+    color: var(--accent);
+  }
+
+  .demo-note {
+    margin-top: 1.25rem;
+    color: var(--ink-dim);
+    font-size: 0.875rem;
+  }
+
+  .halves {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .halves li {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  @media (min-width: 860px) {
+    .halves {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .halves li {
+      padding: 1.75rem 1.75rem 2rem;
+      border-bottom: 0;
+      border-left: 1px solid var(--line);
+    }
+
+    .halves li:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .halves li:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .halves h3 {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .halves p {
+    max-width: 38ch;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .halves-note {
+    max-width: 46rem;
+    margin-top: 1.75rem;
+    color: var(--ink-dim);
+    font-size: 0.9375rem;
+  }
+
+  .page-cta {
+    display: grid;
+    justify-items: start;
+    gap: 1.1rem;
+  }
+
+  .page-cta h2 {
+    max-width: 22ch;
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+  }
+
+  .page-cta p {
+    max-width: 48ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+  }
+</style>

@@ -1,0 +1,337 @@
+---
+interface Field {
+  name: string;
+  label: string;
+  type?: 'text' | 'tel' | 'email' | 'date' | 'select' | 'textarea';
+  placeholder?: string;
+  options?: string[];
+  required?: boolean;
+  full?: boolean;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  intro?: string;
+  fields: Field[];
+  submit: string;
+  note?: string;
+  successTitle: string;
+  successBody: string;
+  nextSteps: { label: string; detail: string }[];
+  reset?: string;
+}
+
+const {
+  id,
+  title,
+  intro,
+  fields,
+  submit,
+  note,
+  successTitle,
+  successBody,
+  nextSteps,
+  reset = 'Send another request',
+} = Astro.props;
+---
+
+<section class="dq-wrap" aria-labelledby={`${id}-title`}>
+  <div class="dq-head">
+    <h2 id={`${id}-title`}>{title}</h2>
+    {intro && <p class="dq-intro">{intro}</p>}
+  </div>
+
+  <form class="dq" data-demo-form novalidate>
+    <div class="dq-grid">
+      {
+        fields.map((field) => (
+          <div class:list={['dq-field', { 'dq-field--full': field.full }]}>
+            <label for={`${id}-${field.name}`}>{field.label}</label>
+            {field.type === 'select' ? (
+              <select
+                id={`${id}-${field.name}`}
+                name={field.name}
+                required={field.required}
+                data-demo-control
+              >
+                {field.options?.map((option) => <option>{option}</option>)}
+              </select>
+            ) : field.type === 'textarea' ? (
+              <textarea
+                id={`${id}-${field.name}`}
+                name={field.name}
+                rows="3"
+                placeholder={field.placeholder}
+                required={field.required}
+                data-demo-control
+              />
+            ) : (
+              <input
+                id={`${id}-${field.name}`}
+                name={field.name}
+                type={field.type ?? 'text'}
+                placeholder={field.placeholder}
+                required={field.required}
+                data-demo-control
+              />
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <button class="dq-submit" type="submit">{submit}</button>
+    {note && <p class="dq-note">{note}</p>}
+
+    <div class="dq-done" data-demo-done hidden role="status" aria-live="polite" tabindex="-1">
+      <h3 class="dq-done-title">{successTitle}</h3>
+      <p class="dq-done-body">{successBody}</p>
+      <ol class="dq-steps">
+        {
+          nextSteps.map((step, index) => (
+            <li>
+              <span class="dq-step-n" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span class="dq-step-label">{step.label}</span>
+              <span class="dq-step-detail">{step.detail}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="dq-demo-note">This form is a demo: nothing was sent and no request was created.</p>
+      <button class="dq-reset" type="button" data-demo-reset>{reset}</button>
+    </div>
+  </form>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-demo-form]').forEach((form) => {
+    const done = form.querySelector<HTMLElement>('[data-demo-done]');
+    const reset = form.querySelector<HTMLButtonElement>('[data-demo-reset]');
+    if (!done) return;
+
+    const showDone = () => {
+      form.querySelectorAll<HTMLElement>('.dq-grid, .dq-submit, .dq-note').forEach((node) => {
+        node.hidden = true;
+      });
+      done.hidden = false;
+      done.focus({ preventScroll: true });
+      done.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      showDone();
+    });
+
+    reset?.addEventListener('click', () => {
+      done.hidden = true;
+      form.querySelectorAll<HTMLElement>('.dq-grid, .dq-submit, .dq-note').forEach((node) => {
+        node.hidden = false;
+      });
+      form.reset();
+      form.querySelector<HTMLElement>('[data-demo-control]')?.focus();
+    });
+  });
+</script>
+
+<style>
+  .dq-wrap {
+    display: grid;
+    gap: 1.25rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--d-surface, #ffffff);
+    border: 1px solid var(--d-line, rgba(0, 0, 0, 0.12));
+    border-radius: var(--d-radius, 10px);
+  }
+
+  .dq-head {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .dq-head h2 {
+    font-size: clamp(1.35rem, 1rem + 1.2vw, 1.75rem);
+  }
+
+  .dq-intro {
+    max-width: 46ch;
+    color: var(--d-muted, #5b6472);
+    font-size: 0.9375rem;
+  }
+
+  .dq {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .dq-grid {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 560px) {
+    .dq-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .dq-field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .dq-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .dq-field label {
+    color: var(--d-ink, #101828);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .dq-field input,
+  .dq-field select,
+  .dq-field textarea {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--d-line, rgba(0, 0, 0, 0.16));
+    border-radius: calc(var(--d-radius, 10px) - 4px);
+    background: var(--d-bg, #fff);
+    color: var(--d-ink, #101828);
+    font: inherit;
+    font-size: 0.9375rem;
+  }
+
+  .dq-field textarea {
+    resize: vertical;
+    min-height: 5rem;
+  }
+
+  .dq-field input::placeholder,
+  .dq-field textarea::placeholder {
+    color: var(--d-muted, #5b6472);
+  }
+
+  .dq-field input:focus-visible,
+  .dq-field select:focus-visible,
+  .dq-field textarea:focus-visible {
+    outline: 2px solid var(--d-accent, #101828);
+    outline-offset: 1px;
+  }
+
+  .dq-submit {
+    justify-self: start;
+    min-height: 3rem;
+    padding: 0.7rem 1.4rem;
+    border: 0;
+    border-radius: calc(var(--d-radius, 10px) - 4px);
+    background: var(--d-accent, #101828);
+    color: var(--d-accent-ink, #fff);
+    font: inherit;
+    font-size: 0.9688rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: filter 150ms ease;
+  }
+
+  .dq-submit:hover {
+    filter: brightness(1.08);
+  }
+
+  .dq-note {
+    color: var(--d-muted, #5b6472);
+    font-size: 0.8125rem;
+  }
+
+  .dq-done {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--d-accent, #101828) 35%, var(--d-line, #ccc));
+    border-radius: calc(var(--d-radius, 10px) - 4px);
+    background: color-mix(in srgb, var(--d-accent, #101828) 6%, var(--d-surface, #fff));
+  }
+
+  .dq-done[hidden] {
+    display: none;
+  }
+
+  .dq-done-title {
+    font-size: 1.125rem;
+  }
+
+  .dq-done-body {
+    color: var(--d-muted, #5b6472);
+    font-size: 0.9375rem;
+  }
+
+  .dq-steps {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .dq-steps li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.15rem 0.6rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--d-line, rgba(0, 0, 0, 0.12));
+  }
+
+  .dq-step-n {
+    grid-row: span 2;
+    color: var(--d-accent, #101828);
+    font-family: var(--d-body, system-ui);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    padding-top: 0.15rem;
+  }
+
+  .dq-step-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .dq-step-detail {
+    color: var(--d-muted, #5b6472);
+    font-size: 0.875rem;
+  }
+
+  .dq-demo-note {
+    padding: 0.5rem 0.7rem;
+    border-radius: calc(var(--d-radius, 10px) - 6px);
+    background: color-mix(in srgb, var(--d-ink, #101828) 8%, transparent);
+    color: var(--d-ink, #101828);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .dq-reset {
+    justify-self: start;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--d-line, rgba(0, 0, 0, 0.2));
+    border-radius: calc(var(--d-radius, 10px) - 4px);
+    background: transparent;
+    color: var(--d-ink, #101828);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .dq-reset:hover {
+    border-color: var(--d-accent, #101828);
+  }
+</style>

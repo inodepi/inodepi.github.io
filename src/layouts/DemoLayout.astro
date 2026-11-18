@@ -1,0 +1,185 @@
+---
+import '@fontsource-variable/inter';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Vertical label used in the ribbon and footer. */
+  kind: string;
+}
+
+const { title, description, kind } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  </head>
+  <body>
+    <a class="demo-skip" href="#main">Skip to content</a>
+
+    <div class="demo-ribbon">
+      <span class="demo-ribbon-tag">Demo build</span>
+      <span>Fictional {kind} · site and workflows by <a href={`${base}websites/`}>inodepi</a></span>
+    </div>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="demo-foot">
+      <p>
+        A concept build for a fictional business. Every detail on this page is sample content —
+        no form sends data and no booking is real.
+      </p>
+      <p>
+        Built by <a href={`${base}websites/`}>inodepi</a>: I build the site that catches the lead
+        and the workflows that close the loop.
+      </p>
+    </footer>
+
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--d-bg, #ffffff);
+        color: var(--d-ink, #101828);
+        font-family: var(--d-body, 'Inter Variable', system-ui, sans-serif);
+        font-size: 1rem;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        font-family: var(--d-display, 'Inter Variable', system-ui, sans-serif);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+      }
+
+      p {
+        margin: 0;
+        text-wrap: pretty;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img,
+      svg,
+      video {
+        display: block;
+        max-width: 100%;
+      }
+
+      /* Author display rules must not resurrect hidden branches. */
+      [hidden] {
+        display: none !important;
+      }
+
+      ::selection {
+        background: var(--d-accent, #101828);
+        color: var(--d-accent-ink, #ffffff);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--d-accent, #101828);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+
+      .demo-skip {
+        position: absolute;
+        top: -100%;
+        left: 1rem;
+        z-index: 100;
+        padding: 0.7rem 1rem;
+        background: var(--d-accent, #101828);
+        color: var(--d-accent-ink, #fff);
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .demo-skip:focus {
+        top: 1rem;
+      }
+
+      .demo-ribbon {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.35rem 0.6rem;
+        padding: 0.5rem 1.25rem;
+        background: var(--d-ink, #101828);
+        color: var(--d-bg, #fff);
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+
+      .demo-ribbon-tag {
+        padding: 0.1rem 0.45rem;
+        border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+        border-radius: 3px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .demo-ribbon a {
+        text-underline-offset: 3px;
+        text-decoration-color: color-mix(in srgb, currentColor 60%, transparent);
+      }
+
+      .demo-foot {
+        display: grid;
+        gap: 0.6rem;
+        max-width: 68rem;
+        margin-inline: auto;
+        padding: 3rem 1.25rem 4rem;
+        border-top: 1px solid var(--d-line, rgba(0, 0, 0, 0.12));
+        color: var(--d-muted, #5b6472);
+        font-size: 0.875rem;
+      }
+
+      .demo-foot a {
+        color: var(--d-ink, #101828);
+        text-underline-offset: 3px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+  </body>
+</html>

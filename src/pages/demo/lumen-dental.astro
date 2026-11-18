@@ -1,0 +1,665 @@
+---
+import '@fontsource-variable/schibsted-grotesk';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoForm from '../../components/demo/DemoForm.astro';
+import LoopStrip from '../../components/demo/LoopStrip.astro';
+
+const phone = '(616) 555-0177';
+const tel = '+16165550177';
+---
+
+<DemoLayout
+  title="Lumen Smile Dental — demo build"
+  description="A concept site for a fictional dental practice: calm booking, text-first intake, and the reminder workflows that keep the chair full."
+  kind="dental practice"
+>
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <a class="brand" href="#top">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-name">Lumen Smile</span>
+      </a>
+      <nav class="head-nav" aria-label="Main">
+        <a href="#care">Care</a>
+        <a href="#visit">First visit</a>
+        <a href="#book">Book</a>
+      </nav>
+      <a class="head-call" href={`tel:${tel}`}>Call the desk</a>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1>Dentistry without the waiting room.</h1>
+        <p class="hero-lede">
+          Cleanings, whitening, and clear aligners in a quiet office on Wealthy Street. Book
+          online, do the paperwork from your phone, and walk in knowing what happens next.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#book">Book an appointment</a>
+          <a class="btn btn-line" href={`tel:${tel}`}>{phone}</a>
+        </div>
+        <p class="hero-fine">New patients welcome. Most insurance accepted. Sample practice for this demo build.</p>
+      </div>
+
+      <div class="thread" aria-label="Sample appointment messages">
+        <div class="thread-top">
+          <span class="thread-avatar" aria-hidden="true">L</span>
+          <div>
+            <strong>Lumen Smile</strong>
+            <span>Text messages · sample</span>
+          </div>
+        </div>
+
+        <ol class="thread-list">
+          <li class="bubble bubble-in">
+            <p>Hi Maya — you're confirmed for a cleaning on Thursday at 10:40 with Dr. Okafor.</p>
+            <span class="bubble-time">Mon 4:12 pm</span>
+          </li>
+          <li class="bubble bubble-in">
+            <p>Here's your intake link. Two minutes, no clipboard: lumen.demo/intake/4821</p>
+            <span class="bubble-time">Mon 4:12 pm</span>
+          </li>
+          <li class="bubble bubble-out">
+            <p>Done. See you Thursday.</p>
+            <span class="bubble-time">Mon 4:19 pm</span>
+          </li>
+          <li class="bubble bubble-in">
+            <p>Reminder: Thursday 10:40. Reply 1 to confirm, 2 to move it.</p>
+            <span class="bubble-time">Wed 6:00 pm</span>
+          </li>
+        </ol>
+
+        <p class="thread-note">Sample messages from this demo build.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="care">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Care, without the lecture</h2>
+        <p>Four things done well, priced before you sit down. Sample rates for this concept build.</p>
+      </div>
+
+      <ul class="care">
+        <li>
+          <div>
+            <h3>Cleanings and checkups</h3>
+            <p>Forty minutes, a gentle scaling, and a plain-language read on what we see.</p>
+          </div>
+          <span class="care-meta">From $95</span>
+        </li>
+        <li>
+          <div>
+            <h3>Whitening</h3>
+            <p>In-chair or take-home trays. We match the shade to your enamel, not a chart.</p>
+          </div>
+          <span class="care-meta">From $320</span>
+        </li>
+        <li>
+          <div>
+            <h3>Clear aligners</h3>
+            <p>Scan, plan, and trays in two weeks. Check-ins happen by photo, not by visit.</p>
+          </div>
+          <span class="care-meta">From $3,400</span>
+        </li>
+        <li>
+          <div>
+            <h3>Same-day emergencies</h3>
+            <p>Chipped, swollen, or lost a crown. Call before noon and we hold a slot.</p>
+          </div>
+          <span class="care-meta">Call first</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section visit" id="visit">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The first visit, in three moves</h2>
+        <p>No new-patient forms on a clipboard. No surprise bill at the desk.</p>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <span class="step-n" aria-hidden="true">01</span>
+          <h3>Book in two minutes</h3>
+          <p>Pick a real slot from the calendar. The confirmation arrives by text, not email.</p>
+        </li>
+        <li>
+          <span class="step-n" aria-hidden="true">02</span>
+          <h3>Intake from the couch</h3>
+          <p>A link does the paperwork: history, insurance, and consent before you leave home.</p>
+        </li>
+        <li>
+          <span class="step-n" aria-hidden="true">03</span>
+          <h3>Walk in known</h3>
+          <p>We greet you by name, confirm the plan and the cost, and start on time.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap section-loop" aria-label="How the reminders run">
+    <LoopStrip
+      heading="The front desk you do not have to staff"
+      lede="Every step below runs on its own. A person only steps in when a patient writes back."
+      steps={[
+        {
+          title: 'The request lands',
+          body: 'Form, phone, or DM — one inbox, deduplicated, with the reason for the visit attached.',
+          tool: 'n8n intake',
+        },
+        {
+          title: 'The slot is held',
+          body: 'A real calendar slot, with the intake link and a text confirmation.',
+          tool: 'Cal + intake',
+        },
+        {
+          title: 'The reminder goes',
+          body: 'Evening before, with a one-reply confirm or reschedule. No-shows get a same-week offer.',
+          tool: 'Reminder flow',
+        },
+        {
+          title: 'Dormant patients return',
+          body: 'Patients past their recall date get a short personal note, not a mass campaign.',
+          tool: 'Lead reactivation',
+        },
+      ]}
+      note="The same system that keeps a clinic's chairs full works for any business with a calendar."
+    />
+  </section>
+
+  <section class="section book" id="book">
+    <div class="wrap book-grid">
+      <div class="book-copy">
+        <h2>Request an appointment</h2>
+        <p>
+          Tell us what you need and when suits you. For pain or a broken tooth, call — we keep a
+          same-day slot open.
+        </p>
+        <p class="book-call">
+          <a href={`tel:${tel}`}>{phone}</a>
+          <span>Mon–Thu 8am–5pm · Fri 8am–1pm</span>
+        </p>
+      </div>
+
+      <DemoForm
+        id="ls"
+        title="New or returning patient"
+        intro="Two minutes now, no clipboard later."
+        fields={[
+          { name: 'name', label: 'Name', placeholder: 'Maya Chen', required: true },
+          { name: 'phone', label: 'Mobile', type: 'tel', placeholder: '(616) 555-0000', required: true },
+          {
+            name: 'reason',
+            label: 'Reason for visit',
+            type: 'select',
+            options: ['Cleaning and checkup', 'Whitening', 'Clear aligners', 'Emergency — pain or broken tooth'],
+            required: true,
+          },
+          {
+            name: 'when',
+            label: 'Preferred time',
+            type: 'select',
+            options: ['Mornings', 'Early afternoon', 'After work', 'First available'],
+          },
+          { name: 'notes', label: 'Anything else?', type: 'textarea', full: true, placeholder: 'I get anxious at the dentist — please explain as you go.' },
+        ]}
+        submit="Request appointment"
+        note="Demo form: nothing is sent and no appointment is booked."
+        successTitle="Request received"
+        successBody="In the live build, the front desk is a workflow."
+        nextSteps={[
+          { label: 'A text confirms', detail: 'The real slot, the provider, and the parking note.' },
+          { label: 'Intake arrives', detail: 'A link for history and insurance, done from your phone.' },
+          { label: 'A reminder the evening before', detail: 'Reply 1 to confirm or 2 to move it.' },
+          { label: 'A recall note next year', detail: 'One short message when you are due again.' },
+        ]}
+      />
+    </div>
+  </section>
+</DemoLayout>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --d-bg: #f8f7f4;
+    --d-surface: #ffffff;
+    --d-ink: #1d2430;
+    --d-muted: #5a6472;
+    --d-line: #e1e4e9;
+    --d-accent: #a63d6b;
+    --d-accent-ink: #ffffff;
+    --d-radius: 16px;
+    --d-display: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+    --d-body: 'Inter Variable', system-ui, sans-serif;
+  }
+</style>
+
+<style>
+  .wrap {
+    width: min(1100px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(1100px, 100% - 5rem);
+    }
+  }
+
+  .site-head {
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .head-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    min-height: 4.5rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .brand-dot {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--d-accent);
+    transform: rotate(-12deg);
+  }
+
+  .brand-name {
+    font-family: var(--d-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .head-nav {
+    display: none;
+    gap: 1.6rem;
+    margin-left: auto;
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .head-nav a:hover {
+    color: var(--d-ink);
+  }
+
+  .head-call {
+    margin-left: auto;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--d-line);
+    text-underline-offset: 4px;
+  }
+
+  @media (min-width: 760px) {
+    .head-nav {
+      display: flex;
+    }
+
+    .head-call {
+      margin-left: 0;
+    }
+  }
+
+  /* Hero ------------------------------------------------------------- */
+
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: clamp(2.25rem, 5vw, 3.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 940px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+  }
+
+  h1 {
+    max-width: 14ch;
+    font-size: clamp(2.6rem, 1.4rem + 4.2vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+
+  .hero-lede {
+    max-width: 46ch;
+    margin-top: 1.15rem;
+    color: var(--d-muted);
+    font-size: 1.0625rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.6rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.2rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: 10px;
+    font-size: 0.9688rem;
+    font-weight: 650;
+  }
+
+  .btn-solid {
+    background: var(--d-accent);
+    color: var(--d-accent-ink);
+  }
+
+  .btn-solid:hover {
+    background: color-mix(in srgb, var(--d-accent) 86%, #000);
+  }
+
+  .btn-line {
+    border: 1px solid color-mix(in srgb, var(--d-ink) 24%, transparent);
+    color: var(--d-ink);
+  }
+
+  .btn-line:hover {
+    border-color: var(--d-ink);
+  }
+
+  .hero-fine {
+    margin-top: 1rem;
+    color: var(--d-muted);
+    font-size: 0.8125rem;
+  }
+
+  /* Message thread artifact ------------------------------------------ */
+
+  .thread {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.1rem, 2.4vw, 1.6rem);
+    border: 1px solid var(--d-line);
+    border-radius: 20px;
+    background: var(--d-surface);
+    box-shadow: 0 24px 44px -34px rgba(29, 36, 48, 0.5);
+  }
+
+  .thread-top {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .thread-avatar {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--d-accent) 14%, transparent);
+    color: var(--d-accent);
+    font-family: var(--d-display);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .thread-top strong {
+    display: block;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+  }
+
+  .thread-top span {
+    color: var(--d-muted);
+    font-size: 0.75rem;
+  }
+
+  .thread-list {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bubble {
+    max-width: 88%;
+    padding: 0.6rem 0.75rem;
+    border-radius: 14px;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  .bubble-in {
+    justify-self: start;
+    background: #eef0f3;
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble-out {
+    justify-self: end;
+    background: color-mix(in srgb, var(--d-accent) 12%, transparent);
+    border-bottom-right-radius: 4px;
+  }
+
+  .bubble-time {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--d-muted);
+    font-size: 0.6875rem;
+  }
+
+  .thread-note {
+    color: var(--d-muted);
+    font-size: 0.75rem;
+  }
+
+  /* Sections --------------------------------------------------------- */
+
+  .section {
+    padding-block: clamp(3.25rem, 7vw, 5.5rem);
+    border-top: 1px solid var(--d-line);
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  .section-head p {
+    color: var(--d-muted);
+  }
+
+  .care {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--d-line);
+  }
+
+  .care li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--d-line);
+  }
+
+  .care h3 {
+    font-family: var(--d-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .care p {
+    margin-top: 0.2rem;
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .care-meta {
+    color: var(--d-accent);
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  .visit {
+    background: #f1efe9;
+  }
+
+  .steps {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid color-mix(in srgb, var(--d-ink) 14%, transparent);
+  }
+
+  .steps li {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--d-ink) 12%, transparent);
+  }
+
+  @media (min-width: 820px) {
+    .steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-bottom: 1px solid color-mix(in srgb, var(--d-ink) 12%, transparent);
+    }
+
+    .steps li {
+      padding: 1.75rem 1.75rem 1.9rem;
+      border-bottom: 0;
+      border-left: 1px solid color-mix(in srgb, var(--d-ink) 12%, transparent);
+    }
+
+    .steps li:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .steps li:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .step-n {
+    color: var(--d-accent);
+    font-family: var(--d-display);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .steps h3 {
+    font-family: var(--d-body);
+    font-size: 1.0625rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+  }
+
+  .steps p {
+    color: var(--d-muted);
+    font-size: 0.9375rem;
+  }
+
+  .section-loop {
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .book-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 920px) {
+    .book-grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 3.5rem;
+    }
+  }
+
+  .book-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .book-copy p {
+    color: var(--d-muted);
+    max-width: 40ch;
+  }
+
+  .book-call {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .book-call a {
+    color: var(--d-ink);
+    font-family: var(--d-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .book-call span {
+    color: var(--d-muted);
+    font-size: 0.8125rem;
+  }
+
+  /* One authored entrance. */
+  .hero-copy > *,
+  .thread {
+    animation: settle 640ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .thread {
+    animation-delay: 120ms;
+  }
+
+  @keyframes settle {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

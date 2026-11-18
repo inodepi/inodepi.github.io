@@ -7,7 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://inodepi.github.io',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Demo builds are noindex concept pages; keep them out of the sitemap.
+      filter: (page) => !page.includes('/demo/'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

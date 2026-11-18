@@ -1,0 +1,175 @@
+---
+interface Step {
+  title: string;
+  body: string;
+  tool: string;
+}
+
+interface Props {
+  heading: string;
+  lede?: string;
+  steps: Step[];
+  note?: string;
+}
+
+const { heading, lede, steps, note } = Astro.props;
+---
+
+<section class="loop" aria-labelledby="loop-title">
+  <div class="loop-head">
+    <h2 id="loop-title">{heading}</h2>
+    {lede && <p class="loop-lede">{lede}</p>}
+  </div>
+
+  <ol class="loop-steps">
+    {
+      steps.map((step, index) => (
+        <li>
+          <span class="loop-node" aria-hidden="true" />
+          <span class="loop-n" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+          <span class="loop-tool">{step.tool}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  {note && <p class="loop-note">{note}</p>}
+</section>
+
+<style>
+  .loop {
+    display: grid;
+    gap: clamp(1.75rem, 3.5vw, 2.75rem);
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
+    border-radius: var(--d-radius, 10px);
+    background: var(--d-ink, #101828);
+    color: var(--d-bg, #ffffff);
+  }
+
+  .loop-head {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 44rem;
+  }
+
+  .loop-head h2 {
+    font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+  }
+
+  .loop-lede {
+    color: color-mix(in srgb, var(--d-bg, #fff) 78%, transparent);
+    font-size: 1rem;
+    max-width: 56ch;
+  }
+
+  .loop-steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: loop;
+  }
+
+  .loop-steps li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.4rem;
+    padding-left: 1.75rem;
+  }
+
+  .loop-steps li::before {
+    content: '';
+    position: absolute;
+    top: 1.1rem;
+    bottom: -1.5rem;
+    left: 5px;
+    width: 1px;
+    background: color-mix(in srgb, var(--d-bg, #fff) 22%, transparent);
+  }
+
+  .loop-steps li:last-child::before {
+    display: none;
+  }
+
+  .loop-node {
+    position: absolute;
+    top: 0.1rem;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--d-accent, #fff);
+    border-radius: 50%;
+    background: var(--d-ink, #101828);
+  }
+
+  .loop-n {
+    color: color-mix(in srgb, var(--d-bg, #fff) 62%, transparent);
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .loop-steps h3 {
+    font-family: var(--d-body, system-ui);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.005em;
+    line-height: 1.35;
+  }
+
+  .loop-steps p {
+    color: color-mix(in srgb, var(--d-bg, #fff) 76%, transparent);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .loop-tool {
+    justify-self: start;
+    margin-top: 0.15rem;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--d-bg, #fff) 45%, var(--d-accent, #fff));
+    border-radius: 4px;
+    /* Tinted from the panel's own text color so it stays legible on inverted panels. */
+    color: color-mix(in srgb, var(--d-bg, #fff) 84%, var(--d-accent, #fff));
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .loop-note {
+    padding-top: 1.1rem;
+    border-top: 1px solid color-mix(in srgb, var(--d-bg, #fff) 18%, transparent);
+    color: color-mix(in srgb, var(--d-bg, #fff) 66%, transparent);
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 860px) {
+    .loop-steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .loop-steps li {
+      padding: 1.9rem 0 0;
+    }
+
+    .loop-steps li::before {
+      top: 5px;
+      bottom: auto;
+      left: 0;
+      right: -1.25rem;
+      width: auto;
+      height: 1px;
+    }
+
+    .loop-node {
+      top: 0;
+      left: 0;
+    }
+  }
+</style>
