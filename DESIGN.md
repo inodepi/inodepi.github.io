@@ -21,8 +21,8 @@ selling the visitor's own business back to them, with the systems layer as proof
 - Components: `.btn`, `.tag`, `.container`, `.section`; cards use hairline borders and a
   coloured node chip, never decorative gradients or glows.
 - Motion: one orchestrated hero entrance; reduced motion swaps the hero video for its poster.
-- Every page in the series closes on the same question: "The website's all good. But what about
-  the leads?" with one action to `/#work`. `LeadsBand` renders it in the main-site skin;
+- Every page in the series closes on the same question: "The website's all good. But the rest of
+  the week?" with one action to `/#work`. `LeadsBand` renders it in the main-site skin;
   `LoopTeaser` renders it inside each demo, themed by that brand.
 
 ## Demo builds
