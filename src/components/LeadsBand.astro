@@ -1,0 +1,83 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="leads-band" id="leads" aria-labelledby="leads-band-title">
+  <div class="container leads-inner">
+    <div class="leads-copy">
+      <h2 id="leads-band-title">The website's all good. But what about the leads?</h2>
+      <p>
+        Most sites lose them at the form, the phone, and the follow-up. I build the workflows that
+        close those gaps.
+      </p>
+    </div>
+    <a class="btn btn-primary" href={`${base}#work`}>
+      See what makes you get leads
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          d="M5 11 11 5M6 5h5v5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .leads-band {
+    border-block: 1px solid var(--line);
+    background: var(--panel);
+    scroll-margin-top: 5.5rem;
+  }
+
+  .leads-inner {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: clamp(2.75rem, 6vw, 4.25rem);
+  }
+
+  @media (min-width: 860px) {
+    .leads-inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 3.5rem;
+    }
+  }
+
+  .leads-copy {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .leads-band h2 {
+    max-width: 24ch;
+    font-size: clamp(1.7rem, 1.2rem + 1.9vw, 2.5rem);
+    letter-spacing: -0.03em;
+  }
+
+  .leads-band p {
+    max-width: 52ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+  }
+
+  .leads-band .btn {
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .leads-band .btn svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  @media (max-width: 479px) {
+    .leads-band .btn {
+      width: 100%;
+    }
+  }
+</style>
