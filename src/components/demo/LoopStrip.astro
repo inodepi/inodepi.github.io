@@ -15,7 +15,7 @@ interface Props {
 const { heading, lede, steps, note } = Astro.props;
 ---
 
-<section class="loop" aria-labelledby="loop-title">
+<section class="loop" id="loop" aria-labelledby="loop-title">
   <div class="loop-head">
     <h2 id="loop-title">{heading}</h2>
     {lede && <p class="loop-lede">{lede}</p>}
@@ -46,6 +46,7 @@ const { heading, lede, steps, note } = Astro.props;
     border-radius: var(--d-radius, 10px);
     background: var(--d-ink, #101828);
     color: var(--d-bg, #ffffff);
+    scroll-margin-top: 1.5rem;
   }
 
   .loop-head {

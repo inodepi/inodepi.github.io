@@ -1,0 +1,348 @@
+---
+const steps = [
+  {
+    time: 'now',
+    title: 'The request lands',
+    detail: 'Validated, deduplicated, and written to the sheet before anyone reads it.',
+    tool: 'n8n intake',
+  },
+  {
+    time: '+10 seconds',
+    title: 'Someone answers',
+    detail: 'A text goes back if the call was missed, with the next open slot attached.',
+    tool: 'AI receptionist',
+  },
+  {
+    time: '+1 day',
+    title: 'The slot is held',
+    detail: 'The calendar blocks the time and the reminder is queued for the evening before.',
+    tool: 'Cal + reminders',
+  },
+  {
+    time: '+7 days',
+    title: 'The invoice is chased',
+    detail: 'An unpaid invoice gets a tone-matched reminder, filed as a draft for a human.',
+    tool: 'AR reminder',
+  },
+];
+
+const demos = [
+  { name: 'FurnaceWorks', href: '/demo/furnaceworks/#loop' },
+  { name: 'Redline', href: '/demo/redline-towing/#loop' },
+  { name: 'Fernhollow', href: '/demo/fernhollow/#loop' },
+  { name: 'Lumen Smile', href: '/demo/lumen-dental/#loop' },
+];
+---
+
+<section class="section machine-section" id="loop">
+  <div class="container">
+    <div class="section-head">
+      <h2>Watch the loop run</h2>
+      <p class="section-lede">
+        The form is the easy part. Press the button and watch what happens in the four steps after
+        someone presses send — the part a website alone never does.
+      </p>
+    </div>
+
+    <div class="machine" data-machine>
+      <div class="machine-head">
+        <p class="machine-status" data-machine-status aria-live="polite">Ready when you are.</p>
+        <button class="btn btn-primary" type="button" data-machine-run>Press send and watch</button>
+      </div>
+
+      <ol class="machine-steps">
+        {
+          steps.map((step) => (
+            <li data-step data-label={step.title}>
+              <span class="m-node" aria-hidden="true" />
+              <span class="m-time">{step.time}</span>
+              <h3>{step.title}</h3>
+              <p>{step.detail}</p>
+              <span class="m-tool">{step.tool}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="machine-note">
+        Simulated run: nothing is sent, no workflow starts, no calendar changes.
+      </p>
+
+      <div class="machine-done" data-machine-done hidden>
+        <p class="machine-done-line">
+          That is the machine behind every demo build. It is the half a website alone never does.
+        </p>
+        <ul class="machine-links">
+          {
+            demos.map((demo) => (
+              <li>
+                <a href={demo.href}>
+                  See it running in {demo.name}
+                  <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path
+                      d="M5 11 11 5M6 5h5v5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const machine = document.querySelector<HTMLElement>('[data-machine]');
+
+  if (machine) {
+    const button = machine.querySelector<HTMLButtonElement>('[data-machine-run]');
+    const status = machine.querySelector<HTMLElement>('[data-machine-status]');
+    const done = machine.querySelector<HTMLElement>('[data-machine-done]');
+    const steps = Array.from(machine.querySelectorAll<HTMLElement>('[data-step]'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let running = false;
+
+    const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+    const reset = () => {
+      steps.forEach((step) => step.classList.remove('is-on'));
+      if (done) done.hidden = true;
+      if (status) status.textContent = 'Ready when you are.';
+    };
+
+    button?.addEventListener('click', async () => {
+      if (running) return;
+      running = true;
+      button.disabled = true;
+      reset();
+
+      for (const [index, step] of steps.entries()) {
+        if (status) {
+          status.textContent = `Step ${index + 1} of ${steps.length}: ${step.dataset.label ?? ''}`;
+        }
+        step.classList.add('is-on');
+        if (!reduced) await wait(index === 0 ? 250 : 700);
+      }
+
+      if (status) status.textContent = 'Loop complete. Every step ran without a person.';
+      if (done) done.hidden = false;
+      button.textContent = 'Run it again';
+      button.disabled = false;
+      running = false;
+    });
+  }
+</script>
+
+<style>
+  .machine-section {
+    padding-block: clamp(3.25rem, 7vw, 5.5rem);
+  }
+
+  .machine {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+  }
+
+  .machine-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem 1.5rem;
+    padding-bottom: 1.15rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .machine-status {
+    color: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+  }
+
+  .machine-steps {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .machine-steps li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding-left: 1.75rem;
+  }
+
+  .machine-steps li::before {
+    content: '';
+    position: absolute;
+    top: 1.1rem;
+    bottom: -1.5rem;
+    left: 5px;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .machine-steps li:last-child::before {
+    display: none;
+  }
+
+  .machine-steps li.is-on::before {
+    background: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+
+  .m-node {
+    position: absolute;
+    top: 0.1rem;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--panel);
+    transition:
+      border-color 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .is-on .m-node {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  .m-time {
+    color: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .is-on .m-time {
+    color: var(--accent);
+  }
+
+  .machine-steps h3 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  .machine-steps p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .m-tool {
+    justify-self: start;
+    margin-top: 0.15rem;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition:
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .is-on .m-tool {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    color: var(--accent);
+  }
+
+  .machine-note {
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-dim);
+    font-size: 0.8125rem;
+  }
+
+  .machine-done {
+    display: grid;
+    gap: 0.9rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .machine-done[hidden] {
+    display: none;
+  }
+
+  .machine-done-line {
+    max-width: 52ch;
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  .machine-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .machine-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .machine-links a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .machine-links svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .machine-steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .machine-steps li {
+      padding: 1.9rem 0 0;
+    }
+
+    .machine-steps li::before {
+      top: 5px;
+      bottom: auto;
+      left: 0;
+      right: -1.25rem;
+      width: auto;
+      height: 1px;
+    }
+
+    .m-node {
+      top: 0;
+    }
+  }
+</style>

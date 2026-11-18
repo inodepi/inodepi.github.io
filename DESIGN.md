@@ -21,6 +21,9 @@ selling the visitor's own business back to them, with the systems layer as proof
 - Components: `.btn`, `.tag`, `.container`, `.section`; cards use hairline borders and a
   coloured node chip, never decorative gradients or glows.
 - Motion: one orchestrated hero entrance; reduced motion swaps the hero video for its poster.
+- `/websites` carries the interactive loop widget (`LoopDemo`): a simulated four-step run with
+  timings, a live status line, and links into each demo's systems strip (`#loop`). It is
+  labelled as a simulation and respects reduced motion by revealing all steps at once.
 
 ## Demo builds
 
