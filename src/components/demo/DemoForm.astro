@@ -18,7 +18,6 @@ interface Props {
   note?: string;
   successTitle: string;
   successBody: string;
-  nextSteps: { label: string; detail: string }[];
   reset?: string;
 }
 
@@ -31,7 +30,6 @@ const {
   note,
   successTitle,
   successBody,
-  nextSteps,
   reset = 'Send another request',
 } = Astro.props;
 ---
@@ -87,17 +85,6 @@ const {
     <div class="dq-done" data-demo-done hidden role="status" aria-live="polite" tabindex="-1">
       <h3 class="dq-done-title">{successTitle}</h3>
       <p class="dq-done-body">{successBody}</p>
-      <ol class="dq-steps">
-        {
-          nextSteps.map((step, index) => (
-            <li>
-              <span class="dq-step-n" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <span class="dq-step-label">{step.label}</span>
-              <span class="dq-step-detail">{step.detail}</span>
-            </li>
-          ))
-        }
-      </ol>
       <p class="dq-demo-note">This form is a demo: nothing was sent and no request was created.</p>
       <button class="dq-reset" type="button" data-demo-reset>{reset}</button>
     </div>
@@ -270,42 +257,6 @@ const {
   .dq-done-body {
     color: var(--d-muted, #5b6472);
     font-size: 0.9375rem;
-  }
-
-  .dq-steps {
-    display: grid;
-    gap: 0.55rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .dq-steps li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.15rem 0.6rem;
-    padding-top: 0.55rem;
-    border-top: 1px solid var(--d-line, rgba(0, 0, 0, 0.12));
-  }
-
-  .dq-step-n {
-    grid-row: span 2;
-    color: var(--d-accent, #101828);
-    font-family: var(--d-body, system-ui);
-    font-size: 0.75rem;
-    font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    padding-top: 0.15rem;
-  }
-
-  .dq-step-label {
-    font-size: 0.9375rem;
-    font-weight: 600;
-  }
-
-  .dq-step-detail {
-    color: var(--d-muted, #5b6472);
-    font-size: 0.875rem;
   }
 
   .dq-demo-note {

@@ -3,7 +3,7 @@ import '@fontsource-variable/archivo';
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
-import LoopStrip from '../../components/demo/LoopStrip.astro';
+import LoopTeaser from '../../components/demo/LoopTeaser.astro';
 
 const base = import.meta.env.BASE_URL;
 const phone = '(616) 555-0142';
@@ -134,36 +134,6 @@ const tel = '+16165550142';
     </div>
   </section>
 
-  <section class="wrap section-loop" aria-label="How the system runs">
-    <LoopStrip
-      heading="What happens after you press send"
-      lede="The site is the front door. These four steps run without anyone copying information between tabs."
-      steps={[
-        {
-          title: 'The request lands',
-          body: 'Your form is validated, deduplicated, and written to the dispatch sheet before a human sees it.',
-          tool: 'n8n intake',
-        },
-        {
-          title: 'Someone answers',
-          body: 'Missed calls get a text back in under a minute; the assistant books the slot and logs the transcript.',
-          tool: 'AI receptionist',
-        },
-        {
-          title: 'The visit is confirmed',
-          body: 'A calendar slot holds the truck, and a reminder goes out the evening before.',
-          tool: 'Cal + reminders',
-        },
-        {
-          title: 'The invoice is chased',
-          body: 'Unpaid invoices get a tone-matched reminder on day 7 and day 14, filed as drafts for a human to send.',
-          tool: 'AR reminder',
-        },
-      ]}
-      note="Each step is a workflow I build and hand over, documented, with error paths that surface instead of vanishing."
-    />
-  </section>
-
   <section class="section plan" id="plan">
     <div class="wrap plan-grid">
       <div class="plan-copy">
@@ -226,16 +196,11 @@ const tel = '+16165550142';
         submit="Send to dispatch"
         note="Demo form: nothing is sent and no visit is booked."
         successTitle="Request received"
-        successBody="Here is what would happen next in the live build."
-        nextSteps={[
-          { label: 'Dispatch is notified', detail: 'A message hits the on-call tech in under 10 seconds.' },
-          { label: 'You get a confirmation text', detail: 'With the arrival window and the tech name.' },
-          { label: 'Reminder the evening before', detail: 'One tap to confirm or move the visit.' },
-          { label: 'Invoice after the job', detail: 'Unpaid invoices get a reminder on day 7.' },
-        ]}
+        successBody="In the live build, dispatch is paged and you get a text with an arrival window."
       />
     </div>
   </section>
+  <LoopTeaser />
 </DemoLayout>
 
 <style is:global>
@@ -625,9 +590,6 @@ const tel = '+16165550142';
     white-space: nowrap;
   }
 
-  .section-loop {
-    padding-block: clamp(1rem, 2vw, 2rem) clamp(3.25rem, 7vw, 6rem);
-  }
 
   /* Plan ------------------------------------------------------------- */
 

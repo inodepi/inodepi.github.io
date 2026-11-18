@@ -3,7 +3,7 @@ import '@fontsource-variable/gabarito';
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
-import LoopStrip from '../../components/demo/LoopStrip.astro';
+import LoopTeaser from '../../components/demo/LoopTeaser.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -187,36 +187,6 @@ const pineLayers = [
     </div>
   </section>
 
-  <section class="wrap section-loop" aria-label="How booking works">
-    <LoopStrip
-      heading="You send a date. Someone answers."
-      lede="No booking engine maze. A request reaches a person — or an assistant that knows the calendar — and the details arrive before you close the tab."
-      steps={[
-        {
-          title: 'The request lands',
-          body: 'From this form, Instagram, or email — every channel reaches one inbox with the dates attached.',
-          tool: 'AI receptionist',
-        },
-        {
-          title: 'The cabin is held',
-          body: 'The assistant checks the calendar, holds the nights, and replies with the total and the deposit link.',
-          tool: 'Cal + intake',
-        },
-        {
-          title: 'The deposit arrives',
-          body: 'A paid deposit confirms the stay; an unpaid one gets a quiet reminder after 48 hours.',
-          tool: 'Invoice + reminder',
-        },
-        {
-          title: 'The stay is prepared',
-          body: 'Directions, arrival notes, and the weather for the weekend are sent two days before check-in.',
-          tool: 'Guest sequence',
-        },
-      ]}
-      note="The guest sees a calm reply. The owner sees an inbox that empties itself."
-    />
-  </section>
-
   <section class="section stay" id="stay">
     <div class="wrap stay-grid">
       <div class="stay-copy">
@@ -255,16 +225,11 @@ const pineLayers = [
         submit="Send request"
         note="Demo form: nothing is sent and no cabin is held."
         successTitle="On its way"
-        successBody="In the live build, here is what happens next."
-        nextSteps={[
-          { label: 'A real reply', detail: 'Dates, total, and the deposit link, usually within a few hours.' },
-          { label: 'The nights are held', detail: 'The calendar blocks them while you decide.' },
-          { label: 'A gentle follow-up', detail: 'If the deposit is unpaid after 48 hours, one reminder — then the hold releases.' },
-          { label: 'Arrival notes', detail: 'Directions, gate code, and the forecast, two days before.' },
-        ]}
+        successBody="In the live build, this reaches a real reply with dates, total, and a deposit link."
       />
     </div>
   </section>
+  <LoopTeaser />
 </DemoLayout>
 
 <style is:global>
@@ -683,9 +648,6 @@ const pineLayers = [
     font-size: 0.9375rem;
   }
 
-  .section-loop {
-    padding-block: clamp(3rem, 6vw, 4.5rem);
-  }
 
   .stay-grid {
     display: grid;

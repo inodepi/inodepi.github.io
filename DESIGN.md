@@ -22,8 +22,8 @@ selling the visitor's own business back to them, with the systems layer as proof
   coloured node chip, never decorative gradients or glows.
 - Motion: one orchestrated hero entrance; reduced motion swaps the hero video for its poster.
 - `/websites` carries the interactive loop widget (`LoopDemo`): a simulated four-step run with
-  timings, a live status line, and links into each demo's systems strip (`#loop`). It is
-  labelled as a simulation and respects reduced motion by revealing all steps at once.
+  timings, a live status line, client-voiced steps, and links to each demo. It is labelled as
+  a simulation and respects reduced motion by revealing all steps at once.
 
 ## Demo builds
 
@@ -40,11 +40,11 @@ Shared rules:
 
 - `src/layouts/DemoLayout.astro` sets base resets, the demo ribbon, the coupon footer, and
   `[hidden]` handling. Every demo is `noindex` and excluded from the sitemap.
-- `LoopStrip` is the series signature: an inverted panel (brand ink background) showing four
-  numbered steps with node dots and tool chips. It always ends the marketing sections and
-  always names the workflow that runs each step.
-- `DemoForm` is a client-side demonstration only. Its success state lists what would happen
-  next and states plainly that nothing was sent.
+- `LoopTeaser` closes every demo: an inverted band asking "The website's all good. But what
+  about the leads?" with one button, "See what makes you get leads", that leaves the demo for
+  `/#work`. Demos otherwise never explain the machinery.
+- `DemoForm` is a client-side demonstration only. Its success state is one plain sentence
+  plus the "nothing was sent" note; the step-by-step story lives in the `/websites` widget.
 - Copy is authored per brand; prices, names, and queues are sample content and are labelled
   as such. No invented customer claims or review counts.
 - One authored entrance per page; no scroll-triggered effects, no hover lifts on cards.

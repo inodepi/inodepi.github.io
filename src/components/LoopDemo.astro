@@ -2,52 +2,52 @@
 const steps = [
   {
     time: 'now',
-    title: 'The request lands',
-    detail: 'Validated, deduplicated, and written to the sheet before anyone reads it.',
-    tool: 'n8n intake',
+    title: 'The lead lands',
+    detail: 'Form, phone, or DM: one place, with the details already attached.',
+    tool: 'Automatic intake',
   },
   {
     time: '+10 seconds',
-    title: 'Someone answers',
-    detail: 'A text goes back if the call was missed, with the next open slot attached.',
-    tool: 'AI receptionist',
+    title: 'A text goes back',
+    detail: 'Missed call? The customer still gets a reply, with the next open slot.',
+    tool: 'Text-back assistant',
   },
   {
     time: '+1 day',
-    title: 'The slot is held',
-    detail: 'The calendar blocks the time and the reminder is queued for the evening before.',
-    tool: 'Cal + reminders',
+    title: 'The booking holds itself',
+    detail: 'The calendar blocks the time and reminds the customer the evening before.',
+    tool: 'Booking + reminders',
   },
   {
     time: '+7 days',
-    title: 'The invoice is chased',
-    detail: 'An unpaid invoice gets a tone-matched reminder, filed as a draft for a human.',
-    tool: 'AR reminder',
+    title: 'The invoice gets chased',
+    detail: 'An unpaid bill gets a polite reminder. You press send only if you want to.',
+    tool: 'Invoice reminders',
   },
 ];
 
 const demos = [
-  { name: 'FurnaceWorks', href: '/demo/furnaceworks/#loop' },
-  { name: 'Redline', href: '/demo/redline-towing/#loop' },
-  { name: 'Fernhollow', href: '/demo/fernhollow/#loop' },
-  { name: 'Lumen Smile', href: '/demo/lumen-dental/#loop' },
+  { name: 'FurnaceWorks', href: '/demo/furnaceworks/' },
+  { name: 'Redline', href: '/demo/redline-towing/' },
+  { name: 'Fernhollow', href: '/demo/fernhollow/' },
+  { name: 'Lumen Smile', href: '/demo/lumen-dental/' },
 ];
 ---
 
 <section class="section machine-section" id="loop">
   <div class="container">
     <div class="section-head">
-      <h2>Watch the loop run</h2>
+      <h2>What happens after a lead presses send</h2>
       <p class="section-lede">
-        The form is the easy part. Press the button and watch what happens in the four steps after
-        someone presses send — the part a website alone never does.
+        Press the button and watch the four things that happen without anyone copying data, making
+        calls, or remembering to follow up.
       </p>
     </div>
 
     <div class="machine" data-machine>
       <div class="machine-head">
         <p class="machine-status" data-machine-status aria-live="polite">Ready when you are.</p>
-        <button class="btn btn-primary" type="button" data-machine-run>Press send and watch</button>
+        <button class="btn btn-primary" type="button" data-machine-run>Watch a lead come in</button>
       </div>
 
       <ol class="machine-steps">
@@ -70,14 +70,14 @@ const demos = [
 
       <div class="machine-done" data-machine-done hidden>
         <p class="machine-done-line">
-          That is the machine behind every demo build. It is the half a website alone never does.
+          This is what your week looks like with the loop closed.
         </p>
         <ul class="machine-links">
           {
             demos.map((demo) => (
               <li>
                 <a href={demo.href}>
-                  See it running in {demo.name}
+                  Open {demo.name}
                   <svg viewBox="0 0 16 16" aria-hidden="true">
                     <path
                       d="M5 11 11 5M6 5h5v5"
@@ -131,7 +131,7 @@ const demos = [
         if (!reduced) await wait(index === 0 ? 250 : 700);
       }
 
-      if (status) status.textContent = 'Loop complete. Every step ran without a person.';
+      if (status) status.textContent = 'Done. Not one of those steps needed a person.';
       if (done) done.hidden = false;
       button.textContent = 'Run it again';
       button.disabled = false;

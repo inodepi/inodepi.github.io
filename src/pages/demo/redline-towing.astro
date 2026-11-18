@@ -4,7 +4,7 @@ import '@fontsource/barlow-condensed/700.css';
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
-import LoopStrip from '../../components/demo/LoopStrip.astro';
+import LoopTeaser from '../../components/demo/LoopTeaser.astro';
 
 const phone = '(616) 555-0199';
 const tel = '+16165550199';
@@ -187,36 +187,6 @@ const tel = '+16165550199';
     </div>
   </section>
 
-  <section class="wrap section-loop" aria-label="How the system runs">
-    <LoopStrip
-      heading="The part nobody sees"
-      lede="Dispatch is loud. The admin behind it should not be. Four workflows keep the paperwork off the phone line."
-      steps={[
-        {
-          title: 'Calls are caught',
-          body: 'After-hours calls are answered by an assistant that takes the location, vehicle, and callback number.',
-          tool: 'AI receptionist',
-        },
-        {
-          title: 'Jobs are logged',
-          body: 'Each request becomes a row with unit, location, and PO — no whiteboard, no lost sticky note.',
-          tool: 'n8n intake',
-        },
-        {
-          title: 'Fleet billing runs',
-          body: 'Jobs roll into one monthly statement per account, with the PO number already attached.',
-          tool: 'Statement builder',
-        },
-        {
-          title: 'Overdue is chased',
-          body: 'Reminders go out on day 7 and 14 as drafts, so a human stays in the loop.',
-          tool: 'AR reminder',
-        },
-      ]}
-      note="Same system in every demo: the site catches the request, the workflows do the follow-up."
-    />
-  </section>
-
   <section class="section request" id="request">
     <div class="wrap request-grid">
       <div class="request-copy">
@@ -257,16 +227,11 @@ const tel = '+16165550199';
         submit="Send to dispatch"
         note="Demo form: nothing is sent and no truck is dispatched."
         successTitle="Request received"
-        successBody="In the live build, this is what happens next."
-        nextSteps={[
-          { label: 'Dispatch is paged', detail: 'The on-call dispatcher sees the request within seconds.' },
-          { label: 'A unit is assigned', detail: 'Nearest truck takes it; you get the driver name and ETA text.' },
-          { label: 'The job is logged', detail: 'Location, vehicle, and PO number land in the sheet.' },
-          { label: 'Billing follows', detail: 'Fleet jobs join the monthly statement; overdue gets a reminder.' },
-        ]}
+        successBody="In the live build, dispatch is paged and the driver's name comes back by text."
       />
     </div>
   </section>
+  <LoopTeaser />
 </DemoLayout>
 
 <style is:global>
@@ -703,9 +668,6 @@ const tel = '+16165550199';
     font-size: 0.9375rem;
   }
 
-  .section-loop {
-    padding-block: 0 clamp(3.25rem, 6vw, 5rem);
-  }
 
   /* Fleet ------------------------------------------------------------ */
 

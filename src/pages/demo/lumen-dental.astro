@@ -3,7 +3,7 @@ import '@fontsource-variable/schibsted-grotesk';
 import DemoLayout from '../../layouts/DemoLayout.astro';
 import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
-import LoopStrip from '../../components/demo/LoopStrip.astro';
+import LoopTeaser from '../../components/demo/LoopTeaser.astro';
 
 const phone = '(616) 555-0177';
 const tel = '+16165550177';
@@ -154,36 +154,6 @@ const tel = '+16165550177';
     </div>
   </section>
 
-  <section class="wrap section-loop" aria-label="How the reminders run">
-    <LoopStrip
-      heading="The front desk you do not have to staff"
-      lede="Every step below runs on its own. A person only steps in when a patient writes back."
-      steps={[
-        {
-          title: 'The request lands',
-          body: 'Form, phone, or DM — one inbox, deduplicated, with the reason for the visit attached.',
-          tool: 'n8n intake',
-        },
-        {
-          title: 'The slot is held',
-          body: 'A real calendar slot, with the intake link and a text confirmation.',
-          tool: 'Cal + intake',
-        },
-        {
-          title: 'The reminder goes',
-          body: 'Evening before, with a one-reply confirm or reschedule. No-shows get a same-week offer.',
-          tool: 'Reminder flow',
-        },
-        {
-          title: 'Dormant patients return',
-          body: 'Patients past their recall date get a short personal note, not a mass campaign.',
-          tool: 'Lead reactivation',
-        },
-      ]}
-      note="The same system that keeps a clinic's chairs full works for any business with a calendar."
-    />
-  </section>
-
   <section class="section book" id="book">
     <div class="wrap book-grid">
       <div class="book-copy">
@@ -223,16 +193,11 @@ const tel = '+16165550177';
         submit="Request appointment"
         note="Demo form: nothing is sent and no appointment is booked."
         successTitle="Request received"
-        successBody="In the live build, the front desk is a workflow."
-        nextSteps={[
-          { label: 'A text confirms', detail: 'The real slot, the provider, and the parking note.' },
-          { label: 'Intake arrives', detail: 'A link for history and insurance, done from your phone.' },
-          { label: 'A reminder the evening before', detail: 'Reply 1 to confirm or 2 to move it.' },
-          { label: 'A recall note next year', detail: 'One short message when you are due again.' },
-        ]}
+        successBody="In the live build, a text confirms the slot and the intake link follows."
       />
     </div>
   </section>
+  <LoopTeaser />
 </DemoLayout>
 
 <style is:global>
@@ -621,9 +586,6 @@ const tel = '+16165550177';
     font-size: 0.9375rem;
   }
 
-  .section-loop {
-    padding-block: clamp(3rem, 6vw, 4.5rem);
-  }
 
   .book-grid {
     display: grid;

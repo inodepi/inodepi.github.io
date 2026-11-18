@@ -1,0 +1,122 @@
+---
+const base = import.meta.env.BASE_URL;
+
+interface Props {
+  line?: string;
+  buttonLabel?: string;
+  href?: string;
+}
+
+const {
+  line = 'Most sites lose them at the form, the phone, and the follow-up. I build the workflows that close those gaps.',
+  buttonLabel = 'See what makes you get leads',
+  href = `${base}#work`,
+} = Astro.props;
+---
+
+<section class="teaser" id="leads" aria-labelledby="leads-title">
+  <div class="wrap teaser-inner">
+    <div class="teaser-copy">
+      <h2 id="leads-title">The website's all good. But what about the leads?</h2>
+      <p>{line}</p>
+    </div>
+    <a class="teaser-btn" href={href}>
+      {buttonLabel}
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path
+          d="M5 11 11 5M6 5h5v5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .teaser {
+    background: var(--d-ink, #101828);
+    color: var(--d-bg, #ffffff);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .wrap {
+    width: min(1120px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(1120px, 100% - 5rem);
+    }
+  }
+
+  .teaser-inner {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  @media (min-width: 860px) {
+    .teaser-inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 3rem;
+    }
+  }
+
+  .teaser-copy {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  h2 {
+    max-width: 22ch;
+    font-size: clamp(1.6rem, 1.1rem + 1.8vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  p {
+    max-width: 52ch;
+    color: color-mix(in srgb, var(--d-bg, #fff) 76%, transparent);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .teaser-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3.25rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 6px;
+    background: var(--d-accent, #f5a623);
+    color: var(--d-accent-ink, #101828);
+    font-size: 0.9688rem;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: filter 150ms ease;
+  }
+
+  .teaser-btn:hover {
+    filter: brightness(1.08);
+  }
+
+  .teaser-btn svg {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  @media (max-width: 459px) {
+    .teaser-btn {
+      width: 100%;
+    }
+  }
+</style>
