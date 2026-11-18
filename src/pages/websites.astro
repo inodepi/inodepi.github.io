@@ -69,6 +69,23 @@ const jsonLd = {
     </div>
   </section>
 
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-head">
+        <h2>Overview</h2>
+        <p class="section-lede">How the site and the system fit together — narrated in a minute.</p>
+      </div>
+      <figure class="site-video">
+        <video controls preload="metadata" playsinline poster="/videos/websites.jpg" width="1920" height="1080">
+          <source src="/videos/websites.mp4" type="video/mp4" />
+          Your browser cannot play this film.
+          <a href="/videos/websites.mp4">Download it</a>.
+        </video>
+        <figcaption>Narrated build overview · 1:15</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="section" id="demos">
     <div class="container">
       <div class="section-head">
@@ -176,6 +193,25 @@ const jsonLd = {
 </Base>
 
 <style>
+  .site-video {
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .site-video video {
+    width: 100%;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .site-video figcaption {
+    font-size: 0.875rem;
+    color: var(--ink-dim);
+  }
+
   .page-hero {
     padding-block: clamp(3.5rem, 8vw, 7rem) clamp(2.5rem, 6vw, 5rem);
   }
