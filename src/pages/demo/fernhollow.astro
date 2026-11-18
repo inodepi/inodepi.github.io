@@ -35,35 +35,46 @@ const pineLayers = [
     </header>
 
     <div class="wrap hero-inner" id="top">
-      <h1>Three cabins.<br />Forty acres.<br />No signal.</h1>
-      <p class="hero-lede">
-        Off-grid cabins on the ridge above Lake Michigan. Wood stove, outdoor shower, and a porch
-        that faces the weather. Bring a book, not a schedule.
-      </p>
+      <div class="hero-copy">
+        <h1>Three cabins.<br />Forty acres.<br />No signal.</h1>
+        <p class="hero-lede">
+          Off-grid cabins on the ridge above Lake Michigan. Wood stove, outdoor shower, and a porch
+          that faces the weather. Bring a book, not a schedule.
+        </p>
 
-      <form class="checker" data-avail novalidate>
-        <div class="checker-fields">
-          <label>
-            <span>Check in</span>
-            <input type="date" name="arrive" required />
-          </label>
-          <label>
-            <span>Check out</span>
-            <input type="date" name="leave" required />
-          </label>
-          <label>
-            <span>Guests</span>
-            <select name="guests">
-              <option>2 guests</option>
-              <option>3 guests</option>
-              <option>4 guests</option>
-            </select>
-          </label>
-        </div>
-        <button type="submit">Check availability</button>
-        <p class="checker-result" data-avail-result hidden role="status" aria-live="polite"></p>
-      </form>
-      <p class="hero-fine">Minimum two nights. Sample availability from this demo build.</p>
+        <form class="checker" data-avail novalidate>
+          <div class="checker-fields">
+            <label>
+              <span>Check in</span>
+              <input type="date" name="arrive" required />
+            </label>
+            <label>
+              <span>Check out</span>
+              <input type="date" name="leave" required />
+            </label>
+            <label>
+              <span>Guests</span>
+              <select name="guests">
+                <option>2 guests</option>
+                <option>3 guests</option>
+                <option>4 guests</option>
+              </select>
+            </label>
+          </div>
+          <button type="submit">Check availability</button>
+          <p class="checker-result" data-avail-result hidden role="status" aria-live="polite"></p>
+        </form>
+        <p class="hero-fine">Minimum two nights. Sample availability from this demo build.</p>
+      </div>
+
+      <figure class="hero-photo">
+        <img
+          src={`${base}demo/fernhollow/hero.webp`}
+          alt="A timber cabin standing among tall pines"
+          width="512"
+          height="640"
+        />
+      </figure>
     </div>
 
     <svg class="pines" viewBox="0 0 1440 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -97,6 +108,14 @@ const pineLayers = [
 
       <ul class="cabins">
         <li>
+          <img
+            class="cabin-photo"
+            src={`${base}demo/fernhollow/cabin-hollow.webp`}
+            alt="The Hollow cabin at dusk"
+            width="900"
+            height="675"
+            loading="lazy"
+          />
           <h3>Hollow</h3>
           <p class="cabin-line">The smallest. A wood stove, a reading chair, and a view of the valley.</p>
           <dl class="cabin-facts">
@@ -105,6 +124,14 @@ const pineLayers = [
           </dl>
         </li>
         <li>
+          <img
+            class="cabin-photo"
+            src={`${base}demo/fernhollow/cabin-ridge.webp`}
+            alt="The Ridge cabin among tall pines"
+            width="900"
+            height="675"
+            loading="lazy"
+          />
           <h3>Ridge</h3>
           <p class="cabin-line">The long porch. Outdoor shower, hammock hooks, west-facing sunset.</p>
           <dl class="cabin-facts">
@@ -113,6 +140,14 @@ const pineLayers = [
           </dl>
         </li>
         <li>
+          <img
+            class="cabin-photo"
+            src={`${base}demo/fernhollow/cabin-fen.webp`}
+            alt="The Fen cabin in autumn woods"
+            width="900"
+            height="675"
+            loading="lazy"
+          />
           <h3>Fen</h3>
           <p class="cabin-line">The family one. Bunk room, big table, and a trail straight to the water.</p>
           <dl class="cabin-facts">
@@ -314,12 +349,57 @@ const pineLayers = [
     }
   }
 
+  .hero-copy {
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
   .hero-inner {
     position: relative;
     z-index: 1;
     display: grid;
-    gap: 1.5rem;
+    gap: 2rem;
     padding-block: clamp(3rem, 7vw, 5.5rem) clamp(5.5rem, 12vw, 9rem);
+  }
+
+  @media (min-width: 920px) {
+    .hero-inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.75fr);
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: center;
+    }
+  }
+
+  .hero-photo {
+    margin: 0;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, #eef1e4 20%, transparent);
+    box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
+  }
+
+  @media (min-width: 720px) {
+    .hero-photo {
+      max-width: 34rem;
+    }
+
+    .hero-photo img {
+      aspect-ratio: 4 / 5;
+      border-radius: 18px;
+    }
+  }
+
+  @media (min-width: 920px) {
+    .hero-photo {
+      max-width: none;
+      justify-self: end;
+    }
   }
 
   h1 {
@@ -518,6 +598,14 @@ const pineLayers = [
     letter-spacing: -0.03em;
   }
 
+  .cabin-photo {
+    width: 100%;
+    height: clamp(11rem, 20vw, 14.5rem);
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.25rem;
+  }
+
   .cabin-line {
     color: var(--d-muted);
     font-size: 0.9375rem;
@@ -613,16 +701,21 @@ const pineLayers = [
   }
 
   /* One authored entrance. */
-  .hero-inner > * {
+  .hero-copy > *,
+  .hero-photo {
     animation: settle 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .hero-inner > *:nth-child(2) {
+  .hero-copy > *:nth-child(2) {
     animation-delay: 80ms;
   }
 
-  .hero-inner > *:nth-child(3) {
+  .hero-copy > *:nth-child(3) {
     animation-delay: 160ms;
+  }
+
+  .hero-photo {
+    animation-delay: 120ms;
   }
 
   @keyframes settle {

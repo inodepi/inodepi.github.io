@@ -54,6 +54,16 @@ Shared rules:
 - No horizontal overflow at 320px; form states (empty, filled, success, reset) all tested.
 - Static Astro output, no client framework; forms use one inline script per page.
 
+## Photography
+
+- Demo photos are CC0 / public-domain images sourced through Openverse (Stocksnap,
+  Rawpixel), stored per demo under `public/demo/<slug>/`, and credited in
+  `public/demo/CREDITS.md`.
+- Each photo is cropped to its display slot and graded to the brand: Redline dusk-cool,
+  Lumen warmed, FurnaceWorks cooled, Fernhollow left natural. All ship as WebP.
+- No third-party logos, readable phone numbers, or client work appear in frame; photos
+  support the demo story rather than standing in for proof.
+
 ## Known deliberate choices
 
 - The main site keeps a 52px grid background and noise overlay as the drafting-paper motif;

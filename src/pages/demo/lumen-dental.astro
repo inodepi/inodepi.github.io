@@ -123,6 +123,16 @@ const tel = '+16165550177';
         <p>No new-patient forms on a clipboard. No surprise bill at the desk.</p>
       </div>
 
+      <figure class="room">
+        <img
+          src="/demo/lumen-dental/room.webp"
+          alt="A quiet treatment room with daylight and a single chair"
+          width="1400"
+          height="934"
+          loading="lazy"
+        />
+      </figure>
+
       <ol class="steps">
         <li>
           <span class="step-n" aria-hidden="true">01</span>
@@ -538,6 +548,18 @@ const tel = '+16165550177';
 
   .visit {
     background: #f1efe9;
+  }
+
+  .room {
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+  }
+
+  .room img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    max-height: 26rem;
+    object-fit: cover;
+    border-radius: 20px;
   }
 
   .steps {
