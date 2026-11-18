@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:04,720
+If you're watching this, chances are you have a loop that needs closing.
+
+2
+00:00:04,720 --> 00:00:07,760
+A client nobody chased. A call nobody answered.
+
+3
+00:00:07,760 --> 00:00:13,040
+An invoice nobody followed up on. No worries. I'm here to help you close it.
+
+4
+00:00:13,040 --> 00:00:18,000
+I build the site that catches the lead and the automations that close the rest.
+
+5
+00:00:18,000 --> 00:00:22,160
+You just watch the work move, so book a call or send me an email.
+
+6
+00:00:22,160 --> 00:00:26,880
+Worst case, you leave with a plan. Best case, the loop is already closed.

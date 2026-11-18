@@ -1,0 +1,151 @@
+WEBVTT
+
+00:00:04.140 --> 00:00:08.140
+Every business that invoices clients has the same quiet leak.
+
+00:00:08.140 --> 00:00:11.140
+An invoice goes out and then life happens.
+
+00:00:11.140 --> 00:00:14.140
+The client gets busy. The email sinks.
+
+00:00:14.140 --> 00:00:16.140
+30 days pass, then 45.
+
+00:00:16.140 --> 00:00:18.140
+You know the money is out there.
+
+00:00:18.140 --> 00:00:21.140
+But chasing it means opening the tracker.
+
+00:00:21.140 --> 00:00:23.140
+Checking the date.
+
+00:00:23.140 --> 00:00:25.140
+Writing a polite email.
+
+00:00:25.140 --> 00:00:28.140
+And remembering to follow up again next week.
+
+00:00:28.140 --> 00:00:29.140
+So it waits.
+
+00:00:29.140 --> 00:00:31.140
+And the longer it waits,
+
+00:00:31.140 --> 00:00:33.140
+the more awkward it gets
+
+00:00:33.140 --> 00:00:36.140
+and the more likely it never gets asked for at all.
+
+00:00:36.140 --> 00:00:38.140
+The work is already done.
+
+00:00:38.140 --> 00:00:40.140
+The invoice is already sent.
+
+00:00:40.140 --> 00:00:43.140
+The only thing missing is the follow through.
+
+00:00:43.140 --> 00:00:45.140
+Worry not, I'm here to close your loop.
+
+00:00:45.140 --> 00:00:47.140
+Here's how it runs now.
+
+00:00:47.140 --> 00:00:49.140
+Every morning, on a schedule,
+
+00:00:49.140 --> 00:00:53.140
+the workflow opens your invoice tracker in Google Sheets.
+
+00:00:53.140 --> 00:00:58.140
+It reads every row and works out which invoices are actually overdue.
+
+00:00:58.140 --> 00:01:00.140
+And by how many days?
+
+00:01:00.140 --> 00:01:02.140
+And not-due-yet invoices get skipped.
+
+00:01:02.140 --> 00:01:04.140
+Only the real ones move forward.
+
+00:01:04.140 --> 00:01:06.140
+Then it writes the reminder.
+
+00:01:06.140 --> 00:01:08.140
+An AI model reads the invoice details
+
+00:01:08.140 --> 00:01:10.140
+and drafts an email in a tone
+
+00:01:10.140 --> 00:01:12.140
+that matches how overdue it is.
+
+00:01:12.140 --> 00:01:14.140
+Gentle at 7 days.
+
+00:01:14.140 --> 00:01:16.140
+Firm at 30 days.
+
+00:01:16.140 --> 00:01:18.140
+It doesn't send anything.
+
+00:01:18.140 --> 00:01:21.140
+It files the message as a Gmail draft.
+
+00:01:21.140 --> 00:01:23.140
+With the client, the invoice number.
+
+00:01:23.140 --> 00:01:25.140
+And the amount already filled in.
+
+00:01:25.140 --> 00:01:27.140
+A second check validates the draft
+
+00:01:27.140 --> 00:01:29.140
+before it's saved.
+
+00:01:29.140 --> 00:01:32.140
+So a malformed email never reaches your outbox.
+
+00:01:32.140 --> 00:01:35.140
+Then it writes the follow-up date back to the tracker.
+
+00:01:35.140 --> 00:01:38.140
+So nobody gets chased twice in the same week.
+
+00:01:38.140 --> 00:01:41.140
+You open Gmail, read three or four drafts,
+
+00:01:41.140 --> 00:01:43.140
+and press send.
+
+00:01:43.140 --> 00:01:45.140
+That's the whole job.
+
+00:01:45.140 --> 00:01:47.140
+The chase list runs itself.
+
+00:01:47.140 --> 00:01:49.140
+The judgement stays with you.
+
+00:01:49.140 --> 00:01:51.140
+Stop losing invoices to silence.
+
+00:01:51.140 --> 00:01:53.140
+Bring your tracker and your payment terms.
+
+00:01:53.140 --> 00:01:55.140
+And I'll show you exactly
+
+00:01:55.140 --> 00:01:57.140
+what your overdue list is costing you.
+
+00:01:57.140 --> 00:02:00.140
+I'm Christian and ANN Automation Architect.
+
+00:02:00.140 --> 00:02:02.140
+Book a discovery call now.

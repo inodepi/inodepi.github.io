@@ -1,0 +1,187 @@
+1
+00:00:04,140 --> 00:00:07,140
+Every sales team records its calls.
+
+2
+00:00:07,140 --> 00:00:09,140
+Almost nobody listens to them.
+
+3
+00:00:09,140 --> 00:00:12,140
+Managers review one call when something goes wrong,
+
+4
+00:00:12,140 --> 00:00:14,140
+then coach from memory,
+
+5
+00:00:14,140 --> 00:00:18,140
+so the same mistakes repeat across the team week after week.
+
+6
+00:00:18,140 --> 00:00:21,140
+The rep who rushes discovery never finds out.
+
+7
+00:00:21,140 --> 00:00:24,140
+The objection that gets dismissed never gets fixed.
+
+8
+00:00:24,140 --> 00:00:26,140
+The call that ended with,
+
+9
+00:00:26,140 --> 00:00:28,140
+I'll follow up sometime,
+
+10
+00:00:28,140 --> 00:00:30,140
+never gets flagged.
+
+11
+00:00:30,140 --> 00:00:32,140
+And when you hire someone new,
+
+12
+00:00:32,140 --> 00:00:34,140
+you have no baseline.
+
+13
+00:00:34,140 --> 00:00:36,140
+Just a feeling that they're doing fine.
+
+14
+00:00:36,140 --> 00:00:38,140
+The calls are already recorded.
+
+15
+00:00:38,140 --> 00:00:41,140
+The coaching is the part that never happens.
+
+16
+00:00:41,140 --> 00:00:44,140
+Worry not, I'm here to close your loop.
+
+17
+00:00:44,140 --> 00:00:46,140
+Here's what happens after every call now.
+
+18
+00:00:46,140 --> 00:00:48,140
+The call recording service
+
+19
+00:00:48,140 --> 00:00:51,140
+sends the finished call to the workflow
+
+20
+00:00:51,140 --> 00:00:53,140
+with the transcript attached.
+
+21
+00:00:53,140 --> 00:00:54,140
+First, a check.
+
+22
+00:00:54,140 --> 00:00:56,140
+Is there a usable transcript?
+
+23
+00:00:56,140 --> 00:01:00,140
+If not, the call is skipped instead of scored badly.
+
+24
+00:01:00,140 --> 00:01:04,140
+Then the AI scores the call against one fixed rubric.
+
+25
+00:01:04,140 --> 00:01:07,140
+Opening, discovery, objection handling,
+
+26
+00:01:07,140 --> 00:01:09,140
+next step and compliance.
+
+27
+00:01:09,140 --> 00:01:12,140
+Every score has to cite an exact quote from the transcript.
+
+28
+00:01:12,140 --> 00:01:15,140
+Then the workflow checks the AI's work.
+
+29
+00:01:15,140 --> 00:01:18,140
+It clamps the scores into range,
+
+30
+00:01:18,140 --> 00:01:20,140
+recomputes the overall score in code
+
+31
+00:01:20,140 --> 00:01:22,140
+instead of trusting the model
+
+32
+00:01:22,140 --> 00:01:24,140
+and verifies each quote
+
+33
+00:01:24,140 --> 00:01:26,140
+really appears in the transcript.
+
+34
+00:01:26,140 --> 00:01:28,140
+Emails and phone numbers are redacted
+
+35
+00:01:28,140 --> 00:01:30,140
+before anything is stored.
+
+36
+00:01:30,140 --> 00:01:32,140
+Clean calls go into a QA table.
+
+37
+00:01:32,140 --> 00:01:36,140
+Risky calls or calls where the evidence was thin
+
+38
+00:01:36,140 --> 00:01:39,140
+also become a Gmail draft for a manager.
+
+39
+00:01:39,140 --> 00:01:43,140
+And every Monday, one digest summarizes the week per rep
+
+40
+00:01:43,140 --> 00:01:45,140
+and files a single coaching draft.
+
+41
+00:01:45,140 --> 00:01:48,140
+Nobody has to remember to review calls.
+
+42
+00:01:48,140 --> 00:01:50,140
+The coaching finds you.
+
+43
+00:01:50,140 --> 00:01:53,140
+Coach every call, not just the memorable ones.
+
+44
+00:01:53,140 --> 00:01:55,140
+Bring a week of your team's calls
+
+45
+00:01:55,140 --> 00:01:58,140
+and I'll show you the pattern your managers are missing.
+
+46
+00:01:58,140 --> 00:02:01,140
+I'm Christian, n8n automation architect.
+
+47
+00:02:01,140 --> 00:02:03,140
+Book a discovery call now.
