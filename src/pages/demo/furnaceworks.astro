@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/archivo';
 import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
 import LoopStrip from '../../components/demo/LoopStrip.astro';
 
@@ -17,7 +18,7 @@ const tel = '+16165550142';
   <header class="site-head">
     <div class="wrap head-inner">
       <a class="brand" href="#top">
-        <span class="brand-mark" aria-hidden="true">FW</span>
+        <span class="brand-mark"><DemoMark brand="furnaceworks" size="1.05rem" /></span>
         <span class="brand-name">FurnaceWorks</span>
       </a>
       <nav class="head-nav" aria-label="Main">
@@ -292,10 +293,11 @@ const tel = '+16165550142';
     border-radius: 4px;
     background: var(--d-accent);
     color: var(--d-accent-ink);
-    font-family: var(--d-display);
-    font-size: 0.8125rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  }
+
+  .brand-mark svg {
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   .brand-name {

@@ -2,6 +2,7 @@
 import '@fontsource/barlow-condensed/600.css';
 import '@fontsource/barlow-condensed/700.css';
 import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
 import LoopStrip from '../../components/demo/LoopStrip.astro';
 
@@ -17,8 +18,11 @@ const tel = '+16165550199';
   <header class="site-head">
     <div class="wrap head-inner">
       <a class="brand" href="#top">
-        <span class="brand-name">Redline</span>
-        <span class="brand-sub">Towing &amp; Recovery</span>
+        <DemoMark brand="redline" size="2rem" />
+        <span class="brand-text">
+          <span class="brand-name">Redline</span>
+          <span class="brand-sub">Towing &amp; Recovery</span>
+        </span>
       </a>
       <nav class="head-nav" aria-label="Main">
         <a href="#coverage">Coverage</a>
@@ -305,8 +309,16 @@ const tel = '+16165550199';
   }
 
   .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--d-accent);
+  }
+
+  .brand-text {
     display: grid;
     line-height: 1;
+    color: var(--d-ink);
   }
 
   .brand-name {

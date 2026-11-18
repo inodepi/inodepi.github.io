@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/gabarito';
 import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
 import LoopStrip from '../../components/demo/LoopStrip.astro';
 
@@ -25,7 +26,10 @@ const pineLayers = [
   <div class="hero">
     <header class="site-head">
       <div class="wrap head-inner">
-        <a class="brand" href="#top">Fernhollow<span>Stays</span></a>
+        <a class="brand" href="#top">
+          <DemoMark brand="fernhollow" size="1.6rem" />
+          <span class="brand-text">Fernhollow<span class="brand-sub">Stays</span></span>
+        </a>
         <nav class="head-nav" aria-label="Main">
           <a href="#cabins">Cabins</a>
           <a href="#land">The land</a>
@@ -314,8 +318,8 @@ const pineLayers = [
 
   .brand {
     display: inline-flex;
-    align-items: baseline;
-    gap: 0.45rem;
+    align-items: center;
+    gap: 0.5rem;
     color: #eef1e4;
     font-family: var(--d-display);
     font-size: 1.35rem;
@@ -323,7 +327,13 @@ const pineLayers = [
     letter-spacing: -0.02em;
   }
 
-  .brand span {
+  .brand-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+
+  .brand-sub {
     color: color-mix(in srgb, #eef1e4 62%, transparent);
     font-size: 0.8125rem;
     font-weight: 500;

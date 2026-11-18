@@ -46,6 +46,14 @@ Shared rules:
   as such. No invented customer claims or review counts.
 - One authored entrance per page; no scroll-triggered effects, no hover lifts on cards.
 
+## Brand marks
+
+- One authored SVG mark per demo, in `src/components/demo/DemoMark.astro`: flame
+  (FurnaceWorks), tow hook (Redline), fir (Fernhollow), tooth with a light seam (Lumen).
+- Marks take `size` in rem and inherit `currentColor`; the page sets the colour (chip ink,
+  hi-vis yellow, chalk white, plum). No gradients, no bevels, no third-party shapes.
+- The main site keeps its own node-graph wordmark; demo marks never appear on it.
+
 ## Accessibility and performance floor
 
 - 44px minimum touch targets; visible `:focus-visible` rings on every interactive element.

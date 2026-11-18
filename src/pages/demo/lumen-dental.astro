@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/schibsted-grotesk';
 import DemoLayout from '../../layouts/DemoLayout.astro';
+import DemoMark from '../../components/demo/DemoMark.astro';
 import DemoForm from '../../components/demo/DemoForm.astro';
 import LoopStrip from '../../components/demo/LoopStrip.astro';
 
@@ -16,7 +17,7 @@ const tel = '+16165550177';
   <header class="site-head">
     <div class="wrap head-inner">
       <a class="brand" href="#top">
-        <span class="brand-dot" aria-hidden="true"></span>
+        <DemoMark brand="lumen" size="1.5rem" />
         <span class="brand-name">Lumen Smile</span>
       </a>
       <nav class="head-nav" aria-label="Main">
@@ -279,12 +280,12 @@ const tel = '+16165550177';
     gap: 0.55rem;
   }
 
-  .brand-dot {
-    width: 1.1rem;
-    height: 1.1rem;
-    border-radius: 50% 50% 50% 0;
-    background: var(--d-accent);
-    transform: rotate(-12deg);
+  .brand {
+    color: var(--d-accent);
+  }
+
+  .brand-name {
+    color: var(--d-ink);
   }
 
   .brand-name {
