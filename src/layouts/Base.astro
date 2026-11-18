@@ -48,8 +48,6 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
-    <!-- Theme: the dark palette is the default. Add data-theme="light" to
-         the <html> tag above to switch to the light drafting-paper palette. -->
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -197,7 +195,26 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
 
   @media (max-width: 719px) {
     .header-inner {
+      flex-wrap: wrap;
       justify-content: space-between;
+      row-gap: 0;
+      padding-bottom: 0.55rem;
+    }
+
+    /* Keep primary navigation on small screens, as its own quiet row. */
+    .header-nav {
+      display: flex;
+      order: 3;
+      width: 100%;
+      gap: 1.4rem;
+      margin-left: 0;
+      padding-top: 0.55rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.875rem;
+    }
+
+    .header-nav a {
+      padding-block: 0.7rem;
     }
   }
 </style>

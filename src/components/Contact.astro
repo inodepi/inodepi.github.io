@@ -71,11 +71,10 @@ const calTimeZone = siteConfig.calendarTimeZone;
       </div>
 
       <div class="booking-done" data-cal-done hidden>
-        <p class="booking-done-kicker">Booked</p>
         <strong>You're one step away from closing your loop.</strong>
         <p class="booking-done-body">
           Your 15-minute call is confirmed. The Zoom link and the passcode are in your
-          confirmation email — check it, then close the loop.
+          confirmation email. Check it, then close the loop.
         </p>
         <a
           class="booking-done-link"
@@ -157,6 +156,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
     /** Cache of local date key -> array of Date objects. */
     const slotsByDay = new Map();
     const fetchedWindows = new Set();
+    /** Overlapping fetch windows return the same slot twice; bucket each instant once. */
+    const seenSlots = new Set();
 
     const addDays = (d, n) => {
       const next = new Date(d);
@@ -188,6 +189,9 @@ const calTimeZone = siteConfig.calendarTimeZone;
         list.forEach((slot) => {
           const when = new Date(slot.start);
           if (Number.isNaN(when.getTime())) return;
+          const stamp = when.getTime();
+          if (seenSlots.has(stamp)) return;
+          seenSlots.add(stamp);
           const localKey = iso(when);
           const bucket = slotsByDay.get(localKey);
           if (bucket) bucket.push(when);
@@ -343,7 +347,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
 
     /* Booking + confirmation state -------------------------------------- */
 
-    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    // The site ships a single dark palette; the Cal embed matches it.
+    const theme = 'dark';
     let calReady = false;
 
     const showDone = () => {
@@ -466,9 +471,9 @@ const calTimeZone = siteConfig.calendarTimeZone;
 
   .contact-direct dt {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     color: var(--ink-dim);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
 
   .contact-direct dd {
@@ -537,13 +542,13 @@ const calTimeZone = siteConfig.calendarTimeZone;
   .booking-nav button {
     display: grid;
     place-items: center;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border: 1px solid var(--line);
     border-radius: 6px;
     background: var(--panel);
     color: var(--ink-soft);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     line-height: 1;
     cursor: pointer;
     transition:
@@ -562,10 +567,10 @@ const calTimeZone = siteConfig.calendarTimeZone;
   }
 
   .booking-range {
-    min-width: 8rem;
+    min-width: 8.75rem;
     text-align: center;
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     color: var(--ink-soft);
     white-space: nowrap;
   }
@@ -584,9 +589,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
   .booking-weekdays {
     margin-bottom: 0.4rem;
     font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
     color: var(--ink-dim);
     text-align: center;
   }
@@ -614,7 +618,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
   }
 
   .booking-day:disabled {
-    color: var(--line-strong);
+    color: var(--ink-dim);
+    opacity: 0.55;
     cursor: default;
   }
 
@@ -628,7 +633,7 @@ const calTimeZone = siteConfig.calendarTimeZone;
   }
 
   .booking-day.is-today {
-    border-color: rgba(245, 166, 35, 0.45);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
     color: var(--accent);
   }
 
@@ -658,16 +663,7 @@ const calTimeZone = siteConfig.calendarTimeZone;
     justify-items: start;
     padding: 1.35rem 1.15rem 1.5rem;
     border-top: 1px solid var(--line);
-    background: linear-gradient(180deg, var(--glow-amber), transparent 75%);
-  }
-
-  .booking-done-kicker {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
+    background: var(--panel-raised);
   }
 
   .booking-done strong {
@@ -687,6 +683,9 @@ const calTimeZone = siteConfig.calendarTimeZone;
   }
 
   .booking-done-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
     margin-top: 0.25rem;
     padding: 0.4rem 0.75rem;
     border: 1px solid var(--line);
@@ -721,10 +720,9 @@ const calTimeZone = siteConfig.calendarTimeZone;
   .booking-times-label {
     margin: 0 0 0.5rem;
     font-family: var(--font-mono);
-    font-size: 0.5625rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+    color: var(--ink-soft);
   }
 
   .booking-slots {
@@ -736,7 +734,10 @@ const calTimeZone = siteConfig.calendarTimeZone;
   }
 
   .booking-slot {
-    padding: 0.3rem 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.4rem 0.7rem;
     border: 1px solid var(--line);
     border-radius: 6px;
     background: var(--panel-raised);
@@ -781,13 +782,13 @@ const calTimeZone = siteConfig.calendarTimeZone;
     }
 
     .booking-day {
-      height: 2.35rem;
-      font-size: 0.75rem;
+      height: 2.75rem;
+      font-size: 0.8125rem;
     }
 
     .booking-range {
-      min-width: 7rem;
-      font-size: 0.5625rem;
+      min-width: 7.75rem;
+      font-size: 0.75rem;
     }
   }
 </style>

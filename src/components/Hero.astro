@@ -3,11 +3,6 @@ import { siteConfig } from '../data/projects';
 ---
 
 <section class="hero">
-  <div class="hero-ambient" aria-hidden="true">
-    <span class="hero-glow hero-glow--amber"></span>
-    <span class="hero-glow hero-glow--teal"></span>
-  </div>
-
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="status"><i aria-hidden="true"></i>Available for new build work</p>
@@ -103,36 +98,6 @@ import { siteConfig } from '../data/projects';
     isolation: isolate;
     overflow: hidden;
     padding-block: clamp(3.5rem, 7vw, 6rem) clamp(4rem, 8vw, 7rem);
-  }
-
-  .hero-ambient {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .hero-glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(72px);
-  }
-
-  .hero-glow--amber {
-    top: -7rem;
-    right: -4rem;
-    width: 40rem;
-    height: 34rem;
-    background: radial-gradient(circle, rgba(245, 166, 35, 0.25), transparent 68%);
-  }
-
-  .hero-glow--teal {
-    bottom: -12rem;
-    left: -9rem;
-    width: 28rem;
-    height: 28rem;
-    background: radial-gradient(circle, rgba(70, 207, 192, 0.16), transparent 68%);
   }
 
   .hero-grid {
@@ -251,7 +216,7 @@ import { siteConfig } from '../data/projects';
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: 999px;
-    background: rgba(12, 23, 39, 0.82);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
     border: 1px solid var(--line-strong);
     color: var(--ink);
     font-size: 0.875rem;
@@ -269,7 +234,7 @@ import { siteConfig } from '../data/projects';
   .hero-video-btn:hover .hero-video-hint,
   .hero-video-btn:focus-visible .hero-video-hint {
     transform: translateY(-2px);
-    background: rgba(18, 33, 53, 0.95);
+    background: color-mix(in srgb, var(--panel) 96%, transparent);
   }
 
   .hero-video {
@@ -299,7 +264,7 @@ import { siteConfig } from '../data/projects';
   }
 
   .hero-modal::backdrop {
-    background: rgba(6, 12, 22, 0.82);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: blur(4px);
   }
 

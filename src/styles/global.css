@@ -4,8 +4,6 @@
 
 /* ------------------------------------------------------------------
    Design tokens — edit this block to retheme the whole site.
-   The light theme is a complete alternative; flip it by adding
-   data-theme="light" to <html> (see src/layouts/Base.astro).
 ------------------------------------------------------------------- */
 :root {
   color-scheme: dark;
@@ -37,39 +35,10 @@
   --node-amber: #f5a623;
 
   --shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.7);
-  --glow-amber: rgba(245, 166, 35, 0.16);
-  --glow-teal: rgba(70, 207, 192, 0.1);
 
   --font-display: 'Bricolage Grotesque Variable', 'Arial Narrow', sans-serif;
   --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, monospace;
-}
-
-[data-theme='light'] {
-  color-scheme: light;
-
-  --bg: #eef2f4;
-  --grid: rgba(20, 46, 74, 0.055);
-  --panel: #ffffff;
-  --panel-raised: #f6f9fa;
-
-  --line: #d2dde5;
-  --line-strong: #9fb4c5;
-
-  --ink: #0e1b2b;
-  --ink-soft: #42586d;
-  --ink-dim: #576c80;
-
-  --accent: #f5a623;
-  --accent-hover: #e79a12;
-  --accent-ink: #101a2b;
-
-  --node-teal: #0f9c8f;
-  --node-violet: #6c58e0;
-  --node-rose: #d94f73;
-  --node-amber: #b87400;
-
-  --shadow: 0 20px 50px -34px rgba(14, 27, 43, 0.35);
 }
 
 /* ------------------------------------------------------------------
@@ -86,6 +55,13 @@ html {
   scroll-padding-top: 5.5rem;
   scrollbar-color: var(--line-strong) transparent;
   scrollbar-width: thin;
+}
+
+/* The header takes two rows on small screens; keep anchors clear of it. */
+@media (max-width: 719px) {
+  html {
+    scroll-padding-top: 7rem;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -243,9 +219,7 @@ a {
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  box-shadow:
-    0 0 0 1px rgba(245, 166, 35, 0.4),
-    0 14px 34px -14px rgba(245, 166, 35, 0.55);
+  box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.7);
 }
 
 .btn-secondary {
@@ -269,7 +243,7 @@ a {
   background: var(--panel-raised);
   color: var(--ink-soft);
   font-family: var(--font-mono);
-  font-size: 0.7188rem;
+  font-size: 0.75rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
 }

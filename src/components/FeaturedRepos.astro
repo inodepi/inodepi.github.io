@@ -88,10 +88,10 @@ import { featuredAutomationRepos } from '../data/projects';
   @media (hover: hover) {
     .repo-card:hover {
       transform: translateY(-3px);
-      border-color: rgba(245, 166, 35, 0.34);
+      border-color: color-mix(in srgb, var(--accent) 34%, transparent);
       box-shadow:
         0 24px 44px -32px rgba(0, 0, 0, 0.9),
-        0 0 0 1px rgba(245, 166, 35, 0.08);
+        0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
     }
   }
 
@@ -113,7 +113,7 @@ import { featuredAutomationRepos } from '../data/projects';
 
   .repo-id {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     color: var(--ink-dim);
     letter-spacing: 0.02em;
     overflow: hidden;
@@ -148,8 +148,8 @@ import { featuredAutomationRepos } from '../data/projects';
   .repo-problem {
     display: grid;
     gap: 0.2rem;
-    padding-left: 0.75rem;
-    border-left: 2px solid var(--hue);
+    padding-left: 0.8rem;
+    border-left: 1px solid var(--hue);
     color: var(--ink);
     font-size: 0.9375rem;
     line-height: 1.5;
@@ -157,7 +157,7 @@ import { featuredAutomationRepos } from '../data/projects';
 
   .repo-problem span {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     color: var(--ink-dim);
     letter-spacing: 0.02em;
   }
