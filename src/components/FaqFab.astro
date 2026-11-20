@@ -1,0 +1,482 @@
+---
+import { faqFooter, faqGreeting, faqGroups, faqItems } from '../data/faq';
+import { siteConfig } from '../data/projects';
+
+const calUrl = siteConfig.calendarUrl;
+const groups = faqGroups.map((group) => ({
+  label: group,
+  items: faqItems.filter((item) => item.group === group),
+}));
+---
+
+<div class="faqfab" data-faq>
+  <button
+    class="faqfab__trigger"
+    type="button"
+    data-faq-toggle
+    aria-expanded="false"
+    aria-controls="faq-panel"
+  >
+    <span class="faqfab__trigger-label">FAQ</span>
+  </button>
+
+  <section
+    class="faqfab__panel"
+    id="faq-panel"
+    role="dialog"
+    aria-labelledby="faq-panel-title"
+    data-faq-panel
+    hidden
+  >
+    <header class="faqfab__head">
+      <div class="faqfab__title-wrap">
+        <p class="faqfab__kicker">inodepi</p>
+        <h2 id="faq-panel-title">Quick answers</h2>
+      </div>
+      <button class="faqfab__close" type="button" data-faq-close aria-label="Close FAQ">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="faqfab__log" data-faq-log aria-live="polite">
+      <p class="faqfab__bubble faqfab__bubble--bot">
+        {faqGreeting.body}
+        <a
+          class="faqfab__cta"
+          href={calUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {faqGreeting.cta}
+        </a>
+      </p>
+    </div>
+
+    <div class="faqfab__chips" data-faq-chips>
+      {
+        groups.map((group) => (
+          <div class="faqfab__group">
+            <p class="faqfab__group-label">{group.label}</p>
+            <div class="faqfab__chip-row">
+              {group.items.map((item) => (
+                <button
+                  class="faqfab__chip"
+                  type="button"
+                  data-faq-ask
+                  data-question={item.question}
+                  data-answer={item.answer}
+                >
+                  <span class="faqfab__chip-mark" aria-hidden="true">+</span>
+                  <span>{item.question}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="faqfab__foot">
+      {faqFooter.lead}
+      <a href={calUrl} target="_blank" rel="noopener noreferrer">{faqFooter.cta} →</a>
+    </p>
+  </section>
+</div>
+
+<script is:inline>
+  (function () {
+    const root = document.querySelector('[data-faq]');
+    if (!root) return;
+
+    const trigger = root.querySelector('[data-faq-toggle]');
+    const panel = root.querySelector('[data-faq-panel]');
+    const closeButton = root.querySelector('[data-faq-close]');
+    const log = root.querySelector('[data-faq-log]');
+    if (!trigger || !panel || !closeButton || !log) return;
+
+    let lastFocus = null;
+
+    const scrollLog = () => {
+      log.scrollTop = log.scrollHeight;
+    };
+
+    const open = () => {
+      lastFocus = document.activeElement;
+      panel.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      scrollLog();
+      closeButton.focus({ preventScroll: true });
+    };
+
+    const close = () => {
+      if (panel.hidden) return;
+      panel.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      if (lastFocus && typeof lastFocus.focus === 'function') {
+        lastFocus.focus({ preventScroll: true });
+      } else {
+        trigger.focus({ preventScroll: true });
+      }
+    };
+
+    const appendBubble = (text, variant) => {
+      const bubble = document.createElement('p');
+      bubble.className = 'faqfab__bubble faqfab__bubble--' + variant;
+      bubble.textContent = text;
+      log.appendChild(bubble);
+    };
+
+    const answer = (chip) => {
+      const question = chip.getAttribute('data-question');
+      const reply = chip.getAttribute('data-answer');
+      if (!question || !reply) return;
+
+      appendBubble(question, 'user');
+      appendBubble(reply, 'bot');
+
+      chip.disabled = true;
+      const mark = chip.querySelector('.faqfab__chip-mark');
+      if (mark) mark.textContent = '✓';
+
+      requestAnimationFrame(scrollLog);
+    };
+
+    trigger.addEventListener('click', () => {
+      if (panel.hidden) open();
+      else close();
+    });
+
+    closeButton.addEventListener('click', close);
+
+    root.querySelectorAll('[data-faq-ask]').forEach((chip) => {
+      chip.addEventListener('click', () => answer(chip));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) close();
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (panel.hidden) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (panel.contains(target) || trigger.contains(target)) return;
+      close();
+    });
+  })();
+</script>
+
+<style>
+  .faqfab {
+    /* Fallbacks keep the panel themed on demo pages, which set --d-* tokens. */
+    --faq-bg: var(--panel, var(--d-surface, var(--d-bg, #ffffff)));
+    --faq-raised: var(--panel-raised, color-mix(in srgb, var(--d-ink, #101828) 6%, var(--d-bg, #ffffff)));
+    --faq-ink: var(--ink, var(--d-ink, #101828));
+    --faq-soft: var(--ink-soft, color-mix(in srgb, var(--d-ink, #101828) 72%, transparent));
+    --faq-dim: var(--ink-dim, color-mix(in srgb, var(--d-ink, #101828) 55%, transparent));
+    --faq-line: var(--line, color-mix(in srgb, var(--d-ink, #101828) 18%, transparent));
+    --faq-accent: var(--accent, var(--d-accent, #101828));
+    --faq-accent-ink: var(--accent-ink, var(--d-accent-ink, #ffffff));
+    --faq-mono: var(--font-mono, ui-monospace, 'SFMono-Regular', Menlo, monospace);
+    --faq-display: var(--font-display, var(--d-display, var(--font-body, system-ui, sans-serif)));
+
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 70;
+  }
+
+  .faqfab__trigger {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--faq-accent) 65%, transparent);
+    border-radius: 50%;
+    background: var(--faq-accent);
+    color: var(--faq-accent-ink);
+    box-shadow: 0 16px 32px -18px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition:
+      transform 140ms ease,
+      filter 140ms ease;
+  }
+
+  .faqfab__trigger:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+
+  .faqfab__trigger:focus-visible,
+  .faqfab__close:focus-visible,
+  .faqfab__chip:focus-visible,
+  .faqfab__cta:focus-visible,
+  .faqfab__foot a:focus-visible {
+    outline: 2px solid var(--faq-ink);
+    outline-offset: 2px;
+  }
+
+  .faqfab__trigger-label {
+    font-family: var(--faq-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .faqfab__panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(3.5rem + 0.75rem);
+    display: flex;
+    flex-direction: column;
+    width: min(24.5rem, calc(100vw - 1.5rem));
+    height: min(35rem, calc(100dvh - 7rem));
+    overflow: hidden;
+    border: 1px solid var(--faq-line);
+    border-radius: 12px;
+    background: var(--faq-bg);
+    color: var(--faq-ink);
+    box-shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.65);
+    animation: faqfab-in 160ms ease-out;
+  }
+
+  .faqfab__panel[hidden] {
+    display: none;
+  }
+
+  .faqfab__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--faq-line);
+    background: var(--faq-raised);
+  }
+
+  .faqfab__kicker {
+    margin: 0;
+    font-family: var(--faq-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: var(--faq-dim);
+  }
+
+  .faqfab__title-wrap h2 {
+    margin: 0.15rem 0 0;
+    font-family: var(--faq-display);
+    font-size: 1.0625rem;
+    font-weight: 620;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .faqfab__close {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--faq-line);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--faq-soft);
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .faqfab__close:hover {
+    border-color: var(--faq-accent);
+    color: var(--faq-accent);
+  }
+
+  .faqfab__log {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 6.5rem;
+    overflow-y: auto;
+    padding: 0.9rem 1rem;
+    scrollbar-width: thin;
+  }
+
+  .faqfab__bubble {
+    align-self: flex-start;
+    max-width: 92%;
+    margin: 0;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 10px;
+    border-bottom-left-radius: 3px;
+    background: var(--faq-raised);
+    color: var(--faq-soft);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .faqfab__bubble--user {
+    align-self: flex-end;
+    border-color: transparent;
+    border-radius: 10px;
+    border-bottom-right-radius: 3px;
+    background: var(--faq-accent);
+    color: var(--faq-accent-ink);
+    font-weight: 500;
+  }
+
+  .faqfab__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 6px;
+    background: var(--faq-bg);
+    color: var(--faq-ink);
+    font-family: var(--faq-mono);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .faqfab__cta:hover {
+    border-color: var(--faq-accent);
+    color: var(--faq-accent);
+  }
+
+  .faqfab__chips {
+    flex: none;
+    max-height: 11.5rem;
+    overflow-y: auto;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border-top: 1px solid var(--faq-line);
+    scrollbar-width: thin;
+  }
+
+  .faqfab__group {
+    margin-top: 0.5rem;
+  }
+
+  .faqfab__group:first-child {
+    margin-top: 0.15rem;
+  }
+
+  .faqfab__group-label {
+    margin: 0 0 0.3rem;
+    font-family: var(--faq-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--faq-dim);
+  }
+
+  .faqfab__chip-row {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .faqfab__chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--faq-ink);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .faqfab__chip:hover:not(:disabled) {
+    border-color: var(--faq-accent);
+    background: var(--faq-raised);
+  }
+
+  .faqfab__chip:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .faqfab__chip-mark {
+    flex: none;
+    width: 1rem;
+    font-family: var(--faq-mono);
+    font-size: 0.75rem;
+    color: var(--faq-accent);
+    text-align: center;
+  }
+
+  .faqfab__foot {
+    flex: none;
+    margin: 0;
+    padding: 0.6rem 1rem 0.7rem;
+    border-top: 1px solid var(--faq-line);
+    background: var(--faq-raised);
+    color: var(--faq-dim);
+    font-size: 0.75rem;
+  }
+
+  .faqfab__foot a {
+    margin-left: 0.25rem;
+    color: var(--faq-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .faqfab__foot a:hover {
+    color: var(--faq-accent);
+  }
+
+  @keyframes faqfab-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .faqfab__panel {
+      width: calc(100vw - 1.5rem);
+      height: min(33rem, calc(100dvh - 6.5rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faqfab__panel {
+      animation: none;
+    }
+
+    .faqfab__trigger,
+    .faqfab__close,
+    .faqfab__cta,
+    .faqfab__chip {
+      transition: none;
+    }
+
+    .faqfab__trigger:hover {
+      transform: none;
+    }
+  }
+</style>
