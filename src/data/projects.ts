@@ -48,6 +48,7 @@ export interface SiteConfig {
   name: string;
   role: string;
   email: string;
+  whatsappUrl: string;
   calendarUrl: string;
   calendarEventTypeId: number;
   calendarTimeZone: string;
@@ -59,6 +60,7 @@ export const siteConfig: SiteConfig = {
   name: 'inodepi',
   role: 'n8n automation architect',
   email: 'kristiandyanbusiness@gmail.com',
+  whatsappUrl: 'https://wa.me/639386042425',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   calendarEventTypeId: 7623308,
   calendarTimeZone: 'Asia/Manila',

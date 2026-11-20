@@ -3,9 +3,10 @@ import { faqGreeting, faqItems } from '../data/faq';
 import { siteConfig } from '../data/projects';
 
 const calUrl = siteConfig.calendarUrl;
+const base = import.meta.env.BASE_URL;
 ---
 
-<div class="faqfab" data-faq data-cal-url={calUrl}>
+<div class="faqfab" data-faq data-cal-url={calUrl} data-email={siteConfig.email} data-whatsapp={siteConfig.whatsappUrl}>
   <button
     class="faqfab__trigger"
     type="button"
@@ -35,20 +36,11 @@ const calUrl = siteConfig.calendarUrl;
   >
     <header class="faqfab__head">
       <span class="faqfab__avatar" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none">
-          <path
-            d="M5 10h22M10 10v14.5M22 10v14.5"
-            stroke="currentColor"
-            stroke-width="2.2"
-            stroke-linecap="round"
-          />
-          <circle cx="10" cy="25" r="3" fill="currentColor" />
-          <circle cx="22" cy="25" r="2.9" stroke="currentColor" stroke-width="1.9" />
-        </svg>
+        <img class="faqfab__avatar-img" src={`${base}pip.svg`} alt="" width="96" height="96" />
       </span>
       <div class="faqfab__title-wrap">
-        <h2 id="faq-panel-title">inodepi</h2>
-        <p class="faqfab__kicker">FAQ · pre-written answers</p>
+        <h2 id="faq-panel-title">Pip</h2>
+        <p class="faqfab__kicker">inodepi · FAQ apprentice</p>
       </div>
       <button class="faqfab__close" type="button" data-faq-close aria-label="Close FAQ">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
@@ -174,23 +166,48 @@ const calUrl = siteConfig.calendarUrl;
       return holder;
     };
 
-    const appendFallback = () => {
+    const appendFallback = (asked) => {
       const bubble = document.createElement('p');
       bubble.className = 'faqfab__bubble faqfab__bubble--bot';
       bubble.appendChild(
         document.createTextNode(
-          "I don't have a pre-written answer for that one — a real person does."
+          "I'm still in training and my master never covered that. They can answer it themselves though:"
         )
       );
 
-      const cta = document.createElement('a');
-      cta.className = 'faqfab__cta';
-      cta.href = root.getAttribute('data-cal-url') || '';
-      cta.target = '_blank';
-      cta.rel = 'noopener noreferrer';
-      cta.textContent = 'Book a call';
-      bubble.appendChild(cta);
+      const actions = document.createElement('span');
+      actions.className = 'faqfab__actions';
 
+      const email = root.getAttribute('data-email') || '';
+      const whatsapp = root.getAttribute('data-whatsapp') || '';
+      const context = asked ? '\n\n' + asked : '';
+
+      const mail = document.createElement('a');
+      mail.className = 'faqfab__cta';
+      mail.href =
+        'mailto:' +
+        email +
+        '?subject=' +
+        encodeURIComponent('FAQ question') +
+        '&body=' +
+        encodeURIComponent('Hi! I have a question about your services:' + context);
+      mail.textContent = 'Email me';
+      actions.appendChild(mail);
+
+      const chat = document.createElement('a');
+      chat.className = 'faqfab__cta';
+      chat.href =
+        whatsapp +
+        (asked
+          ? '?text=' +
+            encodeURIComponent('Hi! I have a question about your services:' + context)
+          : '');
+      chat.target = '_blank';
+      chat.rel = 'noopener noreferrer';
+      chat.textContent = 'WhatsApp';
+      actions.appendChild(chat);
+
+      bubble.appendChild(actions);
       log.appendChild(bubble);
       scrollLog();
     };
@@ -208,7 +225,7 @@ const calUrl = siteConfig.calendarUrl;
 
       const reveal = () => {
         if (reply) appendBubble(reply, 'bot');
-        else appendFallback();
+        else appendFallback(questionText);
       };
 
       if (delay === 0) {
@@ -439,15 +456,18 @@ const calUrl = siteConfig.calendarUrl;
     flex: none;
     width: 2.25rem;
     height: 2.25rem;
+    overflow: hidden;
     border: 1px solid var(--faq-line);
     border-radius: 50%;
     background: var(--faq-raised);
     color: var(--faq-accent);
   }
 
-  .faqfab__avatar svg {
-    width: 1.35rem;
-    height: 1.35rem;
+  .faqfab__avatar-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .faqfab__title-wrap {
@@ -545,6 +565,17 @@ const calUrl = siteConfig.calendarUrl;
     transition:
       border-color 140ms ease,
       color 140ms ease;
+  }
+
+  .faqfab :global(.faqfab__actions) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+  .faqfab :global(.faqfab__actions .faqfab__cta) {
+    margin-top: 0;
   }
 
   .faqfab :global(.faqfab__cta:hover) {

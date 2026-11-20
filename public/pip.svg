@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Pip, the FAQ apprentice">
+  <circle cx="32" cy="32" r="32" fill="#122135" />
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#23384f" stroke-width="1.5" />
+  <path d="M32 12v6" stroke="#f5a623" stroke-width="2" stroke-linecap="round" />
+  <circle cx="32" cy="10" r="2.4" fill="#f5a623" />
+  <rect x="17" y="18" width="30" height="25" rx="9" fill="none" stroke="#f5a623" stroke-width="2.4" />
+  <circle cx="25.5" cy="30" r="3" fill="#f5a623" />
+  <circle cx="38.5" cy="30" r="3" fill="none" stroke="#f5a623" stroke-width="2" />
+  <path d="M26 37.5h12" stroke="#f5a623" stroke-width="1.8" stroke-linecap="round" />
+  <circle cx="26" cy="37.5" r="1.7" fill="#f5a623" />
+  <circle cx="38" cy="37.5" r="1.7" fill="#f5a623" />
+</svg>
