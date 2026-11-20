@@ -1,12 +1,8 @@
 ---
-import { faqFooter, faqGreeting, faqGroups, faqItems } from '../data/faq';
+import { faqGreeting, faqItems } from '../data/faq';
 import { siteConfig } from '../data/projects';
 
 const calUrl = siteConfig.calendarUrl;
-const groups = faqGroups.map((group) => ({
-  label: group,
-  items: faqItems.filter((item) => item.group === group),
-}));
 ---
 
 <div class="faqfab" data-faq data-cal-url={calUrl}>
@@ -38,9 +34,21 @@ const groups = faqGroups.map((group) => ({
     hidden
   >
     <header class="faqfab__head">
+      <span class="faqfab__avatar" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path
+            d="M5 10h22M10 10v14.5M22 10v14.5"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+          />
+          <circle cx="10" cy="25" r="3" fill="currentColor" />
+          <circle cx="22" cy="25" r="2.9" stroke="currentColor" stroke-width="1.9" />
+        </svg>
+      </span>
       <div class="faqfab__title-wrap">
-        <p class="faqfab__kicker">inodepi · pre-written answers</p>
-        <h2 id="faq-panel-title">Chat with the FAQ</h2>
+        <h2 id="faq-panel-title">inodepi</h2>
+        <p class="faqfab__kicker">FAQ · pre-written answers</p>
       </div>
       <button class="faqfab__close" type="button" data-faq-close aria-label="Close FAQ">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
@@ -63,34 +71,22 @@ const groups = faqGroups.map((group) => ({
       </p>
     </div>
 
-    <div class="faqfab__chips" data-faq-chips>
+    <div class="faqfab__chips" data-faq-chips aria-label="Suggested questions">
       {
-        groups.map((group) => (
-          <div class="faqfab__group">
-            <p class="faqfab__group-label">{group.label}</p>
-            <div class="faqfab__chip-row">
-              {group.items.map((item) => (
-                <button
-                  class="faqfab__chip"
-                  type="button"
-                  data-faq-ask
-                  data-question={item.question}
-                  data-answer={item.answer}
-                >
-                  <span class="faqfab__chip-mark" aria-hidden="true">+</span>
-                  <span>{item.question}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+        faqItems.map((item) => (
+          <button
+            class="faqfab__chip"
+            type="button"
+            data-faq-ask
+            data-question={item.question}
+            data-answer={item.answer}
+          >
+            <span class="faqfab__chip-mark" aria-hidden="true">+</span>
+            <span>{item.question}</span>
+          </button>
         ))
       }
     </div>
-
-    <p class="faqfab__foot">
-      {faqFooter.lead}
-      <a href={calUrl} target="_blank" rel="noopener noreferrer">{faqFooter.cta} →</a>
-    </p>
 
     <form class="faqfab__composer" data-faq-form>
       <label class="faqfab__sr" for="faq-input">Type a question</label>
@@ -99,7 +95,7 @@ const groups = faqGroups.map((group) => ({
         class="faqfab__input"
         type="text"
         name="q"
-        placeholder="Try a question…"
+        placeholder="Message…"
         autocomplete="off"
         enterkeyhint="send"
         data-faq-input
@@ -401,8 +397,7 @@ const groups = faqGroups.map((group) => ({
   .faqfab__trigger:focus-visible,
   .faqfab__close:focus-visible,
   .faqfab__chip:focus-visible,
-  .faqfab__cta:focus-visible,
-  .faqfab__foot a:focus-visible {
+  .faqfab__cta:focus-visible {
     outline: 2px solid var(--faq-ink);
     outline-offset: 2px;
   }
@@ -430,29 +425,50 @@ const groups = faqGroups.map((group) => ({
 
   .faqfab__head {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.9rem 1rem;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.8rem;
     border-bottom: 1px solid var(--faq-line);
+    background: color-mix(in srgb, var(--faq-bg) 80%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .faqfab__avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 50%;
     background: var(--faq-raised);
+    color: var(--faq-accent);
+  }
+
+  .faqfab__avatar svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .faqfab__title-wrap {
+    flex: 1;
+    min-width: 0;
   }
 
   .faqfab__kicker {
-    margin: 0;
+    margin: 0.05rem 0 0;
     font-family: var(--faq-mono);
     font-size: 0.6875rem;
-    letter-spacing: 0.06em;
-    text-transform: lowercase;
+    letter-spacing: 0.02em;
     color: var(--faq-dim);
   }
 
   .faqfab__title-wrap h2 {
-    margin: 0.15rem 0 0;
+    margin: 0;
     font-family: var(--faq-display);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     font-weight: 620;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
     line-height: 1.2;
   }
 
@@ -560,51 +576,35 @@ const groups = faqGroups.map((group) => ({
   }
 
   .faqfab__chips {
-    flex: none;
-    max-height: 9rem;
-    overflow-y: auto;
-    padding: 0.5rem 0.75rem 0.7rem;
-    border-top: 1px solid var(--faq-line);
-    scrollbar-width: thin;
-  }
-
-  .faqfab__group {
-    margin-top: 0.5rem;
-  }
-
-  .faqfab__group:first-child {
-    margin-top: 0.15rem;
-  }
-
-  .faqfab__group-label {
-    margin: 0 0 0.35rem;
-    font-family: var(--faq-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.02em;
-    color: var(--faq-dim);
-  }
-
-  .faqfab__chip-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
+    flex: none;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--faq-line);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .faqfab__chips::-webkit-scrollbar {
+    display: none;
   }
 
   .faqfab__chip {
     display: inline-flex;
     align-items: center;
+    flex: none;
     gap: 0.35rem;
     min-height: 2.75rem;
-    max-width: 100%;
-    padding: 0.4rem 0.75rem;
+    padding: 0.4rem 0.8rem;
     border: 1px solid var(--faq-line);
     border-radius: 999px;
-    background: var(--faq-raised);
+    background: transparent;
     color: var(--faq-ink);
     font-family: inherit;
     font-size: 0.8125rem;
     line-height: 1.3;
-    text-align: left;
+    white-space: nowrap;
     cursor: pointer;
     transition:
       border-color 140ms ease,
@@ -628,27 +628,6 @@ const groups = faqGroups.map((group) => ({
     font-family: var(--faq-mono);
     font-size: 0.75rem;
     line-height: 1;
-    color: var(--faq-accent);
-  }
-
-  .faqfab__foot {
-    flex: none;
-    margin: 0;
-    padding: 0.6rem 1rem 0.7rem;
-    border-top: 1px solid var(--faq-line);
-    background: var(--faq-raised);
-    color: var(--faq-dim);
-    font-size: 0.75rem;
-  }
-
-  .faqfab__foot a {
-    margin-left: 0.25rem;
-    color: var(--faq-soft);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .faqfab__foot a:hover {
     color: var(--faq-accent);
   }
 
