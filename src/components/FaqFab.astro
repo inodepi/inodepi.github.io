@@ -16,8 +16,17 @@ const groups = faqGroups.map((group) => ({
     data-faq-toggle
     aria-expanded="false"
     aria-controls="faq-panel"
+    aria-label="Open FAQ chat"
   >
-    <span class="faqfab__trigger-label">FAQ</span>
+    <svg class="faqfab__trigger-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path
+        d="M4.5 5.5h15v10.2h-8.1L7.2 19v-3.3H4.5z"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span class="faqfab__trigger-dot" aria-hidden="true"></span>
   </button>
 
   <section
@@ -30,8 +39,8 @@ const groups = faqGroups.map((group) => ({
   >
     <header class="faqfab__head">
       <div class="faqfab__title-wrap">
-        <p class="faqfab__kicker">inodepi</p>
-        <h2 id="faq-panel-title">Quick answers</h2>
+        <p class="faqfab__kicker">inodepi · pre-written answers</p>
+        <h2 id="faq-panel-title">Chat with the FAQ</h2>
       </div>
       <button class="faqfab__close" type="button" data-faq-close aria-label="Close FAQ">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
@@ -42,6 +51,7 @@ const groups = faqGroups.map((group) => ({
 
     <div class="faqfab__log" data-faq-log aria-live="polite">
       <p class="faqfab__bubble faqfab__bubble--bot">
+        <span class="faqfab__tag">FAQ</span>
         {faqGreeting.body}
         <a
           class="faqfab__cta"
@@ -96,6 +106,8 @@ const groups = faqGroups.map((group) => ({
     const log = root.querySelector('[data-faq-log]');
     if (!trigger || !panel || !closeButton || !log) return;
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const THINK_MS = 520;
     let lastFocus = null;
 
     const scrollLog = () => {
@@ -124,8 +136,31 @@ const groups = faqGroups.map((group) => ({
     const appendBubble = (text, variant) => {
       const bubble = document.createElement('p');
       bubble.className = 'faqfab__bubble faqfab__bubble--' + variant;
-      bubble.textContent = text;
+
+      if (variant === 'bot') {
+        const tag = document.createElement('span');
+        tag.className = 'faqfab__tag';
+        tag.textContent = 'FAQ';
+        bubble.appendChild(tag);
+      }
+
+      bubble.appendChild(document.createTextNode(text));
       log.appendChild(bubble);
+      return bubble;
+    };
+
+    const appendTyping = () => {
+      const holder = document.createElement('p');
+      holder.className = 'faqfab__bubble faqfab__bubble--bot faqfab__bubble--typing';
+      holder.setAttribute('aria-hidden', 'true');
+      for (let i = 0; i < 3; i += 1) {
+        const dot = document.createElement('span');
+        dot.className = 'faqfab__typing-dot';
+        holder.appendChild(dot);
+      }
+      log.appendChild(holder);
+      scrollLog();
+      return holder;
     };
 
     const answer = (chip) => {
@@ -134,13 +169,25 @@ const groups = faqGroups.map((group) => ({
       if (!question || !reply) return;
 
       appendBubble(question, 'user');
-      appendBubble(reply, 'bot');
 
       chip.disabled = true;
       const mark = chip.querySelector('.faqfab__chip-mark');
       if (mark) mark.textContent = '✓';
 
-      requestAnimationFrame(scrollLog);
+      const delay = reduceMotion.matches ? 0 : THINK_MS;
+
+      if (delay === 0) {
+        appendBubble(reply, 'bot');
+        requestAnimationFrame(scrollLog);
+        return;
+      }
+
+      const typing = appendTyping();
+      window.setTimeout(() => {
+        typing.remove();
+        appendBubble(reply, 'bot');
+        scrollLog();
+      }, delay);
     };
 
     trigger.addEventListener('click', () => {
@@ -189,6 +236,7 @@ const groups = faqGroups.map((group) => ({
   }
 
   .faqfab__trigger {
+    position: relative;
     display: grid;
     place-items: center;
     width: 3.5rem;
@@ -210,6 +258,22 @@ const groups = faqGroups.map((group) => ({
     filter: brightness(1.05);
   }
 
+  .faqfab__trigger-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .faqfab__trigger-dot {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.45rem;
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 2px solid var(--faq-accent);
+    border-radius: 50%;
+    background: var(--faq-accent-ink);
+  }
+
   .faqfab__trigger:focus-visible,
   .faqfab__close:focus-visible,
   .faqfab__chip:focus-visible,
@@ -217,13 +281,6 @@ const groups = faqGroups.map((group) => ({
   .faqfab__foot a:focus-visible {
     outline: 2px solid var(--faq-ink);
     outline-offset: 2px;
-  }
-
-  .faqfab__trigger-label {
-    font-family: var(--faq-mono);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
   }
 
   .faqfab__panel {
@@ -261,7 +318,7 @@ const groups = faqGroups.map((group) => ({
     margin: 0;
     font-family: var(--faq-mono);
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-transform: lowercase;
     color: var(--faq-dim);
   }
@@ -319,6 +376,7 @@ const groups = faqGroups.map((group) => ({
     color: var(--faq-soft);
     font-size: 0.875rem;
     line-height: 1.55;
+    animation: faqfab-bubble-in 160ms ease-out;
   }
 
   .faqfab__bubble--user {
@@ -329,6 +387,21 @@ const groups = faqGroups.map((group) => ({
     background: var(--faq-accent);
     color: var(--faq-accent-ink);
     font-weight: 500;
+  }
+
+  .faqfab__tag {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.4rem;
+    padding: 0.05rem 0.3rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 4px;
+    background: var(--faq-bg);
+    color: var(--faq-dim);
+    font-family: var(--faq-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    vertical-align: 0.1em;
   }
 
   .faqfab__cta {
@@ -354,11 +427,34 @@ const groups = faqGroups.map((group) => ({
     color: var(--faq-accent);
   }
 
+  .faqfab__bubble--typing {
+    display: inline-flex;
+    gap: 0.25rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .faqfab__typing-dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: var(--faq-soft);
+    opacity: 0.45;
+    animation: faqfab-typing 900ms ease-in-out infinite;
+  }
+
+  .faqfab__typing-dot:nth-child(2) {
+    animation-delay: 150ms;
+  }
+
+  .faqfab__typing-dot:nth-child(3) {
+    animation-delay: 300ms;
+  }
+
   .faqfab__chips {
     flex: none;
-    max-height: 11.5rem;
+    max-height: 12rem;
     overflow-y: auto;
-    padding: 0.5rem 0.75rem 0.75rem;
+    padding: 0.5rem 0.75rem 0.7rem;
     border-top: 1px solid var(--faq-line);
     scrollbar-width: thin;
   }
@@ -372,7 +468,7 @@ const groups = faqGroups.map((group) => ({
   }
 
   .faqfab__group-label {
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.35rem;
     font-family: var(--faq-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.02em;
@@ -380,23 +476,25 @@ const groups = faqGroups.map((group) => ({
   }
 
   .faqfab__chip-row {
-    display: grid;
-    gap: 0.3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
   }
 
   .faqfab__chip {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
     min-height: 2.75rem;
-    padding: 0.45rem 0.65rem;
+    max-width: 100%;
+    padding: 0.4rem 0.75rem;
     border: 1px solid var(--faq-line);
-    border-radius: 7px;
-    background: transparent;
+    border-radius: 999px;
+    background: var(--faq-raised);
     color: var(--faq-ink);
     font-family: inherit;
     font-size: 0.8125rem;
-    line-height: 1.35;
+    line-height: 1.3;
     text-align: left;
     cursor: pointer;
     transition:
@@ -407,21 +505,21 @@ const groups = faqGroups.map((group) => ({
 
   .faqfab__chip:hover:not(:disabled) {
     border-color: var(--faq-accent);
-    background: var(--faq-raised);
+    background: var(--faq-bg);
+    color: var(--faq-accent);
   }
 
   .faqfab__chip:disabled {
-    opacity: 0.5;
+    opacity: 0.45;
     cursor: default;
   }
 
   .faqfab__chip-mark {
     flex: none;
-    width: 1rem;
     font-family: var(--faq-mono);
     font-size: 0.75rem;
+    line-height: 1;
     color: var(--faq-accent);
-    text-align: center;
   }
 
   .faqfab__foot {
@@ -456,6 +554,30 @@ const groups = faqGroups.map((group) => ({
     }
   }
 
+  @keyframes faqfab-bubble-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes faqfab-typing {
+    0%,
+    60%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+  }
+
   @media (max-width: 480px) {
     .faqfab__panel {
       width: calc(100vw - 1.5rem);
@@ -464,7 +586,9 @@ const groups = faqGroups.map((group) => ({
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .faqfab__panel {
+    .faqfab__panel,
+    .faqfab__bubble,
+    .faqfab__typing-dot {
       animation: none;
     }
 
