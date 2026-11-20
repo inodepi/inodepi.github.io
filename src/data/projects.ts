@@ -5,7 +5,7 @@
  * what appears; the layout adapts to the number of featured entries.
  */
 
-export type NodeHue = 'teal' | 'violet' | 'rose' | 'amber';
+export type NodeHue = 'teal' | 'violet' | 'rose' | 'amber' | 'blue';
 
 export interface AutomationRepo {
   id: string;
@@ -80,16 +80,16 @@ export const automationRepos: AutomationRepo[] = [
     hue: 'teal',
   },
   {
-    id: 'ar-invoice-reminder-agent',
-    title: 'AR Invoice Reminder',
-    problem: 'Overdue invoices slip when chasing them is manual.',
-    stack: ['n8n', 'Gemini', 'Google Sheets'],
+    id: 'ai-lead-enrichment',
+    title: 'AI Lead Enrichment',
+    problem: 'Cold lists get called without knowing why they would buy.',
+    stack: ['n8n', 'Notion', 'Gemini', 'Gmail'],
     summary:
-      'Reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft — a human still presses send.',
-    repoUrl: '/ar-invoice-reminder/',
+      'Polls a Notion lead database, has a Gemini agent research each business and audit its site, scores fit 1–10, writes the research and a draft back to the row, and files the email as a Gmail draft.',
+    repoUrl: '/lead-enrichment/',
     linkLabel: 'View the build',
     featured: true,
-    hue: 'amber',
+    hue: 'blue',
   },
   {
     id: 'dead-lead-retrieval',
@@ -104,6 +104,18 @@ export const automationRepos: AutomationRepo[] = [
     hue: 'rose',
   },
   {
+    id: 'ar-invoice-reminder-agent',
+    title: 'AR Invoice Reminder',
+    problem: 'Overdue invoices slip when chasing them is manual.',
+    stack: ['n8n', 'Gemini', 'Google Sheets'],
+    summary:
+      'Reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft — a human still presses send.',
+    repoUrl: '/ar-invoice-reminder/',
+    linkLabel: 'View the build',
+    featured: true,
+    hue: 'amber',
+  },
+  {
     id: 'hr-onboarding',
     title: 'HR Onboarding Workflow',
     problem: 'New hires wait while paperwork, tools and compliance get chased by hand.',
@@ -112,7 +124,7 @@ export const automationRepos: AutomationRepo[] = [
       'One config driven workflow for every market: add a hire to Notion and the welcome email, paperwork list, team brief and status update all move within a minute.',
     repoUrl: '/hr-onboarding/',
     linkLabel: 'View the build',
-    featured: true,
+    featured: false,
     hue: 'violet',
   },
 ];

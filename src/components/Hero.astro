@@ -10,9 +10,12 @@ import { siteConfig } from '../data/projects';
       <h1>Close the loops you keep&nbsp;dropping.</h1>
 
       <p class="lede">
-        Missed calls, dead leads, overdue invoices — the loops that quietly leak revenue, and they
-        usually leak at the website first. I build the site that catches the lead and the n8n
-        workflows that close the loop, so nothing waits on a person copying data between tabs.
+        Revenue leaks in four places: the call nobody answered, the lead nobody researched, the
+        lead that went quiet, and the invoice nobody chased. I build the site that
+        <a href="/omnichannel-receptionist/">catches</a> the lead and the n8n workflows that
+        <a href="/lead-enrichment/">enrich</a>, <a href="/dead-lead-retrieval/">revive</a> and
+        <a href="/ar-invoice-reminder/">remind</a> — so nothing waits on a person copying data
+        between tabs.
       </p>
 
       <div class="cta-row">
@@ -49,6 +52,50 @@ import { siteConfig } from '../data/projects';
         </span>
       </button>
     </div>
+  </div>
+
+  <div class="container">
+    <nav class="pipeline" aria-label="The four-stage pipeline">
+      <p class="pipeline-label">The loop, in four stages</p>
+      <ol>
+        <li class="pipeline-stop" style="--stop:var(--node-teal)">
+          <a href="/omnichannel-receptionist/">
+            <span class="pipeline-top">
+              <span class="pipeline-index" aria-hidden="true">01</span>
+              <span class="pipeline-name">Catch</span>
+            </span>
+            <span class="pipeline-desc">one receptionist across every channel</span>
+          </a>
+        </li>
+        <li class="pipeline-stop" style="--stop:var(--node-blue)">
+          <a href="/lead-enrichment/">
+            <span class="pipeline-top">
+              <span class="pipeline-index" aria-hidden="true">02</span>
+              <span class="pipeline-name">Enrich</span>
+            </span>
+            <span class="pipeline-desc">research, score and draft before you call</span>
+          </a>
+        </li>
+        <li class="pipeline-stop" style="--stop:var(--node-rose)">
+          <a href="/dead-lead-retrieval/">
+            <span class="pipeline-top">
+              <span class="pipeline-index" aria-hidden="true">03</span>
+              <span class="pipeline-name">Revive</span>
+            </span>
+            <span class="pipeline-desc">wake the leads that went quiet</span>
+          </a>
+        </li>
+        <li class="pipeline-stop" style="--stop:var(--node-amber)">
+          <a href="/ar-invoice-reminder/">
+            <span class="pipeline-top">
+              <span class="pipeline-index" aria-hidden="true">04</span>
+              <span class="pipeline-name">Remind</span>
+            </span>
+            <span class="pipeline-desc">chase money owed without the awkwardness</span>
+          </a>
+        </li>
+      </ol>
+    </nav>
   </div>
 </section>
 
@@ -154,6 +201,99 @@ import { siteConfig } from '../data/projects';
     color: var(--ink-soft);
     font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
     line-height: 1.6;
+  }
+
+  .lede a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+    padding-bottom: 0.06em;
+    transition: border-color 140ms ease;
+  }
+
+  .lede a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  /* Four-stage pipeline band, below the hero grid. */
+  .pipeline {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    border-top: 1px solid var(--line);
+    animation: hero-rise 760ms 300ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .pipeline-label {
+    margin-bottom: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .pipeline ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  @media (min-width: 800px) {
+    .pipeline ol {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .pipeline-stop a {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    height: 100%;
+    padding: 0.95rem 1rem 1.05rem;
+    background: var(--panel);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: inset 0 3px 0 var(--stop);
+    transition: background-color 160ms ease;
+  }
+
+  .pipeline-stop a:hover {
+    background: var(--panel-raised);
+  }
+
+  .pipeline-stop a:hover .pipeline-name {
+    color: var(--accent);
+  }
+
+  .pipeline-top {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .pipeline-index {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+  }
+
+  .pipeline-name {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 640;
+    letter-spacing: -0.02em;
+  }
+
+  .pipeline-desc {
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.45;
   }
 
   .cta-row {
