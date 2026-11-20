@@ -85,7 +85,7 @@ export const automationRepos: AutomationRepo[] = [
     problem: 'Cold lists get called without knowing why they would buy.',
     stack: ['n8n', 'Notion', 'Gemini', 'Gmail'],
     summary:
-      'Polls a Notion lead database, has a Gemini agent research each business and audit its site, scores fit 1–10, writes the research and a draft back to the row, and files the email as a Gmail draft.',
+      'Polls a Notion lead database, has a Gemini agent research each business and flag likely site issues, scores fit 1–10, writes the research and a draft back to the row, and files the email as a Gmail draft.',
     repoUrl: '/lead-enrichment/',
     linkLabel: 'View the build',
     featured: true,
