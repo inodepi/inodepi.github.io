@@ -34,7 +34,7 @@ const jsonLd = [
     '@type': 'CreativeWork',
     name: 'AI Lead Enrichment',
     description:
-      'An n8n and Gemini pipeline that researches each new lead, audits its website, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review.',
+      'An n8n and Gemini pipeline that researches each new lead, flags likely website issues, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review.',
     url: 'https://inodepi.github.io/lead-enrichment/',
     author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
     keywords: 'n8n, Gemini, Notion, Gmail, lead enrichment, lead scoring',
@@ -60,25 +60,25 @@ const useCases = [
 const flow = [
   'A schedule trigger polls Notion every 15 minutes for rows in Site Audit Leads that are not yet enriched.',
   'Each row is fetched with its business name, website and contact details — only unenriched rows leave the query.',
-  'A Gemini AI agent researches the business and audits its website: offer, positioning, conversion leaks, the gap your service fills.',
+  'A Gemini AI agent researches the business from the details on the row: offer, positioning, likely conversion leaks, the gap your service fills. Inferences are labelled as inferences.',
   'A Code node normalizes the model output into a 1–10 fit score, a research summary and a draft that cites the audit.',
   'AI Research, AI Score and Outreach Draft are written back to the same Notion row, which is marked Enriched so it can never be processed twice.',
   'A personalized outreach email is filed as a Gmail draft. A human reads it and presses send.',
-  'A failed run routes to an error path that names the row and the failure, so nothing disappears silently.',
+  'A failed run triggers the shared error alert workflow, so failures surface instead of disappearing in the execution list.',
 ];
 
 const guardrails = [
   'AI researches and drafts, a human presses send — nothing sends itself.',
   'The Enriched status is the once-only guard: no cursors, no dedupe tables, no duplicate drafts.',
   'The fit score is computed in code from the agent output, not invented in the email.',
-  'If the website cannot be fetched, the row is flagged instead of scored blind.',
+  'Leads without a website still get researched; the draft leans on the row details instead of site specifics.',
   'Every write goes back to the row that started it, so Notion stays the source of truth.',
 ];
 ---
 
 <ProjectShell
   title="AI Lead Enrichment — inodepi"
-  description="An n8n and Gemini pipeline that researches each new lead, audits its website, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review."
+  description="An n8n and Gemini pipeline that researches each new lead, flags likely website issues, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review."
   kicker="n8n automation"
   name="AI Lead Enrichment"
   tagline="Cold lists get called without knowing why they would buy. This build does the research first."
@@ -133,7 +133,7 @@ const guardrails = [
     <p>
       A cold list gets called without knowing why anyone on it would buy. This build reads a Notion
       Site Audit Leads database for every row that is not yet enriched, then sends each business
-      through a Gemini agent that researches the company and audits its website.
+      through a Gemini agent that researches the company and calls out likely website issues.
     </p>
     <p>
       The agent returns a research summary, a 1–10 fit score and a personalized outreach draft. All
