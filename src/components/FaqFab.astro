@@ -397,7 +397,7 @@ const calUrl = siteConfig.calendarUrl;
   .faqfab__trigger:focus-visible,
   .faqfab__close:focus-visible,
   .faqfab__chip:focus-visible,
-  .faqfab__cta:focus-visible {
+  .faqfab :global(.faqfab__cta):focus-visible {
     outline: 2px solid var(--faq-ink);
     outline-offset: 2px;
   }
@@ -504,7 +504,7 @@ const calUrl = siteConfig.calendarUrl;
     scrollbar-width: thin;
   }
 
-  .faqfab__bubble {
+  .faqfab :global(.faqfab__bubble) {
     align-self: flex-start;
     max-width: 80%;
     margin: 0;
@@ -519,7 +519,7 @@ const calUrl = siteConfig.calendarUrl;
     animation: faqfab-bubble-in 160ms ease-out;
   }
 
-  .faqfab__bubble--user {
+  .faqfab :global(.faqfab__bubble--user) {
     align-self: flex-end;
     border-radius: 18px;
     border-bottom-left-radius: 18px;
@@ -529,7 +529,7 @@ const calUrl = siteConfig.calendarUrl;
     font-weight: 500;
   }
 
-  .faqfab__cta {
+  .faqfab :global(.faqfab__cta) {
     display: inline-flex;
     align-items: center;
     min-height: 2.5rem;
@@ -547,18 +547,18 @@ const calUrl = siteConfig.calendarUrl;
       color 140ms ease;
   }
 
-  .faqfab__cta:hover {
+  .faqfab :global(.faqfab__cta:hover) {
     border-color: var(--faq-accent);
     color: var(--faq-accent);
   }
 
-  .faqfab__bubble--typing {
+  .faqfab :global(.faqfab__bubble--typing) {
     display: inline-flex;
     gap: 0.25rem;
     padding: 0.7rem 0.8rem;
   }
 
-  .faqfab__typing-dot {
+  .faqfab :global(.faqfab__typing-dot) {
     width: 0.375rem;
     height: 0.375rem;
     border-radius: 50%;
@@ -567,11 +567,11 @@ const calUrl = siteConfig.calendarUrl;
     animation: faqfab-typing 900ms ease-in-out infinite;
   }
 
-  .faqfab__typing-dot:nth-child(2) {
+  .faqfab :global(.faqfab__typing-dot:nth-child(2)) {
     animation-delay: 150ms;
   }
 
-  .faqfab__typing-dot:nth-child(3) {
+  .faqfab :global(.faqfab__typing-dot:nth-child(3)) {
     animation-delay: 300ms;
   }
 
@@ -745,8 +745,8 @@ const calUrl = siteConfig.calendarUrl;
 
   @media (prefers-reduced-motion: reduce) {
     .faqfab__panel,
-    .faqfab__bubble,
-    .faqfab__typing-dot {
+    .faqfab :global(.faqfab__bubble),
+    .faqfab :global(.faqfab__typing-dot) {
       animation: none;
     }
 
