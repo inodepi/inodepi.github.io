@@ -41,20 +41,23 @@ const calTimeZone = siteConfig.calendarTimeZone;
         </div>
       </dl>
 
+      {extrasUrl && (
+        <a class="btn btn-secondary more-me" href={extrasUrl}>More of Me →</a>
+      )}
+
       <p class="contact-fine">
         No pitch deck. Bring the process that hurts and the tools it touches.
       </p>
     </div>
 
-    <div class="booking-col">
-      <div
-        class="booking"
-        data-booking
-        data-cal-link={calLink}
-        data-cal-url={calUrl}
-        data-event-type-id={eventTypeId}
-        data-cal-timezone={calTimeZone}
-      >
+    <div
+      class="booking"
+      data-booking
+      data-cal-link={calLink}
+      data-cal-url={calUrl}
+      data-event-type-id={eventTypeId}
+      data-cal-timezone={calTimeZone}
+    >
       <div class="booking-head">
         <div>
           <strong>15-minute discovery call</strong>
@@ -104,10 +107,6 @@ const calTimeZone = siteConfig.calendarTimeZone;
           to pick a time.
         </p>
       </noscript>
-      {extrasUrl && (
-        <a class="btn btn-secondary more-me" href={extrasUrl}>More of Me →</a>
-      )}
-    </div>
     </div>
   </div>
 </section>
@@ -543,14 +542,9 @@ const calTimeZone = siteConfig.calendarTimeZone;
     box-shadow: var(--shadow);
   }
 
-  .booking-col {
-    display: grid;
-    gap: 1rem;
-    align-items: start;
-  }
-
   .more-me {
     justify-self: start;
+    margin-top: 0.25rem;
   }
 
   .booking-head {
