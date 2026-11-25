@@ -1,0 +1,147 @@
+---
+interface Beat {
+  time: string;
+  seek: number;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  src: string;
+  poster: string;
+  captions: string;
+  caption: string;
+  beats: Beat[];
+}
+
+const { src, poster, captions, caption, beats } = Astro.props;
+---
+
+<div class="proj-overview">
+  <figure class="proj-video">
+    <video
+      controls
+      preload="metadata"
+      playsinline
+      poster={poster}
+      width="1920"
+      height="1080"
+      data-beat-video
+    >
+      <source src={src} type="video/mp4" />
+      <track kind="captions" src={captions} srclang="en" label="English" />
+      Your browser cannot play this film. <a href={src}>Download it</a>.
+    </video>
+    <figcaption>{caption}</figcaption>
+  </figure>
+
+  <ol class="proj-beats">
+    {
+      beats.map((beat) => (
+        <li>
+          <button class="proj-beat" type="button" data-seek={beat.seek}>
+            <span class="proj-beat-time">{beat.time}</span>
+            <span class="proj-beat-title">{beat.title}</span>
+            <span class="proj-beat-body">{beat.body}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('[data-beat-video]');
+  if (video) {
+    document.querySelectorAll<HTMLButtonElement>('[data-seek]').forEach((beat) => {
+      beat.addEventListener('click', () => {
+        video.currentTime = Number(beat.dataset.seek) || 0;
+        video.play().catch(() => {});
+      });
+    });
+  }
+</script>
+
+<style>
+  .proj-overview {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+    align-items: start;
+    margin-top: 1.25rem;
+  }
+
+  @media (min-width: 900px) {
+    .proj-overview {
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    }
+  }
+
+  .proj-video {
+    margin: 0;
+  }
+
+  .proj-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #000;
+  }
+
+  .proj-video figcaption {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-dim);
+  }
+
+  .proj-beats {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  .proj-beat {
+    display: grid;
+    gap: 0.2rem;
+    width: 100%;
+    padding: 0.9rem 1rem 1rem;
+    border: 0;
+    background: var(--panel);
+    box-shadow: inset 0 3px 0 var(--accent);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 140ms ease;
+  }
+
+  .proj-beat:hover {
+    background: var(--panel-raised);
+  }
+
+  .proj-beat-time {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+  }
+
+  .proj-beat-title {
+    font-size: 1.0625rem;
+    font-weight: 640;
+    letter-spacing: -0.02em;
+  }
+
+  .proj-beat-body {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+</style>

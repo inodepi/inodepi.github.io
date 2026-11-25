@@ -230,10 +230,13 @@ const calTimeZone = siteConfig.calendarTimeZone;
       if (failed) {
         const p = document.createElement('p');
         p.className = 'booking-empty';
-        p.innerHTML =
-          'Live availability is unavailable right now. <a href="' +
-          calUrl +
-          '" target="_blank" rel="noopener noreferrer">Open the full calendar</a>.';
+        p.append('Live availability is unavailable right now. ');
+        const link = document.createElement('a');
+        link.href = calUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Open the full calendar';
+        p.append(link, '.');
         timesEl.append(p);
         return;
       }

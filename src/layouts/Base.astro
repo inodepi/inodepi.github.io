@@ -13,6 +13,8 @@ interface Props {
 
 const { title, description, jsonLd } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const hasContact = ['/', '/extras/'].includes(Astro.url.pathname);
+const contactHref = hasContact ? '#contact' : `${base}#contact`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`${base}og.png`, Astro.site).href;
 ---
@@ -48,6 +50,7 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
     <meta name="theme-color" content="#0c1727" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
     <script is:inline>
+      // Keep the key and colours in sync with FaqFab.astro's theme block.
       (function () {
         try {
           var theme = localStorage.getItem('inodepi-theme');
@@ -75,9 +78,9 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
           <a href={`${base}#work`}>Work</a>
           <a href={`${base}#process`}>Process</a>
           <a href={`${base}websites/`}>Websites</a>
-          <a href={`${base}#contact`}>Contact</a>
+          <a href={contactHref}>Contact</a>
         </nav>
-        <a class="btn btn-primary header-cta" href={`${base}#contact`}>
+        <a class="btn btn-primary header-cta" href={contactHref}>
           <span class="cta-short">Book call</span>
           <span class="cta-long">Book a 15-min call</span>
         </a>

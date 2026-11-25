@@ -17,6 +17,12 @@ npm run build
 npm run preview
 ```
 
+Run the tests:
+
+```bash
+npm test
+```
+
 ## Before the first deploy
 
 1. **Pages URL** — `site` is set to `https://inodepi.github.io` and the site is served
@@ -47,8 +53,10 @@ Everything editable lives in two places.
 
 The `:root` block holds the dark palette; the `@media (prefers-color-scheme: light)`
 block holds the light palette. The site follows the visitor's browser setting.
-Double-tap the FAQ button (bottom-right) to override it and switch between dark and light;
-the choice is saved in `localStorage`.
+
+Open the FAQ panel (bottom-right) and use the **Auto / Light / Dark** button in its header
+to override it. Double-tapping the FAQ button still cycles the theme; the choice is saved
+in `localStorage`.
 
 ## SEO
 
@@ -69,12 +77,14 @@ the choice is saved in `localStorage`.
 
 ```
 src/
-  components/   Hero, WorkflowCanvas, Capabilities, FeaturedRepos,
-                SideProjects, Process, Contact, Footer,
-                BrandMark, PiGlyph
-  data/         projects.ts (typed content config)
-  layouts/      Base.astro
-  pages/        index.astro
+  components/   Hero, SpeedToLead, VideoBeats, Capabilities,
+                FeaturedRepos, AgentSkills, SideProjects, Process,
+                Contact, ProjectShell, FaqFab, Footer, BrandMark, PiGlyph
+  data/         projects.ts, skills.ts, faq.ts (typed content)
+  layouts/      Base.astro, DemoLayout.astro
+  lib/          changelog.ts (markdown renderer)
+  pages/        index, extras, project pages, demo pages
   styles/       global.css (design tokens)
-public/         favicon.svg, logo.svg
+public/         favicon.svg, videos/, images/
+tests/          node:test smoke tests
 ```
