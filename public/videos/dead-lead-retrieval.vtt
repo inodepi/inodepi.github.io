@@ -1,67 +1,19 @@
 WEBVTT
 
-00:00:04.240 --> 00:00:09.240
-Dormant leads rarely die because someone said no. They die because nobody followed up.
+00:00.000 --> 00:04.000
+Dormant leads don't say no. They just stop answering.
 
-00:00:09.240 --> 00:00:15.240
-A lead fills out a form, has one conversation, and then goes quiet. Maybe they got busy.
+00:04.000 --> 00:09.800
+The leads you already paid for sit in the CRM, months cold, with nobody following up. Follow-ups sent: zero.
 
-00:00:15.240 --> 00:00:19.240
-Maybe the timing was wrong. Maybe the budget wasn't there yet.
+00:10.000 --> 00:15.500
+Context wakes them up. A blast buries them.
 
-00:00:19.240 --> 00:00:25.240
-Three months later they're still in the CRM, still reachable, and completely forgotten.
+00:15.500 --> 00:21.800
+The workflow reads the original conversation, writes a specific check-in, and files it as a draft for a human to approve.
 
-00:00:25.240 --> 00:00:31.240
-Your team is focused on this week's leads, because this week's leads are the ones in front of them.
+00:22.000 --> 00:26.000
+AI drafts. You press send.
 
-00:00:31.240 --> 00:00:39.240
-So the leads you already paid to acquire just sit there, going colder, while the ad budget keeps buying new ones.
-
-00:00:39.240 --> 00:00:42.240
-Worry not, I'm here to close your loop.
-
-00:00:42.240 --> 00:00:47.240
-Here's the fix. It runs on a schedule, so nobody has to remember.
-
-00:00:47.240 --> 00:00:53.240
-First, it pulls dormant leads from the CRM, anyone not touched in a set number of days.
-
-00:00:53.240 --> 00:00:56.240
-Then, for each one it gathers the context.
-
-00:00:56.240 --> 00:01:02.240
-Who they are, what they asked about, what was said last time, that context goes to an AI model,
-
-00:01:02.240 --> 00:01:07.240
-which writes a short, personal check-in. Not a blast, not a template.
-
-00:01:07.240 --> 00:01:11.240
-One message per lead, referencing the actual conversation.
-
-00:01:11.240 --> 00:01:17.240
-Each message is filed as a Gmail draft. So a human reads it before anything goes out.
-
-00:01:17.240 --> 00:01:19.240
-And here's the part that matters.
-
-00:01:19.240 --> 00:01:24.240
-The workflow marks each lead as drafted, and tracks it in the CRM.
-
-00:01:24.240 --> 00:01:31.240
-So a lead is never messaged twice, and your team can see exactly who's been woken up, and who replied.
-
-00:01:31.240 --> 00:01:35.240
-No spam, no duplicate outreach, no lead left behind.
-
-00:01:35.240 --> 00:01:40.240
-Wake the leads you already paid for, bring your CRM and your definition of dormant.
-
-00:01:40.240 --> 00:01:44.240
-And I'll show you how many conversations you're sitting on.
-
-00:01:44.240 --> 00:01:47.240
-I'm Christian, n8n automation architect.
-
-00:01:47.240 --> 00:01:49.240
-Book a discovery call now.
+00:26.000 --> 00:29.500
+Every check-in lands as a Gmail draft with the original context attached. Nothing leaves without a human reading it.
