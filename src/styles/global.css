@@ -42,6 +42,66 @@
   --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, monospace;
 }
 
+/* Light palette. Follows the browser unless the visitor overrides it from the FAB. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+
+    --bg: #f5f2ea;
+    --grid: rgba(30, 45, 65, 0.06);
+    --panel: #fbf9f4;
+    --panel-raised: #efebe0;
+
+    --line: #ddd6c8;
+    --line-strong: #b8ae9b;
+
+    --ink: #131a24;
+    --ink-soft: #3c4757;
+    --ink-dim: #5b6878;
+
+    --accent: #9a5200;
+    --accent-hover: #7f4300;
+    --accent-ink: #ffffff;
+
+    --node-teal: #0f766e;
+    --node-violet: #6d28d9;
+    --node-rose: #be123c;
+    --node-amber: #9a5200;
+    --node-blue: #1d4ed8;
+
+    --shadow: 0 24px 60px -32px rgba(30, 40, 55, 0.28);
+  }
+}
+
+/* Explicit override from the FAB. Keep these tokens in sync with the block above. */
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f5f2ea;
+  --grid: rgba(30, 45, 65, 0.06);
+  --panel: #fbf9f4;
+  --panel-raised: #efebe0;
+
+  --line: #ddd6c8;
+  --line-strong: #b8ae9b;
+
+  --ink: #131a24;
+  --ink-soft: #3c4757;
+  --ink-dim: #5b6878;
+
+  --accent: #9a5200;
+  --accent-hover: #7f4300;
+  --accent-ink: #ffffff;
+
+  --node-teal: #0f766e;
+  --node-violet: #6d28d9;
+  --node-rose: #be123c;
+  --node-amber: #9a5200;
+  --node-blue: #1d4ed8;
+
+  --shadow: 0 24px 60px -32px rgba(30, 40, 55, 0.28);
+}
+
 /* ------------------------------------------------------------------
    Base
 ------------------------------------------------------------------- */
@@ -98,6 +158,7 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 220ms ease, color 220ms ease;
 }
 
 body::after {

@@ -6,7 +6,7 @@ const calUrl = siteConfig.calendarUrl;
 const base = import.meta.env.BASE_URL;
 ---
 
-<div class="faqfab" data-faq data-cal-url={calUrl} data-email={siteConfig.email} data-whatsapp={siteConfig.whatsappUrl}>
+<div class="faqfab" data-faq data-email={siteConfig.email} data-whatsapp={siteConfig.whatsappUrl}>
   <button
     class="faqfab__trigger"
     type="button"
@@ -327,7 +327,43 @@ const base = import.meta.env.BASE_URL;
     }
 
 
+    /* Theme override --------------------------------------------------- */
+
+    const THEME_KEY = 'inodepi-theme';
+    const THEME_COLORS = { dark: '#0c1727', light: '#f5f2ea' };
+
+    const effectiveTheme = () => {
+      const attr = document.documentElement.getAttribute('data-theme');
+      if (attr === 'light' || attr === 'dark') return attr;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    };
+
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      try {
+        localStorage.setItem(THEME_KEY, theme);
+      } catch (error) {}
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute('content', THEME_COLORS[theme]);
+      });
+    };
+
+    const toggleTheme = () => setTheme(effectiveTheme() === 'light' ? 'dark' : 'light');
+    const hasSiteTheme = () =>
+      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() !== '';
+
+    let lastTap = 0;
     trigger.addEventListener('click', () => {
+      const now = Date.now();
+      // A quick double tap flips the palette; a single tap opens the FAQ.
+      if (now - lastTap < 350) {
+        lastTap = 0;
+        // Demo builds have their own brand palettes; leave them alone.
+        if (hasSiteTheme()) toggleTheme();
+        close();
+        return;
+      }
+      lastTap = now;
       if (panel.hidden) open();
       else close();
     });
@@ -385,6 +421,7 @@ const base = import.meta.env.BASE_URL;
     color: var(--faq-accent-ink);
     box-shadow: 0 16px 32px -18px rgba(0, 0, 0, 0.6);
     cursor: pointer;
+    touch-action: manipulation;
     transition:
       transform 140ms ease,
       filter 140ms ease;

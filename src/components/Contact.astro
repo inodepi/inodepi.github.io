@@ -298,6 +298,7 @@ const calTimeZone = siteConfig.calendarTimeZone;
         button.textContent = String(date.getDate());
         button.dataset.date = key;
         button.setAttribute('aria-label', dayFmt.format(date));
+        button.setAttribute('aria-pressed', key === selected ? 'true' : 'false');
 
         if (date < today || (!hasSlots && !loading)) button.disabled = true;
         if (loading) button.classList.add('is-loading');
@@ -308,6 +309,8 @@ const calTimeZone = siteConfig.calendarTimeZone;
         button.addEventListener('click', () => {
           selected = key;
           render();
+          // render() rebuilds the grid; put focus back on the chosen day.
+          grid.querySelector(`[data-date="${key}"]`)?.focus({ preventScroll: true });
         });
 
         grid.append(button);

@@ -724,6 +724,14 @@ const pineLayers = [
     const to = fmt.format(new Date(`${leave}T12:00:00`));
 
     result.hidden = false;
-    result.innerHTML = `<strong>2 cabins open ${from} – ${to}.</strong> From $185 a night, two-night minimum. In the live build this answer comes from the real calendar, not a sample.`;
+    result.replaceChildren();
+    const lead = document.createElement('strong');
+    lead.textContent = `2 cabins open ${from} – ${to}.`;
+    result.append(
+      lead,
+      document.createTextNode(
+        ' From $185 a night, two-night minimum. In the live build this answer comes from the real calendar, not a sample.'
+      )
+    );
   });
 </script>

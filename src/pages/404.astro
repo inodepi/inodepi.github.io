@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Base title="Page not found — inodepi" description="That page does not exist. Head back to the work.">
+  <section class="container not-found">
+    <p class="not-found-code">404</p>
+    <h1>This loop is broken.</h1>
+    <p class="not-found-body">
+      The page you asked for does not exist. The work does.
+    </p>
+    <a class="btn btn-primary" href={base}>Back to home</a>
+  </section>
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .not-found {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+
+  .not-found-code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .not-found h1 {
+    font-size: clamp(2.5rem, 1.5rem + 3.8vw, 4rem);
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .not-found-body {
+    max-width: 40ch;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .not-found .btn {
+    margin-top: 0.5rem;
+  }
+</style>

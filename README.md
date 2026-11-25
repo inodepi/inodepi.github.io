@@ -45,8 +45,10 @@ Everything editable lives in two places.
 
 ### `src/styles/global.css`
 
-The `:root` block holds the dark palette; `[data-theme='light']` holds the light palette.
-To switch themes, add `data-theme="light"` to the `<html>` tag in `src/layouts/Base.astro`.
+The `:root` block holds the dark palette; the `@media (prefers-color-scheme: light)`
+block holds the light palette. The site follows the visitor's browser setting.
+Double-tap the FAQ button (bottom-right) to override it and switch between dark and light;
+the choice is saved in `localStorage`.
 
 ## SEO
 

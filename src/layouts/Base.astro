@@ -45,7 +45,21 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="theme-color" content="#0c1727" />
+    <meta name="theme-color" content="#0c1727" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
+    <script is:inline>
+      (function () {
+        try {
+          var theme = localStorage.getItem('inodepi-theme');
+          if (theme !== 'light' && theme !== 'dark') return;
+          document.documentElement.setAttribute('data-theme', theme);
+          var color = theme === 'light' ? '#f5f2ea' : '#0c1727';
+          document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+            meta.setAttribute('content', color);
+          });
+        } catch (error) {}
+      })();
+    </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>

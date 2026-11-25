@@ -16,7 +16,7 @@ selling the visitor's own business back to them, with the systems layer as proof
 ## Main site
 
 - Dark drafting-board surface, amber accent, node-graph vocabulary (chips, ports, `node/` ids).
-- Tokens in `src/styles/global.css`; single dark palette, no light variant ships.
+  A light "paper" palette follows `prefers-color-scheme`; both live in `src/styles/global.css`.
 - Type: Bricolage Grotesque (display), Inter (body), system mono for identifiers and data.
 - Components: `.btn`, `.tag`, `.container`, `.section`; cards use hairline borders and a
   coloured node chip, never decorative gradients or glows.
