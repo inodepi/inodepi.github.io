@@ -17,6 +17,12 @@ const calTimeZone = siteConfig.calendarTimeZone;
         so.
       </p>
 
+      <p class="contact-reply">
+        Prefer to reply?{' '}
+        <a href={`mailto:${siteConfig.email}?subject=Automation%20audit`}>Email me</a> and I'll
+        send a 2-minute Loom of how I'd fix your biggest leak.
+      </p>
+
       <dl class="contact-direct">
         <div>
           <dt>Discovery call</dt>
@@ -470,6 +476,22 @@ const calTimeZone = siteConfig.calendarTimeZone;
     padding: 1.5rem 0 0;
     border-top: 1px solid var(--line);
     width: 100%;
+  }
+
+  .contact-reply {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+
+  .contact-reply a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .contact-reply a:hover {
+    border-bottom-color: var(--accent);
   }
 
   .contact-direct div {

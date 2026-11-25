@@ -10,19 +10,30 @@ import { siteConfig } from '../data/projects';
       <h1>Close the loops you keep&nbsp;dropping.</h1>
 
       <p class="lede">
-        Revenue leaks in four places: the call nobody answered, the lead nobody researched, the
-        lead that went quiet, and the invoice nobody chased. I build the site that <a
-          href="/omnichannel-receptionist/">catches</a
-        > the lead and the n8n workflows that <a href="/lead-enrichment/">enrich</a>, <a
-          href="/dead-lead-retrieval/">revive</a
-        > and <a href="/ar-invoice-reminder/">remind</a> — so nothing waits on a person copying
-        data between tabs.
+        I build the website and the n8n workflows behind it — booking, follow-ups, invoicing — so
+        revenue stops leaking. One build, one handover. You own everything.
+      </p>
+
+      <p class="lede-leaks">
+        The four leaks I fix most often: the call nobody answered, the lead nobody researched, the
+        lead that went quiet, and the invoice nobody chased. <a href="/omnichannel-receptionist/"
+          >Catch</a
+        >, <a href="/lead-enrichment/">enrich</a>, <a href="/dead-lead-retrieval/">revive</a>, <a
+          href="/ar-invoice-reminder/">remind</a
+        >.
       </p>
 
       <div class="cta-row">
-        <a class="btn btn-primary" href="#contact">Book a systems audit</a>
-        <a class="btn btn-secondary" href="#work">See sample systems</a>
+        <a class="btn btn-primary" href="#contact">Book a 15-min call</a>
+        <a class="btn btn-secondary" href={`mailto:${siteConfig.email}?subject=Automation%20audit`}>
+          Reply by email
+        </a>
       </div>
+
+      <p class="trust-strip">
+        Solo builder · ships inside your own accounts · you own the build · no retainers unless you
+        want them
+      </p>
 
       <ul class="stack-line" aria-label="Typical stack">
         <li>n8n</li>
@@ -214,6 +225,33 @@ import { siteConfig } from '../data/projects';
 
   .lede a:hover {
     border-bottom-color: currentColor;
+  }
+
+  .lede-leaks {
+    max-width: 34rem;
+    color: var(--ink-dim);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .lede-leaks a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+    padding-bottom: 0.06em;
+    transition: border-color 140ms ease;
+  }
+
+  .lede-leaks a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  .trust-strip {
+    margin-top: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
   }
 
   /* Four-stage pipeline band, below the hero grid. */
