@@ -49,6 +49,8 @@ export interface SiteConfig {
   role: string;
   email: string;
   whatsappUrl: string;
+  /** Public n8n webhook for the Pip RAG. Empty string keeps the FAQ-only fallback. */
+  ragWebhookUrl: string;
   calendarUrl: string;
   calendarEventTypeId: number;
   calendarTimeZone: string;
@@ -61,6 +63,7 @@ export const siteConfig: SiteConfig = {
   role: 'n8n automation architect',
   email: 'kristiandyanbusiness@gmail.com',
   whatsappUrl: 'https://wa.me/639386042425',
+  ragWebhookUrl: import.meta.env.PUBLIC_RAG_WEBHOOK ?? '',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   calendarEventTypeId: 7623308,
   calendarTimeZone: 'Asia/Manila',
