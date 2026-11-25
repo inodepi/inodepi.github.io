@@ -54,15 +54,6 @@ const useCases = [
   { title: 'Multi market teams', body: 'Every market keeps its own checklist. Adding a new business type means adding one profile row, never editing the workflow.' },
 ];
 
-const how = [
-  'A new hire is added to the Notion tracker: name, company, market, role, start date, manager, email.',
-  'Every minute, a schedule trigger polls that tracker for rows still marked Not Started.',
-  "The hire's market is looked up in Market Profiles — compliance module, paperwork docs, tools, welcome template.",
-  'The hire gets a welcome email with their start date, their manager and the exact paperwork list for their market.',
-  'The team gets a brief with the compliance module, the tools to provision and the templates to use.',
-  'The row advances to Paperwork Sent, so it leaves the Not Started filter and can never be processed twice.',
-];
-
 const guardrails = [
   'The status change is the once only guard: no cursors, no dedupe tables, no duplicate welcome emails.',
   'Adding a market is a new row in Market Profiles, not a workflow edit.',
@@ -148,13 +139,6 @@ const guardrails = [
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="proj-section">
-    <h2>How it works</h2>
-    <ul class="proj-list">
-      {how.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="proj-section">

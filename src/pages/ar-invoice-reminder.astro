@@ -49,15 +49,6 @@ const useCases = [
   { title: 'Owner approval', body: 'Every reminder waits as a Gmail draft; nobody sends a collections email by accident.' },
 ];
 
-const how = [
-  'Schedule trigger fires at 09:00 and reads the invoice sheet.',
-  'A Code node drops paid and void rows, parses amounts and dates, computes days past due and picks a tone.',
-  'Gemini drafts against a structured output parser.',
-  'A second Code node enforces the signature and falls back to a template if the model returns nothing usable.',
-  'The draft lands in Gmail — nobody sends an email automatically.',
-  'The follow-up date is written back to the sheet.',
-];
-
 const guardrails = [
   'Tone is computed in code, not guessed: friendly under 14 days, firm to 30, solution-oriented after.',
   'The signature is rebuilt in code, so the model can’t rewrite it.',
@@ -140,13 +131,6 @@ const guardrails = [
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="proj-section">
-    <h2>How it works</h2>
-    <ul class="proj-list">
-      {how.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="proj-section">

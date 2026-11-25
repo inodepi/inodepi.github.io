@@ -50,15 +50,6 @@ const useCases = [
   { title: 'Compliance review', body: 'Check recording disclosure, pricing claims and do-not-call handling across the team.' },
 ];
 
-const how = [
-  'Retell posts the finished call to a webhook; a form accepts a pasted transcript for testing.',
-  'A Code node normalizes the payload and refuses to score a call without a usable transcript.',
-  'Gemini scores opening, discovery, objection handling, next step and compliance through a structured output parser.',
-  'A second Code node clamps the scores, recomputes the weighted overall, verifies each quote against the transcript, and redacts emails and phone numbers.',
-  'Clean calls go to the Sales Call QA data table; risky or low-confidence calls also become a Gmail draft for a manager.',
-  'Every Monday, a digest aggregates the last week per rep and files one coaching draft.',
-];
-
 const guardrails = [
   'Every score must cite an exact quote; unverifiable evidence lowers confidence and forces review.',
   'The overall is computed in code, not guessed by the model.',
@@ -160,13 +151,6 @@ const guardrails = [
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="proj-section">
-    <h2>How it works</h2>
-    <ul class="proj-list">
-      {how.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="proj-section">

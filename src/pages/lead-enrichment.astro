@@ -58,16 +58,6 @@ const useCases = [
   { title: 'Partner and vendor research', body: 'Score fit against your own criteria instead of a generic industry guess.' },
 ];
 
-const flow = [
-  'A schedule trigger polls Notion every 15 minutes for rows in Site Audit Leads that are not yet enriched.',
-  'Each row is fetched with its business name, website and contact details — only unenriched rows leave the query.',
-  'A Gemini AI agent researches the business from the details on the row: offer, positioning, likely conversion leaks, the gap your service fills. Inferences are labelled as inferences.',
-  'A Code node normalizes the model output into a 1–10 fit score, a research summary and a draft that cites the audit.',
-  'AI Research, AI Score and Outreach Draft are written back to the same Notion row, which is marked Enriched so it can never be processed twice.',
-  'A personalized outreach email is filed as a Gmail draft. A human reads it and presses send.',
-  'A failed run triggers the shared error alert workflow, so failures surface instead of disappearing in the execution list.',
-];
-
 const guardrails = [
   'AI researches and drafts, a human presses send — nothing sends itself.',
   'The Enriched status is the once-only guard: no cursors, no dedupe tables, no duplicate drafts.',
@@ -154,13 +144,6 @@ const guardrails = [
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="proj-section">
-    <h2>The flow</h2>
-    <ul class="proj-list">
-      {flow.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="proj-section">

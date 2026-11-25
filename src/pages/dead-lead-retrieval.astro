@@ -49,14 +49,6 @@ const useCases = [
   { title: 'Trial expiry', body: 'Check in before a trial quietly lapses, with the original context already in the draft.' },
 ];
 
-const loop = [
-  'Pull the dormant leads and their original context.',
-  'An LLM drafts a short, specific check-in — never a generic blast.',
-  'The email is filed as a Gmail draft for review.',
-  'A booking link is added so a reply turns into a call.',
-  'The CRM tracks each lead through the review lifecycle.',
-];
-
 const guardrails = [
   'AI drafts, a human approves — nothing sends itself.',
   'Anti-hallucination rules: the only link in any email is mine.',
@@ -138,13 +130,6 @@ const guardrails = [
         </article>
       ))}
     </div>
-  </section>
-
-  <section class="proj-section">
-    <h2>The loop</h2>
-    <ul class="proj-list">
-      {loop.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="proj-section">
