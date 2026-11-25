@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import AgentSkills from '../components/AgentSkills.astro';
+import SideProjects from '../components/SideProjects.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Extras — inodepi',
+  url: 'https://inodepi.github.io/extras/',
+};
+---
+
+<Base
+  title="Extras — inodepi"
+  description="Agent skills and side projects by inodepi: packaged playbooks for Claude Code, Cursor and Codex, plus tools and experiments."
+  jsonLd={jsonLd}
+>
+  <section class="section extras-head">
+    <div class="container">
+      <a class="extras-back" href="/">← Back to home</a>
+    </div>
+  </section>
+
+  <AgentSkills />
+  <SideProjects />
+  <Contact />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .extras-head {
+    padding-block: 1.5rem 0;
+    border-top: 0;
+  }
+
+  .extras-back {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+    padding-bottom: 0.1em;
+    transition: border-color 140ms ease, color 140ms ease;
+  }
+
+  .extras-back:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+</style>

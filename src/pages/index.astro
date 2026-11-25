@@ -4,8 +4,6 @@ import Hero from '../components/Hero.astro';
 import SpeedToLead from '../components/SpeedToLead.astro';
 import Capabilities from '../components/Capabilities.astro';
 import FeaturedRepos from '../components/FeaturedRepos.astro';
-import AgentSkills from '../components/AgentSkills.astro';
-import SideProjects from '../components/SideProjects.astro';
 import Process from '../components/Process.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
@@ -51,10 +49,7 @@ const jsonLd = {
   <Capabilities />
   <FeaturedRepos />
   <Process />
-  <Contact />
-
-  <AgentSkills />
-  <SideProjects />
+  <Contact extrasUrl="/extras" />
 
   <Footer slot="footer" />
 </Base>

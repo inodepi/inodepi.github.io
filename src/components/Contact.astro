@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '../data/projects';
 
+const { extrasUrl } = Astro.props;
 const calUrl = siteConfig.calendarUrl;
 const calLink = calUrl.replace(/^https?:\/\/(app\.)?cal\.com\//, '');
 const eventTypeId = siteConfig.calendarEventTypeId;
@@ -45,14 +46,15 @@ const calTimeZone = siteConfig.calendarTimeZone;
       </p>
     </div>
 
-    <div
-      class="booking"
-      data-booking
-      data-cal-link={calLink}
-      data-cal-url={calUrl}
-      data-event-type-id={eventTypeId}
-      data-cal-timezone={calTimeZone}
-    >
+    <div class="booking-col">
+      <div
+        class="booking"
+        data-booking
+        data-cal-link={calLink}
+        data-cal-url={calUrl}
+        data-event-type-id={eventTypeId}
+        data-cal-timezone={calTimeZone}
+      >
       <div class="booking-head">
         <div>
           <strong>15-minute discovery call</strong>
@@ -102,6 +104,10 @@ const calTimeZone = siteConfig.calendarTimeZone;
           to pick a time.
         </p>
       </noscript>
+      {extrasUrl && (
+        <a class="btn btn-secondary more-me" href={extrasUrl}>More of Me →</a>
+      )}
+    </div>
     </div>
   </div>
 </section>
@@ -535,6 +541,16 @@ const calTimeZone = siteConfig.calendarTimeZone;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--shadow);
+  }
+
+  .booking-col {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .more-me {
+    justify-self: start;
   }
 
   .booking-head {
