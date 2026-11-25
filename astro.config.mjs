@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // User Pages site, served from the domain root.
 export default defineConfig({
-  site: 'https://inodepi.github.io',
+  site: process.env.SITE_URL ?? 'https://inodepi.github.io',
   output: 'static',
   integrations: [
     sitemap({

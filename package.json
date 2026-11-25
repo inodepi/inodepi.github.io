@@ -9,6 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "zip": "bash scripts/zip-freehosting.sh",
     "test": "node --experimental-strip-types --test tests/*.ts"
   },
   "dependencies": {
