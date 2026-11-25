@@ -117,18 +117,6 @@ export const automationRepos: AutomationRepo[] = [
     featured: true,
     hue: 'amber',
   },
-  {
-    id: 'hr-onboarding',
-    title: 'HR Onboarding Workflow',
-    problem: 'New hires wait while paperwork, tools and compliance get chased by hand.',
-    stack: ['n8n', 'Notion', 'Gmail'],
-    summary:
-      'One config driven workflow for every market: add a hire to Notion and the welcome email, paperwork list, team brief and status update all move within a minute.',
-    repoUrl: '/hr-onboarding/',
-    linkLabel: 'View the build',
-    featured: false,
-    hue: 'violet',
-  },
 ];
 
 export const sideProjects: SideProject[] = [
