@@ -170,34 +170,39 @@ const calTimeZone = siteConfig.calendarTimeZone;
       if (fetchedWindows.has(key)) return;
       fetchedWindows.add(key);
 
-      // Pad by a day so time zones never clip the visible range.
-      const from = iso(addDays(start, -1));
-      const to = iso(addDays(start, 15));
+      try {
+        // Pad by a day so time zones never clip the visible range.
+        const from = iso(addDays(start, -1));
+        const to = iso(addDays(start, 15));
 
-      const res = await fetch(
-        API + '?eventTypeId=' + encodeURIComponent(eventTypeId) + '&start=' + from + '&end=' + to,
-        { headers: { 'cal-api-version': '2024-09-04' } }
-      );
-      if (!res.ok) throw new Error('Slots request failed: ' + res.status);
+        const res = await fetch(
+          API + '?eventTypeId=' + encodeURIComponent(eventTypeId) + '&start=' + from + '&end=' + to,
+          { headers: { 'cal-api-version': '2024-09-04' } }
+        );
+        if (!res.ok) throw new Error('Slots request failed: ' + res.status);
 
-      const json = await res.json();
-      const data = json && json.data ? json.data : {};
+        const json = await res.json();
+        const data = json && json.data ? json.data : {};
 
-      Object.keys(data).forEach((day) => {
-        const list = data[day];
-        if (!Array.isArray(list)) return;
-        list.forEach((slot) => {
-          const when = new Date(slot.start);
-          if (Number.isNaN(when.getTime())) return;
-          const stamp = when.getTime();
-          if (seenSlots.has(stamp)) return;
-          seenSlots.add(stamp);
-          const localKey = iso(when);
-          const bucket = slotsByDay.get(localKey);
-          if (bucket) bucket.push(when);
-          else slotsByDay.set(localKey, [when]);
+        Object.keys(data).forEach((day) => {
+          const list = data[day];
+          if (!Array.isArray(list)) return;
+          list.forEach((slot) => {
+            const when = new Date(slot.start);
+            if (Number.isNaN(when.getTime())) return;
+            const stamp = when.getTime();
+            if (seenSlots.has(stamp)) return;
+            seenSlots.add(stamp);
+            const localKey = iso(when);
+            const bucket = slotsByDay.get(localKey);
+            if (bucket) bucket.push(when);
+            else slotsByDay.set(localKey, [when]);
+          });
         });
-      });
+      } catch (error) {
+        fetchedWindows.delete(key);
+        throw error;
+      }
     };
 
     const renderTimes = () => {

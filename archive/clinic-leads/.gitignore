@@ -1,9 +1,0 @@
-.env
-*service-account*.json
-*key*.json
-__pycache__/
-*.pyc
-.venv/
-
-# never commit service-account keys
-*.json

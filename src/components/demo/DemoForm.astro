@@ -71,6 +71,8 @@ const {
                 type={field.type ?? 'text'}
                 placeholder={field.placeholder}
                 required={field.required}
+                autocomplete={field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : /name/i.test(field.name) ? 'name' : 'off'}
+                inputmode={field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : field.type === 'number' ? 'numeric' : undefined}
                 data-demo-control
               />
             )}

@@ -42,6 +42,24 @@ const base = import.meta.env.BASE_URL;
         <h2 id="faq-panel-title">Pip</h2>
         <p class="faqfab__kicker">inodepi · FAQ apprentice</p>
       </div>
+      <button
+        class="faqfab__theme"
+        type="button"
+        data-faq-theme
+        aria-label="Theme: auto"
+        title="Cycle theme: auto, light, dark"
+      >
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none">
+          <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5" />
+          <path
+            d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.3 3.3l1.1 1.1M11.6 11.6l1.1 1.1M3.3 12.7l1.1-1.1M11.6 4.4l1.1-1.1"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span data-faq-theme-label>Auto</span>
+      </button>
       <button class="faqfab__close" type="button" data-faq-close aria-label="Close FAQ">
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
           <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
@@ -349,8 +367,36 @@ const base = import.meta.env.BASE_URL;
     };
 
     const toggleTheme = () => setTheme(effectiveTheme() === 'light' ? 'dark' : 'light');
-    const hasSiteTheme = () =>
-      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() !== '';
+    const clearTheme = () => {
+      document.documentElement.removeAttribute('data-theme');
+      try {
+        localStorage.removeItem(THEME_KEY);
+      } catch (error) {}
+      const system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute('content', THEME_COLORS[system]);
+      });
+    };
+    const hasSiteTheme = () => document.documentElement.classList.contains('site');
+
+    // Cycle: auto -> light -> dark -> auto.
+    const themeMode = () => (document.documentElement.getAttribute('data-theme') ? 'manual' : 'auto');
+    const cycleTheme = () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      if (!current) setTheme('light');
+      else if (current === 'light') setTheme('dark');
+      else clearTheme();
+      syncThemeButton();
+    };
+    const syncThemeButton = () => {
+      const btn = root.querySelector('[data-faq-theme]');
+      const label = root.querySelector('[data-faq-theme-label]');
+      if (!btn || !label) return;
+      const attr = document.documentElement.getAttribute('data-theme');
+      const mode = attr === 'light' ? 'Light' : attr === 'dark' ? 'Dark' : 'Auto';
+      label.textContent = mode;
+      btn.setAttribute('aria-label', 'Theme: ' + mode);
+    };
 
     let lastTap = 0;
     trigger.addEventListener('click', () => {
@@ -359,8 +405,10 @@ const base = import.meta.env.BASE_URL;
       if (now - lastTap < 350) {
         lastTap = 0;
         // Demo builds have their own brand palettes; leave them alone.
-        if (hasSiteTheme()) toggleTheme();
-        close();
+        if (hasSiteTheme()) {
+          toggleTheme();
+          close();
+        }
         return;
       }
       lastTap = now;
@@ -369,6 +417,13 @@ const base = import.meta.env.BASE_URL;
     });
 
     closeButton.addEventListener('click', close);
+
+    const themeButton = root.querySelector('[data-faq-theme]');
+    if (themeButton) {
+      if (!hasSiteTheme()) themeButton.hidden = true;
+      else themeButton.addEventListener('click', cycleTheme);
+    }
+    syncThemeButton();
 
     root.querySelectorAll('[data-faq-ask]').forEach((chip) => {
       chip.addEventListener('click', () => answer(chip));
@@ -546,6 +601,31 @@ const base = import.meta.env.BASE_URL;
   }
 
   .faqfab__close:hover {
+    border-color: var(--faq-accent);
+    color: var(--faq-accent);
+  }
+
+  .faqfab__theme {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 2.75rem;
+    padding: 0 0.7rem;
+    border: 1px solid var(--faq-line);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--faq-soft);
+    font-family: var(--faq-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      color 140ms ease;
+  }
+
+  .faqfab__theme:hover {
     border-color: var(--faq-accent);
     color: var(--faq-accent);
   }

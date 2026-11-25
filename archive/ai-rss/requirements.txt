@@ -1,1 +1,0 @@
-# stdlib only — ffmpeg does the heavy lifting

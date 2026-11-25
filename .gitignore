@@ -21,3 +21,8 @@ pnpm-debug.log*
 
 # editor
 .vscode/
+
+# old projects kept locally, not part of this site
+archive/
+# generated code graph
+graphify-out/

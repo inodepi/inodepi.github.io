@@ -1,8 +1,0 @@
-.aider*
-__pycache__/
-*.log
-out/
-seen_articles.json
-*.mp3
-*.mp4
-.env
