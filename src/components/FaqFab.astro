@@ -11,6 +11,7 @@ const base = import.meta.env.BASE_URL;
   data-faq
   data-email={siteConfig.email}
   data-whatsapp={siteConfig.whatsappUrl}
+  data-cal={calUrl}
   data-rag-url={siteConfig.ragWebhookUrl}
 >
   <button
@@ -204,11 +205,42 @@ const base = import.meta.env.BASE_URL;
       if (tail) bubble.appendChild(document.createTextNode(tail));
     };
 
+    const CONTACT_CUE =
+      /https?:\/\/inodepi\.github\.io\/#contact|cal\.com|15-minute|book a call|discovery call|get in touch/i;
+
+    const appendContactActions = (bubble) => {
+      const email = root.getAttribute('data-email') || '';
+      const whatsapp = root.getAttribute('data-whatsapp') || '';
+
+      const actions = document.createElement('span');
+      actions.className = 'faqfab__actions';
+
+      const mail = document.createElement('a');
+      mail.className = 'faqfab__cta';
+      mail.href = 'mailto:' + email + '?subject=' + encodeURIComponent('inodepi enquiry');
+      mail.textContent = 'Email me';
+      actions.appendChild(mail);
+
+      const chat = document.createElement('a');
+      chat.className = 'faqfab__cta';
+      chat.href = whatsapp;
+      chat.target = '_blank';
+      chat.rel = 'noopener noreferrer';
+      chat.textContent = 'WhatsApp';
+      actions.appendChild(chat);
+
+      bubble.appendChild(actions);
+    };
+
     const appendBubble = (text, variant) => {
       const bubble = document.createElement('p');
       bubble.className = 'faqfab__bubble faqfab__bubble--' + variant;
-      if (variant === 'bot') appendLinked(bubble, text);
-      else bubble.appendChild(document.createTextNode(text));
+      if (variant === 'bot') {
+        appendLinked(bubble, text);
+        if (CONTACT_CUE.test(text)) appendContactActions(bubble);
+      } else {
+        bubble.appendChild(document.createTextNode(text));
+      }
       log.appendChild(bubble);
       return bubble;
     };
