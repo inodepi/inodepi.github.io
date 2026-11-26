@@ -190,9 +190,11 @@ const base = import.meta.env.BASE_URL;
           url = url.slice(0, -trailing.length);
         }
 
+        const calUrl = root.getAttribute('data-cal') || '';
+        const isContact = /inodepi\.github\.io\/?#contact$/i.test(url);
         const link = document.createElement('a');
         link.className = 'faqfab__cta';
-        link.href = url;
+        link.href = isContact && calUrl ? calUrl : url;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = LINK_LABELS[url] || 'Open link';
