@@ -61,7 +61,7 @@ export const faqItems: FaqItem[] = [
     group: 'Services',
     question: 'Do you work with my industry?',
     answer:
-      'Nine years in high-volume BPO operations; built for towing, dental, glamping, and e-commerce leads. If a process repeats and touches software, it can be automated.',
+      'Built for local service businesses — HVAC, plumbing, roofing, towing, dental, hospitality and e-commerce. If a process repeats and touches software, it can be automated.',
   },
   {
     id: 'one-off',
