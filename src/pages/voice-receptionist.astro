@@ -1,31 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Footer from '../components/Footer.astro';
+import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 import { siteConfig } from '../data/projects';
 
 const base = import.meta.env.BASE_URL;
 const repoUrl = 'https://github.com/inodepi/voice-receptionist';
 
 const badges = ['HIPAA-compliant build available', 'Built on n8n', 'Live on synthetic calls'];
-
-const useCases = [
-  {
-    title: 'After-hours intake',
-    body: 'Answer calls that arrive after your team closes, capture the reason for the call and book the next open slot.',
-  },
-  {
-    title: 'Lunch and overflow',
-    body: 'Pick up the calls a busy team cannot reach, so a ringing phone never becomes a lost customer.',
-  },
-  {
-    title: 'New-customer screening',
-    body: 'Collect contact details, the service needed and the reason for the call before a human touches the schedule.',
-  },
-  {
-    title: 'Cancellation recovery',
-    body: 'Offer freed slots to callers instead of letting them fall into voicemail.',
-  },
-];
 
 const capabilities = [
   'Answers missed and after-hours calls, 24/7',
@@ -202,15 +184,26 @@ const jsonLd = [
         </section>
 
         <section class="proj-section" id="use-cases">
-          <h2>Use cases</h2>
-          <div class="proj-cases">
-            {useCases.map((useCase) => (
-              <article class="proj-case">
-                <h3>{useCase.title}</h3>
-                <p>{useCase.body}</p>
-              </article>
-            ))}
-          </div>
+          <AutomationBreakdown
+            problem="Every call that rings out during a job goes to voicemail, and most callers don't leave one. After-hours and lunch-rush calls are the easiest jobs to lose."
+            cost={[
+              { label: '4 missed calls/week × 25% close', value: '4 lost jobs/mo' },
+              { label: '4 jobs × $450 average ticket', value: '$1,800/mo gone' },
+              { label: '3 hrs/week of call-backs and notes', value: '~12 hrs/mo' },
+            ]}
+            fix="Retell answers the call, n8n checks the calendar, books the slot, logs it and alerts the crew — 24/7."
+            fixPoints={[
+              'A missed or after-hours call hits a webhook; the voice agent captures name, service, address and urgency as structured fields.',
+              'n8n conflict-checks Google Calendar, books after confirmation, writes the log to Sheets and sends the team a short alert.',
+              'Runs in your Retell, n8n, Calendar and API accounts: flat setup fee, no per-minute agency markup.',
+            ]}
+            stats={[
+              { value: '4–6 hrs/wk', label: 'Admin hours saved', note: 'No voicemail call-backs or retyped notes.' },
+              { value: '$1.5K–$2.5K', label: 'Monthly revenue recovered', note: '3–5 jobs at a $500 average ticket.' },
+              { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+            ]}
+            ctaHref={`${base}#contact`}
+          />
         </section>
 
         <section class="proj-section">
@@ -572,39 +565,6 @@ const jsonLd = [
     font-size: 0.625rem;
     letter-spacing: 0.02em;
     color: var(--ink-dim);
-  }
-
-  .proj-cases {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .proj-cases {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .proj-case {
-    padding: 1rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-  }
-
-  .proj-case h3 {
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
-  }
-
-  .proj-case p {
-    margin-top: 0.35rem;
-    color: var(--ink-soft);
-    font-size: 0.875rem;
-    line-height: 1.6;
   }
 
   .proj-list {

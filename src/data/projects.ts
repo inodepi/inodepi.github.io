@@ -75,10 +75,10 @@ export const automationRepos: AutomationRepo[] = [
   {
     id: 'omnichannel-receptionist',
     title: 'Omnichannel AI Receptionist',
-    problem: 'Customers ask on every channel; only some get answered.',
+    problem: 'Missed calls and chats walk to the next contractor — 2–4 jobs/month and 5–8 hrs of call-backs.',
     stack: ['n8n', 'Telegram', 'WhatsApp', 'Email', 'Calendar'],
     summary:
-      'One receptionist brain across voice, chat and email — any model, any channel. Remembers each customer, books real slots, logs every conversation and alerts the team.',
+      'One n8n receptionist answers voice, SMS and chat, books real calendar slots and logs every thread. Flat setup fee; your accounts.',
     repoUrl: '/omnichannel-receptionist/',
     linkLabel: 'View the build',
     featured: true,
@@ -87,10 +87,10 @@ export const automationRepos: AutomationRepo[] = [
   {
     id: 'ai-lead-enrichment',
     title: 'AI Lead Enrichment',
-    problem: 'Cold lists get called without knowing why they would buy.',
+    problem: 'Blind lists burn 3+ hrs/week, and half the dials are poor fit.',
     stack: ['n8n', 'Notion', 'Gemini', 'Gmail'],
     summary:
-      'Polls a Notion lead database, has a Gemini agent research each business and flag likely site issues, scores fit 1–10, writes the research and a draft back to the row, and files the email as a Gmail draft.',
+      'n8n researches each lead, scores fit 1–10 and drafts a specific first email before you call. Flat setup fee; no per-seat tool.',
     repoUrl: '/lead-enrichment/',
     linkLabel: 'View the build',
     featured: true,
@@ -99,10 +99,10 @@ export const automationRepos: AutomationRepo[] = [
   {
     id: 'dead-lead-retrieval',
     title: 'Dead Lead Retrieval',
-    problem: 'Stale leads die quietly in the CRM.',
+    problem: 'Dormant leads die in the CRM — $600–$1,800/month left untouched.',
     stack: ['n8n', 'OpenRouter', 'CRM'],
     summary:
-      'Drafts personalised check-ins for dormant leads, files them as Gmail drafts and tracks every lead — human-in-the-loop by design.',
+      'n8n reopens quiet leads with context-aware Gmail drafts you approve and send. Your CRM, flat setup fee.',
     repoUrl: '/dead-lead-retrieval/',
     linkLabel: 'View the build',
     featured: true,
@@ -111,10 +111,10 @@ export const automationRepos: AutomationRepo[] = [
   {
     id: 'ar-invoice-reminder-agent',
     title: 'AR Invoice Reminder',
-    problem: 'Overdue invoices slip when chasing them is manual.',
+    problem: 'Late invoices sit unchased — $3K+ tied up and 2 hrs/week of admin.',
     stack: ['n8n', 'Gemini', 'Google Sheets'],
     summary:
-      'Reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft — a human still presses send.',
+      'A daily n8n run computes days overdue and files tone-matched reminders as Gmail drafts. Flat setup fee; you press send.',
     repoUrl: '/ar-invoice-reminder/',
     linkLabel: 'View the build',
     featured: true,

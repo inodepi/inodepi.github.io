@@ -2,31 +2,13 @@
 import Base from '../layouts/Base.astro';
 import Footer from '../components/Footer.astro';
 import VideoBeats from '../components/VideoBeats.astro';
+import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 import { siteConfig } from '../data/projects';
 
 const base = import.meta.env.BASE_URL;
 const voiceUrl = '/voice-receptionist/';
 
 const badges = ['Omnichannel — voice + chat + email', 'Built on n8n', 'Model-agnostic — any LLM'];
-
-const useCases = [
-  {
-    title: 'Chat-first intake',
-    body: 'Customers who open a website chat or send a Telegram message get the same answers, the same slots and the same memory as callers.',
-  },
-  {
-    title: 'Inbox triage',
-    body: 'Patient emails are read, answered with real availability and filed — without anyone copying details into the calendar by hand.',
-  },
-  {
-    title: 'After-hours coverage',
-    body: 'Evenings, weekends and lunch rushes are covered on every channel, not just the phone.',
-  },
-  {
-    title: 'Escalation that holds',
-    body: 'Emergencies, legal mentions and upset customers are flagged to a human on the same channel, every time.',
-  },
-];
 
 const capabilities = [
   'One brain across voice, chat and email — Telegram, WhatsApp, website chat, SMS',
@@ -201,15 +183,26 @@ const jsonLd = [
         </section>
 
         <section class="proj-section" id="use-cases">
-          <h2>Use cases</h2>
-          <div class="proj-cases">
-            {useCases.map((useCase) => (
-              <article class="proj-case">
-                <h3>{useCase.title}</h3>
-                <p>{useCase.body}</p>
-              </article>
-            ))}
-          </div>
+          <AutomationBreakdown
+            problem="Calls, texts and emails land while the crew is on a roof or under a sink. The phone rings out, the chat tab is ignored, and the customer books the next contractor."
+            cost={[
+              { label: '4 missed enquiries/week × 20% close', value: '3 lost jobs/mo' },
+              { label: '3 jobs × $500 average ticket', value: '$1,500/mo gone' },
+              { label: '45 min/day re-reading messages and retyping details', value: '~4 hrs/week' },
+            ]}
+            fix="One n8n workflow answers every channel, remembers the customer and books real calendar slots while the crew is on site."
+            fixPoints={[
+              'Webhook triggers pull voice, SMS, website chat and email into one workflow — no per-channel inbox to babysit.',
+              'Checks live calendar availability, books only after confirmation, and logs the thread to your sheet.',
+              'Runs in your n8n, calendar and API accounts: flat setup fee, no per-seat markup, no retainer.',
+            ]}
+            stats={[
+              { value: '5–8 hrs/wk', label: 'Admin hours saved', note: 'No more retyping message threads.' },
+              { value: '$1K–$2K', label: 'Monthly revenue recovered', note: '2–4 jobs at a $500 average ticket.' },
+              { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+            ]}
+            ctaHref={`${base}#contact`}
+          />
         </section>
 
         <section class="proj-section">
@@ -555,39 +548,6 @@ const jsonLd = [
     color: var(--ink-soft);
     font-size: 0.9688rem;
     line-height: 1.7;
-  }
-
-  .proj-cases {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .proj-cases {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .proj-case {
-    padding: 1rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-  }
-
-  .proj-case h3 {
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
-  }
-
-  .proj-case p {
-    margin-top: 0.35rem;
-    color: var(--ink-soft);
-    font-size: 0.875rem;
-    line-height: 1.6;
   }
 
   .proj-list {

@@ -1,6 +1,7 @@
 ---
 import ProjectShell from '../components/ProjectShell.astro';
 import VideoBeats from '../components/VideoBeats.astro';
+import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 import { siteConfig } from '../data/projects';
 
 const nodes = [
@@ -40,13 +41,6 @@ const jsonLd = [
       { '@type': 'ListItem', position: 2, name: 'Dead Lead Retrieval', item: 'https://inodepi.github.io/dead-lead-retrieval/' },
     ],
   },
-];
-
-const useCases = [
-  { title: 'Dormant CRM', body: 'Reopen old leads with a specific note that references the original conversation, not a blast.' },
-  { title: 'Quote follow-up', body: 'Follow up on estimates that never got a yes or a no, before they go cold.' },
-  { title: 'Event and webinar lists', body: 'Turn a tired attendee list into real conversations with a human approving every send.' },
-  { title: 'Trial expiry', body: 'Check in before a trial quietly lapses, with the original context already in the draft.' },
 ];
 
 const guardrails = [
@@ -121,15 +115,25 @@ const guardrails = [
   </section>
 
   <section class="proj-section">
-    <h2>Use cases</h2>
-    <div class="proj-cases">
-      {useCases.map((useCase) => (
-        <article class="proj-case">
-          <h3>{useCase.title}</h3>
-          <p>{useCase.body}</p>
-        </article>
-      ))}
-    </div>
+    <AutomationBreakdown
+      problem="Old estimates and quiet leads sit in the CRM because nobody has time to reopen the thread. The lead you already paid for is the cheapest job you can win."
+      cost={[
+        { label: '100-lead batch × 5% reply', value: '5 conversations' },
+        { label: '1 in 3 conversations becomes an estimate', value: '1–2 estimates' },
+        { label: '1 job × $600 average ticket', value: '$600–$1,800/mo dormant' },
+      ]}
+      fix="An n8n workflow reopens dormant leads with context-aware check-ins filed as Gmail drafts, so you approve and send in seconds."
+      fixPoints={[
+        'A scheduled run pulls quiet CRM leads and the original conversation context.',
+        'The model writes a specific check-in; n8n files it as a draft, logs the touch and stops duplicates.',
+        'Human presses send. Runs in your CRM, Gmail and n8n accounts: flat setup fee, no retainer.',
+      ]}
+      stats={[
+        { value: '2–4 hrs/wk', label: 'Admin hours saved', note: 'No manual list-pulling or thread review.' },
+        { value: '$600–$1,800', label: 'Monthly revenue recovered', note: '1–3 jobs at a $600 average ticket.' },
+        { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+      ]}
+    />
   </section>
 
   <section class="proj-section">
@@ -187,39 +191,6 @@ const guardrails = [
     fill: var(--ink-dim);
     font-family: var(--font-mono);
     font-size: 9.5px;
-  }
-
-  .proj-cases {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .proj-cases {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .proj-case {
-    padding: 1rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-  }
-
-  .proj-case h3 {
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
-  }
-
-  .proj-case p {
-    margin-top: 0.35rem;
-    color: var(--ink-soft);
-    font-size: 0.875rem;
-    line-height: 1.6;
   }
 
   .proj-list {

@@ -1,6 +1,7 @@
 ---
 import ProjectShell from '../components/ProjectShell.astro';
 import VideoBeats from '../components/VideoBeats.astro';
+import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 
 const nodes = [
   { x: 16, y: 20, w: 180, h: 70, label: 'Schedule poll', sub: 'every 15 minutes', hue: '#46cfc0', core: true },
@@ -49,13 +50,6 @@ const jsonLd = [
       { '@type': 'ListItem', position: 2, name: 'AI Lead Enrichment', item: 'https://inodepi.github.io/lead-enrichment/' },
     ],
   },
-];
-
-const useCases = [
-  { title: 'Site audit lists', body: 'A scraped list of local businesses gets the audit you would normally do by hand, one row at a time.' },
-  { title: 'Agency prospecting', body: 'Find the businesses whose site is actively costing them leads, before you spend a call finding out.' },
-  { title: 'Inbound without a brief', body: 'Every form fill arrives with the research, the fit score and a draft that references something specific.' },
-  { title: 'Partner and vendor research', body: 'Score fit against your own criteria instead of a generic industry guess.' },
 ];
 
 const guardrails = [
@@ -135,15 +129,25 @@ const guardrails = [
   </section>
 
   <section class="proj-section">
-    <h2>Use cases</h2>
-    <div class="proj-cases">
-      {useCases.map((useCase) => (
-        <article class="proj-case">
-          <h3>{useCase.title}</h3>
-          <p>{useCase.body}</p>
-        </article>
-      ))}
-    </div>
+    <AutomationBreakdown
+      problem="Cold lists get dialed with no research, so the first call is spent asking questions the website already answers. Half the list was never a fit."
+      cost={[
+        { label: '20 leads/week × 10 min research', value: '3+ hrs/week' },
+        { label: '10 of 20 leads are poor fit', value: '10 wasted dials/week' },
+        { label: '1 extra estimate/month at $600', value: '$600/mo left on the table' },
+      ]}
+      fix="An n8n pipeline researches each new lead, scores fit and files a specific first email as a draft before anyone dials."
+      fixPoints={[
+        'A schedule trigger polls Notion for unenriched rows and sends each business to a research step.',
+        'The workflow flags site issues, scores fit 1–10 from the output, writes it back to the row and files the email as a Gmail draft.',
+        'Nothing auto-sends. Runs in your n8n and Notion accounts: flat setup fee, no per-seat enrichment subscription.',
+      ]}
+      stats={[
+        { value: '3–5 hrs/wk', label: 'Admin hours saved', note: 'No manual research before the first dial.' },
+        { value: '$600–$1,200', label: 'Monthly revenue recovered', note: '1–2 extra estimates per month.' },
+        { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+      ]}
+    />
   </section>
 
   <section class="proj-section">
@@ -211,39 +215,6 @@ const guardrails = [
     fill: var(--ink-dim);
     font-family: var(--font-mono);
     font-size: 9.5px;
-  }
-
-  .proj-cases {
-    display: grid;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-
-  @media (min-width: 640px) {
-    .proj-cases {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .proj-case {
-    padding: 1rem;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-  }
-
-  .proj-case h3 {
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
-  }
-
-  .proj-case p {
-    margin-top: 0.35rem;
-    color: var(--ink-soft);
-    font-size: 0.875rem;
-    line-height: 1.6;
   }
 
   .proj-list {

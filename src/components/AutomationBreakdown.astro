@@ -1,0 +1,350 @@
+---
+interface CostLine {
+  label: string;
+  value: string;
+}
+
+interface Stat {
+  value: string;
+  label: string;
+  note?: string;
+}
+
+interface Props {
+  problem: string;
+  cost: CostLine[];
+  costFootnote?: string;
+  fix: string;
+  fixPoints: string[];
+  stats: Stat[];
+  ctaHref?: string;
+}
+
+const {
+  problem,
+  cost,
+  costFootnote = 'Estimated operational math, not a client result.',
+  fix,
+  fixPoints,
+  stats,
+  ctaHref = '/#contact',
+} = Astro.props;
+---
+
+<div class="breakdown">
+  <div class="bd-top">
+    <article class="bd-block bd-block--problem">
+      <header class="bd-head">
+        <span class="bd-index" aria-hidden="true">01</span>
+        <h2 class="bd-title">The Problem</h2>
+      </header>
+      <p class="bd-copy">{problem}</p>
+    </article>
+
+    <article class="bd-block bd-block--cost">
+      <header class="bd-head">
+        <span class="bd-index" aria-hidden="true">02</span>
+        <h2 class="bd-title">The Cost of Repetition</h2>
+      </header>
+      <ul class="bd-math">
+        {cost.map((line) => (
+          <li>
+            <span>{line.label}</span>
+            <strong>{line.value}</strong>
+          </li>
+        ))}
+      </ul>
+      <p class="bd-fine">{costFootnote}</p>
+    </article>
+  </div>
+
+  <article class="bd-block bd-block--fix">
+    <header class="bd-head">
+      <span class="bd-index" aria-hidden="true">03</span>
+      <h2 class="bd-title">The Fix</h2>
+    </header>
+    <p class="bd-copy">{fix}</p>
+    <ul class="bd-fix">
+      {fixPoints.map((point) => <li>{point}</li>)}
+    </ul>
+  </article>
+
+  <section class="bd-saved" aria-labelledby="bd-saved-title">
+    <header class="bd-saved-head">
+      <div class="bd-head">
+        <span class="bd-index" aria-hidden="true">04</span>
+        <h2 class="bd-title" id="bd-saved-title">Saved Hours &amp; Revenue</h2>
+      </div>
+      <p class="bd-fine">Estimated operational impact — not a client case study.</p>
+    </header>
+
+    <dl class="bd-stats">
+      {stats.map((stat) => (
+        <div class="bd-stat">
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}</dd>
+          {stat.note && <p>{stat.note}</p>}
+        </div>
+      ))}
+    </dl>
+
+    <div class="bd-cta">
+      <p>Bring one process that leaks. Leave with the workflow map.</p>
+      <a class="btn btn-primary" href={ctaHref}>Book a 15-minute call</a>
+    </div>
+  </section>
+</div>
+
+<style>
+  .breakdown {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .bd-top {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 860px) {
+    .bd-top {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    }
+  }
+
+  .bd-block {
+    position: relative;
+    padding: 1.2rem 1.25rem 1.3rem;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .bd-block::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--bd-stop), transparent 72%);
+    opacity: 0.85;
+  }
+
+  .bd-block--problem {
+    --bd-stop: var(--node-rose);
+  }
+
+  .bd-block--cost {
+    --bd-stop: var(--node-amber);
+  }
+
+  .bd-block--fix {
+    --bd-stop: var(--node-teal);
+  }
+
+  .bd-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .bd-index {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .bd-block .bd-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .bd-copy {
+    margin-top: 0.65rem;
+    color: var(--ink-soft);
+    font-size: 0.9688rem;
+    line-height: 1.65;
+  }
+
+  .bd-math {
+    display: grid;
+    gap: 0;
+    margin: 0.65rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bd-math li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .bd-math li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .bd-math strong {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 520px) {
+    .bd-math li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.15rem;
+    }
+
+    .bd-math strong {
+      text-align: left;
+      white-space: normal;
+    }
+  }
+
+  .bd-fine {
+    margin-top: 0.7rem;
+    color: var(--ink-dim);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .bd-fix {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bd-fix li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .bd-fix li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--bd-stop);
+  }
+
+  .bd-saved {
+    padding: 1.2rem 1.25rem 1.3rem;
+    background: var(--panel);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: 10px;
+  }
+
+  .bd-saved-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+  }
+
+  .bd-saved-head .bd-fine {
+    margin-top: 0;
+  }
+
+  .bd-stats {
+    display: grid;
+    gap: 1px;
+    margin: 1rem 0 0;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+
+  @media (min-width: 720px) {
+    .bd-stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .bd-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.9rem 1rem 1rem;
+    background: var(--panel-raised);
+  }
+
+  .bd-stat dt {
+    order: 2;
+    color: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .bd-stat dd {
+    order: 1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 1.3rem + 1vw, 2.15rem);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bd-stat:last-child dd {
+    color: var(--node-teal);
+  }
+
+  .bd-stat p {
+    order: 3;
+    margin-top: 0.3rem;
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .bd-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .bd-cta p {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 479px) {
+    .bd-cta .btn {
+      width: 100%;
+    }
+  }
+</style>
