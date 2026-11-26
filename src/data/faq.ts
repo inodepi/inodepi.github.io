@@ -31,7 +31,7 @@ export const faqItems: FaqItem[] = [
     group: 'About the work',
     question: 'What do you actually build?',
     answer:
-      'Multi-workflow n8n systems that connect APIs, webhooks, AI pipelines, CRM and ops tooling — plus the websites those loops start on. Booking, reminders, invoicing, follow-ups.',
+      'Multi-workflow n8n systems that connect APIs, webhooks, AI pipelines, CRM and ops tooling. Booking, reminders, invoicing, follow-ups.',
   },
   {
     id: 'tools',
@@ -54,7 +54,7 @@ export const faqItems: FaqItem[] = [
     group: 'Services',
     question: 'What kinds of systems have you built?',
     answer:
-      'AI receptionists across voice, chat and email; lead enrichment and scoring agents (Notion → Gemini → CRM); AR invoice reminders with tone-matched drafts; HR onboarding pipelines; dead-lead revival campaigns; websites with the automation behind them — one build, one handover.',
+      'AI receptionists across voice, chat and email; lead enrichment and scoring agents (Notion → Gemini → CRM); AR invoice reminders with tone-matched drafts; HR onboarding pipelines; dead-lead revival campaigns — one build, one handover.',
   },
   {
     id: 'industry',
