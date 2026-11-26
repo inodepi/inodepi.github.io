@@ -168,10 +168,47 @@ const base = import.meta.env.BASE_URL;
       }
     };
 
+    const LINK_LABELS = {
+      'https://inodepi.github.io/#contact': 'Book a 15-minute call',
+      'https://cal.com/christian-john-vallejos-adws8d/discovery': 'Book a 15-minute call',
+    };
+
+    const appendLinked = (bubble, text) => {
+      const urlPattern = /(https?:\/\/[^\s)]+)/g;
+      let cursor = 0;
+      let match;
+      while ((match = urlPattern.exec(text)) !== null) {
+        const before = text.slice(cursor, match.index);
+        if (before) bubble.appendChild(document.createTextNode(before));
+
+        let url = match[0];
+        let trailing = '';
+        const trailMatch = url.match(/[.,;:!?]+$/);
+        if (trailMatch) {
+          trailing = trailMatch[0];
+          url = url.slice(0, -trailing.length);
+        }
+
+        const link = document.createElement('a');
+        link.className = 'faqfab__cta';
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = LINK_LABELS[url] || 'Open link';
+        bubble.appendChild(link);
+        if (trailing) bubble.appendChild(document.createTextNode(trailing));
+
+        cursor = match.index + match[0].length;
+      }
+      const tail = text.slice(cursor);
+      if (tail) bubble.appendChild(document.createTextNode(tail));
+    };
+
     const appendBubble = (text, variant) => {
       const bubble = document.createElement('p');
       bubble.className = 'faqfab__bubble faqfab__bubble--' + variant;
-      bubble.appendChild(document.createTextNode(text));
+      if (variant === 'bot') appendLinked(bubble, text);
+      else bubble.appendChild(document.createTextNode(text));
       log.appendChild(bubble);
       return bubble;
     };
