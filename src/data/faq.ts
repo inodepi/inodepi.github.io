@@ -15,7 +15,7 @@ export interface FaqItem {
 }
 
 export const faqGreeting = {
-  body: "Hi! I'm Pip — the site's FAQ apprentice. I'm a bit limited, more cheat sheet than chatbot. For anything about your own service, my master would rather you talked to a real person:",
+  body: "Hi! I'm Pip — inodepi's assistant. Ask about services, pricing, process or how the builds work. For anything specific to your business, Christian can answer it directly:",
   cta: 'Book a 15-minute call',
 };
 
