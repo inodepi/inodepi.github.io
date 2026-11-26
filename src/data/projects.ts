@@ -65,7 +65,7 @@ export const siteConfig: SiteConfig = {
   whatsappUrl: 'https://wa.me/639386042425',
   ragWebhookUrl:
     import.meta.env.PUBLIC_RAG_WEBHOOK ??
-    'https://n8n-production-a6b8e1f9.up.railway.app/webhook/pip-answer',
+    'https://n8n-production-a6b8e1f9.up.railway.app/webhook/pip-chat',
   calendarUrl: 'https://cal.com/christian-john-vallejos-adws8d/discovery',
   calendarEventTypeId: 7623308,
   calendarTimeZone: 'Asia/Manila',
