@@ -1,0 +1,614 @@
+---
+import { siteConfig } from '../data/projects';
+
+const slotsUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake-slots';
+const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake-submit';
+---
+
+<div
+  class="intakefab"
+  data-intake
+  data-slots-url={slotsUrl}
+  data-submit-url={submitUrl}
+  data-email={siteConfig.email}
+>
+  <button
+    class="intakefab__trigger"
+    type="button"
+    data-intake-toggle
+    aria-expanded="false"
+    aria-controls="intake-panel"
+    aria-label="Open intake form"
+  >
+    <svg class="intakefab__trigger-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+      <path
+        d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-3.25-2-3.25 2-3.25-2-3.25 2v-16a1 1 0 0 1 1-1z"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linejoin="round"
+      />
+      <path d="M9 8.5h6M9 12h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <section
+    class="intakefab__panel"
+    id="intake-panel"
+    role="dialog"
+    aria-labelledby="intake-panel-title"
+    data-intake-panel
+    hidden
+  >
+    <header class="intakefab__head">
+      <div class="intakefab__title-wrap">
+        <h2 id="intake-panel-title">Intake</h2>
+        <p class="intakefab__kicker">inodepi · new project</p>
+      </div>
+      <button
+        class="intakefab__theme"
+        type="button"
+        data-intake-theme
+        aria-label="Theme: auto"
+        title="Cycle theme: auto, light, dark"
+      >
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none">
+          <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5" />
+          <path
+            d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.3 3.3l1.1 1.1M11.6 11.6l1.1 1.1M3.3 12.7l1.1-1.1M11.6 4.4l1.1-1.1"
+            stroke="currentColor"
+            stroke-width="1.3"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span data-intake-theme-label>Auto</span>
+      </button>
+      <button class="intakefab__close" type="button" data-intake-close aria-label="Close intake form">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </header>
+
+    <form class="intakefab__form" data-intake-form novalidate>
+      <div class="intakefab__field">
+        <label for="intake-name">Name</label>
+        <input id="intake-name" type="text" name="name" required autocomplete="name" />
+      </div>
+
+      <div class="intakefab__field">
+        <label for="intake-email">Email</label>
+        <input id="intake-email" type="email" name="email" required autocomplete="email" />
+      </div>
+
+      <div class="intakefab__field">
+        <label for="intake-slot">Best time to contact</label>
+        <select id="intake-slot" name="preferredSlot" required data-intake-slot>
+          <option value="">Loading open times…</option>
+        </select>
+        <span class="intakefab__hint" data-intake-slot-hint></span>
+      </div>
+
+      <div class="intakefab__field">
+        <label for="intake-summary">What do you keep doing by hand?</label>
+        <textarea
+          id="intake-summary"
+          name="summary"
+          required
+          rows="3"
+          placeholder="The repeated task, and how often it happens."
+        ></textarea>
+      </div>
+
+      <div class="intakefab__field intakefab__field--check">
+        <label>
+          <input type="checkbox" name="consent" required />
+          <span>I agree to be contacted by email about this.</span>
+        </label>
+      </div>
+
+      <button type="submit" class="intakefab__submit" data-intake-submit>Send</button>
+
+      <p class="intakefab__status" data-intake-status role="status" aria-live="polite"></p>
+    </form>
+
+    <p class="intakefab__done" data-intake-done hidden>
+      Got it. I read every one of these and reply by email — usually within one business day.
+    </p>
+  </section>
+</div>
+
+<script is:inline>
+  (function () {
+    const root = document.querySelector('[data-intake]');
+    if (!root) return;
+
+    const toggle = root.querySelector('[data-intake-toggle]');
+    const panel = root.querySelector('[data-intake-panel]');
+    const closeBtn = root.querySelector('[data-intake-close]');
+    const form = root.querySelector('[data-intake-form]');
+    const done = root.querySelector('[data-intake-done]');
+    const slotSelect = root.querySelector('[data-intake-slot]');
+    const slotHint = root.querySelector('[data-intake-slot-hint]');
+    const status = root.querySelector('[data-intake-status]');
+    const submitBtn = root.querySelector('[data-intake-submit]');
+    const themeButton = root.querySelector('[data-intake-theme]');
+    const themeLabel = root.querySelector('[data-intake-theme-label]');
+
+    const slotsUrl = root.getAttribute('data-slots-url');
+    const submitUrl = root.getAttribute('data-submit-url');
+    const email = root.getAttribute('data-email') || '';
+
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const tzLabel = (tz || 'local').replace(/_/g, ' ');
+    const dayFmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    });
+    const timeFmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: tz,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+
+    let lastFocus = null;
+    let slotsLoaded = false;
+    let slotMode = 'select';
+
+    /* Theme override ------------------------------------------------- */
+    // Keep the key and colours in sync with the no-flash script in Base.astro.
+    const THEME_KEY = 'inodepi-theme';
+    const THEME_COLORS = { dark: '#0c1727', light: '#f5f2ea' };
+
+    const effectiveTheme = () => {
+      const attr = document.documentElement.getAttribute('data-theme');
+      if (attr === 'light' || attr === 'dark') return attr;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    };
+
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      try {
+        localStorage.setItem(THEME_KEY, theme);
+      } catch (error) {}
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute('content', THEME_COLORS[theme]);
+      });
+    };
+
+    const clearTheme = () => {
+      document.documentElement.removeAttribute('data-theme');
+      try {
+        localStorage.removeItem(THEME_KEY);
+      } catch (error) {}
+      const system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+        meta.setAttribute('content', THEME_COLORS[system]);
+      });
+    };
+
+    const syncThemeButton = () => {
+      if (!themeButton || !themeLabel) return;
+      const attr = document.documentElement.getAttribute('data-theme');
+      const mode = attr === 'light' ? 'Light' : attr === 'dark' ? 'Dark' : 'Auto';
+      themeLabel.textContent = mode;
+      themeButton.setAttribute('aria-label', 'Theme: ' + mode);
+    };
+
+    if (themeButton) {
+      if (!document.documentElement.classList.contains('site')) themeButton.hidden = true;
+      else {
+        themeButton.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          if (!current) setTheme('light');
+          else if (current === 'light') setTheme('dark');
+          else clearTheme();
+          syncThemeButton();
+        });
+        syncThemeButton();
+      }
+    }
+
+    /* Open / close --------------------------------------------------- */
+    const open = () => {
+      lastFocus = document.activeElement;
+      panel.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      if (!slotsLoaded) loadSlots();
+      const first = form.querySelector('input, select, textarea');
+      if (first) first.focus({ preventScroll: true });
+    };
+
+    const close = () => {
+      if (panel.hidden) return;
+      panel.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
+      else toggle.focus({ preventScroll: true });
+    };
+
+    toggle.addEventListener('click', () => (panel.hidden ? open() : close()));
+    closeBtn.addEventListener('click', close);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) close();
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (panel.hidden) return;
+      const target = e.target;
+      if (!(target instanceof Node)) return;
+      if (panel.contains(target) || toggle.contains(target)) return;
+      close();
+    });
+
+    /* Slots ---------------------------------------------------------- */
+    const useTextFallback = (hint) => {
+      slotMode = 'text';
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.id = 'intake-slot';
+      input.name = 'preferredSlotText';
+      input.required = true;
+      input.placeholder = 'e.g. Tue or Thu afternoon';
+      slotSelect.replaceWith(input);
+      slotHint.textContent = hint;
+    };
+
+    async function loadSlots() {
+      slotsLoaded = true;
+      try {
+        const res = await fetch(slotsUrl, { headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('slots ' + res.status);
+        const json = await res.json();
+        const slots = Array.isArray(json.slots) ? json.slots.filter((s) => s && s.time) : [];
+        if (slots.length === 0) {
+          useTextFallback('No open times posted right now — type a rough window instead.');
+          return;
+        }
+
+        const groups = new Map();
+        for (const slot of slots) {
+          const date = new Date(slot.time);
+          const day = dayFmt.format(date);
+          if (!groups.has(day)) groups.set(day, []);
+          groups.get(day).push({ utc: slot.time, date });
+        }
+
+        slotSelect.textContent = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Pick a time…';
+        slotSelect.appendChild(placeholder);
+
+        for (const [day, items] of groups) {
+          const group = document.createElement('optgroup');
+          group.label = day;
+          for (const item of items) {
+            const option = document.createElement('option');
+            option.value = item.utc;
+            option.textContent = timeFmt.format(item.date);
+            option.dataset.local = day + ', ' + timeFmt.format(item.date);
+            group.appendChild(option);
+          }
+          slotSelect.appendChild(group);
+        }
+
+        slotHint.textContent = 'Open 15-min slots in your timezone (' + tzLabel + ').';
+      } catch (error) {
+        useTextFallback('Could not load times — type a rough window instead.');
+      }
+    }
+
+    /* Submit --------------------------------------------------------- */
+    const slotValue = (data) => {
+      if (slotMode === 'text') {
+        const text = (data.get('preferredSlotText') || '').toString().trim();
+        return { utc: '', local: text, ok: Boolean(text) };
+      }
+      const option = slotSelect.options[slotSelect.selectedIndex];
+      const utc = option ? option.value : '';
+      return { utc, local: (option && option.dataset.local) || '', ok: Boolean(utc) };
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+
+      const data = new FormData(form);
+      const slot = slotValue(data);
+      const payload = {
+        name: (data.get('name') || '').toString().trim(),
+        email: (data.get('email') || '').toString().trim(),
+        preferredSlot: slot.utc,
+        preferredSlotLocal: slot.local,
+        timezone: tz || '',
+        summary: (data.get('summary') || '').toString().trim(),
+        consent: data.get('consent') === 'on',
+      };
+
+      if (!payload.name || !payload.email || !slot.ok || !payload.summary || !payload.consent) {
+        status.textContent = 'Please fill in every field.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(submitUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.ok === false) throw new Error(json.message || 'submit failed');
+        form.hidden = true;
+        done.hidden = false;
+      } catch (error) {
+        status.textContent = email
+          ? 'Could not send. Email me instead: ' + email
+          : 'Could not send. Please try again.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send';
+      }
+    });
+  })();
+</script>
+
+<style>
+  .intakefab {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 70;
+  }
+
+  .intakefab__trigger {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 140ms ease, filter 140ms ease;
+  }
+
+  .intakefab__trigger:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+  }
+
+  .intakefab__trigger-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .intakefab__panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(3.5rem + 0.75rem);
+    display: flex;
+    flex-direction: column;
+    width: min(26rem, calc(100vw - 1.5rem));
+    max-height: min(42rem, calc(100dvh - 7rem));
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    animation: intakefab-in 160ms ease-out;
+  }
+
+  .intakefab__panel[hidden] {
+    display: none;
+  }
+
+  .intakefab__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .intakefab__title-wrap {
+    margin-right: auto;
+  }
+
+  .intakefab__title-wrap h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+  }
+
+  .intakefab__kicker {
+    margin: 0.1rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+
+  .intakefab__theme,
+  .intakefab__close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 2.25rem;
+    padding: 0 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+
+  .intakefab__close {
+    padding: 0;
+    width: 2.25rem;
+    justify-content: center;
+  }
+
+  .intakefab__theme:hover,
+  .intakefab__close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .intakefab__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .intakefab__form[hidden] {
+    display: none;
+  }
+
+  .intakefab__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .intakefab__field > label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  .intakefab__field input,
+  .intakefab__field select,
+  .intakefab__field textarea {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--panel-raised);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 0.875rem;
+  }
+
+  .intakefab__field textarea {
+    min-height: 4.5rem;
+    resize: vertical;
+  }
+
+  .intakefab__field input:focus-visible,
+  .intakefab__field select:focus-visible,
+  .intakefab__field textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  .intakefab__field--check > label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+
+  .intakefab__field--check input {
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    min-height: 0;
+    margin-top: 0.15rem;
+  }
+
+  .intakefab__hint {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    line-height: 1.45;
+    color: var(--ink-dim);
+  }
+
+  .intakefab__submit {
+    min-height: 2.75rem;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 140ms ease;
+  }
+
+  .intakefab__submit:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+
+  .intakefab__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .intakefab__status {
+    margin: 0;
+    min-height: 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .intakefab__done {
+    margin: 0;
+    padding: 1.25rem 1rem 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  @keyframes intakefab-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .intakefab__panel {
+      width: calc(100vw - 1.5rem);
+      max-height: min(38rem, calc(100dvh - 6.5rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intakefab__panel {
+      animation: none;
+    }
+  }
+</style>

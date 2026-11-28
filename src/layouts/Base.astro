@@ -3,7 +3,7 @@ import '../styles/global.css';
 import { siteConfig } from '../data/projects';
 import BrandMark from '../components/BrandMark.astro';
 import PiGlyph from '../components/PiGlyph.astro';
-import FaqFab from '../components/FaqFab.astro';
+import IntakeFab from '../components/IntakeFab.astro';
 
 interface Props {
   title: string;
@@ -50,7 +50,7 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
     <meta name="theme-color" content="#0c1727" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f5f2ea" media="(prefers-color-scheme: light)" />
     <script is:inline>
-      // Keep the key and colours in sync with FaqFab.astro's theme block.
+      // Keep the key and colours in sync with IntakeFab.astro's theme block.
       (function () {
         try {
           var theme = localStorage.getItem('inodepi-theme');
@@ -93,7 +93,7 @@ const ogImage = new URL(`${base}og.png`, Astro.site).href;
 
     <slot name="footer" />
 
-    <FaqFab />
+    <IntakeFab />
   </body>
 </html>
 
