@@ -1,5 +1,16 @@
 ---
 import { featuredAutomationRepos } from '../data/projects';
+
+/** Split a note around an optional link so one word can point at another build. */
+const noteSegments = (note: string, link?: { text: string; href: string }) => {
+  if (!link || !note.includes(link.text)) return [{ text: note }];
+  const parts = note.split(link.text);
+  return parts.flatMap((part, i) => {
+    const segments: { text: string; href?: string }[] = [{ text: part }];
+    if (i < parts.length - 1) segments.push({ text: link.text, href: link.href });
+    return segments;
+  });
+};
 ---
 
 <section class="section" id="work">
@@ -33,7 +44,13 @@ import { featuredAutomationRepos } from '../data/projects';
 
               <p class="repo-summary">{repo.summary}</p>
 
-              {repo.note && <p class="repo-note">{repo.note}</p>}
+              {repo.note && (
+                <p class="repo-note">
+                  {noteSegments(repo.note, repo.noteLink).map((segment) =>
+                    segment.href ? <a href={segment.href}>{segment.text}</a> : segment.text
+                  )}
+                </p>
+              )}
 
               <ul class="repo-stack" aria-label="Stack">
                 {repo.stack.map((tool) => <li class="tag">{tool}</li>)}
@@ -177,6 +194,18 @@ import { featuredAutomationRepos } from '../data/projects';
     font-family: var(--font-mono);
     font-size: 0.78rem;
     line-height: 1.5;
+  }
+
+  .repo-note a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--hue) 60%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  .repo-note a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
   }
 
   .repo-stack {

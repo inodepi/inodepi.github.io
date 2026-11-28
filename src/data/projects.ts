@@ -19,6 +19,8 @@ export interface AutomationRepo {
   summary: string;
   /** Optional pricing or scope note shown under the summary */
   note?: string;
+  /** Optional link for a word inside the note */
+  noteLink?: { text: string; href: string };
   /** Link to the repo (or live build, when a repo is not public) */
   repoUrl: string;
   /** Override the card's link label */
@@ -78,7 +80,8 @@ export const automationRepos: AutomationRepo[] = [
     stack: ['n8n', 'Google Sheets', 'Discord', 'Gmail'],
     summary:
       'One submit writes the row, posts a Discord alert and emails the lead a confirmation, with contact windows in their own timezone. Live on this site.',
-    note: 'Single channel or omnichannel (voice + SMS + chat) — same intake, priced per scope.',
+    note: 'Single channel and omnichannel (voice + SMS + chat) are both possible. They are priced separately because they are different builds.',
+    noteLink: { text: 'omnichannel', href: '/omnichannel-receptionist/' },
     repoUrl: '/lead-intake/',
     linkLabel: 'View the build',
     featured: true,
@@ -93,7 +96,7 @@ export const automationRepos: AutomationRepo[] = [
       'One n8n receptionist answers voice, SMS and chat, books real calendar slots and logs every thread. Flat setup fee; your accounts.',
     repoUrl: '/omnichannel-receptionist/',
     linkLabel: 'View the build',
-    featured: true,
+    featured: false,
     hue: 'teal',
   },
   {
