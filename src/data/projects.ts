@@ -111,10 +111,10 @@ export const automationRepos: AutomationRepo[] = [
   {
     id: 'dead-lead-retrieval',
     title: 'Dead Lead Retrieval',
-    problem: 'Dormant leads die in the CRM — $600–$1,800/month left untouched.',
-    stack: ['n8n', 'OpenRouter', 'CRM'],
+    problem: 'Dormant leads die in the sheet — $600–$1,800/month left untouched.',
+    stack: ['n8n', 'Google Sheets', 'OpenAI', 'Gmail', 'Discord'],
     summary:
-      'n8n reopens quiet leads with context-aware Gmail drafts you approve and send. Your CRM, flat setup fee.',
+      'A daily n8n run sends context-aware check-ins to dormant leads, flips the row to Sent and pings Discord with “{name} is haunting you”. A reply marks the row Replied. Your accounts, flat setup fee.',
     repoUrl: '/dead-lead-retrieval/',
     linkLabel: 'View the build',
     featured: true,

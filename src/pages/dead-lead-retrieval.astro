@@ -2,23 +2,25 @@
 import ProjectShell from '../components/ProjectShell.astro';
 import VideoBeats from '../components/VideoBeats.astro';
 import AutomationBreakdown from '../components/AutomationBreakdown.astro';
-import { siteConfig } from '../data/projects';
 
 const nodes = [
-  { x: 16, y: 30, w: 190, h: 72, label: 'Dormant leads', sub: 'CRM + context', hue: '#ff7f9f' },
-  { x: 240, y: 30, w: 190, h: 72, label: 'n8n workflow', sub: 'revive + route', hue: '#f5a623' },
-  { x: 464, y: 30, w: 160, h: 72, label: 'LLM check-in', sub: 'Gemini drafts', hue: '#9d8cff' },
-  { x: 240, y: 190, w: 190, h: 72, label: 'Gmail drafts', sub: 'human presses send', hue: '#46cfc0' },
+  { x: 16, y: 20, w: 180, h: 70, label: 'Dormant leads', sub: 'Dead Leads tab', hue: '#ff7f9f' },
+  { x: 230, y: 20, w: 190, h: 70, label: 'n8n workflow', sub: 'daily · To Do only', hue: '#f5a623', core: true },
+  { x: 452, y: 20, w: 172, h: 70, label: 'AI check-in', sub: '3 sentences', hue: '#9d8cff' },
+  { x: 452, y: 150, w: 172, h: 70, label: 'Gmail send', sub: 'signed · auto', hue: '#46cfc0' },
+  { x: 230, y: 150, w: 190, h: 70, label: 'Discord ping', sub: '👻 haunting you', hue: '#5b9bff' },
 ];
 
 const links = [
-  'M206 66 C 222 66, 224 66, 240 66',
-  'M430 66 C 448 66, 448 66, 464 66',
-  'M336 102 C 336 148, 336 156, 336 190',
+  'M196 55 C 214 55, 214 55, 230 55',
+  'M420 55 C 436 55, 436 55, 452 55',
+  'M538 90 C 538 118, 538 128, 538 150',
+  'M452 185 C 436 185, 428 185, 420 185',
 ];
 
 const ports = [
-  [206, 66], [240, 66], [430, 66], [464, 66], [336, 102], [336, 190],
+  [196, 55], [230, 55], [420, 55], [452, 55],
+  [538, 90], [538, 150], [452, 185], [420, 185],
 ];
 
 const jsonLd = [
@@ -27,10 +29,10 @@ const jsonLd = [
     '@type': 'CreativeWork',
     name: 'Dead Lead Retrieval',
     description:
-      'AI-powered, human-in-the-loop automation that resurrects dormant leads: LLM-written check-in emails filed as Gmail drafts, tracked in the CRM.',
+      'An n8n workflow that reads dormant leads from a Google Sheet, writes and sends a context-aware check-in with OpenAI, marks the row Sent and pings Discord with the lead name. A reply flips the row to Replied.',
     url: 'https://inodepi.github.io/dead-lead-retrieval/',
     author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
-    keywords: 'n8n, Gemini, CRM, Gmail, lead reactivation',
+    keywords: 'n8n, Google Sheets, OpenAI, Gmail, Discord, lead reactivation',
     isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
   },
   {
@@ -44,34 +46,34 @@ const jsonLd = [
 ];
 
 const guardrails = [
-  'AI drafts, a human approves — nothing sends itself.',
-  'Anti-hallucination rules: the only link in any email is mine.',
-  'Original context is passed to the model so the note is relevant.',
-  'Every action is visible in the CRM, not buried in a mailbox.',
+  'The check-in is written from the original notes, not a template: three sentences and one easy question.',
+  'Only rows marked To Do are touched. Sent and Replied are left alone, and a 30-day cooldown stops repeat sends.',
+  'A 10-per-run cap keeps one daily run from blasting the whole list.',
+  'A reply from the lead flips the row to Replied on the next poll, so nobody gets chased after answering.',
 ];
 ---
 
 <ProjectShell
   title="Dead Lead Retrieval — inodepi"
-  description="AI-powered, human-in-the-loop automation that resurrects dormant leads: LLM-written check-in emails filed as Gmail drafts, tracked in the CRM."
+  description="An n8n workflow that reopens dormant leads with context-aware check-ins it sends itself, then names the lead in Discord."
   kicker="n8n automation"
   name="Dead Lead Retrieval"
   tagline="Dormant leads rarely die because someone said no. They die because nobody followed up."
-  badges={['Human-in-the-loop', 'Gmail drafts', 'Released']}
-  canvasName="lead-revival.workflow"
+  badges={['Auto-send', 'OpenAI', 'Live']}
+  canvasName="dead-lead-retrieval.workflow"
   canvasTag="n8n"
-  canvasNote="CRM in, drafts out. A human presses send."
-  stack={['n8n', 'Gemini', 'CRM', 'Gmail']}
+  canvasNote="Dormant rows in, signed check-ins out, Discord ping."
+  stack={['n8n', 'Google Sheets', 'OpenAI', 'Gmail', 'Discord']}
   links={[
     { label: 'Repository', href: 'https://github.com/inodepi/dead-lead-retrieval', external: true },
   ]}
   category="Automations · sales ops"
   ctaTitle="Wake the leads you already paid for."
-  ctaBody="Drafts, context and follow-ups — with a human approving every send."
+  ctaBody="Context-aware check-ins that send themselves, and a ping that tells you who came back."
   jsonLd={jsonLd}
 >
   <section class="proj-section" slot="visual">
-    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: dormant leads and their context feed an n8n workflow, an LLM drafts a check-in, and the email waits as a Gmail draft.">
+    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: dormant leads in a sheet feed an n8n workflow, AI writes a check-in, Gmail sends it, and Discord posts the lead name.">
       <g class="links">
         {links.map((d) => <path d={d} />)}
       </g>
@@ -80,15 +82,15 @@ const guardrails = [
       </g>
       <g class="pulses">
         <circle class="pulse" r="3">
-          <animateMotion path="M206 66 C 222 66, 224 66, 240 66" dur="3.4s" begin="-0.8s" repeatCount="indefinite" />
+          <animateMotion path="M196 55 C 214 55, 214 55, 230 55" dur="3.4s" begin="-0.8s" repeatCount="indefinite" />
         </circle>
         <circle class="pulse" r="3">
-          <animateMotion path="M336 102 C 336 148, 336 156, 336 190" dur="3.4s" begin="-1.8s" repeatCount="indefinite" />
+          <animateMotion path="M538 90 C 538 118, 538 128, 538 150" dur="3.4s" begin="-1.8s" repeatCount="indefinite" />
         </circle>
       </g>
       <g class="nodes">
         {nodes.map((node) => (
-          <g class:list={[node.label.startsWith('n8n') && 'is-core']}>
+          <g class:list={[node.core && 'is-core']}>
             <rect class="node" x={node.x} y={node.y} width={node.w} height={node.h} rx="6" />
             <rect x={node.x + 10} y={node.y + 14} width="4" height={node.h - 28} rx="2" fill={node.hue} />
             <text class="node-label" x={node.x + 24} y={node.y + 30}>{node.label}</text>
@@ -107,32 +109,34 @@ const guardrails = [
       captions="/videos/dead-lead-retrieval.vtt"
       caption="Build overview · 0:30 · captions available"
       beats={[
-        { time: '0:00', seek: 0, title: 'Dormant leads', body: 'The leads you paid for sit cold in the CRM.' },
-        { time: '0:10', seek: 10, title: 'The workflow', body: 'Context-aware check-ins, drafted by an LLM.' },
-        { time: '0:22', seek: 22, title: 'Human check', body: 'Nothing sends until you approve it.' },
+        { time: '0:00', seek: 0, title: 'The quiet sheet', body: 'Leads you already paid for, months cold.' },
+        { time: '0:10', seek: 10, title: 'Context, then send', body: 'AI writes it, n8n sends it signed.' },
+        { time: '0:22', seek: 22, title: 'The ping', body: 'Discord names the lead in #dead-leads.' },
       ]}
     />
   </section>
 
   <section class="proj-section">
     <AutomationBreakdown
-      problem="Old estimates and quiet leads sit in the CRM because nobody has time to reopen the thread. The lead you already paid for is the cheapest job you can win."
+      problem="Dormant leads do not say no, they stop answering. The lead you already paid for is the cheapest job you can win, and it is sitting in a sheet with nobody following up."
       cost={[
         { label: '100-lead batch × 5% reply', value: '5 conversations' },
         { label: '1 in 3 conversations becomes an estimate', value: '1–2 estimates' },
         { label: '1 job × $600 average ticket', value: '$600–$1,800/mo dormant' },
       ]}
-      fix="An n8n workflow reopens dormant leads with context-aware check-ins filed as Gmail drafts, so you approve and send in seconds."
+      fix="An n8n workflow reopens dormant leads with context-aware check-ins it sends itself, then names the lead in Discord so you know who came back."
       fixPoints={[
-        'A scheduled run pulls quiet CRM leads and the original conversation context.',
-        'The model writes a specific check-in; n8n files it as a draft, logs the touch and stops duplicates.',
-        'Human presses send. Runs in your CRM, Gmail and n8n accounts: flat setup fee, no retainer.',
+        'A daily run reads the Dead Leads tab, keeps rows marked To Do, and respects a 30-day cooldown and a 10-per-run cap.',
+        'OpenAI writes a three-sentence check-in from the original notes; Gmail sends it signed with the standard inodepi block.',
+        'The row flips to Sent, Discord posts “{name} is haunting you”, and a reply turns the row to Replied automatically.',
       ]}
       stats={[
-        { value: '2–4 hrs/wk', label: 'Admin hours saved', note: 'No manual list-pulling or thread review.' },
-        { value: '$600–$1,800', label: 'Monthly revenue recovered', note: '1–3 jobs at a $600 average ticket.' },
-        { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+        { value: '10/day', label: 'Check-ins per run', note: 'Capped so one run never blasts the list.' },
+        { value: '0', label: 'Drafts to approve', note: 'It sends itself; you just get the ping.' },
+        { value: 'Auto', label: 'Replied status', note: 'The Gmail trigger matches the sender and flips the row.' },
       ]}
+      savedTitle="Built-in limits"
+      statsFootnote="Running on the LEADS spreadsheet — the Dead Leads tab is live."
     />
   </section>
 
@@ -146,8 +150,9 @@ const guardrails = [
   <section class="proj-section">
     <h2>Stack notes</h2>
     <p>
-      Built on n8n with Gemini for drafting. If your stack requires something else, the same
-      architecture can be delivered on another automation platform.
+      Built on n8n with Google Sheets for the list, OpenAI for the copy, Gmail for the send and a
+      Discord webhook for the ping. Swap the model or the sheet and the rest of the workflow stays
+      the same.
     </p>
   </section>
 </ProjectShell>

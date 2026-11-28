@@ -4,16 +4,16 @@ WEBVTT
 Dormant leads don't say no. They just stop answering.
 
 00:04.000 --> 00:09.800
-The leads you already paid for sit in the CRM, months cold, with nobody following up. Follow-ups sent: zero.
+The leads you already paid for sit in the sheet, months cold, with nobody following up. Follow-ups sent: zero.
 
 00:10.000 --> 00:15.500
 Context wakes them up. A blast buries them.
 
 00:15.500 --> 00:21.800
-The workflow reads the original conversation, writes a specific check-in, and files it as a draft for a human to approve.
+The workflow reads the original conversation, writes a three-sentence check-in, sends it signed, and drops the lead name in Discord.
 
 00:22.000 --> 00:26.000
-AI drafts. You press send.
+It sends itself. Then it haunts you.
 
 00:26.000 --> 00:29.500
-Every check-in lands as a Gmail draft with the original context attached. Nothing leaves without a human reading it.
+The row flips to Sent, and #dead-leads names the lead so you know who came back from the dead.
