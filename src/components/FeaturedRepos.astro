@@ -33,6 +33,8 @@ import { featuredAutomationRepos } from '../data/projects';
 
               <p class="repo-summary">{repo.summary}</p>
 
+              {repo.note && <p class="repo-note">{repo.note}</p>}
+
               <ul class="repo-stack" aria-label="Stack">
                 {repo.stack.map((tool) => <li class="tag">{tool}</li>)}
               </ul>
@@ -166,6 +168,15 @@ import { featuredAutomationRepos } from '../data/projects';
     color: var(--ink-soft);
     font-size: 0.9375rem;
     line-height: 1.6;
+  }
+
+  .repo-note {
+    padding-left: 0.8rem;
+    border-left: 2px solid color-mix(in srgb, var(--hue) 55%, transparent);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
   }
 
   .repo-stack {

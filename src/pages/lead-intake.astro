@@ -1,0 +1,257 @@
+---
+import ProjectShell from '../components/ProjectShell.astro';
+import VideoBeats from '../components/VideoBeats.astro';
+import AutomationBreakdown from '../components/AutomationBreakdown.astro';
+
+const nodes = [
+  { x: 16, y: 20, w: 180, h: 70, label: 'Intake form', sub: '5 fields · 2 windows', hue: '#46cfc0' },
+  { x: 230, y: 20, w: 190, h: 70, label: 'n8n workflow', sub: 'normalize + fan out', hue: '#f5a623', core: true },
+  { x: 452, y: 20, w: 172, h: 70, label: 'Intake sheet', sub: 'LEADS · new row', hue: '#46cfc0' },
+  { x: 452, y: 150, w: 172, h: 70, label: 'Discord', sub: '#new-leads embed', hue: '#9d8cff' },
+  { x: 230, y: 150, w: 190, h: 70, label: 'Confirmation email', sub: 'to the lead · seconds', hue: '#5b9bff' },
+];
+
+const links = [
+  'M196 55 C 214 55, 214 55, 230 55',
+  'M420 55 C 436 55, 436 55, 452 55',
+  'M336 90 C 336 118, 336 128, 336 150',
+  'M452 185 C 436 185, 428 185, 420 185',
+];
+
+const ports = [
+  [196, 55], [230, 55], [420, 55], [452, 55],
+  [336, 90], [336, 150], [452, 185], [420, 185],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'Lead Intake',
+    description:
+      'An n8n intake workflow that turns one form submit into a spreadsheet row, a Discord alert and a confirmation email to the lead, with contact windows shown in the visitor\u2019s timezone.',
+    url: 'https://inodepi.github.io/lead-intake/',
+    author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
+    keywords: 'n8n, intake form, Google Sheets, Discord, Gmail, lead capture',
+    isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://inodepi.github.io/' },
+      { '@type': 'ListItem', position: 2, name: 'Lead Intake', item: 'https://inodepi.github.io/lead-intake/' },
+    ],
+  },
+];
+
+const guardrails = [
+  'Five fields only: name, email, a contact window, what they need automated, and consent. Every extra field costs completions.',
+  'One run fans out: the sheet row, the Discord embed and the confirmation email all come from the same payload.',
+  'Discord and Gmail are set to continue on error, so a notification hiccup never blocks the visitor\u2019s success response.',
+  'Contact windows are generated in the visitor\u2019s own timezone, so nobody has to convert a time in their head.',
+  'Consent is stored with the row, not assumed.',
+];
+---
+
+<ProjectShell
+  title="Lead Intake — inodepi"
+  description="An n8n intake workflow that turns one form submit into a spreadsheet row, a Discord alert and a confirmation email to the lead."
+  kicker="n8n automation"
+  name="Lead Intake"
+  tagline="The form is the easy part. What happens after submit is the build."
+  badges={['Intake', 'Discord alerts', 'Live']}
+  canvasName="lead-intake.workflow"
+  canvasTag="n8n"
+  canvasNote="One submit, three destinations."
+  stack={['n8n', 'Google Sheets', 'Discord', 'Gmail']}
+  links={[
+    { label: 'Book a discovery call', href: '/#contact' },
+  ]}
+  category="Automations · intake"
+  ctaTitle="Stop letting enquiries sit in an inbox."
+  ctaBody="One form, one record, one alert, one reply — every time."
+  jsonLd={jsonLd}
+>
+  <section class="proj-section" slot="visual">
+    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: an intake form feeds an n8n workflow that writes a spreadsheet row, posts a Discord embed and emails the lead a confirmation.">
+      <g class="links">
+        {links.map((d) => <path d={d} />)}
+      </g>
+      <g class="ports">
+        {ports.map(([cx, cy]) => <circle cx={cx} cy={cy} r="3.1" />)}
+      </g>
+      <g class="pulses">
+        <circle class="pulse" r="3">
+          <animateMotion path="M196 55 C 214 55, 214 55, 230 55" dur="3.2s" begin="-0.6s" repeatCount="indefinite" />
+        </circle>
+        <circle class="pulse" r="3">
+          <animateMotion path="M420 55 C 436 55, 436 55, 452 55" dur="3.2s" begin="-1.4s" repeatCount="indefinite" />
+        </circle>
+      </g>
+      <g class="nodes">
+        {nodes.map((node) => (
+          <g class:list={[node.core && 'is-core']}>
+            <rect class="node" x={node.x} y={node.y} width={node.w} height={node.h} rx="6" />
+            <rect x={node.x + 10} y={node.y + 14} width="4" height={node.h - 28} rx="2" fill={node.hue} />
+            <text class="node-label" x={node.x + 24} y={node.y + 30}>{node.label}</text>
+            <text class="node-sub" x={node.x + 24} y={node.y + 48}>{node.sub}</text>
+          </g>
+        ))}
+      </g>
+    </svg>
+  </section>
+
+  <section class="proj-section">
+    <h2>Overview</h2>
+    <VideoBeats
+      src="/videos/lead-intake.mp4"
+      poster="/videos/lead-intake.jpg"
+      captions="/videos/lead-intake.vtt"
+      caption="Build overview · 0:30 · captions available"
+      beats={[
+        { time: '0:00', seek: 0, title: 'The quiet form', body: 'A visitor picks a time and presses send. Then nothing.' },
+        { time: '0:10', seek: 10, title: 'Three destinations', body: 'One payload writes a row, posts to Discord, replies to the lead.' },
+        { time: '0:22', seek: 22, title: 'The confirmation', body: 'Their time, their words, a promise of one business day.' },
+      ]}
+    />
+  </section>
+
+  <section class="proj-section">
+    <AutomationBreakdown
+      problem="A form that only collects is a lead you lose. The visitor picked a time, pressed send and started waiting — and whoever replies first gets the job."
+      cost={[
+        { label: 'Enquiries that wait a day for a reply', value: 'Up to 50% go cold' },
+        { label: 'Each one followed up by hand', value: '10–15 min each' },
+        { label: 'A booked job at a $600 ticket', value: '$600–$1,800/mo lost' },
+      ]}
+      fix="An n8n workflow takes the submit and does the boring part in one run: record it, alert you, confirm to the lead."
+      fixPoints={[
+        'The webhook normalizes five fields: name, email, the window they picked, their own words, consent.',
+        'It appends the row to an Intake tab, posts a formatted embed to Discord, and emails the lead a confirmation with their time and summary.',
+        'Both side effects continue on error, so a failed notification never costs you the lead record.',
+      ]}
+      stats={[
+        { value: '1 run', label: 'Sheet, Discord, email', note: 'One workflow, three side effects.' },
+        { value: '< 3s', label: 'Confirmation to the lead', note: 'They hear back before they cool.' },
+        { value: '0', label: 'Extra apps to buy', note: 'Runs on n8n, Sheets, Discord and Gmail.' },
+      ]}
+      savedTitle="Built-in limits"
+      statsFootnote="Live on this site — the form on every page posts to this workflow."
+    />
+  </section>
+
+  <section class="proj-section">
+    <h2>Guardrails</h2>
+    <ul class="proj-list">
+      {guardrails.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="proj-section">
+    <h2>Single channel or omnichannel</h2>
+    <p>
+      The intake is the same either way. If you only need one channel — a form, one inbox, one
+      reply — that is the smaller scope. If you want voice, SMS and chat answering together, the
+      same intake feeds an omnichannel receptionist instead.
+    </p>
+    <p class="note">
+      Single channel and omnichannel (voice + SMS + chat) are both possible. They are priced
+      separately because they are different builds.
+    </p>
+  </section>
+
+  <section class="proj-section">
+    <h2>Stack notes</h2>
+    <p>
+      Built on n8n with Google Sheets, a Discord webhook and Gmail. The form is a plain Astro
+      component with no framework, and the contact windows are generated in the browser from a
+      single timezone constant.
+    </p>
+  </section>
+</ProjectShell>
+
+<style>
+  .links path {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+
+  .ports circle {
+    fill: var(--panel);
+    stroke: var(--line-strong);
+    stroke-width: 1.2;
+  }
+
+  .pulse {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 4px rgba(245, 166, 35, 0.8));
+  }
+
+  .nodes .is-core .node {
+    stroke: rgba(245, 166, 35, 0.55);
+  }
+
+  .node {
+    fill: var(--panel-raised);
+    stroke: var(--line-strong);
+    stroke-width: 1.1;
+  }
+
+  .node-label {
+    fill: var(--ink);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .node-sub {
+    fill: var(--ink-dim);
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+  }
+
+  .proj-list {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proj-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .proj-list li::before {
+    content: '';
+    position: absolute;
+    top: 0.55em;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .note {
+    margin-top: 0.85rem;
+    padding: 0.85rem 1rem;
+    border-left: 2px solid var(--accent);
+    background: var(--panel);
+    color: var(--ink);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulses {
+      display: none;
+    }
+  }
+</style>

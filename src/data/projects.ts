@@ -17,6 +17,8 @@ export interface AutomationRepo {
   stack: string[];
   /** Two or three sentences on what the system does and how it is wired */
   summary: string;
+  /** Optional pricing or scope note shown under the summary */
+  note?: string;
   /** Link to the repo (or live build, when a repo is not public) */
   repoUrl: string;
   /** Override the card's link label */
@@ -69,6 +71,19 @@ export const siteConfig: SiteConfig = {
 };
 
 export const automationRepos: AutomationRepo[] = [
+  {
+    id: 'lead-intake',
+    title: 'Lead Intake',
+    problem: 'A form that only collects goes cold — the visitor waits and books with whoever replies first.',
+    stack: ['n8n', 'Google Sheets', 'Discord', 'Gmail'],
+    summary:
+      'One submit writes the row, posts a Discord alert and emails the lead a confirmation, with contact windows in their own timezone. Live on this site.',
+    note: 'Single channel or omnichannel (voice + SMS + chat) — same intake, priced per scope.',
+    repoUrl: '/lead-intake/',
+    linkLabel: 'View the build',
+    featured: true,
+    hue: 'violet',
+  },
   {
     id: 'omnichannel-receptionist',
     title: 'Omnichannel AI Receptionist',
