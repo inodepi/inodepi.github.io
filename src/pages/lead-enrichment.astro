@@ -4,13 +4,13 @@ import VideoBeats from '../components/VideoBeats.astro';
 import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 
 const nodes = [
-  { x: 16, y: 20, w: 180, h: 70, label: 'Schedule poll', sub: 'every 15 minutes', hue: '#46cfc0', core: true },
-  { x: 230, y: 20, w: 190, h: 70, label: 'Get leads', sub: 'Notion · not enriched', hue: '#46cfc0' },
-  { x: 444, y: 20, w: 180, h: 70, label: 'AI enrich', sub: 'Gemini research + audit', hue: '#9d8cff' },
-  { x: 444, y: 150, w: 180, h: 70, label: 'Normalize', sub: 'score 1–10 + draft', hue: '#ff7f9f' },
-  { x: 230, y: 150, w: 190, h: 70, label: 'Notion write-back', sub: 'AI fields · Enriched', hue: '#46cfc0' },
-  { x: 16, y: 150, w: 180, h: 70, label: 'Gmail draft', sub: 'never auto-sent', hue: '#f5a623' },
-  { x: 230, y: 256, w: 190, h: 64, label: 'Error alerts', sub: 'row + failure detail', hue: '#ff7f9f' },
+  { x: 16, y: 20, w: 180, h: 70, label: 'CSV drop', sub: 'Drive · lead_csv', hue: '#46cfc0', core: true },
+  { x: 230, y: 20, w: 190, h: 70, label: 'Jina scrape', sub: '2,500 chars · 3.5s', hue: '#9d8cff' },
+  { x: 444, y: 20, w: 180, h: 70, label: 'AI enrich', sub: 'fit + first line', hue: '#f5a623' },
+  { x: 444, y: 150, w: 180, h: 70, label: 'LEADS sheet', sub: 'send window · UTC', hue: '#46cfc0' },
+  { x: 230, y: 150, w: 190, h: 70, label: 'Gmail send', sub: '15/day cap', hue: '#f5a623' },
+  { x: 16, y: 150, w: 180, h: 70, label: 'Reply + follow-up', sub: '3 steps · +3 biz days', hue: '#ff7f9f' },
+  { x: 230, y: 256, w: 190, h: 64, label: 'Discord logs', sub: 'uploads · sends · replies', hue: '#ff7f9f' },
 ];
 
 const links = [
@@ -34,12 +34,13 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    name: 'AI Lead Enrichment',
+    name: 'Cold Outreach Pipeline',
     description:
-      'An n8n and Gemini pipeline that researches each new lead, flags likely website issues, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review.',
+      'A three-workflow n8n pipeline that enriches a CSV of leads from their own websites, sends at most 15 researched cold emails a day inside each prospect\'s local send window, and runs three same-thread follow-ups that stop on reply.',
     url: 'https://inodepi.github.io/lead-enrichment/',
     author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
-    keywords: 'n8n, Gemini, Notion, Gmail, lead enrichment, lead scoring',
+    keywords:
+      'n8n, cold email, lead enrichment, Google Sheets, Jina, OpenAI, Gmail, deliverability, follow-up automation',
     isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
   },
   {
@@ -47,41 +48,41 @@ const jsonLd = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://inodepi.github.io/' },
-      { '@type': 'ListItem', position: 2, name: 'AI Lead Enrichment', item: 'https://inodepi.github.io/lead-enrichment/' },
+      { '@type': 'ListItem', position: 2, name: 'Cold Outreach Pipeline', item: 'https://inodepi.github.io/lead-enrichment/' },
     ],
   },
 ];
 
 const guardrails = [
-  'AI researches and drafts, a human presses send — nothing sends itself.',
-  'The Enriched status is the once-only guard: no cursors, no dedupe tables, no duplicate drafts.',
-  'The fit score is computed in code from the agent output, not invented in the email.',
-  'Leads without a website still get researched; the draft leans on the row details instead of site specifics.',
-  'Every write goes back to the row that started it, so Notion stays the source of truth.',
+  'Every send is researched first: the site is scraped and the model writes from that context, not a template.',
+  '15 sends a day, shared across the initial and follow-up workflows, counted in UTC.',
+  'Send windows land at 09:30 in the prospect\u2019s own timezone; follow-ups ride the same thread three business days later.',
+  'A reply, a bounce or a manual status change stops the sequence — nothing keeps chasing.',
+  'Model-agnostic: any OpenAI-compatible endpoint, so the model swaps without touching the workflow.',
 ];
 ---
 
 <ProjectShell
-  title="AI Lead Enrichment — inodepi"
-  description="An n8n and Gemini pipeline that researches each new lead, flags likely website issues, scores fit 1–10 and files a personalised outreach email as a Gmail draft for human review."
+  title="Cold Outreach Pipeline — inodepi"
+  description="A three-workflow n8n pipeline that enriches a CSV of leads from their own websites, sends at most 15 researched cold emails a day inside each prospect's local send window, and runs three same-thread follow-ups that stop on reply."
   kicker="n8n automation"
-  name="AI Lead Enrichment"
-  tagline="Cold lists get called without knowing why they would buy. This build does the research first."
-  badges={['Human-in-the-loop', 'Scores 1–10', 'Gmail drafts']}
-  canvasName="lead-enrichment.workflow"
+  name="Cold Outreach Pipeline"
+  tagline="A cold list gets one shot at the inbox. This build earns it before the send."
+  badges={['3 workflows', '15/day cap', 'Reply-aware']}
+  canvasName="cold-outreach.workflow"
   canvasTag="n8n"
-  canvasNote="Notion in. Research, score and a draft out. Nothing sends itself."
-  stack={['n8n', 'Notion', 'Gemini', 'Gmail']}
+  canvasNote="CSV in. Researched sends out. A reply ends the sequence."
+  stack={['n8n', 'Google Sheets', 'Jina AI', 'OpenAI-compatible LLM', 'Gmail', 'Discord']}
   links={[
     { label: 'Next build: Dead Lead Retrieval', href: '/dead-lead-retrieval/' },
   ]}
   category="Automations · sales ops"
-  ctaTitle="Know why they'd buy before you call."
-  ctaBody="Bring a cold list. I'll show you how the research, the score and the first draft arrive before anyone dials."
+  ctaTitle="Send fewer emails that land."
+  ctaBody="Bring a list. I'll show you the enrichment, the send window and the follow-ups before a single email leaves."
   jsonLd={jsonLd}
 >
   <section class="proj-section" slot="visual">
-    <svg viewBox="0 0 640 330" role="img" aria-label="Workflow: a schedule trigger polls Notion for unenriched leads, a Gemini agent researches each business, the score and draft are normalized and written back to the row, a Gmail draft is filed, and failures route to alerts.">
+    <svg viewBox="0 0 640 330" role="img" aria-label="Workflow: a CSV dropped in Google Drive is deduped and scraped with Jina, enriched by an AI model, and written to the LEADS sheet with a UTC send window; a capped Gmail sender then sends the email, watches replies and runs three same-thread follow-ups, with every step logged to Discord.">
       <g class="links">
         {links.map((d) => <path d={d} />)}
         <path class="errors" d={errorLink} />
@@ -116,36 +117,36 @@ const guardrails = [
   <section class="proj-section">
     <h2>Overview</h2>
     <VideoBeats
-      src="/videos/lead-enrichment.mp4"
-      poster="/videos/lead-enrichment.jpg"
-      captions="/videos/lead-enrichment.vtt"
+      src="/videos/cold-outreach.mp4"
+      poster="/videos/cold-outreach.jpg"
+      captions="/videos/cold-outreach.vtt"
       caption="Build overview · 0:30 · captions available"
       beats={[
-        { time: '0:00', seek: 0, title: 'The blind list', body: 'No research before the first dial.' },
-        { time: '0:10', seek: 10, title: 'Research, score, draft', body: 'A fit score and a specific first line.' },
-        { time: '0:22', seek: 22, title: 'Written back', body: 'Notion marked Enriched; email waits as a draft.' },
+        { time: '0:00', seek: 0, title: 'The blind blast', body: 'No research, no window, no follow-up.' },
+        { time: '0:10', seek: 10, title: 'Research, then schedule', body: 'Scraped, enriched, queued for 09:30 local.' },
+        { time: '0:22', seek: 22, title: 'Send and follow up', body: '15 a day. Three follow-ups. A reply ends it.' },
       ]}
     />
   </section>
 
   <section class="proj-section">
     <AutomationBreakdown
-      problem="Cold lists get dialed with no research, so the first call is spent asking questions the website already answers. Half the list was never a fit."
+      problem="Cold lists get blasted in one sitting: no research, no send window, no follow-up. The replies that do arrive are the wrong ones, and the sending domain pays for it."
       cost={[
-        { label: '20 leads/week × 10 min research', value: '3+ hrs/week' },
-        { label: '10 of 20 leads are poor fit', value: '10 wasted dials/week' },
-        { label: '1 extra estimate/month at $600', value: '$600/mo left on the table' },
+        { label: '200 sends a day from one inbox', value: '18% bounce' },
+        { label: 'One follow-up, if anyone remembers', value: '1 touch' },
+        { label: 'Manual research per lead', value: '10 min' },
       ]}
-      fix="An n8n pipeline researches each new lead, scores fit and files a specific first email as a draft before anyone dials."
+      fix="Three n8n workflows enrich each lead from its own website, send inside a 15-a-day cap at 09:30 local time, and follow up three times in the same thread until someone replies."
       fixPoints={[
-        'A schedule trigger polls Notion for unenriched rows and sends each business to a research step.',
-        'The workflow flags site issues, scores fit 1–10 from the output, writes it back to the row and files the email as a Gmail draft.',
-        'Nothing auto-sends. Runs in your n8n and Notion accounts: flat setup fee, no per-seat enrichment subscription.',
+        'W1 watches a Drive folder, dedupes the CSV, scrapes each site with Jina and writes the enriched row to the LEADS sheet.',
+        'W2 sends at most 15 researched emails a day inside the prospect\u2019s 09:30 window, then checks for bounces and schedules the next touch.',
+        'W3 watches replies, sends three follow-ups three business days apart, and marks the row Completed the moment someone answers.',
       ]}
       stats={[
-        { value: '3–5 hrs/wk', label: 'Admin hours saved', note: 'No manual research before the first dial.' },
-        { value: '$600–$1,200', label: 'Monthly revenue recovered', note: '1–2 extra estimates per month.' },
-        { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+        { value: '15/day', label: 'Outbound cap', note: 'Shared across initial sends and follow-ups.' },
+        { value: '3', label: 'Follow-ups per lead', note: 'Same thread, +3 business days, reply-aware.' },
+        { value: '$0', label: 'Per-seat enrichment tools', note: 'Your own n8n, Sheets and Gmail accounts.' },
       ]}
     />
   </section>
@@ -160,8 +161,9 @@ const guardrails = [
   <section class="proj-section">
     <h2>Stack notes</h2>
     <p>
-      Built on n8n with Notion as the queue and Gemini doing the research. If your stack requires
-      something else, the same architecture can be delivered on another automation platform.
+      Built on n8n with Google Sheets as the queue, Jina for site context and any OpenAI-compatible
+      model for the copy. Gmail sends and watches replies; Discord reports each stage. Swap the
+      model or the mailbox without changing the architecture.
     </p>
   </section>
 </ProjectShell>

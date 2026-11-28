@@ -87,12 +87,12 @@ export const automationRepos: AutomationRepo[] = [
     hue: 'teal',
   },
   {
-    id: 'ai-lead-enrichment',
-    title: 'AI Lead Enrichment',
-    problem: 'Blind lists burn 3+ hrs/week, and half the dials are poor fit.',
-    stack: ['n8n', 'Notion', 'Gemini', 'Gmail'],
+    id: 'cold-outreach-pipeline',
+    title: 'Cold Outreach Pipeline',
+    problem: 'Blind blasts burn the domain — 18% bounce, one follow-up, no send window.',
+    stack: ['n8n', 'Google Sheets', 'Jina', 'AI model', 'Gmail'],
     summary:
-      'n8n researches each lead, scores fit 1–10 and drafts a specific first email before you call. Flat setup fee; no per-seat tool.',
+      'Three n8n workflows enrich each lead from its own site, send 15 researched emails a day at 09:30 local, and follow up three times until someone replies. Your accounts, flat setup fee.',
     repoUrl: '/lead-enrichment/',
     linkLabel: 'View the build',
     featured: true,
