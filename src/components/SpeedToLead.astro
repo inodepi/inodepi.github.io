@@ -64,6 +64,12 @@ const steps = [
       <a class="btn btn-primary" href="#contact">Get a free lead-leak check</a>
       <p>Built inside your own accounts. You own everything.</p>
     </div>
+
+    <p class="stl-note">
+      This missed-call flow is the voice arm of the
+      <a href="/omnichannel-receptionist/">Omnichannel AI Receptionist</a> build. If you want SMS
+      and chat on the same thread, that is the full build.
+    </p>
   </div>
 </section>
 
@@ -203,5 +209,26 @@ const steps = [
     font-size: 0.6875rem;
     letter-spacing: 0.02em;
     color: var(--ink-dim);
+  }
+
+  .stl-note {
+    max-width: 62rem;
+    margin-top: 0.85rem;
+    padding: 0.7rem 0.9rem;
+    border-left: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    background: var(--panel);
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .stl-note a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .stl-note a:hover {
+    color: var(--accent-hover);
   }
 </style>
