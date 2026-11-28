@@ -1,15 +1,14 @@
 ---
 import { siteConfig } from '../data/projects';
 
-const slotsUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake-slots';
 const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake-submit';
 ---
 
 <div
   class="intakefab"
   data-intake
-  data-slots-url={slotsUrl}
   data-submit-url={submitUrl}
+  data-base-tz={siteConfig.calendarTimeZone}
   data-email={siteConfig.email}
 >
   <button
@@ -134,12 +133,12 @@ const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake
     const themeButton = root.querySelector('[data-intake-theme]');
     const themeLabel = root.querySelector('[data-intake-theme-label]');
 
-    const slotsUrl = root.getAttribute('data-slots-url');
     const submitUrl = root.getAttribute('data-submit-url');
     const email = root.getAttribute('data-email') || '';
+    const baseTz = root.getAttribute('data-base-tz') || 'Asia/Manila';
 
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const tzLabel = (tz || 'local').replace(/_/g, ' ');
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || baseTz;
+    const tzLabel = tz.replace(/_/g, ' ');
     const dayFmt = new Intl.DateTimeFormat('en-US', {
       timeZone: tz,
       weekday: 'short',
@@ -245,6 +244,12 @@ const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake
     });
 
     /* Slots ---------------------------------------------------------- */
+    // Fixed availability: 10:30 PM and 2:30 AM (the next day) in my timezone,
+    // rendered in the visitor's timezone.
+    const BASE_HOURS = [22, 2];
+    const BASE_MINUTE = 30;
+    const DAYS_AHEAD = 14;
+
     const useTextFallback = (hint) => {
       slotMode = 'text';
       const input = document.createElement('input');
@@ -257,24 +262,77 @@ const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake
       slotHint.textContent = hint;
     };
 
-    async function loadSlots() {
+    const baseDateParts = (date) => {
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: baseTz,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).formatToParts(date);
+      const map = {};
+      for (const part of parts) map[part.type] = part.value;
+      return { year: Number(map.year), month: Number(map.month), day: Number(map.day) };
+    };
+
+    const tzOffset = (date) => {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: baseTz,
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).formatToParts(date);
+      const map = {};
+      for (const part of parts) map[part.type] = part.value;
+      const asUtc = Date.UTC(
+        Number(map.year),
+        Number(map.month) - 1,
+        Number(map.day),
+        Number(map.hour) % 24,
+        Number(map.minute),
+        Number(map.second)
+      );
+      return asUtc - date.getTime();
+    };
+
+    const zonedToUtc = (year, month, day, hour, minute) => {
+      const guess = Date.UTC(year, month - 1, day, hour, minute);
+      return new Date(guess - tzOffset(new Date(guess)));
+    };
+
+    const loadSlots = () => {
       slotsLoaded = true;
       try {
-        const res = await fetch(slotsUrl, { headers: { Accept: 'application/json' } });
-        if (!res.ok) throw new Error('slots ' + res.status);
-        const json = await res.json();
-        const slots = Array.isArray(json.slots) ? json.slots.filter((s) => s && s.time) : [];
+        const today = baseDateParts(new Date());
+        const slots = [];
+        for (let i = 0; i < DAYS_AHEAD; i++) {
+          const day = new Date(Date.UTC(today.year, today.month - 1, today.day + i));
+          for (const hour of BASE_HOURS) {
+            const utc = zonedToUtc(
+              day.getUTCFullYear(),
+              day.getUTCMonth() + 1,
+              day.getUTCDate(),
+              hour,
+              BASE_MINUTE
+            );
+            if (utc.getTime() > Date.now() + 60 * 60 * 1000) slots.push(utc);
+          }
+        }
+        slots.sort((a, b) => a - b);
+
         if (slots.length === 0) {
-          useTextFallback('No open times posted right now — type a rough window instead.');
+          useTextFallback('No open times right now — type a rough window instead.');
           return;
         }
 
         const groups = new Map();
-        for (const slot of slots) {
-          const date = new Date(slot.time);
+        for (const date of slots) {
           const day = dayFmt.format(date);
           if (!groups.has(day)) groups.set(day, []);
-          groups.get(day).push({ utc: slot.time, date });
+          groups.get(day).push(date);
         }
 
         slotSelect.textContent = '';
@@ -286,11 +344,11 @@ const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake
         for (const [day, items] of groups) {
           const group = document.createElement('optgroup');
           group.label = day;
-          for (const item of items) {
+          for (const date of items) {
             const option = document.createElement('option');
-            option.value = item.utc;
-            option.textContent = timeFmt.format(item.date);
-            option.dataset.local = day + ', ' + timeFmt.format(item.date);
+            option.value = date.toISOString();
+            option.textContent = timeFmt.format(date);
+            option.dataset.local = day + ', ' + timeFmt.format(date);
             group.appendChild(option);
           }
           slotSelect.appendChild(group);
@@ -300,7 +358,7 @@ const submitUrl = 'https://n8n-production-a6b8e1f9.up.railway.app/webhook/intake
       } catch (error) {
         useTextFallback('Could not load times — type a rough window instead.');
       }
-    }
+    };
 
     /* Submit --------------------------------------------------------- */
     const slotValue = (data) => {
