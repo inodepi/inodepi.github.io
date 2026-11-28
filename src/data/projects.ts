@@ -127,9 +127,9 @@ export const automationRepos: AutomationRepo[] = [
     id: 'ar-invoice-reminder-agent',
     title: 'AR Invoice Reminder',
     problem: 'Late invoices sit unchased — $3K+ tied up and 2 hrs/week of admin.',
-    stack: ['n8n', 'Gemini', 'Google Sheets'],
+    stack: ['n8n', 'OpenAI', 'Google Sheets', 'Gmail', 'Discord'],
     summary:
-      'A daily n8n run computes days overdue and files tone-matched reminders as Gmail drafts. Flat setup fee; you press send.',
+      'A daily n8n run computes days overdue, sends a tone-matched reminder signed from your inbox, writes the follow-up back to the row and pings Discord with the client, invoice and amount. Your accounts, flat setup fee.',
     repoUrl: '/ar-invoice-reminder/',
     linkLabel: 'View the build',
     featured: true,

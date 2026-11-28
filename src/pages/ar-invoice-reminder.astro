@@ -5,20 +5,23 @@ import AutomationBreakdown from '../components/AutomationBreakdown.astro';
 import { siteConfig } from '../data/projects';
 
 const nodes = [
-  { x: 16, y: 30, w: 190, h: 72, label: 'Invoice sheet', sub: 'Google Sheets', hue: '#46cfc0' },
-  { x: 240, y: 30, w: 190, h: 72, label: 'n8n · daily run', sub: 'read + parse', hue: '#f5a623' },
-  { x: 464, y: 30, w: 160, h: 72, label: 'Gemini draft', sub: 'tone + amounts', hue: '#9d8cff' },
-  { x: 240, y: 190, w: 190, h: 72, label: 'Gmail draft', sub: 'human presses send', hue: '#ff7f9f' },
+  { x: 16, y: 20, w: 180, h: 70, label: 'Invoice sheet', sub: 'client list · due dates', hue: '#46cfc0' },
+  { x: 230, y: 20, w: 190, h: 70, label: 'n8n · daily run', sub: 'days late + tone', hue: '#f5a623' },
+  { x: 452, y: 20, w: 172, h: 70, label: 'AI reminder', sub: 'tone-matched', hue: '#9d8cff' },
+  { x: 452, y: 150, w: 172, h: 70, label: 'Gmail send', sub: 'signed · auto', hue: '#ff7f9f' },
+  { x: 230, y: 150, w: 190, h: 70, label: 'Discord ping', sub: '#invoices', hue: '#5b9bff' },
 ];
 
 const links = [
-  'M206 66 C 222 66, 224 66, 240 66',
-  'M430 66 C 448 66, 448 66, 464 66',
-  'M336 102 C 336 148, 336 156, 336 190',
+  'M196 55 C 214 55, 214 55, 230 55',
+  'M420 55 C 436 55, 436 55, 452 55',
+  'M538 90 C 538 118, 538 128, 538 150',
+  'M452 185 C 436 185, 428 185, 420 185',
 ];
 
 const ports = [
-  [206, 66], [240, 66], [430, 66], [464, 66], [336, 102], [336, 190],
+  [196, 55], [230, 55], [420, 55], [452, 55],
+  [538, 90], [538, 150], [452, 185], [420, 185],
 ];
 
 const jsonLd = [
@@ -27,10 +30,10 @@ const jsonLd = [
     '@type': 'CreativeWork',
     name: 'AR Invoice Reminder',
     description:
-      'A daily n8n agent that reads an invoice tracker, computes days past due and files tone-matched reminder drafts in Gmail — a human presses send.',
+      'A daily n8n workflow that reads a client and invoice tracker, computes days past due, writes and sends a tone-matched payment reminder with OpenAI, logs the follow-up and pings Discord.',
     url: 'https://inodepi.github.io/ar-invoice-reminder/',
     author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
-    keywords: 'n8n, Gemini, Google Sheets, Gmail, accounts receivable',
+    keywords: 'n8n, OpenAI, Google Sheets, Gmail, Discord, accounts receivable',
     isPartOf: { '@type': 'WebSite', name: 'inodepi', url: 'https://inodepi.github.io/' },
   },
   {
@@ -45,34 +48,34 @@ const jsonLd = [
 
 const guardrails = [
   'Tone is computed in code, not guessed: friendly under 14 days, firm to 30, solution-oriented after.',
-  'The signature is rebuilt in code, so the model can’t rewrite it.',
   'A 7-day cooldown per invoice stops duplicate chasing.',
-  'Strict JSON, no placeholders — and a human presses send.',
+  'The signature and the automation line are added in code, so the model cannot rewrite them.',
+  'Only Unpaid rows with an email, an amount and a due date are touched. Paid, Void and Cancelled are skipped.',
 ];
 ---
 
 <ProjectShell
   title="AR Invoice Reminder — inodepi"
-  description="A daily n8n agent that reads an invoice tracker, computes days past due and files tone-matched reminder drafts in Gmail — a human presses send."
+  description="A daily n8n workflow that reads a client and invoice tracker, computes days past due, writes and sends a tone-matched payment reminder, logs the follow-up and pings Discord."
   kicker="n8n automation"
   name="AR Invoice Reminder"
-  tagline="A daily n8n agent that chases overdue invoices — and never sends anything itself."
-  badges={['Human-in-the-loop', 'Never auto-sends', 'Live on a real tracker']}
+  tagline="A daily n8n run chases overdue invoices — signed, tracked, and pinged to Discord."
+  badges={['Auto-send', 'OpenAI', 'Live']}
   canvasName="invoice-chaser.workflow"
   canvasTag="n8n"
-  canvasNote="Sheets in, Gmail drafts out. Nothing sends itself."
-  stack={['n8n', 'Gemini', 'Google Sheets', 'Gmail']}
+  canvasNote="Sheets in, signed reminders out, #invoices ping."
+  stack={['n8n', 'OpenAI', 'Google Sheets', 'Gmail', 'Discord']}
   links={[
     { label: 'Repository', href: 'https://github.com/inodepi/ar-invoice-reminder-agent', external: true },
     { label: 'Interactive demo', href: 'https://inodepi.github.io/ar-invoice-reminder-agent/', external: true },
   ]}
   category="Automations · finance ops"
   ctaTitle="Stop chasing invoices."
-  ctaBody="Let the tracker, the drafts and the follow-ups run on a schedule — with you pressing the only send button."
+  ctaBody="Let the tracker, the reminders and the follow-ups run on a schedule — signed, logged and pinged to Discord."
   jsonLd={jsonLd}
 >
   <section class="proj-section" slot="visual">
-    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: the invoice sheet feeds a daily n8n run that drafts with Gemini and files a Gmail draft for human review.">
+    <svg viewBox="0 0 640 290" role="img" aria-label="Workflow: the invoice sheet feeds a daily n8n run that writes a tone-matched reminder with AI, sends it by email, and pings Discord.">
       <g class="links">
         {links.map((d) => <path d={d} />)}
       </g>
@@ -81,10 +84,10 @@ const guardrails = [
       </g>
       <g class="pulses">
         <circle class="pulse" r="3">
-          <animateMotion path="M206 66 C 222 66, 224 66, 240 66" dur="3.4s" begin="-0.8s" repeatCount="indefinite" />
+          <animateMotion path="M196 55 C 214 55, 214 55, 230 55" dur="3.4s" begin="-0.8s" repeatCount="indefinite" />
         </circle>
         <circle class="pulse" r="3">
-          <animateMotion path="M336 102 C 336 148, 336 156, 336 190" dur="3.4s" begin="-1.8s" repeatCount="indefinite" />
+          <animateMotion path="M538 90 C 538 118, 538 128, 538 150" dur="3.4s" begin="-1.8s" repeatCount="indefinite" />
         </circle>
       </g>
       <g class="nodes">
@@ -109,8 +112,8 @@ const guardrails = [
       caption="Build overview · 0:30 · captions available"
       beats={[
         { time: '0:00', seek: 0, title: 'Overdue queue', body: 'Three invoices, $16,450 outstanding.' },
-        { time: '0:10', seek: 10, title: 'The daily run', body: 'Tone computed in code, not guessed.' },
-        { time: '0:22', seek: 22, title: 'You press send', body: 'A 7-day cooldown stops duplicate chasing.' },
+        { time: '0:10', seek: 10, title: 'The daily run', body: 'Tone computed in code. It sends itself.' },
+        { time: '0:22', seek: 22, title: 'The ping', body: 'Sent, logged, and posted to #invoices.' },
       ]}
     />
   </section>
@@ -123,16 +126,16 @@ const guardrails = [
         { label: '3 × $1,200 average invoice', value: '$3,600 tied up' },
         { label: '2 hrs/week checking dates and writing reminders', value: '~8 hrs/month' },
       ]}
-      fix="A daily n8n run reads the invoice tracker, computes days past due and files a tone-matched reminder as a Gmail draft."
+      fix="A daily n8n run reads the client and invoice tracker, computes days past due, writes a tone-matched reminder, sends it signed and pings #invoices."
       fixPoints={[
-        'Reads your sheet, calculates days overdue in code and skips anything inside the 7-day cooldown.',
-        'Drafts friendly, firm or solution-oriented copy and files it in Gmail — a human presses send.',
-        'Runs in your Google, Gmail and n8n accounts: flat setup fee, no collections-agency cut.',
+        'Reads the Client List/Deliverables tab, calculates days overdue in code and skips anything inside the 7-day cooldown.',
+        'OpenAI writes friendly, firm or solution-oriented copy; Gmail sends it with the standard inodepi signature.',
+        'The follow-up date is written back to the row and Discord posts the client, invoice, amount and tone.',
       ]}
       stats={[
         { value: '2–4 hrs/wk', label: 'Admin hours saved', note: 'No manual date checks or reminder writing.' },
         { value: '$3K–$6K', label: 'Monthly cash collected sooner', note: '7–10 days faster on overdue invoices.' },
-        { value: '$0', label: 'Agency retainers / per-seat markups', note: 'Flat setup fee. You own the accounts.' },
+        { value: 'Auto', label: 'Follow-up logged', note: 'Date, timestamp and tone written back to the row.' },
       ]}
     />
   </section>
@@ -147,8 +150,9 @@ const guardrails = [
   <section class="proj-section">
     <h2>Stack notes</h2>
     <p>
-      Built on n8n with Gemini through a structured output parser. If your stack requires
-      something else, the same architecture can be delivered on another automation platform.
+      Built on n8n with OpenAI for the copy, Google Sheets for the tracker, Gmail for the send and a
+      Discord webhook for the ping. Swap the model or the sheet and the rest of the workflow stays
+      the same.
     </p>
   </section>
 </ProjectShell>
