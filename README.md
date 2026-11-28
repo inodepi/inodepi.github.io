@@ -5,6 +5,8 @@ Tailwind CSS, and GitHub Pages (static output).
 
 Live site: https://inodepi.github.io
 
+![inodepi homepage preview](./public/og.png)
+
 ## Local development
 
 ```bash
@@ -59,11 +61,12 @@ The cold-outreach pipeline (CSV ingest → enrichment → sending → reply watc
 | Cold Outreach 2 | `JnXjpQMrv09mP5OT` | Cold email sender (15/day) |
 | Cold Outreach 3 | `hWW9X2LDmZ5bO3tC` | Reply watcher + follow-ups |
 
-## Contact and calendar
+## Contact and intake
 
-The contact section renders a custom two-week calendar in the browser (Sunday start,
-past days disabled, paging by two weeks). Picking a day sends you to the Cal.com
-discovery event with `?date=YYYY-MM-DD`; `siteConfig.calendarUrl` sets the destination.
+The site carries a floating intake form (bottom-right on every page) that posts to the
+`Intake Submit` n8n workflow, plus a custom two-week calendar that sends visitors to the
+Cal.com discovery event with `?date=YYYY-MM-DD`. `siteConfig.calendarUrl` sets the
+destination.
 
 ## Editing content
 
