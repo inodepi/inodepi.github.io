@@ -49,6 +49,7 @@ const jsonLd = [
 const guardrails = [
   'Tone is computed in code, not guessed: friendly under 14 days, firm to 30, solution-oriented after.',
   'A 7-day cooldown per invoice stops duplicate chasing.',
+  'If a client replies that they have already paid, the row flips to Paid (claimed) and the next reminder is skipped.',
   'The signature and the automation line are added in code, so the model cannot rewrite them.',
   'Only Unpaid rows with an email, an amount and a due date are touched. Paid, Void and Cancelled are skipped.',
 ];
@@ -131,6 +132,7 @@ const guardrails = [
         'Reads the Client List/Deliverables tab, calculates days overdue in code and skips anything inside the 7-day cooldown.',
         'OpenAI writes friendly, firm or solution-oriented copy; Gmail sends it with the standard inodepi signature.',
         'The follow-up date is written back to the row and Discord posts the client, invoice, amount and tone.',
+        'Replies are read too: a client who says they already paid flips the row to Paid (claimed), stops the sequence and pings Discord.',
       ]}
       stats={[
         { value: '2–4 hrs/wk', label: 'Admin hours saved', note: 'No manual date checks or reminder writing.' },
