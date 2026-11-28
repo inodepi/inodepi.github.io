@@ -17,6 +17,8 @@ interface Props {
   fix: string;
   fixPoints: string[];
   stats: Stat[];
+  savedTitle?: string;
+  statsFootnote?: string;
   ctaHref?: string;
 }
 
@@ -27,6 +29,8 @@ const {
   fix,
   fixPoints,
   stats,
+  savedTitle = 'Saved Hours & Revenue',
+  statsFootnote = 'Estimated operational impact — not a client case study.',
   ctaHref = '/#contact',
 } = Astro.props;
 ---
@@ -73,9 +77,9 @@ const {
     <header class="bd-saved-head">
       <div class="bd-head">
         <span class="bd-index" aria-hidden="true">04</span>
-        <h2 class="bd-title" id="bd-saved-title">Saved Hours &amp; Revenue</h2>
+        <h2 class="bd-title" id="bd-saved-title">{savedTitle}</h2>
       </div>
-      <p class="bd-fine">Estimated operational impact — not a client case study.</p>
+      <p class="bd-fine">{statsFootnote}</p>
     </header>
 
     <dl class="bd-stats">

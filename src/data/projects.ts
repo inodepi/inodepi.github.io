@@ -87,8 +87,8 @@ export const automationRepos: AutomationRepo[] = [
     hue: 'teal',
   },
   {
-    id: 'cold-outreach-pipeline',
-    title: 'Cold Outreach Pipeline',
+    id: 'ai-lead-enrichment',
+    title: 'AI Lead Enrichment',
     problem: 'Blind blasts burn the domain — 18% bounce, one follow-up, no send window.',
     stack: ['n8n', 'Google Sheets', 'Jina', 'AI model', 'Gmail'],
     summary:

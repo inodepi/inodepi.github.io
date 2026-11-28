@@ -34,9 +34,9 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    name: 'Cold Outreach Pipeline',
+    name: 'AI Lead Enrichment',
     description:
-      'A three-workflow n8n pipeline that enriches a CSV of leads from their own websites, sends at most 15 researched cold emails a day inside each prospect\'s local send window, and runs three same-thread follow-ups that stop on reply.',
+      'An n8n pipeline that researches each lead from its own website, then sends at most 15 cold emails a day at 09:30 in the prospect\'s timezone, with three same-thread follow-ups that stop on reply.',
     url: 'https://inodepi.github.io/lead-enrichment/',
     author: { '@type': 'Person', name: 'Christian John', url: 'https://inodepi.github.io/' },
     keywords:
@@ -48,27 +48,27 @@ const jsonLd = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://inodepi.github.io/' },
-      { '@type': 'ListItem', position: 2, name: 'Cold Outreach Pipeline', item: 'https://inodepi.github.io/lead-enrichment/' },
+      { '@type': 'ListItem', position: 2, name: 'AI Lead Enrichment', item: 'https://inodepi.github.io/lead-enrichment/' },
     ],
   },
 ];
 
 const guardrails = [
   'Every send is researched first: the site is scraped and the model writes from that context, not a template.',
-  '15 sends a day, shared across the initial and follow-up workflows, counted in UTC.',
-  'Send windows land at 09:30 in the prospect\u2019s own timezone; follow-ups ride the same thread three business days later.',
-  'A reply, a bounce or a manual status change stops the sequence — nothing keeps chasing.',
+  '15 sends a day, shared across the initial and follow-up workflows, counted in UTC, at 09:30 in the prospect\u2019s own timezone; follow-ups ride the same thread three business days later.',
+  'A reply marks the row Replied and stops the sequence; a bounce does the same. Changing the row\u2019s status manually skips it.',
+  'Running in production on my own outreach — same 15/day cap, same reply-stopping, same thread.',
   'Model-agnostic: any OpenAI-compatible endpoint, so the model swaps without touching the workflow.',
 ];
 ---
 
 <ProjectShell
-  title="Cold Outreach Pipeline — inodepi"
-  description="A three-workflow n8n pipeline that enriches a CSV of leads from their own websites, sends at most 15 researched cold emails a day inside each prospect's local send window, and runs three same-thread follow-ups that stop on reply."
+  title="AI Lead Enrichment — inodepi"
+  description="An n8n pipeline that researches each lead from its own website, then sends at most 15 cold emails a day at 09:30 in the prospect's timezone, with three same-thread follow-ups that stop on reply."
   kicker="n8n automation"
-  name="Cold Outreach Pipeline"
-  tagline="A cold list gets one shot at the inbox. This build earns it before the send."
-  badges={['3 workflows', '15/day cap', 'Reply-aware']}
+  name="AI Lead Enrichment"
+  tagline="Research before you send. 15 a day. A reply ends it."
+  badges={['Research-first', '15/day cap', 'Reply-aware']}
   canvasName="cold-outreach.workflow"
   canvasTag="n8n"
   canvasNote="CSV in. Researched sends out. A reply ends the sequence."
@@ -77,8 +77,8 @@ const guardrails = [
     { label: 'Next build: Dead Lead Retrieval', href: '/dead-lead-retrieval/' },
   ]}
   category="Automations · sales ops"
-  ctaTitle="Send fewer emails that land."
-  ctaBody="Bring a list. I'll show you the enrichment, the send window and the follow-ups before a single email leaves."
+  ctaTitle="Know why they'd buy before you email."
+  ctaBody="Bring a list. I'll show you the research, the send window and the follow-ups before a single email leaves."
   jsonLd={jsonLd}
 >
   <section class="proj-section" slot="visual">
@@ -141,8 +141,11 @@ const guardrails = [
       fixPoints={[
         'W1 watches a Drive folder, dedupes the CSV, scrapes each site with Jina and writes the enriched row to the LEADS sheet.',
         'W2 sends at most 15 researched emails a day inside the prospect\u2019s 09:30 window, then checks for bounces and schedules the next touch.',
-        'W3 watches replies, sends three follow-ups three business days apart, and marks the row Completed the moment someone answers.',
+        'W3 watches replies, sends three follow-ups three business days apart, marks the row Replied the moment someone answers, and Completed after the third follow-up.',
       ]}
+      costFootnote="My own outreach — first 30 days. Estimated math, not a client result."
+      savedTitle="Built-in Limits"
+      statsFootnote="Configured in the live build — not a client case study."
       stats={[
         { value: '15/day', label: 'Outbound cap', note: 'Shared across initial sends and follow-ups.' },
         { value: '3', label: 'Follow-ups per lead', note: 'Same thread, +3 business days, reply-aware.' },
